@@ -429,17 +429,58 @@ The question asked to the subjects plays an important role to identify the true 
 
 \section{Selection of the number of bins}
 
-The binned distance is highly affected by the number of bins used. The choice of bins is an important issue. To investigate this problem, 500 random datasets with two variables of size 100 are generated. A different number of bins ranging from 5 to 20 is used to divide each variable in the dataset. So each time the datasets are divided into 25 to 400 small cells and the number of points falling in each cell is noted. The same is done for another random dataset which is considered to be the ``observed" data. The binned distance is calculated between the observed data and these 500 datasets. Figure \ref{nbin} shows the distribution of the binned distance for each number of bin.
+The binned distance is highly affected by the number of bins used. The choice of bins is important to find the distance between the observed plot and the null plots. But the correct choice of the number of bins is subjective. To investigate this problem, 500 random datasets with two variables of size 100 are generated. A different number of bins ranging from 2 to 20 is used to divide each variable in the dataset. So each time the datasets are divided into 4 to 400 small cells and the number of points falling in each cell is noted. The same is done for another random dataset which is considered to be the ``observed" data. The binned distance is calculated between the observed data and these 500 datasets. Figure \ref{nbin1_a}, Figure \ref{nbin2_a} and Figure \ref{nbin3_a} shows the observed data for three different datasets. The distribution of the binned distance against the number of bins is given in Figure \ref{nbin1_b}, Figure \ref{nbin2_b} and Figure \ref{nbin3_b}.
 
-\begin{figure}[htbp]
+\begin{figure*}[hbtp]
 \centering
-\includegraphics[width=.6\textwidth]{nbin-100.pdf}
-%\includegraphics[width=.65\textwidth]{large-p-trim-bin.pdf}
-\caption{Distribution of the binned distance for different bin numbers.}
-\label{nbin}
-\end{figure}
+\subfigure[]{
+\includegraphics[scale=0.55]{data1.pdf}
+\label{nbin1_a}
+}
+\subfigure[]{
+\includegraphics[scale=0.55]{data1-nbin.pdf}
+\label{nbin1_b}
+}
+\label{nbin1}
+	\vspace{-.1in}
+\caption[Optional caption for list of figures]{(a) Plot showing the observed data (b) Binned distance plotted against the number of bins. }
+%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
+\end{figure*}
 
-Figure \ref{nbin} shows that increasing the number of bins does not change the median binned distance. But it can be seen that as the number of bins increases, the variability in the binned distance decreases. The binned distance with a smaller number of bins (larger bin sizes) should be used.
+\begin{figure*}[hbtp]
+\centering
+\subfigure[]{
+\includegraphics[scale=0.55]{data2.pdf}
+\label{nbin2_a}
+}
+\subfigure[]{
+\includegraphics[scale=0.55]{data2-nbin.pdf}
+\label{nbin2_b}
+}
+\label{nbin2}
+	\vspace{-.1in}
+\caption[Optional caption for list of figures]{(a) Plot showing the observed data (b) Binned distance plotted against the number of bins. }
+%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
+\end{figure*}
+
+\begin{figure*}[hbtp]
+\centering
+\subfigure[]{
+\includegraphics[scale=0.55]{data3.pdf}
+\label{nbin3_a}
+}
+\subfigure[]{
+\includegraphics[scale=0.55]{data3-nbin.pdf}
+\label{nbin3_b}
+}
+\label{nbin3}
+	\vspace{-.1in}
+\caption[Optional caption for list of figures]{(a) Plot showing the observed data (b) Binned distance plotted against the number of bins. }
+%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
+\end{figure*}
+
+
+Figure \ref{nbin1},  \ref{nbin2} and \ref{nbin3} shows that as the number of bins increases,  the median binned distance decreases, stays the same and increases respectively for 8 bins per variable but does not change from 9 bins per variable. But it can be seen that as the number of bins increases, the variability in the binned distance decreases for all the three bins. From the above figures, it is clear that the binned distance for different datasets needs different number of bins to get the optimal binned distance. So for Figure \ref{nbin1} and Figure \ref{nbin2}, the binned distance with a smaller number of bins (larger bin sizes) should be used as this will ensure that the binned distance has the largest median and the most variability. But for Figure \ref{nbin3}, since the median distance increases with the number of bins, a larger number of bin should be selected.
 
 
 
