@@ -145,7 +145,7 @@ To avoid basing conclusions on artifacts introduced by a `bad' sample, we need t
 \item Selection of the number of bins
 \end{enumerate}}
 
-\section{Null Generating Mechanism}
+\section{Null Generating Mechanism} \label{sec:null}
 
 The null plots play an important role in the evaluation of a lineup as the subjects compare the test statistic to the null plots. The null plots are obtained from the appropriate null distribution which is consistent with the null hypothesis.  Hence, in visual inference, the null generating mechanism is important. The null generating mechanism depends on the hypothesis to be tested and the question of interest. The null distribution can be generated in a few different ways:
 \begin{itemize}
@@ -429,58 +429,78 @@ The question asked to the subjects plays an important role to identify the true 
 
 \section{Selection of the number of bins}
 
-The binned distance is highly affected by the number of bins used. The choice of bins is important to find the distance between the observed plot and the null plots. But the correct choice of the number of bins is subjective. To investigate this problem, 500 random datasets with two variables of size 100 are generated. A different number of bins ranging from 2 to 20 is used to divide each variable in the dataset. So each time the datasets are divided into 4 to 400 small cells and the number of points falling in each cell is noted. The same is done for another random dataset which is considered to be the ``observed" data. The binned distance is calculated between the observed data and these 500 datasets. Figure \ref{nbin1_a}, Figure \ref{nbin2_a} and Figure \ref{nbin3_a} shows the observed data for three different datasets. The distribution of the binned distance against the number of bins is given in Figure \ref{nbin1_b}, Figure \ref{nbin2_b} and Figure \ref{nbin3_b}.
+The number of bins or the bin width plays an important role in the calculation of the binned distance. Binned distance with a wrong choice of bins may produce erroneous results and hence may change the interpretation of lineup. The correct choice may depend on a number of factors like the type of observed data, the null generating mechanism and others. To investigate this problem, different datasets with two variables with different characteristics were generated. A lineup is constructed by using one of the null generating mechanisms described in Section \ref{sec:null}. A different combination of the number of bins ranging from 2 to 15 was used to divide each variable in the dataset. The number of points falling in each cell is noted. The binned distance is calculated between each of the plots in the lineup. The mean distance between the observed plot and the null plots and the null plots between each other were calculated as described in Section \ref{sec:dist}. The difference between the mean distance for the observed plot and the maximum of the mean distance for the null plots is calculated for each lineup for the different combinations of the number of bins. Table \ref{tbl:bin} shows the type of data, the observed plot, the null generating mechanism, the difference and the preferable number of bins.
 
-\begin{figure*}[hbtp]
-\centering
-\subfigure[]{
-\includegraphics[scale=0.55]{data1.pdf}
-\label{nbin1_a}
-}
-\subfigure[]{
-\includegraphics[scale=0.55]{data1-nbin.pdf}
-\label{nbin1_b}
-}
-\label{nbin1}
-	\vspace{-.1in}
-\caption[Optional caption for list of figures]{(a) Plot showing the observed data (b) Binned distance plotted against the number of bins. }
-%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
-\end{figure*}
+%\begin{figure*}[hbtp]
+%\centering
+%\subfigure[]{
+%\includegraphics[scale=0.55]{data1.pdf}
+%\label{nbin1_a}
+%}
+%\subfigure[]{
+%\includegraphics[scale=0.55]{data1-nbin.pdf}
+%\label{nbin1_b}
+%}
+%\label{nbin1}
+%	\vspace{-.1in}
+%\caption[Optional caption for list of figures]{(a) Plot showing the observed data (b) Binned distance plotted against the number of bins. }
+%%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
+%\end{figure*}
+%
+%\begin{figure*}[hbtp]
+%\centering
+%\subfigure[]{
+%\includegraphics[scale=0.55]{data2.pdf}
+%\label{nbin2_a}
+%}
+%\subfigure[]{
+%\includegraphics[scale=0.55]{data2-nbin.pdf}
+%\label{nbin2_b}
+%}
+%\label{nbin2}
+%	\vspace{-.1in}
+%\caption[Optional caption for list of figures]{(a) Plot showing the observed data (b) Binned distance plotted against the number of bins. }
+%%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
+%\end{figure*}
+%
+%\begin{figure*}[hbtp]
+%\centering
+%\subfigure[]{
+%\includegraphics[scale=0.55]{data3.pdf}
+%\label{nbin3_a}
+%}
+%\subfigure[]{
+%\includegraphics[scale=0.55]{data3-nbin.pdf}
+%\label{nbin3_b}
+%}
+%\label{nbin3}
+%	\vspace{-.1in}
+%\caption[Optional caption for list of figures]{(a) Plot showing the observed data (b) Binned distance plotted against the number of bins. }
+%%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
+%\end{figure*}
 
-\begin{figure*}[hbtp]
-\centering
-\subfigure[]{
-\includegraphics[scale=0.55]{data2.pdf}
-\label{nbin2_a}
-}
-\subfigure[]{
-\includegraphics[scale=0.55]{data2-nbin.pdf}
-\label{nbin2_b}
-}
-\label{nbin2}
-	\vspace{-.1in}
-\caption[Optional caption for list of figures]{(a) Plot showing the observed data (b) Binned distance plotted against the number of bins. }
-%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
-\end{figure*}
+\begin{table*}[hbtp]
+\caption{Preferable number of bins for different types of observed data to calculate the binned distance.}
+\centering 
+\begin{tabular}{ll c  p{3cm} l c p{2.5cm}} 
+\hline
+ Type of Data & Observed Plot && Null Generating Mechanism & Difference && Preferable number of bins \\ %[0.5ex] % inserts table %heading 
+\hline
+ Linear association & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data1.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot1.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} small\\
+ \hline
+Clusters & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data2.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot2.pdf}} \end{center} \end{minipage} && \hspace{0.8cm} small\\
+ \hline
+ Discrete vs. Continuous & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data3.pdf}} \end{center} \end{minipage} && Simulation from a specific distribution &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot3.pdf}} \end{center} \end{minipage} && \hspace{0.8cm} small\\
+ \hline
+ Discrete vs. Continuous & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data4.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot4.pdf}} \end{center} \end{minipage} && \hspace{0.8cm} large\\
+ \hline
+Presence of Outlier(s) & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data5.pdf}} \end{center} \end{minipage} && Simulation from a specific distribution &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot5.pdf}} \end{center} \end{minipage} && \hspace{0.8cm} small\\
+ \hline
+\end{tabular}
+\label{tbl:bin}
+\end{table*}
 
-\begin{figure*}[hbtp]
-\centering
-\subfigure[]{
-\includegraphics[scale=0.55]{data3.pdf}
-\label{nbin3_a}
-}
-\subfigure[]{
-\includegraphics[scale=0.55]{data3-nbin.pdf}
-\label{nbin3_b}
-}
-\label{nbin3}
-	\vspace{-.1in}
-\caption[Optional caption for list of figures]{(a) Plot showing the observed data (b) Binned distance plotted against the number of bins. }
-%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
-\end{figure*}
-
-
-Figure \ref{nbin1},  \ref{nbin2} and \ref{nbin3} shows that as the number of bins increases,  the median binned distance decreases, stays the same and increases respectively for 8 bins per variable but does not change from 9 bins per variable. But it can be seen that as the number of bins increases, the variability in the binned distance decreases for all the three bins. From the above figures, it is clear that the binned distance for different datasets needs different number of bins to get the optimal binned distance. So for Figure \ref{nbin1} and Figure \ref{nbin2}, the binned distance with a smaller number of bins (larger bin sizes) should be used as this will ensure that the binned distance has the largest median and the most variability. But for Figure \ref{nbin3}, since the median distance increases with the number of bins, a larger number of bin should be selected.
+In Table \ref{tbl:bin}, it can be observed that different number of bins are required for different types of observed data. 
 
 
 
@@ -591,7 +611,7 @@ Figure \ref{t2comp_1} shows the proportion correct against the difference. The v
 
 \subsection{Turk Experiment -- Large $p$, Small $n$ data}
 
-In this experiment, the one dimensional or two dimensional projections are plotted. The data has two or three groups with 30 observations($n$) with large number of dimensions($p$). The true plot has 2 or 3 clusters in different colors and the subjects were asked to identify the plot with the most separated colored groups. Figure \ref{largep} gives an example of such a lineup. 
+In this experiment, the one dimensional or two dimensional projections are plotted. The data has two or three groups with 30 observations($n$) with large number of dimensions($p$). All the plots in the lineup has 2 or 3 clusters in different colors and the subjects were asked to identify the plot with the most separated colored groups. Figure \ref{largep} gives an example of such a lineup with 3 groups. 
 
 \begin{figure}[htbp]
 \centering
