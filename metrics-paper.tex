@@ -482,20 +482,35 @@ The number of bins or the bin width plays an important role in the calculation o
 \begin{table*}[hbtp]
 \caption{Preferable number of bins for different types of observed data to calculate the binned distance.}
 \centering 
-\begin{tabular}{ll c  p{3cm} l c p{2.5cm}} 
+\begin{tabular}{p{2.5cm}l c  p{2.5cm} c cc l c p{3cm}} 
 \hline
- Type of Data & Observed Plot && Null Generating Mechanism & Difference && Preferable number of bins \\ %[0.5ex] % inserts table %heading 
-\hline
- Linear association & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data1.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot1.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} small\\
+ Type of Data & Observed Plot && Null Generating Mechanism & Lineup && & Difference && Preferable number of bins \\ %[0.5ex] % inserts table %heading 
+%\hline
+% Linear association & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data1.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot1.pdf}} \end{center} \end{minipage} &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot1.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} small\\
  \hline
-Clusters & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data2.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot2.pdf}} \end{center} \end{minipage} && \hspace{0.8cm} small\\
+ Linear association & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-1.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-lineup-1.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-nbin-1.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} small\\
  \hline
- Discrete vs. Continuous & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data3.pdf}} \end{center} \end{minipage} && Simulation from a specific distribution &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot3.pdf}} \end{center} \end{minipage} && \hspace{0.8cm} small\\
+Nonlinear relationship & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-2.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-lineup-2.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-nbin-2.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} large\\
  \hline
- Discrete vs. Continuous & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data4.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot4.pdf}} \end{center} \end{minipage} && \hspace{0.8cm} large\\
+ Linear relation with outliers & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-3.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-lineup-3.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-nbin-3.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} small\\
  \hline
-Presence of Outlier(s) & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data5.pdf}} \end{center} \end{minipage} && Simulation from a specific distribution &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot5.pdf}} \end{center} \end{minipage} && \hspace{0.8cm} small\\
+ Same values with one outlier & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-4.pdf}} \end{center} \end{minipage} && Simulation from a specific distribution &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-lineup-4.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-nbin-4.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} large on x-axis\\
  \hline
+  Clusters & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{data1.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-lineup1.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot1.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} small\\
+ \hline
+Categorical & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{data2.pdf}} \end{center} \end{minipage} && Simulation from a specific distribution &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-lineup2.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot2.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} small\\
+ \hline
+Nonlinear relation with outliers & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{data3.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-lineup3.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot3.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} large on y-axis\\
+ \hline
+
+%Clusters & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data2.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot2.pdf}} \end{center} \end{minipage} && \hspace{0.8cm} small\\
+% \hline
+% Discrete vs. Continuous & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data3.pdf}} \end{center} \end{minipage} && Simulation from a specific distribution &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot3.pdf}} \end{center} \end{minipage} && \hspace{0.8cm} small\\
+% \hline
+% Discrete vs. Continuous & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data4.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot4.pdf}} \end{center} \end{minipage} && \hspace{0.8cm} large\\
+% \hline
+%Presence of Outlier(s) & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data5.pdf}} \end{center} \end{minipage} && Simulation from a specific distribution &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot5.pdf}} \end{center} \end{minipage} && \hspace{0.8cm} small\\
+% \hline
 \end{tabular}
 \label{tbl:bin}
 \end{table*}
@@ -518,7 +533,14 @@ for $j = 1, \dots, (m  - 1).$
  A positive difference would indicate that the mean distance of the true plot is greater than the maximum of the mean distances of the null plots. Hence the true plot is extreme compared to all the null plots. Similarly a negative difference indicates that there is at least one null plot which is extreme compared to the true plot based on the distance.
 \item Larger than the true plot: the number of null plots which have larger mean distances than the mean distance of the true plot is noted. Mathematically,
 $$\hbox{larger} = \sum_{j = 1}^{m - 1} a_j$$ where 
-\begin{equation}a_j =\begin{cases}1 & \text{if } \bar{d}_{\hbox{null}_j} > \bar{d}_{\hbox{true}} ,\\0 & \text{otherwise}\end{cases}\end{equation}
+\begin{equation}
+a_j =
+\begin{cases}
+1 & \text{if } \bar{d}_{\hbox{null}_j} > \bar{d}_{\hbox{true}} ,
+\\
+0 & \text{otherwise}
+\end{cases}
+\end{equation}
 A large value of this measure would indicate that there are a number of null plots more extreme than the true plot and hence it is hard to identify the true plot in the lineup.
 \end{enumerate}
 
@@ -545,8 +567,16 @@ The response of the subjects were noted and the proportion of correct response w
 \label{t1comp_1}
 }
 \subfigure[]{
+\includegraphics[scale=0.55]{turk1-diff-bin-prop-8.pdf}
+\label{t1bin_1}
+}
+\subfigure[]{
 \includegraphics[scale=0.55]{turk1-grtr-box-prop.pdf}
 \label{t1comp_2}
+}
+\subfigure[]{
+\includegraphics[scale=0.55]{turk1-grtr-bin-prop-8.pdf}
+\label{t1bin_2}
 }
 %\label{turk1comp}
 	\vspace{-.1in}
@@ -558,19 +588,35 @@ In Figure \ref{t1comp_1}, the proportion correct is plotted against the differen
 
 The results using $d_{\hbox{bin}}$ with 8 bins on each axis are shown in Figure \ref{t1bin_1} - (b). As before, the proportion correct is plotted against difference in Figure \ref{t1bin_1} and against larger in Figure \ref{t1bin_2}. The binned distance does a decent job in this case. The proportion correct increases as the difference increases. But according to the binned distance, there are a few lineups which has a negative difference but the proportion correct is above 60\%. It should be noted that the binned distance does not take into account the graphical elements of the plot (e.g. boxplot) and calculates the distance solely based on the data. So an outlier may have a huge effect on the binned distance but does not effect the distance based on the boxplots. Hence it is advisable to use a distance based on the graphical elements since that is exactly what the subjects look at in the lineup.
  
+%\begin{figure}[hbtp]
+%\centering
+%\subfigure[]{
+%\includegraphics[scale=0.55]{turk1-diff-bin-prop-8.pdf}
+%\label{t1bin_1}
+%}
+%\subfigure[]{
+%\includegraphics[scale=0.55]{turk1-grtr-bin-prop-8.pdf}
+%\label{t1bin_2}
+%}
+%%\label{turk1-bin}
+%	\vspace{-.1in}
+%\caption[Optional caption for list of figures]{(a) Plot showing the proportion correct against the difference based on the binned distance with 8 bins on each axis. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The proportion correct increases with the difference. (b) Plot showing the proportion correct against the number of null plots greater than the observed plot according to the binned distance. The proportion correct decreases as the number of null plots greater than the observed plot increases.  }
+%%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
+%\end{figure}
+
 \begin{figure}[hbtp]
 \centering
 \subfigure[]{
-\includegraphics[scale=0.55]{turk1-diff-bin-prop-8.pdf}
-\label{t1bin_1}
+\includegraphics[scale=0.55]{turk1-diff-box-mtime.pdf}
+\label{t1comp_1}
 }
 \subfigure[]{
-\includegraphics[scale=0.55]{turk1-grtr-bin-prop-8.pdf}
-\label{t1bin_2}
+\includegraphics[scale=0.55]{turk1-diff-bin-mtime.pdf}
+\label{t1bin_1}
 }
-%\label{turk1-bin}
+%\label{turk1comp}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{(a) Plot showing the proportion correct against the difference based on the binned distance with 8 bins on each axis. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The proportion correct increases with the difference. (b) Plot showing the proportion correct against the number of null plots greater than the observed plot according to the binned distance. The proportion correct decreases as the number of null plots greater than the observed plot increases.  }
+\caption[Optional caption for list of figures]{Plot showing the median time to respond by the subjects against the difference based on the boxplot distance in (a) and binned distance in (b). In both the plots, the vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The median time decreases with the difference.  }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
@@ -597,7 +643,15 @@ The distances between the plots in this experiment were computed using both the 
 \label{t2comp_1}
 }
 \subfigure[]{
+\includegraphics[scale=0.55]{turk2-diff-bin-prop-2.pdf}
+\label{t2comp_2}
+}
+\subfigure[]{
 \includegraphics[scale=0.55]{turk2-grtr-reg-prop.pdf}
+\label{t2comp_1}
+}
+\subfigure[]{
+\includegraphics[scale=0.55]{turk2-grtr-bin-prop-2.pdf}
 \label{t2comp_2}
 }
 %\label{turk2-comp}
@@ -607,6 +661,22 @@ The distances between the plots in this experiment were computed using both the 
 \end{figure*}
 
 Figure \ref{t2comp_1} shows the proportion correct against the difference. The vertical line represents difference equal to 0. It can be seen that as the difference increases, the proportion correct increases. So the subjects do better in the easier lineups than the hard ones. Figure \ref{t2comp_2} shows that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, almost all the subjects identify the observed plot although there is one more extreme null plot. Though from Figure \ref{t2comp_1}, it can be seen that the extremeness is marginal in most cases. The binned distance fails to perform in this case since the binned distance does not take into account the graphical element of the plot which is the regression line. The regression line seem to have an huge effect in the correct evaluation of these lineups.
+
+\begin{figure}[hbtp]
+\centering
+\subfigure[]{
+\includegraphics[scale=0.55]{turk2-diff-reg-mtime.pdf}
+\label{t1comp_1}
+}
+\subfigure[]{
+\includegraphics[scale=0.55]{turk2-diff-bin-mtime.pdf}
+\label{t1bin_1}
+}
+%\label{turk1comp}
+	\vspace{-.1in}
+\caption[Optional caption for list of figures]{Plot showing the median time to respond by the subjects against the difference based on the regression distance in (a) and binned distance in (b). In both the plots, the vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The median time decreases with the difference.  }
+%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
+\end{figure}
 
 
 \subsection{Turk Experiment -- Large $p$, Small $n$ data}
@@ -627,11 +697,19 @@ The distances between the plots in this experiment were computed using the binne
 \begin{figure*}[hbtp]
 \centering
 \subfigure[]{
-\includegraphics[scale=0.55]{largep-diff-bin-prop-10-5.pdf}
+\includegraphics[scale=0.55]{largep-diff-clus-prop.pdf}
 \label{lpcomp_1}
 }
 \subfigure[]{
+\includegraphics[scale=0.55]{largep-diff-bin-prop-10-5.pdf}
+\label{lpcomp_2}
+}
+\subfigure[]{
 \includegraphics[scale=0.55]{largep-grtr-bin-prop-10-5.pdf}
+\label{lpcomp_1}
+}
+\subfigure[]{
+\includegraphics[scale=0.55]{largep-grtr-clus-prop.pdf}
 \label{lpcomp_2}
 }
 \label{lp-comp}
@@ -641,6 +719,22 @@ The distances between the plots in this experiment were computed using the binne
 \end{figure*}
 
 In Figure \ref{lpcomp_1}, it can be seen that as the difference increases, the proportion correct increases. So the subjects do better in the easier lineups than the hard ones. Figure \ref{lpcomp_2} shows that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, almost all the subjects identify the observed plot although there is more extreme null plots. 
+
+\begin{figure}[hbtp]
+\centering
+\subfigure[]{
+\includegraphics[scale=0.55]{largep-diff-clus-mtime.pdf}
+\label{t1comp_1}
+}
+\subfigure[]{
+\includegraphics[scale=0.55]{largep-diff-bin-mtime.pdf}
+\label{t1bin_1}
+}
+%\label{turk1comp}
+	\vspace{-.1in}
+\caption[Optional caption for list of figures]{Plot showing the median time to respond by the subjects against the difference based on the regression distance in (a) and binned distance in (b). In both the plots, the vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The median time decreases with the difference.  }
+%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
+\end{figure}
 
 
 
