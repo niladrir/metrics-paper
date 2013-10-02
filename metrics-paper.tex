@@ -28,26 +28,26 @@
 
 % Article top matter
 %\title{Where's Waldo : Measuring the quality of a lineup}
-\title{Where's Waldo: Looking closely at a Lineup}
+%\title{Where's Waldo: Looking closely at a Lineup}
+\title{Distance Measures for a Lineup}
 \author{Niladri Roy Chowdhury, Dianne Cook, Heike Hofmann, Mahbubul Majumder, Yifan Zhao}
 \date{\today}  %\today is replaced with the current date
 %\date{}
 \maketitle
 
 \begin {abstract} 
-Graphics play a crucial role in statistical analysis and data mining. This paper describes developments to assist the use of graphics for making inferential statements. It examines the lineup protocol described in \citet{buja:2009}  
-  developing numerical statistics to measure the quality of the lineup. Distance measures are developed that describe how close the true data plot is to the null plots, and how close the null plots are to each other. These measures are compared with choices made by human judges, to decide on the best distance measures to use for particular plot types.
+Graphics play a crucial role in statistical analysis and data mining. This paper describes developments to assist the use of graphics for making inferential statements. It examines the lineup protocol described in \citet{buja:2009}  and \cite{majumder:2011} developing numerical statistics to measure the quality of the lineup. The null plots play a significant role in determining the ease or difficulty of a lineup. Distance measures are developed that describe how close the true data plot is to the null plots, and how close the null plots are to each other. The distribution of the distance measures are also studied. The effect of null generating mechanism and plot types on the measures are examined. An universal distance measure for any data type is suggested. These measures are evaluated by comparison with choices made by human judges, to decide on the best distance measures to use for particular plot types.
 
 %Statistical graphics play a crucial role in exploratory data analysis, model checking and diagnosis. Until recently there were no formal visual methods in place for determining statistical significance of findings. This changed, when \citep{buja:2009} conceptually introduced two protocols for formal tests of visual findings. In this paper we use the lineup protocol \citep{buja:2009} and take a closer look at the null plots that appear in a lineup along with the true plot. Different distance measures between the null plots and the true plot are calculated. On the basis of these distance measures, a measure of ``closeness'' between the null plots and the true plot is defined. A human subjects experiment is conducted using simulated data to provide controlled conditions. Results suggest that some of the distance measures works better than the others in most situations.
 \end {abstract}
 
 
-{\color{red} Key Ideas:
- \begin{itemize}
-\item Measure ease of a lineup (? signal strength.)
-\item Distance metric that is universal?
-\item Evaluating distance metrics, incorporating turk study data.
-\end{itemize}}
+%{\color{red} Key Ideas:
+% \begin{itemize}
+%\item Measure ease of a lineup (? signal strength.)
+%\item Distance metric that is universal?
+%\item Evaluating distance metrics, incorporating turk study data.
+%\end{itemize}}
 %\begin{multicols}{2}
 %\twocolumn
 
@@ -55,10 +55,11 @@ Graphics play a crucial role in statistical analysis and data mining. This paper
 There have been major advances in statistical graphics over the years, for example, systems like R \citep{R} provide high quality static graphics, and very recently some access to interactive graphics. But the problem remains that graphics are not widely considered to be a part of inferential statistics. Research by \citet{gelman:2004} and \citet{buja:2009} 
 potentially changes this. 
 
-The lineup protocol in \citep{buja:2009} 
-places a statistical plot firmly in the hypothesis testing framework. The plot of the data is considered to be a test statistic, and this plot is compared with plots from the appropriate null distribution, producing the lineup. Plots from the null distribution can be generated in many ways, depending on the specification of the null. For parametric testing, data can be simulated from a statistical distribution. For non-parametric testing, other data generating mechanisms may be implied. For example in a lineup using scatterplots, where the null hypothesis is no association between the two variables,  a null generating mechanism is to permute one column of numbers. The marginal distributions of the two variables stay the same while any association between the variables is broken. 
+\citep{buja:2009} bridges the gulf between conventional statistical inference and exploratory data analysis. Two protocols are proposed namely the Rorschach and the lineup protocol. The Rorschach protocol helps to understand to understand the extent of randomness while the lineup protocol places a statistical plot firmly in the hypothesis testing framework. The plot of the true data is considered to be a test statistic unlike classical inference where the test statistic is numeric. The test statistic is so chosen that it displays any distinctive pattern, if present in case the null hypothesis is not true. This plot is compared with a set of plots, known as null plots, obtained from the appropriate null distribution consistent with the null hypothesis. The lineup is obtained by placing the true data plot, which is the test statistic, randomly among the obtained null plots. Human subjects are asked to identify the plot with most distinct feature(s). The success of human subjects in identifying the true data plot is regarded as evidence against the null hypothesis and the null hypothesis is rejected. 
 
-The lineup protocol is analogous to the statistical significance calculations in traditional statistical tests. In hypothesis testing, the true value of the test statistic is compared with all possible values of its null distribution. If the statistic is extreme on this scale, there is evidence to disbelieve the null hypothesis. With the lineup protocol, for a data plot to be considered to be extreme, a human judge must pick it as different from the other plots in the lineup. 
+The lineup protocol was formally tested by \cite{majumder:2011}. The paper provides a head-to-head comparison between the lineup protocol and equivalent conventional test. The testing is done using human subjects from Amazon's Mechanical Turk (\cite{turk}) using simulation to provide controlled conditions for assessing lineups. The results suggest that the visual inference is comparable to conventional tests in a controlled setting of simulation study. The power of a visual test increases with the number of observers, which interestingly implies that the theoretical power of visual test can be better than that of conventional tests.
+
+But there may be one issue when using the lineup protocol. In traditional hypothesis testing, the true value of the test statistic is compared with all possible values of its null distribution. If the statistic is extreme on this scale, there is evidence to disbelieve the null hypothesis. With the lineup protocol, for a data plot to be considered to be extreme, a human judge must pick it as different from the other plots in the lineup. 
 
 %\begin{figure}[htp]
 %\centerline{\includegraphics[width=0.5\textwidth]{diagram.pdf}}
@@ -84,14 +85,14 @@ The lineup protocol is analogous to the statistical significance calculations in
 \end{figure}
 
 
-In traditional hypothesis testing the sampling distribution of the test statistics is continuous, which allows evaluation of probability on an infinite spectrum. With the lineup, although conceptually we may have an infinite collection of plots from the null distribution, in practice, we sample a finite number of null datasets to generate the lineup. A human judge has a physical limit on the number of null plots they can peruse. This poses one of the issues with using the lineup protocol.  Figure \ref{compare} gives the sampling distribution (black curve) for the $t$-distribution, along with the $t$-statistics of the samples that were drawn from the null distribution (blue bars) and that of the true data (red bar). % for the plots in the lineup shown in Figure \ref{lineup}. 
+In traditional hypothesis testing, the sampling distribution of the test statistics is continuous, which allows evaluation of probability on an infinite spectrum. With the lineup, although conceptually we may have an infinite collection of plots from the null distribution, in practice, we sample a finite number of null datasets to generate the lineup. A human judge has a physical limit on the number of null plots they can peruse. This poses one of the issues with using the lineup protocol.  Figure \ref{compare} is an attempt to compare the classical inference method and visual inference method. In classical inference setting, the black curve  gives the sampling distribution for the $t$-distribution under the null hypothesis with the regions for decision. In visual inference setting, let us consider that the black curve gives the sampling distribution although the sampling distribution is essentially a distribution of null plots. Although the test statistic is not numeric, the true data plot which is the test statistic is represented using red bar and the null plots that are drawn from the null distribution are the blue bars. % for the plots in the lineup shown in Figure \ref{lineup}. 
 Effectively,  in visual inference the red line is compared only to these finite number of blue lines visually to make a decision, unlike classical inference where we look at the rejection region (Figure \ref{compare}) to make decisions. As Tukey suggested, `there is such a thing as a bad random sample' \citep{fernholz03}:
 
 \begin{quotation}
 There [in Tukey's Data Analysis class] I discovered that [...]  a random sample is indeed a ``batch of values'' which ``fail to be utopian'' most of the time.
 \end{quotation}
 
-To avoid basing conclusions on artifacts introduced by a `bad' sample, we need to be aware of properties of this set of null plots. In this paper, we develop techniques that help to determine the quality of the lineup. A variety of distance metrics measuring the ``closeness'' of the true data plot and the null plots, and the null plots with themselves are examined. These are compared to human subject picks in a small experiment.  Describing plots numerically, is something  of an oxymoron, it cannot be done. The purpose is to help determine if a lineup might provide inadequate coverage of the full null distribution, and these measures might help to gain more insight on how the human eyes work in reading statistical graphics. The next section describes the array of distance measures, and further sections describe the scatterplot example, and the process for evaluating the distance measures. 
+To avoid basing conclusions on artifacts introduced by a `bad' sample, we need to be aware of properties of this set of null plots. In this paper, we develop techniques that help to determine the quality of the lineup. A variety of distance metrics measuring the ``closeness'' of the true data plot and the null plots, and the null plots with themselves are examined. These are compared to human subject picks in several Amazon Turk studies.  Describing plots numerically, is something  of an oxymoron, it cannot be done. Nonetheless, the distance measures provide indications of the quality of a lineup. The purpose of this paper is to help determine if a lineup might provide inadequate coverage of the full null distribution, and these measures might help to gain more insight on how the human eyes work in reading statistical graphics. The article is organized as follows. Section \ref{sec:null} discusses the null generating mechanisms. Section \ref{sec:meas} defines the distance measures and discusses the choice of the measures. The distribution of the distance measures are studied in Section \ref{sec:distri}. Section \ref{sec:plot_type} describes the effect of the plot type and the question of interest on the distance measure while Section \ref{sec:eval} talks about the distance evaluations. In Section \ref{sec:nbin}, the methods to select the number of bins for the binned distance is described. Section \ref{sec:results} presents a comparison of the distance measures to the performance of human subjects in several experiments conducted by Amazon's Mechanical Turk.
 
 %Any statistical analysis must include some sreftatistical graphics. For exploratory data analysis, statistical graphics play an invaluable role in model checking and diagnostics. Even though we have established mathematical procedures to obtain various statistics, we need to support the results by also producing the relevant plots. 
 
@@ -136,29 +137,29 @@ To avoid basing conclusions on artifacts introduced by a `bad' sample, we need t
 %\red{Before distance measures are introduced, introduce the problem of why we look at these distances in the context of permutation tests. }
 %The difference between a regular permutation test and a graphical test under the line-up protocol, is that we are comparing the true value of the test statistics (i.e. the plot of the true data) to a finite sample of the sample distribution.
 
-{\color{red} Things to add:
-\begin{enumerate}
-\item Null-generating mechanisms 
-\item Dependence on Question of Interest - in general should not be a problem because the question is ``which is different? ". But for data from Turk study, questions were quite focussed.
-\item Interplay between type of plot and distance metric - calculation on data vs graphical elements. For example, scatterplot vs reg line distance
-\item Distance metric distribution calculation eg permutation
-\item Selection of the number of bins
-\end{enumerate}}
+%{\color{red} Things to add:
+%\begin{enumerate}
+%\item Null-generating mechanisms 
+%\item Dependence on Question of Interest - in general should not be a problem because the question is ``which is different? ". But for data from Turk study, questions were quite focussed.
+%\item Interplay between type of plot and distance metric - calculation on data vs graphical elements. For example, scatterplot vs reg line distance
+%\item Distance metric distribution calculation eg permutation
+%\item Selection of the number of bins
+%\end{enumerate}}
 
 \section{Null Generating Mechanism} \label{sec:null}
 
-The null plots play an important role in the evaluation of a lineup as the subjects compare the test statistic to the null plots. The null plots are obtained from the appropriate null distribution which is consistent with the null hypothesis.  Hence, in visual inference, the null generating mechanism is important. The null generating mechanism depends on the hypothesis to be tested and the question of interest. The null distribution can be generated in a few different ways:
+The lineup protocol embeds the true data plot among a set of null plots. The method of obtaining these null plots is known as the null generating mechanism. These null plots are obtained from the null distribution in a method consistent with the null hypothesis. The null hypothesis directly affects the method of generating null plots. This can be done in a few different ways:
 \begin{itemize}
-\item Permutation: This is the most common approach. Consider two continuous variables $X$ and $Y$ and assume that we are interested to test whether there is a significant association between the two variables. One approach is to permute the variable $X$ keeping the variable $Y$ to obtain the null data. This approach can also be applied in situations where we have one categorical variable, say, Group and a continuous variable. Let us assume that the variable Group has two levels and we want to test whether there is any difference between the two groups. To generate the null in this case,  the variable Group can be permuted keeping the continuous variable fixed.
-\item Simulation under the null model: Simulation from the null model is another approach. The null model is fitted to the true data and then using the parameter estimates, the data is generated. Let us consider that we are interested in testing whether there is any significant linear relationship between two continuous variables $X$ and $Y$. Hence we test for $H_o : \beta_1 = 0$ versus $H_a: \beta_1 \ne 0$. Under the null hypothesis, we fit the following model to the data:
+\item Permutation: This is the most common approach. Consider two variables $X$ and $Y$. In this method,  either $X$ or $Y$ is permuted keeping the other variable fixed. Any association between $X$ and $Y$ is broken in the process. The marginal distribution of $X$ and $Y$ stay the same while the joint distribution is altered. The method works in situations where one or both the variables are continuous or categorical. Let us consider a case where we have one categorical variable, say, Group and a continuous variable. Let us assume that the variable Group has two levels (say, A and B) and we want to test whether there is any significant difference between the two groups, i.e. $H_o: \mu_A = \mu_B$. To generate the null in this case,  the variable Group can be permuted keeping the continuous variable fixed. 
+\item Simulation under the null model: Simulation from the null model is another approach. Assuming that the null hypothesis is true, the model is fitted to the true data. The parameter estimates are obtained from the fitted model and then the data is generated using the parameter estimates. Let us consider that we are interested in testing whether there is any significant linear relationship between two continuous variables $X$ and $Y$. Hence we test for $H_o : \beta_1 = 0$ versus $H_a: \beta_1 \ne 0$. Under the null hypothesis, we fit the following model to the data:
 $$Y = \beta_0 + \varepsilon$$
 where $\varepsilon \sim \hbox{Normal}(0, \sigma^2)$. The parameter estimates of $\beta_0$ and $\sigma^2$ are obtained and the null data is generated from $\hbox{Normal}(\widehat{\beta_0}, \widehat{\sigma}^2)$. 
-\item Simulation from a specific distribution: The null data can also be simulated from a specific distribution depending on the null hypothesis. Suppose we want to test whether data comes from a Normal distribution. Hence the null hypothesis can be thought of as the data comes from a Normal distribution while the alternative hypothesis is that the data does not come from a Normal distribution. Hence the null data are generated from the Normal distribution with mean and standard deviation equal to the estimated mean and standard deviation from the data. 
+\item Simulation from a specific distribution: The null data can also be simulated from a specific distribution depending on the null hypothesis. This method is mainly is used in situations where the null hypothesis is that the data comes from a specific distribution. The parameters for the null distribution is obtained from the parameter estimates from the data. For example, suppose we want to test whether data comes from a Normal distribution. Hence $H_o:$ data $\sim$ Normal vs. $H_A:$ data $\nsim$ Normal. Hence the null data are generated from the Normal distribution with mean and standard deviation equal to the estimated mean and standard deviation from the data. 
 \end{itemize} 
 
-There may be other null generating mechanism depending on the hypothesis and the question of interest.
+There may be other null generating mechanism depending on the hypothesis. 
 
-\section{Distance measures}
+\section{Distance measures} \label{sec:meas}
 
 %\blue{The difference between a regular permutation test and a graphical test under the line-up protocol, is that we are comparing the true value of the test statistics (i.e. the plot of the original data) to a finite sample of the sample distribution. As Tukey suggested, `there is such a thing as a bad random sample' \citet{fernholz03}:
 %\begin{quotation}
@@ -355,14 +356,15 @@ The last two distance measures are also dependent on the question of interest an
 
 
 
-\section{Distance metric distribution} \label{sec:dist}
+\section{Distance metric distribution} \label{sec:distri}
 
-To calculate the distance between the true plot and the null plots in a lineup, the distance between each of the $m = 20$ plots in the lineup is calculated. Then the mean distance for the true plot is calculated by taking the mean of the distance of the true plot from the $(m - 1)$ null plots. The mean distances for the null plots are calculated by taking the mean distance of the other $(m - 2)$ null plots. If the mean distance for the true plot is larger than all the mean distances for the null plots, the lineup may be regarded as an ``easy" lineup. Otherwise it would be considered a ``difficult" lineup.
+The empirical distribution of the distance measures may be obtained by calculating the distances between the null plots among themselves. One null data is generated from the true data set using the null generating mechanism. Assuming this null data to be the ``true" data set, a number of null data sets are obtained from this null data and the distances between these datasets are calculated. One single distance value is obtained by averaging all these distances. This process is repeated a large number of times, say, $N$ where $N$ is a large number of the order $10^3$ or $10^4$. Finally $N$ mean distances or average distances are obtained which gives the empirical distribution of the distance. 
 
+The empirical distribution of the distance works as the $t$-distribution in the classical setting. In the classical setting, the test statistics follows a $t$-distribution under the null hypothesis. The observed test statistic is then compared to this distribution, as shown in Figure \ref{compare}. In visual inference, the mean distances of the null plots gives the empirical distribution. The mean distance of the true plot from the null plots in the lineup acts as the observed test statistic. Unlike the $t$-distribution, the empirical distribution is generally skewed.
 
-The empirical distributions of the distance metrics can be obtained using the null generating mechanism. To generate the empirical distribution of the distance, $N$ null datasets are simulated using the null generating mechanism where $N$ is a large number of the order $10^3$ or $10^4$. Now assuming each of these null datasets as the ``true" data set, $m - 2$ null datasets are obtained using the same mechanism. The distance between the ``true" null dataset and the null datasets obtained is calculated and the mean distance is noted. Repeating the above procedure for $N$ null datasets, $N$ mean distances are obtained which provides the empirical distribution of the distance.
+The mean distance between the true plot and the null plots in a lineup of size $m = 20$ is calculated by averaging over the distances between the true plot and each of the  $(m - 1)$ null plots. The mean distances for the $(m - 1)$ null plots in the lineup are calculated by taking the mean of the distances of the particular null plot and the other $(m - 2)$ null plots. The mean distances for the true dataset and the null datasets are plotted on the empirical distribution. If the mean distance of the true plot is larger than any of the null plots, the lineup would be regarded as``easy". Otherwise, it is a ``difficult" lineup. 
 
-The empirical distribution of the distance based on regression is shown in Figure \ref{dist}. To generate this distribution, $N = 1000$ and $m = 20$ was used. 
+The empirical distribution of the distance based on regression is shown in Figure \ref{dist}. To generate this distribution, $N = 1000$ and $m = 20$ was used. Figure \ref{dist_1} shows the lineup plot for $m = 20$ for testing whether there exists a significant linear relationship between $X_1$ and $X_2$. The 19 null plots are generated by fitting the null model and generating from the null model. Figure \ref{dist_2} shows the empirical distribution of the distance with the mean distances for the true plot (in orange) and the null plots (in black) for the particular. The true plot is easy to be identified in the lineup (Figure \ref{dist_1}). It can also be seen in Figure \ref{dist_2} as the orange line is extreme compared to the black lines. 
 
 \begin{figure*}[hbtp]
 \centering
@@ -380,8 +382,6 @@ The empirical distribution of the distance based on regression is shown in Figur
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure*}
 
-Figure \ref{dist_1} shows the lineup plot for $m = 20$ for testing whether there exists a significant linear relationship between $X_1$ and $X_2$. The 19 null plots are generated by simulation under the null model. The distance based on the regression parameters is used here as the regression line is overlaid on the scatterplot. Figure \ref{dist_2} shows the empirical distribution of the distance with the distance for the true plot (in orange) and the null plots (in black). The distance for the true plot is calculated by taking the mean of all the distances between the true plot (Plot 9) and the null plots. The distances for the null plots are obtained by taking the mean of the distances between the null plot and the other null plots. The distribution was obtained by using the above mentioned method. The true plot is easy to be identified in the lineup (Figure \ref{dist_1}). It can also be seen in Figure \ref{dist_2} as the orange line is extreme compared to the black lines. 
-
 \begin{figure*}[hbtp]
 \centering
 \subfigure[]{
@@ -394,13 +394,13 @@ Figure \ref{dist_1} shows the lineup plot for $m = 20$ for testing whether there
 }
 \label{dist2}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{(a) Lineup Plot ($m$ = 20) for testing whether there exists a significant difference between the two groups. The 19 null plots are obtained by permuting the group variable while keeping the other variable fixed.  (b) The chart on the right shows the empirical distribution of the distance based on boxplots. The distance of the true plot is shown in orange while the distance for the null plots are shown in black. }
+\caption[Optional caption for list of figures]{(a) Lineup Plot ($m$ = 20) for testing whether there exists a significant difference between the two groups A and B. The 19 null plots are obtained by permuting the group variable while keeping the continuous variable fixed.  (b) The chart on the right shows the empirical distribution of the distance based on boxplots. The distance of the true plot is shown in orange while the distance for the null plots are shown in black. }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure*}
 
-Figure \ref{dist2_1} shows the lineup plot for $m = 20$ for testing whether there exists a significant difference between the two groups. The 19 null plots are generated by permuting the group variable keeping the other variable fixed. The distance based on boxplots  is used here as the plot type is boxplot. Figure \ref{dist2_2} shows the empirical distribution of the distance with the distance for the true plot (in orange) and the null plots (in black). The distances between the plots in the lineup and the distribution are calculated in the same procedure as described above. It can be seen that the true plot is hard to be identified from the lineup which is also evident from the distribution as the orange line is less than most of the black lines.
+Figure \ref{dist2_1} shows the lineup plot for $m = 20$ for testing whether there exists a significant difference between the two groups A and B. The 19 null plots are generated by permuting the group variable keeping the other variable fixed. Figure \ref{dist2_2} shows the empirical distribution of the distance based on the boxplots with the mean distance for the true plot (in orange) and the null plots (in black). The true plot is hard to be identified from the lineup which is also evident in the distribution since many black lines are to the right of the orange line.
 
-\section{Effect of Plot type and Question of interest }
+\section{Effect of Plot type and Question of interest } \label{sec:plot_type}
 
 Previous studies have suggested that the type of plot used in the lineup have an effect on the response of the subjects \citep{zhao:2012}. For example the subjects find it easier to identify the true plot for a large sample data when a box plot is used in the lineup instead of a dot plot. Similarly the distance metric should also be altered according to the plot type. The distance metric should account for the additional information provided by the graphical elements in the lineup. The graphical elements, like the presence of a box or a regression line overlaid on a scatterplot may influence the response of the subject. Figure \ref{plottype} illustrates this idea. 
 
@@ -424,16 +424,18 @@ Figure \ref{type_1} shows a lineup of scatterplots with 100 points between two v
 
 The question asked to the subjects plays an important role to identify the true plot in the lineup. A minor change in the question can change the response of the subject. In Figure \ref{dist2_1}, if the subjects are asked to identify the plot in which the green group has a larger vertical difference than the red group, the subjects should pick Plot 6. If the subjects are asked which plot has the largest vertical difference between the two groups, the subjects should pick Plot 15. A distance metric should also take into account the question of interest. But, in general, the question of interest is which plot among these is different.
 
-\section{Metric Evaluation}
+\section{Metric Evaluation} \label{sec:eval}
 
-The distance between the plots in these lineups were calculated using the distance measures defined above. The method discussed in Section \ref{sec:dist} was used to compute the mean distance of the true plot from the null plots and the mean distances of the null plots. To measure the difficulty of a lineup, two different statistics were calculated using the mean distances:
+For a lineup of size $m = 20$, the distance for the true plot is compared to the 19 null plots. This comparison can sometimes complicate things. A logical solution can be to look at one statistic for one lineup. Such a statistic can be defined as the difference between the mean distance of the true plot and maximum of the mean distances for the null plots. Hence we define, 
 \begin{enumerate}
 \item Difference: the difference between the mean distance for the true plot and the maximum of the mean distances for the null plots. Mathematically,
-$$\hbox{diff} = \bar{d}_{\hbox{true}} - \max_j \bar{d}_{\hbox{null}_j}$$
+$$\delta_{\hbox{lineup}} = \bar{d}_{\hbox{true}} - \max_j \bar{d}_{\hbox{null}_j}$$
 for $j = 1, \dots, (m  - 1).$
  A positive difference would indicate that the mean distance of the true plot is greater than the maximum of the mean distances of the null plots. Hence the true plot is extreme compared to all the null plots. Similarly a negative difference indicates that there is at least one null plot which is extreme compared to the true plot based on the distance.
+ 
+The issue with this statistic is that $\delta_{\hbox{lineup}}$ indicates an ``easy" or ``difficult" lineup only on the basis of whether it is positive or negative, although it may be really close to 0. The statistic does not imply how many null plots are more extreme than the true plot. So we define,
 \item Larger than the true plot: the number of null plots which have larger mean distances than the mean distance of the true plot is noted. Mathematically,
-$$\hbox{larger} = \sum_{j = 1}^{m - 1} a_j$$ where 
+ $$\gamma_{\hbox{lineup}} = \sum_{j = 1}^{m - 1} a_j$$ where 
 \begin{equation}
 a_j =
 \begin{cases}
@@ -442,15 +444,17 @@ a_j =
 0 & \text{otherwise}
 \end{cases}
 \end{equation}
-A large value of this measure would indicate that there are a number of null plots more extreme than the true plot and hence it is hard to identify the true plot in the lineup.
+$\gamma_{\hbox{lineup}}$ takes all values between 0 and $(m - 1)$. A large value of this measure would indicate that there are a number of null plots more extreme than the true plot and hence it is hard to identify the true plot in the lineup.
 \end{enumerate}
 
 
 %\newpage
 
-\section{Selection of the number of bins}
+\section{Selection of the number of bins} \label{sec:nbin}
 
-The number of bins or the bin width plays an important role in the calculation of the binned distance. Binned distance with a wrong choice of bins may produce erroneous results and hence may change the interpretation of lineup. The correct choice may depend on a number of factors like the type of observed data, the null generating mechanism and others. To investigate this problem, different datasets with two variables with different characteristics were generated. A lineup is constructed by using one of the null generating mechanisms described in Section \ref{sec:null}. A different combination of the number of bins ranging from 2 to 15 was used to divide each variable in the dataset. The number of points falling in each cell is noted. The binned distance is calculated between each of the plots in the lineup. The mean distance between the observed plot and the null plots and the null plots between each other were calculated as described in Section \ref{sec:dist}. The difference between the mean distance for the observed plot and the maximum of the mean distance for the null plots is calculated for each lineup for the different combinations of the number of bins. Table \ref{tbl:bin1} and Table \ref{tbl:bin2} shows the type of data, the observed plot, the null generating mechanism, a typical null plot, the difference and the preferable number of bins.
+Binned distance works for any type of data and for any null generating mechanism. It does not take into account the graphical elements in the plot, and the raw data is used. Binned distance can be used in situations where no distance measure is known for the particular plot type and hence it can be regarded as universal. But the choice of number of bins or the bin size highly affects the distance. A wrong choice may produce erroneous or conflicting results. Hence the choice of the number of bins is important.
+
+The choice of number of bins or bin sizes is investigated with different types of data. Different null generating mechanisms are also used for the same data type. Null datasets are obtained for a true data using a null generating mechanism and hence a lineup is constructed. Mean binned distance is calculated between the true data and the null datasets and also among the null datasets. The number of bins for the binned distance are varied from 2 to 10 on both $x$ and $y$ direction and $\delta_{\hbox{lineup}}$ is calculated for each combination. Table \ref{tbl:bin1} and Table \ref{tbl:bin2} shows the type of data, the observed plot, the null generating mechanism, a typical null plot, the difference $\delta_{\hbox{lineup}}$ and also the maximum value of $\delta_{\hbox{lineup}}$, the $x$-bin and $y$-bin for which the maximum was obtained. The minimum $\delta_{\hbox{lineup}}$ is also reported to get an idea of the range of values.
 
 %\begin{figure*}[hbtp]
 %\centering
@@ -565,18 +569,22 @@ Contaminated data & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\i
 \label{tbl:bin2}
 \end{table*}
 
-The first four observed data plots in Table \ref{tbl:bin1} corresponds to the datasets described by Francis Anscombe in \citep{anscombe:1972} with large number of data points. The other six observed datasets are generated to cover the different issues in statistical analysis. Three different null generating mechanisms have been used as defined in Section \ref{sec:null}. Among the 19 null plots, one null plot has been reported to show how different the null plots are from the observed plot. The plots in the fifth column provides the difference as defined in Section \ref{sec:results} for different number of bins on both $x$ and $y$ direction. The observed plot would be easier to identify if the difference is large. The blue in the plot shows larger difference while the white shows smaller difference. It can be observed that to obtain larger difference, different number of bins is required for different types of dataset and different null generating mechanism. Linear association in the observed dataset when permutation was used for generating the null plots requires smaller number of bins to obtain the largest difference while in case of the presence of outliers, larger number of bins is required to detect. 
+The rationale behind selecting different types of data is to investigate how the optimal number of bins or bin sizes varies with different types of data. The different null generating mechanisms are also selected for the same reason. In Table \ref{tbl:bin1} the first four observed data plots corresponds to the datasets described by Francis Anscombe in \citep{anscombe:1972} but with large number of data points. Although the datasets have the same pattern, the datasets do not follow the properties of Anscombe's quartet. The fifth dataset is a data with 3 distinct clusters. In Table \ref{tbl:bin2}, the first dataset shows a categorical data. The second and the third data are non-linear and linear association with the presence of outliers. The fourth and fifth datasets are the residual plots with curved pattern and non-constant variance pattern. The sixth data is a spiral data while the seventh one is a data with contamination. 
+
+The differences, $\delta_{\hbox{lineup}}$, are represented in a tile plot where each tile gives the difference for each combination. The dark blue shows higher values while the white shows lower values. It can be seen that the plots look different for the different datasets. Hence the optimal number of bins varies from data to data. No specific pattern is evident in the plot. But overall it can be seen that for strong linear relationship, small number of bins should be preferred over large number of bins. Also when outlier is present in the data, larger number of bins is preferred at least in one axis.
+
+It is important to mention at this point that Table \ref{tbl:bin1} and Table \ref{tbl:bin2} is not meant to provide any guidelines for the selection of number of bins. The Tables only show that the binned distance is highly affected by the number of bins and the type of data. It is advisable to find the optimal number of bins for a given data before using the binned distance.
 
 
 \section{Results} \label{sec:results}
 
-{\color{blue} Description of the Turk Results and analysis.}
+%{\color{blue} Description of the Turk Results and analysis.}
 
-The performance of the distance metrics was evaluated with comparing the distances with the response of the subjects. A number of experiments were done in Amazon Mechanical Turk \citep{turk}. Subjects were recruited through Amazon Mechanical Turk \citep{turk} and were shown a sequence of lineups. In each experiment, they were asked specific questions. Their response was recorded along with other information. The details about the design of experiments can be found in \cite{majumder:2011} and \cite{roychowdhury:2013}. 
+The performance of the distance metrics was evaluated with comparing the distances with the response of the subjects. A number of experiments were done in Amazon Mechanical Turk \citep{turk}. Subjects were recruited through Amazon Mechanical Turk \citep{turk} and were shown a sequence of lineups. In each experiment, they were asked specific questions. Their responses were recorded along with other demographic informations. The details about the design of experiments can be found in \cite{majumder:2011} and \cite{roychowdhury:2013}. 
 
 \subsection{Turk Experiment -- Side by Side Boxplots}
 
-In this experiment, the test statistic is a side by side boxplot. Assuming that the null hypothesis is true, the null plots are generated by assuming that there is no difference between the two distributions. The subjects were shown a few lineups and were asked to identify the plot which has the largest vertical difference between group 1 and group 2. Figure \ref{turk1} gives such a lineup. \\
+In this experiment, all the lineups generated had a side by side boxplot as the test statistic. Assuming that the null hypothesis is true, the null plots were generated by assuming that there is no difference between the two distributions. The subjects were shown a few lineups and were asked to identify the plot which has the largest vertical difference between group 1 and group 2. Figure \ref{turk1} gives such a lineup. \\
 
 \begin{figure}[htbp]
 \centering
@@ -586,7 +594,7 @@ In this experiment, the test statistic is a side by side boxplot. Assuming that 
 \label{turk1}
 \end{figure}
 
-The response of the subjects were noted and the proportion of correct response was calculated for each lineup. The distances between the plots for each lineup in this experiment were computed using both the distance based on boxplots ($d_{\hbox{box}}$) and the binned distance ($d_{\hbox{bin}}$). Using the calculated distances, the mean distance of the true plot from the null plots and the mean distance of each of the null plots from the others were calculated. Finally both the statistics described above were calculated. The proportion of correct response was plotted against each of the two statistics. Figure \ref{t1comp_1} - (b) shows the results for $d_{\hbox{box}}$.
+The response of the subjects were noted and the proportion of correct response was calculated for each lineup. The distances between the plots in each lineup were computed using both the distance based on boxplots ($d_{\hbox{box}}$) and the binned distance ($d_{\hbox{bin}}$). The mean distance for the true plot and the null plots were calculated and $\delta_{\hbox{lineup}}$ and $\gamma_{\hbox{lineup}}$ are obtained. The proportion of correct response was plotted against each of the two statistics. Figure \ref{turk1comp} (a) - (b) shows the proportion correct against the difference for $d_{\hbox{box}}$ and $d_{\hbox{bin}}$ respectively. Figure \ref{turk1comp} (c) - (d) shows the proportion correct against the number of null plots greater than the observed plot for the two distance measures respectively. 
 
 
 \begin{figure}[hbtp]
@@ -607,15 +615,21 @@ The response of the subjects were noted and the proportion of correct response w
 \includegraphics[scale=0.55]{turk1-grtr-bin-prop-8.pdf}
 \label{t1bin_2}
 }
-%\label{turk1comp}
+\label{turk1comp}
 	\vspace{-.1in}
 \caption[Optional caption for list of figures]{(a) Plot showing the proportion correct against the difference based on the boxplot distance and (b) based on the binned distance. In both figures the vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The proportion correct increases with the difference. (c) Plot showing the proportion correct against the number of null plots greater than the observed plot according to the boxplot distance and (d) according to the binned distance. The proportion correct decreases as the number of null plots greater than the observed plot increases.  }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
-In Figure \ref{t1comp_1}, the proportion correct is plotted against the difference. The red vertical line represents difference equal to 0 indicating that the mean distance of the observed plot is equal to the maximum of the mean distance of the null plots i.e. the mean distance of the observed plot is equal to at least one of the mean distance of the null plots. It can be seen that as the difference increases, the proportion correct increases. So the subjects do better in the easier lineups than the hard ones. Figure \ref{t1comp_2} shows the relation between larger and the proportion correct. It can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. It is interesting to see that the subjects can pick the observed plot with one or two extreme null plots. 
+%\newpage
 
-The results using $d_{\hbox{bin}}$ with 8 bins on each axis are shown in Figure \ref{t1bin_1} - (b). As before, the proportion correct is plotted against difference in Figure \ref{t1bin_1} and against larger in Figure \ref{t1bin_2}. The binned distance does a decent job in this case. The proportion correct increases as the difference increases. But according to the binned distance, there are a few lineups which has a negative difference but the proportion correct is above 60\%. It should be noted that the binned distance does not take into account the graphical elements of the plot (e.g. boxplot) and calculates the distance solely based on the data. So an outlier may have a huge effect on the binned distance but does not effect the distance based on the boxplots. Hence it is advisable to use a distance based on the graphical elements since that is exactly what the subjects look at in the lineup.
+In Figure \ref{turk1comp} (a) - (b), the proportion correct is plotted against the difference. The red vertical line represents difference equal to 0 indicating that the mean distance of the true plot is equal to the maximum of the mean distance of the null plots i.e. the mean distance of the true plot is equal to at least one of the mean distance of the null plots. It can be seen that as the difference increases, the proportion correct increases. So the subjects do better in the easier lineups than the hard ones. The binned distance was calculated using 8 bins on both the axes.
+
+Figure \ref{turk1comp} (c) - (d) shows the relation between proportion correct and the number of null plots larger than the true plot. It can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. It is interesting to see that the subjects can pick the observed plot with one or two extreme null plots. 
+
+Though the distance based on the boxplots works better, the binned distance does a decent job in this case. According to the binned distance, there are a few lineups which has a negative difference but the proportion correct is above 60\%, which can be also be seen in Figure \ref{turk1comp} (d). It should be noted that the binned distance does not take into account the graphical elements of the plot (e.g. boxplot) and calculates the distance solely based on the data. So an outlier may have a huge effect on the binned distance but does not effect the distance based on the boxplots. Hence it is advisable to use a distance based on the graphical elements since that is exactly what the subjects look at in the lineup.
+
+The time taken to respond by the subjects is another measure of difficulty of the lineups. Due the presence of some huge outliers, the median time taken by the subjects for each lineup is looked at and plotted against the difference for both the distance measures. Figure \ref{turk1-mtime} shows the plots. It can be clearly seen that when the difference is below 0, there is no real trend in the median time and there is a huge variability, indicating that the time taken depends on the subjects. But when the difference is above 0, the median time decreases rapidly as the difference increases. Hence the subjects can pick the true plot quickly if the true plot is extreme compared to the null plots.
  
 %\begin{figure}[hbtp]
 %\centering
@@ -643,7 +657,7 @@ The results using $d_{\hbox{bin}}$ with 8 bins on each axis are shown in Figure 
 \includegraphics[scale=0.55]{turk1-diff-bin-mtime.pdf}
 \label{t1bin_1}
 }
-%\label{turk1comp}
+\label{turk1-mtime}
 	\vspace{-.1in}
 \caption[Optional caption for list of figures]{Plot showing the median time to respond by the subjects against the difference based on the boxplot distance in (a) and binned distance in (b). In both the plots, the vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The median time decreases with the difference.  }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
@@ -662,7 +676,7 @@ In this experiment, the test statistic is a scatterplot with the regression line
 \label{turk2}
 \end{figure}
 
-The distances between the plots in this experiment were computed using both the distance based on regression line ($d_{\hbox{reg}}$) and the binned distance ($d_{\hbox{bin}}$) with a small number of bins. As before, the proportion of correct response for each lineup was calculated from the response of the subjects. The mean distances for the observed plot and the null plots are calculated as described in Section \ref{sec:dist}. The two statistics described above were calculated based on these mean distances and plotted against the proportion correct. Figure \ref{t2comp_1} - (b) shows the results for the distance based on the regression line.
+The distances between the plots in this experiment were computed using both the distance based on regression line ($d_{\hbox{reg}}$) and the binned distance ($d_{\hbox{bin}}$) with a small number of bins. The proportion of correct response for each lineup was calculated from the response of the subjects and plotted against $\delta_{\hbox{lineup}}$ and $\gamma_{\hbox{lineup}}$.  Figure \ref{turk2comp}(a), (b) shows the results for the distance based on the regression line and the binned distance against $\delta_{\hbox{lineup}}$.
 
 
 \begin{figure*}[hbtp]
@@ -683,13 +697,15 @@ The distances between the plots in this experiment were computed using both the 
 \includegraphics[scale=0.55]{turk2-grtr-bin-prop-2.pdf}
 \label{t2comp_2}
 }
-%\label{turk2-comp}
+\label{turk2comp}
 	\vspace{-.1in}
 \caption[Optional caption for list of figures]{(a) Plot showing the proportion correct against the difference based on the regression distance and (b) based on the binned distance. In both figures the vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The proportion correct increases with the difference. (c) Plot showing the proportion correct against the number of null plots greater than the observed plot according to the regression distance and (d) according to the binned distance. The proportion correct decreases as the number of null plots greater than the observed plot increases.}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure*}
 
-Figure \ref{t2comp_1} shows the proportion correct against the difference. The vertical line represents difference equal to 0. It can be seen that as the difference increases, the proportion correct increases. So the subjects do better in the easier lineups than the hard ones. Figure \ref{t2comp_2} shows that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, almost all the subjects identify the observed plot although there is one more extreme null plot. Though from Figure \ref{t2comp_1}, it can be seen that the extremeness is marginal in most cases. The binned distance fails to perform in this case since the binned distance does not take into account the graphical element of the plot which is the regression line. The regression line seem to have an huge effect in the correct evaluation of these lineups.
+Figure \ref{turk2comp}(a) - (b) shows the proportion correct against the difference. The vertical line represents difference equal to 0. It can be seen that as the difference increases, the proportion correct increases. So the subjects do better in the easier lineups than the hard ones. The distance based on regression works well in capturing the complexity of the lineups. But the binned distance fails to do so. Although the proportion correct increases with difference, the proportion correct is high for values with negative difference. This is a classic case where a graphical element affects the response. The presence of the overlaid regression line on almost transparent points of the scatterplot mattered in the subjects picking the correct plot. One other reason may be the use of the same number of bins (2 $\times$ 2) in this case for all the lineups. 
+
+Figure \ref{turk2comp} (c) - (d) shows that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, almost all the subjects identify the observed plot although there is one more extreme null plot. Though from Figure \ref{turk2comp}, it can be seen that the extremeness is marginal in most cases. 
 
 \begin{figure}[hbtp]
 \centering
@@ -701,12 +717,13 @@ Figure \ref{t2comp_1} shows the proportion correct against the difference. The v
 \includegraphics[scale=0.55]{turk2-diff-bin-mtime.pdf}
 \label{t1bin_1}
 }
-%\label{turk1comp}
+\label{turk2-mtime}
 	\vspace{-.1in}
 \caption[Optional caption for list of figures]{Plot showing the median time to respond by the subjects against the difference based on the regression distance in (a) and binned distance in (b). In both the plots, the vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The median time decreases with the difference.  }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
+Figure \ref{turk2-mtime} shows the relationship between the median time taken to respond and the difference for both the distances. It can be clearly seen that there is a strong negative association showing that as the difference increases, the subjects take lesser time to respond. Also the variability of the median time is higher for smaller difference. In case of binned distance, the relationship is negative though the variability is higher for the above mentioned reasons.
 
 \subsection{Turk Experiment -- Large $p$, Small $n$ data}
 
