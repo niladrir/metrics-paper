@@ -727,7 +727,7 @@ Figure \ref{turk2-mtime} shows the relationship between the median time taken to
 
 \subsection{Turk Experiment -- Large $p$, Small $n$ data}
 
-In this experiment, the one dimensional or two dimensional projections are plotted. The data has two or three groups with 30 observations($n$) with large number of dimensions($p$). All the plots in the lineup has 2 or 3 clusters in different colors and the subjects were asked to identify the plot with the most separated colored groups. Figure \ref{largep} gives an example of such a lineup with 3 groups. 
+The motivation behind this experiment is to study the effect of large dimensions in a data with complete noise and some real separation. Data was simulated with different dimensions and fixed sample size. Data was divided into two or three groups. A projection pursuit with Penalized Discriminant Analysis Index was used and the one and two dimensional projections were obtained. The one or two dimensional projections were then plotted which resulted in the observed data plot. To generate the null data, the group variable in the data was permuted and the projection pursuit was applied. The subjects were shown these lineups and were asked to identify the plot with the most separated colored groups. Figure \ref{largep} gives an example of such a lineup with two dimensional projections with 3 colored groups. 
 
 \begin{figure}[htbp]
 \centering
@@ -737,7 +737,7 @@ In this experiment, the one dimensional or two dimensional projections are plott
 \label{largep}
 \end{figure}
 
-The distances between the plots in this experiment were computed using the binned distance. The number of bins used for the one dimensional projections is 10 and for the two dimensional projections is 5. The proportion of correct response is plotted against each of the statistics described above. Figure \ref{lp-comp} shows the results for the binned distance.
+The distances between the plots in this experiment were computed using the distance based on separation of the clusters and the binned distance. The number of bins used for the lineups with one dimensional projections is larger (10 in this case) but for the lineups with two dimensional projections, the number of bins used is 5. The proportion of correct response is plotted against $\delta_{\hbox{lineup}}$ and $\gamma_{\hbox{lineup}}$ for both the distances. Figure \ref{lp-comp} shows the results for the binned distance.
 
 
 \begin{figure*}[hbtp]
@@ -764,7 +764,9 @@ The distances between the plots in this experiment were computed using the binne
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure*}
 
-In Figure \ref{lpcomp_1}, it can be seen that as the difference increases, the proportion correct increases. So the subjects do better in the easier lineups than the hard ones. Figure \ref{lpcomp_2} shows that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, almost all the subjects identify the observed plot although there is more extreme null plots. 
+In Figure \ref{lp-comp} (a) - (b), the proportion correct is plotted against the difference for distance based on separation and the binned distance respectively. The red vertical line shows difference equal to 0.  It can be seen that as the difference increases, the proportion correct increases and both the distances do a good job in capturing the response of the subjects. 
+
+Figure \ref{lp-comp}(c) - (d) shows that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, a large number of the subjects identify the observed plot although there is more extreme null plots. From these plots, it can be noticed that the binned distance does a better job than the distance based on separation. 
 
 \begin{figure}[hbtp]
 \centering
@@ -776,16 +778,26 @@ In Figure \ref{lpcomp_1}, it can be seen that as the difference increases, the p
 \includegraphics[scale=0.55]{largep-diff-bin-mtime.pdf}
 \label{t1bin_1}
 }
-%\label{turk1comp}
+\label{lp-mtime}
 	\vspace{-.1in}
 \caption[Optional caption for list of figures]{Plot showing the median time to respond by the subjects against the difference based on the separation distance in (a) and binned distance in (b). In both the plots, the vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The median time decreases with the difference.  }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
-
+Figure \ref{lp-mtime} shows the relationship between the median time taken to respond and the difference for both the distances. It can be clearly seen that there is a strong negative association showing that as the difference increases, the subjects take lesser time to respond. Also the variability of the median time is higher for smaller difference. In case of binned distance, the relationship is negative though the variability is higher for all differences.
 
 
 \section{Conclusion}
+
+The lineup protocol places a statistical plot in the hypothesis testing framework. The null plots in the lineup has an instrumental effect on the response of the subjects since there are only a finite number of null plots which the subjects compare the observed data plot to. A `bad' set of null plots makes it difficult to identify the observed data plot. The quality of the lineup is measured by describing plots numerically using a set of distance metrics. 
+
+A number of existing distance metrics are studied. Most of these metrics use the raw data to calculate the distances. A number of distance measures are suggested which takes the graphical elements into account. The graphical elements in a plot of a lineup affects the response of the subjects. So considering the graphical elements in the distance metric calculation seems logical.
+
+Unlike classical inference, the test statistic in visual inference is not a number, it is a plot. Hence it is not possible to obtain the distribution of the test statistics in visual inference. The empirical distribution of the distance metrics relates to the $t$-distribution followed by the test statistic in the classical inference framework. The distance for the observed data plot is compared to the empirical distribution and also the null plots obtained in the lineup. This provides a good idea about how extreme the observed plot is compared to the nulls.
+
+Comparing the observed data plot to the null plots may sometime complicate things. 
+
+
  
 %\section{People's pick method}\label{user.distance}
 %
