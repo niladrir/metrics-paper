@@ -57,7 +57,7 @@ potentially changes this.
 
 \cite{buja:2009} introduced two protocols which bridge the gulf between traditional statistical inference and exploratory data analysis. These are the Rorschach and the lineup protocols. The Rorschach protocol helps to understand the extent of randomness. The lineup protocol places a statistical plot firmly in the hypothesis testing framework, where a plot of the data is considered to be a test statistic. Unlike the simpler numeric test statistics in classical inference, though, the plot as a test statistic is a complex entity. This plot is compared with a set of null plots, obtained from an appropriate distribution consistent with the null hypothesis. The lineup protcol places the data plot randomly among the obtained null plots, and requires a human observer to examine the plots and identify the most different plot. If this plot is that of the data, this is quantifiable evidence against the null hypothesis. 
 
-The lineup protocol was formally tested in a head-to-head comparison with the equivalent conventional test by \cite{majumder:2011}.The experiment utilized human subjects from Amazon's Mechanical Turk (\cite{turk}) and used simulation to control conditions. The results suggest that the visual inference is comparable to conventional tests in a controlled conventioanl setting. This provides support for its appropriateness for testing in real exploratory situations where no conventional test exists. Interestingly, the power of a visual test increases with the number of observers engaged to evaluate lineups, and the pattern in results suggests that the power will provide results consistent with practical significance. {\color{red}*** May need a reference for practical significance.}
+The lineup protocol was formally tested in a head-to-head comparison with the equivalent conventional test by \cite{majumder:2011}.The experiment utilized human subjects from Amazon's Mechanical Turk (\cite{turk}) and used simulation to control conditions. The results suggest that the visual inference is comparable to conventional tests in a controlled conventional setting. This provides support for its appropriateness for testing in real exploratory situations where no conventional test exists. Interestingly, the power of a visual test increases with the number of observers engaged to evaluate lineups, and the pattern in results suggests that the power will provide results consistent with practical significance. {\color{red}*** May need a reference for practical significance.}
 
 %But there may be one issue when using the lineup protocol. In traditional hypothesis testing, the true value of the test statistic is compared with all possible values of its null distribution. If the statistic is extreme on this scale, there is evidence to disbelieve the null hypothesis. With the lineup protocol, for a data plot to be considered to be extreme, a human judge must pick it as different from the other plots in the lineup. 
 
@@ -196,7 +196,7 @@ There may be other null generating mechanism depending on the hypothesis.
 %
 %\red{Another thing that we should discuss on Friday is whether it might be better to call the measures we use norms rather than distances - a distance usually assumes the comparison of two objects, and we implicitly compare against null or identity, which is what a norm does..}
 
-There are different types of distance measures suitable in measuring the distance between the null data and the true data. In this paper, six different types of distance measures were used so that they can identify the different characteristics present in a plot. \\
+There are different types of distance measures suitable in measuring the distance between the null data and the true data. In this paper, six different types of distance measures were used so that they can identify the different characteristics present in a plot. Some of the distance metrics are generic and uses the raw data to calculate the distances. They do not consider any graphical element in the plot which may somehow affect the decision of the subjects in identifying the true plot. A regression line overlaid on a scatterplot may affect the decision of a plot. Same can be done when a boxplot is used to represent the data instead of a dot plot. The distance metrics should take into account the presence of this graphical elements. Distance metrics like distance based on regression line, distance based on boxplots are designed to address this issue. \\
 
 For all of the distance measures below, let $X$ denote the true dataset with one or two variables. Let $Y$ denote the null dataset obtained from $X$ using any of the above mentioned null generating mechanism.
 
@@ -257,6 +257,17 @@ The Binned distance is then defined as
 \begin{eqnarray*}
 d_{\hbox{bin}}^2 (X, Y) &:=& ||C_X(X_1, X_2) - C_Y(X_1,X_2)||^2 \\ &=& \sum_{i=1}^p \sum_{j=1}^q (C_X(X_{1i},X_{2j}) - C_Y(X_{1i},X_{2j}))^2.
 \end{eqnarray*}
+
+\begin{figure}[hbt]
+%\begin{figurehere}
+   \centering
+       \includegraphics[width=2.3in]{bin-example-1.pdf}
+         \includegraphics[width = 2.6in]{bin-example-2.pdf}
+%	\vspace{-.2in}
+       \caption{Scatterplot of 50 points in $X_1$ and $X_2$ with a strong positive association. The colored tiles show binned frequencies.}
+       \label{fig:test_category}
+\end{figure}
+
 Binned distance is highly susceptible to small differences in values and depends on the number of bins as well as exact cut-offs. This is particularly problematic for small number of points. As a remedy to that, we are considering Weighted bin distance next, which is based on the density rather than point frequency. For large number of points the weighted binning is computationally too intensive, in which case we will make use of the unweighted binned distance.
 %\red{careful: $C(X,[P]Y)$ is not the same as $C_{i,P(j)}$. $C_{i,j}$ is the count for points falling into cell $i,j$ - it's not enough to permute the grid counts, we need to get the grid counts of the permuted variable. Introduce $C$ as a function of $X$ and $Y$ ....}
 
@@ -270,15 +281,6 @@ where $W(X_{1i},X_{2i})$ denotes the joint (empirical) density of $X_1$, $X_2$ a
 %The weighted bin distance is an improvement to the bin distance where a weight is provided to the counts of the neighboring bins. The weight is done by doing a kernel density estimation of the different bins.
 
 %\green{I wrote something down here but I am not sure if this works.}
-
-\begin{figure}[hbt]
-%\begin{figurehere}
-   \centering
-       \includegraphics[width=3.3in]{wbdist.pdf}
-	\vspace{-.2in}
-       \caption{Scatterplot of 20 points in $X_1$ and $X_2$ with a weak positive association. The colored tiles show binned frequencies, the contour lines show two-dimensional density.}
-       \label{fig:test_category}
-\end{figure}
 
 
 \item Hausdorff distance: Let $x \in X$ and $y \in Y$ be two sets of points. The Hausdorff distance between $X$ and $Y$ is defined as
