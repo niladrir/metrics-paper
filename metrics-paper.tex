@@ -55,9 +55,9 @@ Graphics play a crucial role in statistical analysis and data mining. This paper
 There have been major advances in statistical graphics over the years, for example, systems like R \citep{R} provide high quality static graphics, and very recently some access to interactive graphics. But the problem remains that graphics are not widely considered to be a part of inferential statistics. Research by \citet{gelman:2004} and \citet{buja:2009} 
 potentially changes this. 
 
-\cite{buja:2009} introduced two protocols which bridge the gulf between traditional statistical inference and exploratory data analysis. These are the Rorschach and the lineup protocols. The Rorschach protocol helps to understand the extent of randomness. The lineup protocol places a statistical plot firmly in the hypothesis testing framework, where a plot of the data is considered to be a test statistic. Unlike the simpler numeric test statistics in classical inference, though, the plot as a test statistic is a complex entity. This plot is compared with a set of null plots, obtained from an appropriate distribution consistent with the null hypothesis. The lineup protcol places the data plot randomly among the obtained null plots, and requires a human observer to examine the plots and identify the most different plot. If this plot is that of the data, this is quantifiable evidence against the null hypothesis. 
+\cite{buja:2009} introduced two protocols which bridge the gulf between traditional statistical inference and exploratory data analysis. These are the Rorschach and the lineup protocols. The Rorschach protocol helps to understand the extent of randomness. The lineup protocol places a statistical plot firmly in the hypothesis testing framework, where a plot of the data is considered to be a test statistic. Unlike the simpler numeric test statistics in classical inference, though, the plot as a test statistic is a complex entity. This plot is compared with a set of null plots, obtained from an appropriate distribution consistent with the null hypothesis. The lineup protocol places the data plot randomly among the obtained null plots, and requires a human observer to examine the plots and identify the most different plot. If this plot is that of the data, this is quantifiable evidence against the null hypothesis. 
 
-The lineup protocol was formally tested in a head-to-head comparison with the equivalent conventional test by \cite{majumder:2011}.The experiment utilized human subjects from Amazon's Mechanical Turk (\cite{turk}) and used simulation to control conditions. The results suggest that the visual inference is comparable to conventional tests in a controlled conventional setting. This provides support for its appropriateness for testing in real exploratory situations where no conventional test exists. Interestingly, the power of a visual test increases with the number of observers engaged to evaluate lineups, and the pattern in results suggests that the power will provide results consistent with practical significance. {\color{red}*** May need a reference for practical significance.}
+The lineup protocol was formally tested in a head-to-head comparison with the equivalent conventional test by \cite{majumder:2011}.The experiment utilized human subjects from Amazon's Mechanical Turk (\cite{turk}) and used simulation to control conditions. The results suggest that the visual inference is comparable to conventional tests in a controlled conventional setting. This provides support for its appropriateness for testing in real exploratory situations where no conventional test exists. Interestingly, the power of a visual test increases with the number of observers engaged to evaluate lineups, and the pattern in results suggests that the power will provide results consistent with practical significance (\cite{kirk:1996}).
 
 %But there may be one issue when using the lineup protocol. In traditional hypothesis testing, the true value of the test statistic is compared with all possible values of its null distribution. If the statistic is extreme on this scale, there is evidence to disbelieve the null hypothesis. With the lineup protocol, for a data plot to be considered to be extreme, a human judge must pick it as different from the other plots in the lineup. 
 
@@ -258,43 +258,68 @@ The Binned distance is then defined as
 d_{\hbox{bin}}^2 (X, Y) &:=& ||C_X(X_1, X_2) - C_Y(X_1,X_2)||^2 \\ &=& \sum_{i=1}^p \sum_{j=1}^q (C_X(X_{1i},X_{2j}) - C_Y(X_{1i},X_{2j}))^2.
 \end{eqnarray*}
 
-\begin{figure}[hbt]
-%\begin{figurehere}
-   \centering
-       \includegraphics[width=2.3in]{bin-example-1.pdf}
-         \includegraphics[width = 2.6in]{bin-example-2.pdf}
-%	\vspace{-.2in}
-       \caption{Scatterplot of 50 points in $X_1$ and $X_2$ with a strong positive association. The colored tiles show binned frequencies.}
-       \label{fig:test_category}
-\end{figure}
+%\begin{figure}[hbt]
+%%\begin{figurehere}
+%   \centering
+%       \includegraphics[width=2.3in]{dat-example-1.pdf}
+%         \includegraphics[width = 2.3in]{bin-example-1.pdf}
+%            \includegraphics[width=2.3in]{dat-example-2.pdf}
+%         \includegraphics[width = 2.3in]{bin-example-2.pdf}
+%%	\vspace{-.2in}
+%       \caption{Scatterplot of 50 points in $X_1$ and $X_2$ with a strong positive association. The colored tiles show binned frequencies.}
+%       \label{fig:test_category}
+%\end{figure}
 
-Binned distance is highly susceptible to small differences in values and depends on the number of bins as well as exact cut-offs. This is particularly problematic for small number of points. As a remedy to that, we are considering Weighted bin distance next, which is based on the density rather than point frequency. For large number of points the weighted binning is computationally too intensive, in which case we will make use of the unweighted binned distance.
+\begin{figure*}[hbtp]
+\centering
+\subfigure[ Dataset X with two variables X1 and X2]{
+\includegraphics[scale=0.55]{dat-example-1.pdf}
+\includegraphics[scale=0.55]{bin-example-2.pdf}
+
+\label{type_1}
+}
+\subfigure[ Dataset Y with permuted X1 and original X2]{
+\includegraphics[scale=0.55]{dat-example-2.pdf}
+\includegraphics[scale=0.55]{bin-example-2.pdf}
+
+\label{type_2}
+}
+\label{plottype}
+	\vspace{-.1in}
+       \caption{(a)Scatterplot of 50 points in $X_1$ and $X_2$ with a strong positive association. The colored tiles show binned frequencies. (b) Scatterplot with permuted X1 and original X2 from X with almost no association. The colored tiles show binned frequencies.}
+%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
+\end{figure*}
+
 %\red{careful: $C(X,[P]Y)$ is not the same as $C_{i,P(j)}$. $C_{i,j}$ is the count for points falling into cell $i,j$ - it's not enough to permute the grid counts, we need to get the grid counts of the permuted variable. Introduce $C$ as a function of $X$ and $Y$ ....}
 
 % To calculate this distance, we form a $p \times q$ grid between the two continuous variable and count the number of points falling to each grid. Then we permute one continuous variable keeping the other variable unchanged and repeat the above procedure. The euclidean distance between the counts for the original and permuted data gives an measure of the binned distance. Binned distance takes into account both the variables but only one of the variables is permuted. Binned distance considers only the count for each respective bin and puts no weight on the counts of the neighboring bin.
 
-\item Weighted Bin Distance: Using the same setup of the binned distance, the weighted bin distance is defined as 
-\begin{eqnarray*}
-d_{\hbox{wbin}}^2(X, Y) &:=&||W_X(X_1,X_2) - W_Y(X_1,X_2))||^2 \\ &=& \sum_{i=1}^n (W_X(X_{1i},X_{2i}) - W_Y(X_{1i},X_{2i}))^2 , 
-\end{eqnarray*}
-where $W(X_{1i},X_{2i})$ denotes the joint (empirical) density of $X_1$, $X_2$ at location $(X_{1i}, X_{2i})$. See Figure \ref{fig:test_category} for a comparison of weighted and unweighted binned distance at the example of 20  points.
-%The weighted bin distance is an improvement to the bin distance where a weight is provided to the counts of the neighboring bins. The weight is done by doing a kernel density estimation of the different bins.
-
-%\green{I wrote something down here but I am not sure if this works.}
-
-
-\item Hausdorff distance: Let $x \in X$ and $y \in Y$ be two sets of points. The Hausdorff distance between $X$ and $Y$ is defined as
- \[
-d_{\hbox{hausdorff}}(X, Y)  = max (h(X, Y), h(Y, X))
-\]
-where 
-\begin{eqnarray*}
-h(X, Y) &:=& \max_{x \in X} \min_{y \in Y} ||x - y|| \\ & = & \max_{x \in X} \min_{y \in Y} \sqrt{\sum_{i=1}^n (x_i - y_i)^2}
-\end{eqnarray*}
-
-This measure is computationally intensive.
-
+%\item Weighted Bin Distance: Using the same setup of the binned distance, the weighted bin distance is defined as 
+%\begin{eqnarray*}
+%d_{\hbox{wbin}}^2(X, Y) &:=&||W_X(X_1,X_2) - W_Y(X_1,X_2))||^2 \\ &=& \sum_{i=1}^n (W_X(X_{1i},X_{2i}) - W_Y(X_{1i},X_{2i}))^2 , 
+%\end{eqnarray*}
+%where $W(X_{1i},X_{2i})$ denotes the joint (empirical) density of $X_1$, $X_2$ at location $(X_{1i}, X_{2i})$. See Figure \ref{fig:test_category} for a comparison of weighted and unweighted binned distance at the example of 20  points.
+%%The weighted bin distance is an improvement to the bin distance where a weight is provided to the counts of the neighboring bins. The weight is done by doing a kernel density estimation of the different bins.
+%
+%%\green{I wrote something down here but I am not sure if this works.}
+%
+%
+%\item Hausdorff distance: Let $x \in X$ and $y \in Y$ be two sets of points. The Hausdorff distance between $X$ and $Y$ is defined as
+% \[
+%d_{\hbox{hausdorff}}(X, Y)  = max (h(X, Y), h(Y, X))
+%\]
+%where 
+%\begin{eqnarray*}
+%h(X, Y) &:=& \max_{x \in X} \min_{y \in Y} ||x - y|| \\ & = & \max_{x \in X} \min_{y \in Y} \sqrt{\sum_{i=1}^n (x_i - y_i)^2}
+%\end{eqnarray*}
+%
+%This measure is computationally intensive.
+%
 \end{itemize}
+
+Binned distance is highly susceptible to small differences in values and depends on the number of bins as well as exact cut-offs. This is particularly problematic for small number of points. As a remedy to that, we considered using kernel density estimates instead of point frequencies. But the results were not promising. Hausdorff distance (\cite{huttenlocher:1993}) was also studied as an option. Although the results were promising, Hausdorff distance was computationally intensive and hence was not considered. 
+
+
 
 %The remaining distance measures are different from the ones above, in that they are used to directly draw inference on a linear association between variables $X$ and $Y$, whereas the other ones were not specifically tailored to this purpose.
 
@@ -324,9 +349,14 @@ d^2_{\hbox{reg}}(X, Y) := \hbox{tr} (B(X) - B(Y))' (B(X) - B(Y)) = \sum_{i=1}^b 
 
 where $b_0$ and $b_1$ denote the vector of the intercept and slope respectively while $b$ is the number of bins. $B(.)$ is a $b \times 2$ matrix of the regression coefficients where each row represent the  intercept and the slope obtained from each bin. The number of bins have a significant effect on the distance measure. It can be seen that it works best for smaller number of bins like 1 or 2. With larger number of bins (i.e. smaller bin sizes), the regression coefficients are affected by the skewness of the data.
 
+\item Distance based on separation: Let $X_1$ and $X_2$ be two continuous variable. Let $X_3$ be a categorical variable providing the groups associated with each variable. $X_1$ and $X_2$ are plotted in a scatterplot colored by the group variable $X_3$. Let us define, $s_{g}(.)$ be a vector of cluster wise minimum distances of a point in the cluster to a point of another cluster for $g$ clusters. The distance metric based on separation is defined as
+\[
+d^2_{\hbox{sep}}(X, Y):= ||s_g(X) - s_g(Y)||^2 = \sum_{i = 1}^g ((s_g(X))_i - (s_g(Y))_i)^2
+\]
+
 \end{itemize}
 
-The last two distance measures are also dependent on the question of interest and hence can be changed accordingly. But in general this should not be a problem because the question is ``Which plot among these is different ?". 
+The last three distance measures are also dependent on the question of interest and hence can be changed accordingly. But in general this should not be a problem because the question is ``Which plot among these is different ?". 
 %\item $t$ statistic: In this paper we used the test statistic of a t-test based on the correlation coefficient $r$ where $$t =\frac{r \sqrt{n - 2}}{\sqrt{1 - r^2}}$$ where $n$ is the number of observations in $X$ or $Y$. This is the only measure that makes a distributional assumption that the ($X$,$Y$) follows approximately a bivariate Normal distribution. Hence the $t$-statistic follows a t distribution with ($n$ - 2) degrees of freedom.
 %%\red{use either upper case or lower case $T$, not both. }
 %%The first one was used when one variable is continuous and the other is categorical while the other is used when both the variables are continuous.  
