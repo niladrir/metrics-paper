@@ -94,7 +94,7 @@ Effectively,  in visual inference the red line is compared only to these finite 
 
 {\color{red}***Point 2: Use metrics to ensure that a range of comparisons is made available to observers}
 
-This can be partially solved by having a large number of observers, who each evaluate lineups constructed with different null plots. Having some idea of the type of coverage of the sampling distribution that is provided by the lineups would be useful ahead of engaging observers and evaluating the lineups. Could we say that lineup X is expected to be ``difficult'' but lineup Y is expected to be ``easy'' then it may help in determining an appropriate numbers of observers? A difficult lineup is one where the data plot is similar to the null plots, and an easy lineup is where the data plot has some feature that makes it very different from the null plots. Being able to compute a plot to plot distance metric would be very helpful ahead of running a lineup protocol.
+This can be partially solved by having a large number of observers, who each evaluate lineups constructed with different null plots. Having some idea of the type of coverage of the sampling distribution that is provided by the lineups would be useful ahead of engaging observers and evaluating the lineups. Could we say that lineup X is expected to be ``difficult'' but lineup Y is expected to be ``easy'' then it may help in determining an appropriate number of observers? A difficult lineup is one where the data plot is similar to the null plots, and an easy lineup is where the data plot has some feature that makes it very different from the null plots. Being able to compute a plot to plot distance metric would be very helpful ahead of running a lineup protocol.
 
 %Researchers needs to provide a range of comparisons to observers to judge. An efficient design of experiment would be to provide a range of lineup plots with varying difficulty to the human subjects to look at. So far the difficulty of a lineup can be evaluated based on the performance of the subjects. The performance of the subjects can be analyzed after the experiment. But as a researcher, it would be interesting to have an idea about the difficulty of the lineups even before the experiment is conducted so the subjects see a set of lineups with varying difficulty. Distance metrics can be of great help in this case. 
 
@@ -838,6 +838,13 @@ Figure \ref{lp-mtime} shows the relationship between the median time taken to re
 
 
 \section{Conclusion}
+
+{\color{red} 1.  In visual inference we compare the test statistic to a finite number of null plots which may affect the decision of a human judge. Distance metrics allows us to get the measure of the quality of a lineup. Distance metrics allows us to provide a range of comparisons to the human subjects based on the difficulty. This may also help us to select the number of human subjects to show a particular lineup.\\
+
+2.  The presence of graphical elements in a lineup plot may affect the quality of the lineup. Distance metrics are developed which takes into account the presence of graphical elements for the common scenarios like a regression line overlaid, a boxplot instead of a dot plot and presence of clusters. An universal distance metric is also described which works for any type of data. The results show that the performances are comparable but the distance metrics which takes into account the graphical elements performs better.\\
+
+3.  A method for obtaining the distribution of the distance metrics is described. For a given lineup, the distribution can be obtained and the statistic for the lineup can be compared to the distribution.\\
+ }
 
 The lineup protocol places a statistical plot in the hypothesis testing framework. The null plots in the lineup has an instrumental effect on the response of the subjects since there are only a finite number of null plots which the subjects compare the observed data plot to. A `bad' set of null plots makes it difficult to identify the observed data plot. The quality of the lineup is measured by describing plots numerically using a set of distance metrics. 
 
