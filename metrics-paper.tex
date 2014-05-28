@@ -713,6 +713,34 @@ The time taken to respond by the subjects is another measure of difficulty of th
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
+It can be noticed in Figure \ref{turk1comp} that for some of the lineups, the detection rate is high but the difference using distance metric is negative suggesting that the lineup is difficult. One such lineup is marked using a triangle in Figure \ref{turk1comp}. It would be interesting to look into the lineup closely to identify what made the people pick the actual plot as different. Figure \ref{turk1-exp} shows the lineup and the distribution of the distance metrics. 
+
+\begin{figure}[hbtp]
+\centering
+\subfigure[]{
+\includegraphics[scale=0.55]{lineup-high-prop-neg-diff.pdf}
+\label{t1comp_1}
+}
+\subfigure[]{
+\includegraphics[scale=0.55]{distribution-box-dist-exp1.pdf}
+\label{t1bin_1}
+}
+\subfigure[]{
+\includegraphics[scale=0.55]{distribution-bin-dist-2-8-exp1.pdf}
+\label{t1bin_1}
+}
+\subfigure[]{
+\includegraphics[scale=0.55]{distribution-bin-dist-2-2-exp1.pdf}
+\label{t1bin_1}
+}
+\label{turk1-exp}
+	\vspace{-.1in}
+\caption[Optional caption for list of figures]{Plot showing the lineup in (a) and the distribution of different distance metrics : box plot distance in (b), binned distance with 2 and 8 bins on x and y axis in (c) and binned distance with 2 bins in both axes in (d). The lineup corresponds to the point marked with a triangle in difference vs. detection rate plot in Figure \ref{turk1comp}.}
+%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
+\end{figure}
+
+The lineup in Figure \ref{turk1-exp} is a lineup of side-by-side boxplots. The observed data plot is Plot 20 but there are other candidates who can be picked easily. Plot 19 and Plot 16 seems to have large differences between the quartiles. Specifically in Plot 16, the difference between the  
+first quartiles for the two groups is very large but the differences between the medians and the third quartiles are small. The huge difference of the first quartiles may have affected the huge mean distance of Plot 16 from all the other plots.   
 
 \subsection{Turk Experiment -- Scatterplots with a regression line overlaid}
 
@@ -729,7 +757,7 @@ In this experiment, the test statistic is a scatterplot with the regression line
 The distances between the plots in this experiment were computed using both the distance based on regression line ($d_{\hbox{reg}}$) and the binned distance ($d_{\hbox{bin}}$) with a small number of bins. The proportion of correct response for each lineup was calculated from the response of the subjects and plotted against $\delta_{\hbox{lineup}}$ and $\gamma_{\hbox{lineup}}$.  Figure \ref{turk2comp}(a), (b) shows the results for the distance based on the regression line and the binned distance against $\delta_{\hbox{lineup}}$.
 
 
-\begin{figure*}[hbtp]
+\begin{figure}[hbtp]
 \centering
 \subfigure[]{
 \includegraphics[scale=0.55]{turk2-diff-reg-prop.pdf}
@@ -751,7 +779,7 @@ The distances between the plots in this experiment were computed using both the 
 	\vspace{-.1in}
 \caption[Optional caption for list of figures]{(a) Plot showing the proportion correct against the difference based on the regression distance and (b) based on the binned distance. In both figures the vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The proportion correct increases with the difference. (c) Plot showing the proportion correct against the number of null plots greater than the observed plot according to the regression distance and (d) according to the binned distance. The proportion correct decreases as the number of null plots greater than the observed plot increases.}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
-\end{figure*}
+\end{figure}
 
 Figure \ref{turk2comp}(a) - (b) shows the proportion correct against the difference. The vertical line represents difference equal to 0. It can be seen that as the difference increases, the proportion correct increases. So the subjects do better in the easier lineups than the hard ones. The distance based on regression works well in capturing the complexity of the lineups. But the binned distance fails to do so. Although the proportion correct increases with difference, the proportion correct is high for values with negative difference. This is a classic case where a graphical element affects the response. The presence of the overlaid regression line on almost transparent points of the scatterplot mattered in the subjects picking the correct plot. One other reason may be the use of the same number of bins (2 $\times$ 2) in this case for all the lineups. 
 
@@ -774,6 +802,34 @@ Figure \ref{turk2comp} (c) - (d) shows that as there are more extreme null plots
 \end{figure}
 
 Figure \ref{turk2-mtime} shows the relationship between the median time taken to respond and the difference for both the distances. It can be clearly seen that there is a strong negative association showing that as the difference increases, the subjects take lesser time to respond. Also the variability of the median time is higher for smaller difference. In case of binned distance, the relationship is negative though the variability is higher for the above mentioned reasons.
+
+Although the regression based distance seems to efficiently identify the quality of the lineup, there is one lineup (marked by a solid triangle in Figure \ref{turk2comp}) which had a negative difference although people identified the actual plot with reasonable success.  Figure \ref{turk2-exp} shows the lineup and the distribution of different distance metrics.  
+
+\begin{figure}[hbtp]
+\centering
+\subfigure[]{
+\includegraphics[scale=0.55]{lineup-exp2-neg-diff-large-prop.pdf}
+\label{t2comp_1}
+}
+\subfigure[]{
+\includegraphics[scale=0.55]{distribution-reg-dist-exp2.pdf}
+\label{t2comp_1}
+}
+\subfigure[]{
+\includegraphics[scale=0.55]{distribution-bin-dist-2-2-exp2.pdf}
+\label{t2comp_2}
+}
+\subfigure[]{
+\includegraphics[scale=0.55]{distribution-bin-dist-8-2-exp2.pdf}
+\label{t2comp_1}
+}
+\label{turk2-exp}
+	\vspace{-.1in}
+\caption[Optional caption for list of figures]{Plot showing the lineup in (a) and the distribution of different distance metrics : regression based distance in (b), binned distance with 2 bins on each axes in (c) and binned distance with 8 and 2 bins in x and y axis respectively in (d). The lineup corresponds to the point marked with a triangle in difference vs. detection rate plot in Figure \ref{turk2comp}.}
+%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
+\end{figure}
+
+The lineup in Figure \ref{turk2-exp} is a difficult one as suggested by the distribution of the distance metrics based on regression. Although around 28\% of the people identify the correct plot, the conventional $p$-value for testing the slope equal to 0 is 0.085. The binned distance with 2 bins on each axes also shows the same. However the binned distance using the optimal number of bins (8 on the x-axis and 2 on the y-axis) by the selection of bins method identifies the actual plot as different from the others. 
 
 \subsection{Turk Experiment -- Large $p$, Small $n$ data}
 
@@ -839,11 +895,13 @@ Figure \ref{lp-mtime} shows the relationship between the median time taken to re
 
 \section{Conclusion}
 
-{\color{red} 1.  In visual inference we compare the test statistic to a finite number of null plots which may affect the decision of a human judge. Distance metrics allows us to get the measure of the quality of a lineup. Distance metrics allows us to provide a range of comparisons to the human subjects based on the difficulty. This may also help us to select the number of human subjects to show a particular lineup.\\
+{\color{red} 1.  Distance metrics are compared to the response of human subjects on lineups. They are comparable to a certain extent except in certain situations where they disagree. There seems to be various reasons behind the disagreement. When people look at a lineup, they may identify a plot as different from the others due to various reasons. But the distance metrics are constructed such that it takes into specific properties of the plot. \\
 
-2.  The presence of graphical elements in a lineup plot may affect the quality of the lineup. Distance metrics are developed which takes into account the presence of graphical elements for the common scenarios like a regression line overlaid, a boxplot instead of a dot plot and presence of clusters. An universal distance metric is also described which works for any type of data. The results show that the performances are comparable but the distance metrics which takes into account the graphical elements performs better.\\
+2. Distance metrics can be used to measure the quality of a lineup before showing the lineups to human subjects. Hence the distance metrics allows us to provide a range of lineups to the human subjects to evaluate. \\
 
-3.  A method for obtaining the distribution of the distance metrics is described. For a given lineup, the distribution can be obtained and the statistic for the lineup can be compared to the distribution.\\
+3.  In classical inference, the test statistic under null hypothesis follows a certain distribution. Similarly the null plots in visual inference can also be assumed to be random samples from a sampling distribution. Though theoretically this is true, practically it is impossible to investigate such a distribution. The distribution of the distance metrics approximates such a sampling distribution for a given distance metric. The value of the distance metric for the actual plot can be compared to all the other plots using such a distribution.\\
+
+4. The reason of choice can provide a way of evaluating the performance of a distance metric. For example, for a lineup of scatterplots with regression line overlaid, if the choice of reason for majority is steepest slope, the regression based distance may work better than the binned distance. Similarly if the reason of choice is presence of outliers, the binned distance with large number of bins on both axes may be the best distance metric. This can be a probable future work.\\
  }
 
 The lineup protocol places a statistical plot in the hypothesis testing framework. The null plots in the lineup has an instrumental effect on the response of the subjects since there are only a finite number of null plots which the subjects compare the observed data plot to. A `bad' set of null plots makes it difficult to identify the observed data plot. The quality of the lineup is measured by describing plots numerically using a set of distance metrics. 
