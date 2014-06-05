@@ -831,6 +831,19 @@ Although the regression based distance seems to efficiently identify the quality
 
 The lineup in Figure \ref{turk2-exp} is a difficult one as suggested by the distribution of the distance metrics based on regression. Although around 28\% of the people identify the correct plot, the conventional $p$-value for testing the slope equal to 0 is 0.085. The binned distance with 2 bins on each axes also shows the same. However the binned distance using the optimal number of bins (8 on the x-axis and 2 on the y-axis) by the selection of bins method identifies the actual plot as different from the others. 
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.5\textwidth]{rel-pvalue.pdf}
+%\includegraphics[width=.65\textwidth]{large-p-trim-bin.pdf}
+\caption{Plot showing relative frequency versus $p$-value for the lineup in Figure \ref{turk2-exp}. The red shows the true plot while the black ones are the null plots. It can be seen that as the p-value of the slope increases, the relative risk decreases. }
+\label{rel-pval}
+\end{figure}
+
+Figure \ref{rel-pval} shows the relative frequency for each plot in the lineup versus the $p$-value. As the $p$-value increases, the relative frequency decreases. Hence there were few null plots which had signal stronger or of similar strength to the true plot and hence the responses were divided. The binned distance and distance based on the regression line does a good job considering this. 
+
+
+
+
 \subsection{Turk Experiment -- Large $p$, Small $n$ data}
 
 The motivation behind this experiment is to study the effect of large dimensions in a data with complete noise and some real separation. Data was simulated with different dimensions and fixed sample size. Data was divided into two or three groups. A projection pursuit with Penalized Discriminant Analysis Index was used and the one and two dimensional projections were obtained. The one or two dimensional projections were then plotted which resulted in the observed data plot. To generate the null data, the group variable in the data was permuted and the projection pursuit was applied. The subjects were shown these lineups and were asked to identify the plot with the most separated colored groups. Figure \ref{largep} gives an example of such a lineup with two dimensional projections with 3 colored groups. 
