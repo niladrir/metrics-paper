@@ -645,7 +645,7 @@ In this experiment, all the lineups generated had a side by side boxplot as the 
 \label{turk1}
 \end{figure}
 
-The response of the subjects were noted and the proportion of correct response was calculated for each lineup. The distances between the plots in each lineup were computed using both the distance based on boxplots ($d_{\hbox{box}}$) and the binned distance ($d_{\hbox{bin}}$). The mean distance for the true plot and the null plots were calculated and $\delta_{\hbox{lineup}}$ and $\gamma_{\hbox{lineup}}$ are obtained. The proportion of correct response was plotted against each of the two statistics. Figure \ref{turk1comp} (a) - (b) shows the proportion correct against the difference for $d_{\hbox{box}}$ and $d_{\hbox{bin}}$ respectively. Figure \ref{turk1comp} (c) - (d) shows the proportion correct against the number of null plots greater than the observed plot for the two distance measures respectively. 
+The response of the subjects were noted and the proportion of correct response was calculated for each lineup. The distances between the plots in each lineup were computed using both the distance based on boxplots ($d_{\hbox{box}}$) and the binned distance ($d_{\hbox{bin}}$). The mean distance for the true plot and the null plots were calculated and $\delta_{\hbox{lineup}}$ and $\gamma_{\hbox{lineup}}$ are obtained. The proportion of correct response was plotted against each of the two statistics. Figure \ref{turk1comp} shows the detection rate against the difference for $d_{\hbox{box}}$ and $d_{\hbox{bin}}$ and the number of null plots greater than the observed plot for the two distance measures. 
 
 
 \begin{figure}[hbtp]
@@ -668,19 +668,17 @@ The response of the subjects were noted and the proportion of correct response w
 %}
 \label{turk1comp}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{(a) Plot showing the proportion correct against the difference based on the boxplot distance and (b) based on the binned distance. In both figures the vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The proportion correct increases with the difference. (c) Plot showing the proportion correct against the number of null plots greater than the observed plot according to the boxplot distance and (d) according to the binned distance. The proportion correct decreases as the number of null plots greater than the observed plot increases.  }
+\caption[Optional caption for list of figures]{(a) Plot showing the detection rate in (a) against the difference based on the boxplot distance and  the binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The detection rate increases with the difference. The detection rate is plotted against the number of null plots greater than the observed plot according to the boxplot distance and the binned distance. The detection rate decreases as the number of null plots greater than the observed plot increases.  }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
 %\newpage
 
-In Figure \ref{turk1comp} (a) - (b), the proportion correct is plotted against the difference. The red vertical line represents difference equal to 0 indicating that the mean distance of the true plot is equal to the maximum of the mean distance of the null plots i.e. the mean distance of the true plot is equal to at least one of the mean distance of the null plots. It can be seen that as the difference increases, the proportion correct increases. So the subjects do better in the easier lineups than the hard ones. The binned distance was calculated using 8 bins on both the axes.
+In Figure \ref{turk1comp}, the detection rate is plotted against the difference. The red vertical line represents difference equal to 0 indicating that the mean distance of the true plot is equal to the maximum of the mean distance of the null plots i.e. the mean distance of the true plot is equal to at least one of the mean distance of the null plots. It can be seen that as the difference increases, the detection rate increases. So the subjects do better in the easier lineups than the hard ones. The binned distance was calculated using 8 bins on both the axes. Figure \ref{turk1comp} also shows the relation between detection rate and the number of null plots larger than the true plot. It can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. It is interesting to see that the subjects can pick the observed plot with one or two extreme null plots. 
 
-Figure \ref{turk1comp} (c) - (d) shows the relation between proportion correct and the number of null plots larger than the true plot. It can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. It is interesting to see that the subjects can pick the observed plot with one or two extreme null plots. 
+Though the distance based on the boxplots works better, the binned distance does a decent job in this case. According to the binned distance, there are a few lineups which has a negative difference but the proportion correct is above 60\%, which can be also be seen in Figure \ref{turk1comp}. It should be noted that the binned distance does not take into account the graphical elements of the plot (e.g. boxplot) and calculates the distance solely based on the data. So an outlier may have a huge effect on the binned distance but does not effect the distance based on the boxplots. Hence it is advisable to use a distance based on the graphical elements since that is exactly what the subjects look at in the lineup.
 
-Though the distance based on the boxplots works better, the binned distance does a decent job in this case. According to the binned distance, there are a few lineups which has a negative difference but the proportion correct is above 60\%, which can be also be seen in Figure \ref{turk1comp} (d). It should be noted that the binned distance does not take into account the graphical elements of the plot (e.g. boxplot) and calculates the distance solely based on the data. So an outlier may have a huge effect on the binned distance but does not effect the distance based on the boxplots. Hence it is advisable to use a distance based on the graphical elements since that is exactly what the subjects look at in the lineup.
-
-The time taken to respond by the subjects is another measure of difficulty of the lineups. Due the presence of some huge outliers, the median time taken by the subjects for each lineup is looked at and plotted against the difference for both the distance measures. Figure \ref{turk1-mtime} shows the plots. It can be clearly seen that when the difference is below 0, there is no real trend in the median time and there is a huge variability, indicating that the time taken depends on the subjects. But when the difference is above 0, the median time decreases rapidly as the difference increases. Hence the subjects can pick the true plot quickly if the true plot is extreme compared to the null plots.
+The time taken to respond by the subjects is another measure of difficulty of the lineups. Due the presence of some huge outliers, the mean time taken by the subjects for each lineup is looked at and plotted against the difference for both the distance measures. Figure \ref{turk1-mtime} shows the plots. It can be clearly seen that when the difference is below 0, there is no real trend in the median time and there is a huge variability, indicating that the time taken depends on the subjects. But when the difference is above 0, the median time decreases rapidly as the difference increases. Hence the subjects can pick the true plot quickly if the true plot is extreme compared to the null plots.
  
 %\begin{figure}[hbtp]
 %\centering
@@ -711,7 +709,7 @@ The time taken to respond by the subjects is another measure of difficulty of th
 %}
 \label{turk1-mtime}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{Plot showing the median time to respond by the subjects against the difference based on the boxplot distance in (a) and binned distance in (b). In both the plots, the vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The median time decreases with the difference.  }
+\caption[Optional caption for list of figures]{Plot showing the mean time to respond by the subjects against the difference based on the boxplot distance and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time decreases with the difference.  }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
@@ -756,7 +754,7 @@ In this experiment, the test statistic is a scatterplot with the regression line
 \label{turk2}
 \end{figure}
 
-The distances between the plots in this experiment were computed using both the distance based on regression line ($d_{\hbox{reg}}$) and the binned distance ($d_{\hbox{bin}}$) with a small number of bins. The proportion of correct response for each lineup was calculated from the response of the subjects and plotted against $\delta_{\hbox{lineup}}$ and $\gamma_{\hbox{lineup}}$.  Figure \ref{turk2comp}(a), (b) shows the results for the distance based on the regression line and the binned distance against $\delta_{\hbox{lineup}}$.
+The distances between the plots in this experiment were computed using both the distance based on regression line ($d_{\hbox{reg}}$) and the binned distance ($d_{\hbox{bin}}$) with a small number of bins. The proportion of correct response for each lineup was calculated from the response of the subjects and plotted against $\delta_{\hbox{lineup}}$ and $\gamma_{\hbox{lineup}}$.  Figure \ref{turk2comp} shows the results for the distance based on the regression line and the binned distance against $\delta_{\hbox{lineup}}$.
 
 
 \begin{figure}[hbtp]
@@ -779,13 +777,13 @@ The distances between the plots in this experiment were computed using both the 
 %}
 \label{turk2comp}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{(a) Plot showing the proportion correct against the difference based on the regression distance and (b) based on the binned distance. In both figures the vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The proportion correct increases with the difference. (c) Plot showing the proportion correct against the number of null plots greater than the observed plot according to the regression distance and (d) according to the binned distance. The proportion correct decreases as the number of null plots greater than the observed plot increases.}
+\caption[Optional caption for list of figures]{Plot showing the detection rate in (a) against the difference based on the regression distance and based on the binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The proportion correct increases with the difference. The detection rate is plotted against the number of null plots greater than the observed plot according to the regression distance and according to the binned distance in (b). The detection rate decreases as the number of null plots greater than the observed plot increases.}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
-Figure \ref{turk2comp}(a) - (b) shows the proportion correct against the difference. The vertical line represents difference equal to 0. It can be seen that as the difference increases, the proportion correct increases. So the subjects do better in the easier lineups than the hard ones. The distance based on regression works well in capturing the complexity of the lineups. But the binned distance fails to do so. Although the proportion correct increases with difference, the proportion correct is high for values with negative difference. This is a classic case where a graphical element affects the response. The presence of the overlaid regression line on almost transparent points of the scatterplot mattered in the subjects picking the correct plot. One other reason may be the use of the same number of bins (2 $\times$ 2) in this case for all the lineups. 
+Figure \ref{turk2comp} shows the detection rate against the difference. The vertical line represents difference equal to 0. It can be seen that as the difference increases, the detection rate increases. So the subjects do better in the easier lineups than the hard ones. The distance based on regression works well in capturing the complexity of the lineups. But the binned distance fails to do so. Although the detection rate increases with difference, the proportion correct is high for values with negative difference. This is a classic case where a graphical element affects the response. The presence of the overlaid regression line on almost transparent points of the scatterplot mattered in the subjects picking the correct plot. One other reason may be the use of the same number of bins (2 $\times$ 2) in this case for all the lineups. 
 
-Figure \ref{turk2comp} (c) - (d) shows that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, almost all the subjects identify the observed plot although there is one more extreme null plot. Though from Figure \ref{turk2comp}, it can be seen that the extremeness is marginal in most cases. 
+Figure \ref{turk2comp} also shows that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, almost all the subjects identify the observed plot although there is one more extreme null plot. Though from Figure \ref{turk2comp}, it can be seen that the extremeness is marginal in most cases. 
 
 \begin{figure}[hbtp]
 \centering
@@ -800,7 +798,7 @@ Figure \ref{turk2comp} (c) - (d) shows that as there are more extreme null plots
 %}
 \label{turk2-mtime}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{Plot showing the median time to respond by the subjects against the difference based on the regression distance in (a) and binned distance in (b). In both the plots, the vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The median time decreases with the difference.  }
+\caption[Optional caption for list of figures]{Plot showing the mean time to respond by the subjects against the difference based on the regression distance in (a) and binned distance in (b). In both the plots, the vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The median time decreases with the difference.  }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
@@ -867,10 +865,10 @@ The motivation behind this experiment is to study the effect of large dimensions
 \label{largep}
 \end{figure}
 
-The distances between the plots in this experiment were computed using the distance based on separation of the clusters and the binned distance. The number of bins used for the lineups with one dimensional projections is larger (10 in this case) but for the lineups with two dimensional projections, the number of bins used is 5. The proportion of correct response is plotted against $\delta_{\hbox{lineup}}$ and $\gamma_{\hbox{lineup}}$ for both the distances. Figure \ref{lp-comp} shows the results for the binned distance.
+The distances between the plots in this experiment were computed using the distance based on minimum separation and average separation of the clusters and also the binned distance. The number of bins used for the lineups with one dimensional projections is larger (10 in this case) but for the lineups with two dimensional projections, the number of bins used is 5. The proportion of correct response is plotted against $\delta_{\hbox{lineup}}$ and $\gamma_{\hbox{lineup}}$ for both the distances. Figure \ref{lp-comp} shows the results.
 
 
-\begin{figure*}[hbtp]
+\begin{figure}[hbtp]
 \centering
 \subfigure[]{
 \includegraphics[scale=0.75]{largep-prop-sep-bin.pdf}
@@ -890,13 +888,11 @@ The distances between the plots in this experiment were computed using the dista
 %}
 \label{lp-comp}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{(a) Plot showing the proportion correct against the difference based on the separation distance and (b) based on the binned distance. In both figures the vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The proportion correct increases with the difference. (c) Plot showing the proportion correct against the number of null plots greater than the observed plot according to the separation distance and (d) according to the binned distance. The proportion correct decreases as the number of null plots greater than the observed plot increases.}
+\caption[Optional caption for list of figures]{ Plot showing the detection rate in (a) and the number of plots greater than the observed in (b) against the difference based on the minimum separation, average separation and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The detection rate increases with the difference. As the number of plots greater than the observed increases, the detection rate decreases. }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
-\end{figure*}
+\end{figure}
 
-In Figure \ref{lp-comp} (a) - (b), the proportion correct is plotted against the difference for distance based on separation and the binned distance respectively. The red vertical line shows difference equal to 0.  It can be seen that as the difference increases, the proportion correct increases and both the distances do a good job in capturing the response of the subjects. 
-
-Figure \ref{lp-comp}(c) - (d) shows that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, a large number of the subjects identify the observed plot although there is more extreme null plots. From these plots, it can be noticed that the binned distance does a better job than the distance based on separation. 
+In Figure \ref{lp-comp}, the detection rate is plotted against the difference for distance based on minimum separation, average separation and the binned distance. The red vertical line shows difference equal to 0.  It can be seen that as the difference increases, the detection rate increases and both the distances do a good job in capturing the response of the subjects.  In (b) it can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, a large number of the subjects identify the observed plot although there is more extreme null plots. 
 
 \begin{figure}[hbtp]
 \centering
@@ -911,30 +907,30 @@ Figure \ref{lp-comp}(c) - (d) shows that as there are more extreme null plots co
 %}
 \label{lp-mtime}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{Plot showing the median time to respond by the subjects against the difference based on the separation distance in (a) and binned distance in (b). In both the plots, the vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The median time decreases with the difference.  }
+\caption[Optional caption for list of figures]{Plot showing the mean time to respond by the subjects against the difference based on the minimum separation distance, average separation and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time decreases as the difference increases.  }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
-Figure \ref{lp-mtime} shows the relationship between the median time taken to respond and the difference for both the distances. It can be clearly seen that there is a strong negative association showing that as the difference increases, the subjects take lesser time to respond. Also the variability of the median time is higher for smaller difference. In case of binned distance, the relationship is negative though the variability is higher for all differences.
+Figure \ref{lp-mtime} shows the relationship between the mean time taken to respond and the difference for the three different distances. It can be clearly seen that there is a strong negative association showing that as the difference increases, the subjects take lesser time to respond. Also the variability of the mean time is higher for smaller difference. In case of binned distance, the relationship is negative though the variability is higher for all differences.
 
 \begin{figure}[hbtp]
 \centering
 \subfigure[]{
-\includegraphics[scale=0.55]{largep-lineup-new-1.pdf}
+\includegraphics[scale=0.7]{lineup-example-100-0-2-3.pdf}
 \label{t2comp_1}
 }
 \subfigure[]{
-\includegraphics[scale=0.55]{sep-dist-largep-new-1.pdf}
+\includegraphics[scale=0.7]{bin-dist-largep-100-0-2-3-2.pdf}
 \label{t2comp_1}
 }
 \subfigure[]{
-\includegraphics[scale=0.55]{bin-dist-largep-6-4-new-1.pdf}
+\includegraphics[scale=0.7]{mod-sep-dist-largep-100-0-2-3-2.pdf}
 \label{t2comp_2}
 }
-%\subfigure[]{
-%\includegraphics[scale=0.55]{distribution-bin-dist-8-2-exp2.pdf}
-%\label{t2comp_1}
-%}
+\subfigure[]{
+\includegraphics[scale=0.7]{sep-dist-largep-100-0-2-3-2.pdf}
+\label{t2comp_1}
+}
 \label{lp-exp}
 	\vspace{-.1in}
 \caption[Optional caption for list of figures]{Plot showing the lineup in (a) and the distribution of different distance metrics : separation based distance in (b) and  binned distance with 6 and 4 bins in x and y axis respectively in (d). }
