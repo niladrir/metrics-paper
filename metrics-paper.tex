@@ -920,23 +920,24 @@ Figure \ref{lp-mtime} shows the relationship between the mean time taken to resp
 \label{t2comp_1}
 }
 \subfigure[]{
-\includegraphics[scale=0.7]{bin-dist-largep-100-0-2-3-2.pdf}
+\includegraphics[scale=0.7]{bin-dist-largep-100-0-2-3.pdf}
 \label{t2comp_1}
 }
 \subfigure[]{
-\includegraphics[scale=0.7]{mod-sep-dist-largep-100-0-2-3-2.pdf}
+\includegraphics[scale=0.7]{mod-sep-dist-largep-100-0-2-3.pdf}
 \label{t2comp_2}
 }
 \subfigure[]{
-\includegraphics[scale=0.7]{sep-dist-largep-100-0-2-3-2.pdf}
+\includegraphics[scale=0.7]{sep-dist-largep-100-0-2-3.pdf}
 \label{t2comp_1}
 }
 \label{lp-exp}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{Plot showing the lineup in (a) and the distribution of different distance metrics : separation based distance in (b) and  binned distance with 6 and 4 bins in x and y axis respectively in (d). }
+\caption[Optional caption for list of figures]{Plot showing the lineup in (a) and the distribution of different distance metrics :  binned distance with 6 and 4 bins in x and y axis respectively in (b), distance based on average separation in (c) and distance based on minimum separation in (d). }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
+Figure \ref{lp-exp} shows the lineup in a high dimension, low sample size setting. The number of dimensions used is 100 and two of the dimensions have some separation. Plot 20 shows the two-dimensional projections of the original data. The null plots are obtained by permuting the group variable and plotting the two dimensional projections obtained from a projection pursuit with PDA index. Since the true plot has real separation, it is expected that the subjects would be able to identify the plot. The distance based on average separation yields a negative difference showing that the lineup is difficult, while the distance based on minimum separation yields a positive difference. The distance metrics identifies different characteristics in a plot. The average separation looks at the average of the distances of the points in a cluster to the points in other clusters. The presence of an outlier point in the opposite side of the other clusters affects this distance considerably. On the other hand, the minimum separation looks at the minimum of the distances. Hence it is not affected by the outlier point. 
 
 
 \section{Conclusion}
