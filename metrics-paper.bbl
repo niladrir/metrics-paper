@@ -37,6 +37,11 @@ A.~Gelman.
 \newblock \emph{Journal of Computational and Graphical Statistics}, 13\penalty0
   (4):\penalty0 755--779, 2004.
 
+\bibitem[Hennig(2010)]{hennig:2010}
+C.~Hennig.
+\newblock fpc : {F}lexible {P}rocedures for {C}lustering.
+\newblock \emph{R package version 2}, 2010.
+
 \bibitem[Huttenlocher et~al.(1993)Huttenlocher, Klanderman, and
   Rucklidge]{huttenlocher:1993}
 D.P. Huttenlocher, G.A. Klanderman, and W.~J. Rucklidge.
@@ -56,14 +61,6 @@ M.~Majumder, H.~Hofmann, and D.~Cook.
   {L}inear {M}odels.
 \newblock \emph{Journal of American Statistical Association}, 108\penalty0
   (503):\penalty0 942--956, 2013.
-
-\bibitem[{R Development Core Team}(2009)]{R}
-{R Development Core Team}.
-\newblock \emph{{R}: {A} {L}anguage and {E}nvironment for {S}tatistical
-  {C}omputing}.
-\newblock R Foundation for Statistical Computing, Vienna, Austria, 2009.
-\newblock URL \url{http://www.R-project.org}.
-\newblock {ISBN} 3-900051-07-0.
 
 \bibitem[Roy~Chowdhury et~al.(2013)Roy~Chowdhury, Cook, Hofmann, Majumder, Lee,
   and Toth]{roychowdhury:2013}

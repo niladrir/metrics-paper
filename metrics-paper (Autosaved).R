@@ -1254,6 +1254,15 @@ levels(rel.m$variable) <- c("Regression Based", "Binned")
 qplot(value, rel.freq, data = rel.m, geom = "point", col = plot_loc) + geom_linerange(aes(x = value, ymin = 0, ymax = rel.freq )) + theme(legend.position="none") + scale_colour_continuous(high = "red", low = "black") + facet_grid(variable ~ ., scales = "free_x") + scale_x_continuous("Mean Distances" )  + scale_y_continuous("Relative Frequency", limits = c(0,1), breaks = c(0, 0.5, 1))
 
 # + theme(legend.position="none", axis.ticks = element_blank(), axis.text.x = element_blank())
+
+ ### Turk Experiment : Large p, Small n
+ 
+
+lineup.dat <- read.table(file.choose(), header = TRUE)  # plot_large_p_small_n_30_20_0_2_1
+
+qplot(X1, X2, data = lineup.dat, geom = "point", alpha = I(0.8), size = I(3), col = factor(cl), xlab = "PD1", ylab = "PD2") + facet_wrap(~.sample) + scale_color_discrete(name = "Group")
+
+ggsave("largep-example.pdf", height = 5, width = 5.5)
       
  
  ### Turk Experiment : Large p, Small n

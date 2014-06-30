@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  30 JUN 2014 14:37
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  30 JUN 2014 18:18
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1165,7 +1165,7 @@ ion-bin-dist-2-2-exp1.pdf>]
 File: turk2-mtime-reg-bin.pdf Graphic file (type pdf)
 
 <use turk2-mtime-reg-bin.pdf>
-Package pdftex.def Info: turk2-mtime-reg-bin.pdf used on input line 818.
+Package pdftex.def Info: turk2-mtime-reg-bin.pdf used on input line 820.
 (pdftex.def)             Requested size: 460.72011pt x 216.80946pt.
 
 <lineup-exp2-neg-diff-large-prop.pdf, id=873, 325.215pt x 289.08pt>
@@ -1173,133 +1173,126 @@ File: lineup-exp2-neg-diff-large-prop.pdf Graphic file (type pdf)
 
 <use lineup-exp2-neg-diff-large-prop.pdf>
 Package pdftex.def Info: lineup-exp2-neg-diff-large-prop.pdf used on input line
- 842.
-(pdftex.def)             Requested size: 227.64894pt x 202.35461pt.
+ 844.
+(pdftex.def)             Requested size: 217.89291pt x 193.68259pt.
 
 <distribution-reg-dist-exp2.pdf, id=874, 325.215pt x 289.08pt>
 File: distribution-reg-dist-exp2.pdf Graphic file (type pdf)
 
 <use distribution-reg-dist-exp2.pdf>
-Package pdftex.def Info: distribution-reg-dist-exp2.pdf used on input line 846.
+Package pdftex.def Info: distribution-reg-dist-exp2.pdf used on input line 848.
 
-(pdftex.def)             Requested size: 227.64894pt x 202.35461pt.
+(pdftex.def)             Requested size: 217.89291pt x 193.68259pt.
 
 <distribution-bin-dist-2-2-exp2.pdf, id=875, 325.215pt x 289.08pt>
 File: distribution-bin-dist-2-2-exp2.pdf Graphic file (type pdf)
 
 <use distribution-bin-dist-2-2-exp2.pdf>
 Package pdftex.def Info: distribution-bin-dist-2-2-exp2.pdf used on input line 
-850.
-(pdftex.def)             Requested size: 227.64894pt x 202.35461pt.
+852.
+(pdftex.def)             Requested size: 217.89291pt x 193.68259pt.
 
 <distribution-bin-dist-8-2-exp2.pdf, id=876, 325.215pt x 289.08pt>
 File: distribution-bin-dist-8-2-exp2.pdf Graphic file (type pdf)
 
 <use distribution-bin-dist-8-2-exp2.pdf>
 Package pdftex.def Info: distribution-bin-dist-8-2-exp2.pdf used on input line 
-854.
-(pdftex.def)             Requested size: 227.64894pt x 202.35461pt.
+856.
+(pdftex.def)             Requested size: 217.89291pt x 193.68259pt.
 
 <distribution-reg-no-int-dist-exp2.pdf, id=877, 325.215pt x 289.08pt>
 File: distribution-reg-no-int-dist-exp2.pdf Graphic file (type pdf)
 
 <use distribution-reg-no-int-dist-exp2.pdf>
 Package pdftex.def Info: distribution-reg-no-int-dist-exp2.pdf used on input li
-ne 858.
-(pdftex.def)             Requested size: 227.64894pt x 202.35461pt.
+ne 860.
+(pdftex.def)             Requested size: 217.89291pt x 193.68259pt.
 
 <distribution-pval-exp2.pdf, id=878, 325.215pt x 289.08pt>
 File: distribution-pval-exp2.pdf Graphic file (type pdf)
 
 <use distribution-pval-exp2.pdf>
-Package pdftex.def Info: distribution-pval-exp2.pdf used on input line 862.
-(pdftex.def)             Requested size: 227.64894pt x 202.35461pt.
+Package pdftex.def Info: distribution-pval-exp2.pdf used on input line 864.
+(pdftex.def)             Requested size: 217.89291pt x 193.68259pt.
 
 
-LaTeX Warning: Float too large for page by 85.83109pt on input line 867.
+LaTeX Warning: Float too large for page by 90.63489pt on input line 869.
 
-<rel-pvalue.pdf, id=879, 289.08pt x 180.675pt>
-File: rel-pvalue.pdf Graphic file (type pdf)
- <use rel-pvalue.pdf>
-Package pdftex.def Info: rel-pvalue.pdf used on input line 873.
-(pdftex.def)             Requested size: 234.8775pt x 146.79807pt.
-
-<largep-example.pdf, id=880, 547.09662pt x 467.85318pt>
+<largep-example.pdf, id=879, 397.485pt x 361.35pt>
 File: largep-example.pdf Graphic file (type pdf)
+ <use largep-example.pdf>
+Package pdftex.def Info: largep-example.pdf used on input line 892.
+(pdftex.def)             Requested size: 328.82707pt x 298.94449pt.
 
-<use largep-example.pdf>
-Package pdftex.def Info: largep-example.pdf used on input line 890.
-(pdftex.def)             Requested size: 328.82707pt x 281.19237pt.
- [18 <./turk2-example.pdf>] [19 <./turk2-prop-reg-bin.pdf> <./turk2-grtr-reg-bi
-n.pdf>]
-<largep-prop-sep-bin.pdf, id=909, 614.295pt x 289.08pt>
+[18 <./turk2-example.pdf>] [19 <./turk2-prop-reg-bin.pdf> <./turk2-grtr-reg-bin
+.pdf>] <largep-prop-sep-bin.pdf, id=908, 614.295pt x 289.08pt>
 File: largep-prop-sep-bin.pdf Graphic file (type pdf)
 
 <use largep-prop-sep-bin.pdf>
-Package pdftex.def Info: largep-prop-sep-bin.pdf used on input line 904.
+Package pdftex.def Info: largep-prop-sep-bin.pdf used on input line 906.
 (pdftex.def)             Requested size: 460.72011pt x 216.80946pt.
 
-<largep-grtr-sep-bin.pdf, id=910, 614.295pt x 289.08pt>
+<largep-grtr-sep-bin.pdf, id=909, 614.295pt x 289.08pt>
 File: largep-grtr-sep-bin.pdf Graphic file (type pdf)
 
 <use largep-grtr-sep-bin.pdf>
-Package pdftex.def Info: largep-grtr-sep-bin.pdf used on input line 908.
+Package pdftex.def Info: largep-grtr-sep-bin.pdf used on input line 910.
 (pdftex.def)             Requested size: 460.72011pt x 216.80946pt.
 
-<largep-mtime-sep-bin.pdf, id=911, 614.295pt x 289.08pt>
+<largep-mtime-sep-bin.pdf, id=910, 614.295pt x 289.08pt>
 File: largep-mtime-sep-bin.pdf Graphic file (type pdf)
 
 <use largep-mtime-sep-bin.pdf>
-Package pdftex.def Info: largep-mtime-sep-bin.pdf used on input line 927.
+Package pdftex.def Info: largep-mtime-sep-bin.pdf used on input line 929.
 (pdftex.def)             Requested size: 460.72011pt x 216.80946pt.
 
-<lineup-large-p-small-n.pdf, id=912, 325.215pt x 289.08pt>
+<lineup-large-p-small-n.pdf, id=911, 325.215pt x 289.08pt>
 File: lineup-large-p-small-n.pdf Graphic file (type pdf)
 
 <use lineup-large-p-small-n.pdf>
-Package pdftex.def Info: lineup-large-p-small-n.pdf used on input line 949.
+Package pdftex.def Info: lineup-large-p-small-n.pdf used on input line 951.
 (pdftex.def)             Requested size: 227.64894pt x 202.35461pt.
 
-<distribution-bin-dist-6-4-lpexp.pdf, id=913, 325.215pt x 289.08pt>
+<distribution-bin-dist-6-4-lpexp.pdf, id=912, 325.215pt x 289.08pt>
 File: distribution-bin-dist-6-4-lpexp.pdf Graphic file (type pdf)
 
 <use distribution-bin-dist-6-4-lpexp.pdf>
 Package pdftex.def Info: distribution-bin-dist-6-4-lpexp.pdf used on input line
- 953.
+ 955.
 (pdftex.def)             Requested size: 227.64894pt x 202.35461pt.
 
-<distribution-min-sep-dist-lpexp.pdf, id=914, 325.215pt x 289.08pt>
+<distribution-min-sep-dist-lpexp.pdf, id=913, 325.215pt x 289.08pt>
 File: distribution-min-sep-dist-lpexp.pdf Graphic file (type pdf)
 
 <use distribution-min-sep-dist-lpexp.pdf>
 Package pdftex.def Info: distribution-min-sep-dist-lpexp.pdf used on input line
- 957.
+ 959.
 (pdftex.def)             Requested size: 227.64894pt x 202.35461pt.
 
-<distribution-ave-sep-dist-lpexp.pdf, id=915, 325.215pt x 289.08pt>
+<distribution-ave-sep-dist-lpexp.pdf, id=914, 325.215pt x 289.08pt>
 File: distribution-ave-sep-dist-lpexp.pdf Graphic file (type pdf)
 
 <use distribution-ave-sep-dist-lpexp.pdf>
 Package pdftex.def Info: distribution-ave-sep-dist-lpexp.pdf used on input line
- 961.
+ 963.
 (pdftex.def)             Requested size: 227.64894pt x 202.35461pt.
  [20 <./turk2-mtime-reg-bin.pdf>]
 [21 <./lineup-exp2-neg-diff-large-prop.pdf> <./distribution-reg-dist-exp2.pdf> 
 <./distribution-bin-dist-2-2-exp2.pdf> <./distribution-bin-dist-8-2-exp2.pdf> <
 ./distribution-reg-no-int-dist-exp2.pdf> <./distribution-pval-exp2.pdf>]
-[22 <./rel-pvalue.pdf> <./largep-example.pdf>] [23 <./largep-prop-sep-bin.pdf> 
-<./largep-grtr-sep-bin.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 973--974
+[22 <./largep-example.pdf>] [23 <./largep-prop-sep-bin.pdf> <./largep-grtr-sep-
+bin.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 976--977
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 975--976
+Underfull \hbox (badness 10000) in paragraph at lines 978--979
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 977--978
+Underfull \hbox (badness 10000) in paragraph at lines 980--981
 
  []
 
@@ -1307,8 +1300,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 977--978
 ution-bin-dist-6-4-lpexp.pdf> <./distribution-min-sep-dist-lpexp.pdf> <./distri
 bution-ave-sep-dist-lpexp.pdf>]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1566.
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 1566
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1569.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 1569
 .
 
 (/usr/local/texlive/2011/texmf-dist/tex/latex/psnfss/ot1pcr.fd
@@ -1320,10 +1313,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4790 strings out of 493633
- 67091 string characters out of 3143378
- 155569 words of memory out of 3000000
- 7920 multiletter control sequences out of 15000+200000
+ 4784 strings out of 493633
+ 67022 string characters out of 3143378
+ 155532 words of memory out of 3000000
+ 7915 multiletter control sequences out of 15000+200000
  28133 words of font info for 65 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
  37i,15n,24p,1318b,406s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1344,10 +1337,10 @@ f-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2011/texmf-dist/f
 onts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1
 /urw/times/utmr8a.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb>
-Output written on metrics-paper.pdf (26 pages, 2104788 bytes).
+Output written on metrics-paper.pdf (26 pages, 1662319 bytes).
 PDF statistics:
- 1438 PDF objects out of 1440 (max. 8388607)
- 1062 compressed objects within 11 object streams
+ 1106 PDF objects out of 1200 (max. 8388607)
+ 814 compressed objects within 9 object streams
  0 named destinations out of 1000 (max. 500000)
- 391 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 386 words of extra memory for PDF output out of 10000 (max. 10000000)
 

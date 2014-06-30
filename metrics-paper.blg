@@ -3,39 +3,43 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: metrics-paper.aux
 The style file: plainnat.bst
 Database file #1: references.bib
+Repeated entry---line 808 of file references.bib
+ : @article{hennig:2010
+ :                     ,
+I'm skipping whatever remains of this entry
 You've used 14 entries,
             2773 wiz_defined-function locations,
-            685 strings with 7042 characters,
-and the built_in function-call counts, 6049 in all, are:
-= -- 523
+            681 strings with 6937 characters,
+and the built_in function-call counts, 6042 in all, are:
+= -- 517
 > -- 341
 < -- 10
 + -- 119
 - -- 105
-* -- 476
-:= -- 961
-add.period$ -- 47
+* -- 473
+:= -- 958
+add.period$ -- 45
 call.type$ -- 14
-change.case$ -- 74
+change.case$ -- 75
 chr.to.int$ -- 14
 cite$ -- 28
-duplicate$ -- 283
-empty$ -- 505
+duplicate$ -- 285
+empty$ -- 510
 format.name$ -- 119
 if$ -- 1254
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 14
-newline$ -- 82
+missing$ -- 15
+newline$ -- 80
 num.names$ -- 56
-pop$ -- 151
+pop$ -- 155
 preamble$ -- 1
 purify$ -- 63
 quote$ -- 0
-skip$ -- 209
+skip$ -- 211
 stack$ -- 0
 substring$ -- 184
-swap$ -- 22
+swap$ -- 21
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
@@ -43,4 +47,5 @@ type$ -- 144
 warning$ -- 0
 while$ -- 51
 width$ -- 0
-write$ -- 195
+write$ -- 190
+(There was 1 error message)
