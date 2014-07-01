@@ -77,7 +77,7 @@ The lineup protocol was formally tested in a head-to-head comparison with the eq
 \centering
 \mbox{\subfigure[Classical Inference]{\includegraphics[width=3in]{diagram.pdf}}\quad
 \subfigure[Visual Inference]{\includegraphics[width=3in]{visual-inference-plot-1.pdf} }}
-\caption{Visual inference in relation to classical inference:  (a) Decision region for classical inference for $H_0: \mu=\mu_0$ vs $H_a:\mu>\mu_0$ (shaded in red) and (b) values corresponding to the true value (red) and the null plots (blue) in a single lineup of size $m=20$ that would be used to test the same null hypothesis.  The actual  data plot is extreme relative to the null plots, and observers would likely be able to pick it out., resulting in a decision to reject the null hypothesis.} 
+\caption{\red{*** Add the actual lineup for these plots here too.} If the lineup protocol was to be used instead of classical inference this is what it would look like. (a) Decision region (shaded in red) for classical inference for $H_0: \mu=\mu_0$ vs $H_a:\mu>\mu_0$  and (b) values corresponding to the true value (red) and the null plots (blue) in a single lineup of size $m=20$ that would be used to test the same null hypothesis.  The actual  data plot is extreme relative to the null plots, and observers would likely be able to pick it out, resulting in a decision to reject the null hypothesis. In practice, the lineup protocol would not be used if a classical test can be used.} 
 \label{compare}
 \end{figure}
 
@@ -194,11 +194,12 @@ Other null generating mechanisms might be utilized depending on the null hypothe
 %
 %\red{Another thing that we should discuss on Friday is whether it might be better to call the measures we use norms rather than distances - a distance usually assumes the comparison of two objects, and we implicitly compare against null or identity, which is what a norm does..}
 
-By calculating the ``distance'' between plots we may be able to determine if the the actual data plot is detectably different from the null plots, and also to better understand what aspect of the plot people use to make their choice. It is not an easy task to measure the difference between plots. Here we examine several possibilities that match up to plots that have been examined in a series of Amazon Turk studies conducted for other purposes. 
+By calculating the ``distance'' between plots we may be able to determine if a lineup should be easy -- the the actual data plot is detectably different from the null plots -- and also to better understand what aspect of the plot people use to make their choice. It is not an easy task to measure the difference between plots. Here we examine several possibilities. The primary method used in our analyses of the Turk experimental data is designed to work reasonably well in a large number of circumstances. However, it was clear immediately that plot design has a large impact on how a plot is read, and specific distance metrics designed for specific plot types is needed. 
 
-A number of different distance measures were examined. We initially started with several candidates that generically measure plot distance, but since revised the candidate list to take into accoutn specific features of the plots that were used in the experiments. 
 
-Some of the distance metrics are generic and uses the raw data to calculate the distances. They do not consider any graphical element in the plot which may somehow affect the decision of the subjects in identifying the true plot. A regression line overlaid on a scatterplot may affect the decision of a plot. Same can be done when a boxplot is used to represent the data instead of a dot plot. The distance metrics should take into account the presence of these graphical elements. Distance metrics like distance based on regression line, distance based on boxplots are designed to address this issue. \\
+\red{*** This next paragraph needs to be a literature review of distance metrics. You need to briefly refer to distributional test statistics like Kolmogorov-Smirnov, and interpoint distances used commonly in cluster analysis.}
+
+%Some of the distance metrics are generic and uses the raw data to calculate the distances. They do not consider any graphical element in the plot which may somehow affect the decision of the subjects in identifying the true plot. A regression line overlaid on a scatterplot may affect the decision of a plot. Same can be done when a boxplot is used to represent the data instead of a dot plot. The distance metrics should take into account the presence of these graphical elements. Distance metrics like distance based on regression line, distance based on boxplots are designed to address this issue. \\
 
 For all of the distance measures below, let $X$ denote the true dataset with one or two variables. Let $Y$ denote the null dataset obtained from $X$ using any of the above mentioned null generating mechanism.
 
@@ -252,12 +253,13 @@ For all of the distance measures below, let $X$ denote the true dataset with one
 
 %Euclidean Distance between two equal length strings measure the distance between the permuted values of one variable and the original continuous variable while the other variable, either continuous or categorical, remains unaltered. This distance matrix takes into  account the actual values of the variable that is permuted and does not depend on the values of the other variable. 
 
-\item Binned Distance:
+\item Binned Distance (BD):
 %\red{write out mathematically, include all definitions - i.e. C(X,Y) needs to be defined - have a look at the grammar of graphics}
-Let $X_1$ and $X_2$ be two continuous variables. Let $X_1$ be divided into $p$ bins and $X_2$ divided into $q$ bins. $(i,j)$-th cell represents the $j$-th bin of $X_2$ corresponding to the $i$-th bin of $X_1$. Let $C(X_1,X_2)$ be defined as a $p \times q$ matrix. Each $(i,j)$-th element of the matrix represents the number of points falling in the $(i,j)$-th cell, where $i = 1, \dots, p$ , $j = 1, \dots, q$.
-The Binned distance is then defined as
+Let $X_1$ and $X_2$ be two continuous variables. Let $X_1$ be divided into $p$ bins and $X_2$ divided into $q$ bins.% $(i,j)$-th cell represents the $j$-th bin of $X_2$ corresponding to the $i$-th bin of $X_1$. 
+Let $C(X_1,X_2)$ be defined as a $p \times q$ matrix. Each $(i,j)$-th element of the matrix represents the number of points falling in the $(i,j)$-th cell, where $i = 1, \dots, p$ , $j = 1, \dots, q$.
+The distance is then defined as
 \begin{eqnarray*}
-d_{\hbox{bin}}^2 (X, Y) &:=& ||C_X(X_1, X_2) - C_Y(X_1,X_2)||^2 \\ &=& \sum_{i=1}^p \sum_{j=1}^q (C_X(X_{1i},X_{2j}) - C_Y(X_{1i},X_{2j}))^2.
+d_{\hbox{BD}}^2 (X, Y) &:=& ||C_X(X_1, X_2) - C_Y(X_1,X_2)||^2 \\ &=& \sum_{i=1}^p \sum_{j=1}^q (C_X(X_{1i},X_{2j}) - C_Y(X_{1i},X_{2j}))^2.
 \end{eqnarray*}
 
 %\begin{figure}[hbt]
@@ -321,23 +323,21 @@ d_{\hbox{bin}}^2 (X, Y) &:=& ||C_X(X_1, X_2) - C_Y(X_1,X_2)||^2 \\ &=& \sum_{i=1
 %
 \end{itemize}
 
-This method also works for data with two categorical variables and data with one continuous and one categorical variable. For the categorical variable, it is sensible to pick the number of bins equal to the number of categories.
-
-Binned distance is highly susceptible to small differences in values and depends on the number of bins as well as exact cut-offs. This is particularly problematic for small number of points. As a remedy to that, we considered using kernel density estimates instead of point frequencies. But the results were not promising. Hausdorff distance (\cite{huttenlocher:1993}) was also studied as an option. Although the results were promising, Hausdorff distance was computationally intensive and hence was not considered. 
-
-
+This distance can be calculated for univariate continuous data, bivariate data with two categorical variables, or data with one continuous and one categorical variable. For the categorical variable, the number of bins would equal to the number of categories.
+Binned distance is highly susceptible to small differences in values and depends on the number of bins as well the \red{starting value of the initial bin (*** check the correct name)}. We initially considered variations on this distance, using kernel density estimates and Hausdorff distance (\cite{huttenlocher:1993}), but the simpler metric was faster to calculate and performed as well as the others as a rough, generic measure of similarity of plots.
 
 %The remaining distance measures are different from the ones above, in that they are used to directly draw inference on a linear association between variables $X$ and $Y$, whereas the other ones were not specifically tailored to this purpose.
 
 %\blue{The remaining distance measures are different from the ones above, in that they are used to directly draw inference on a linear association between variables $X$ and $Y$, whereas the other ones were not specifically tailored to this purpose.}
-The remaining distance measures are different from the ones above, in that they are used for specific plot types and cannot be used for any type of data. The following distance measures uses the graphical element to calculate the distances.
+%The remaining distance measures are different from the ones above, in that they are used for specific plot types and cannot be used for any type of data. The following distance measures uses the graphical element to calculate the distances.
 
 \begin{itemize}
-\item Distance for univariate data: Let $X$ be a continuous variable. Then the distance metric is given by
-\[
-d^2_{\hbox{uni}}(X, Y) := ||m(X) - m(Y)||^2 = \sum_{i=1}^4 ((m(X))_i - (m(Y))_i)^2
-\]
-where $m(.)$ is a vector of the mean, the standard deviation, the skewness and the kurtosis of the variable. This distance metric works for univariate distributions using only the graphical elements in the plot.
+% Univariate distance is NOT USED in your examples
+%\item Distance for univariate data: Let $X$ be a continuous variable. Then the distance metric is given by
+%\[
+%d^2_{\hbox{uni}}(X, Y) := ||m(X) - m(Y)||^2 = \sum_{i=1}^4 ((m(X))_i - (m(Y))_i)^2
+%\]
+%where $m(.)$ is a vector of the mean, the standard deviation, the skewness and the kurtosis of the variable. This distance metric works for univariate distributions using only the graphical elements in the plot.
 
 
 \item Distance based on boxplots : Let $X_1$ be a categorical variable representing the groups in the data and $X_2$ be a continuous variable. Then the distance metric is given by
