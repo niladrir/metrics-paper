@@ -1,0 +1,1345 @@
+ggplot()  + geom_density(data = dat.bin, aes(x= dat.bin), fill = "grey80", col = "grey80" )
+dat.bin <- head(as.data.frame(dat.bin))
+ggplot()  + geom_density(data = dat.bin, aes(x= dat.bin), fill = "grey80", col = "grey80" )
+bin_dist
+bin_dist <- function(X, PX, lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5) {#
+    if (!is.null(lineup.dat)) {#
+        if (!is.numeric(X[, 1])) {#
+            X[, 1] <- as.numeric(X[, 1])#
+            nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[, #
+                1])) + 1), include.lowest = TRUE), cut(X[, 2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[, #
+                2]), length.out = Y.bin + 1), include.lowest = TRUE)))#
+        } else nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(lineup.dat[, 1]), max(lineup.dat[, #
+            1]), length.out = X.bin + 1), include.lowest = TRUE), cut(X[, 2], breaks = seq(min(lineup.dat[, #
+            2]), max(lineup.dat[, 2]), length.out = Y.bin + 1), include.lowest = TRUE)))#
+        if (!is.numeric(PX[, 1])) {#
+            PX[, 1] <- as.numeric(PX[, 1])#
+            mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[, #
+                1])) + 1), include.lowest = TRUE), cut(PX[, 2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[, #
+                2]), length.out = Y.bin + 1), include.lowest = TRUE)))#
+        } else mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(lineup.dat[, 1]), max(lineup.dat[, #
+            1]), length.out = X.bin + 1), include.lowest = TRUE), cut(PX[, 2], breaks = seq(min(lineup.dat[, #
+            2]), max(lineup.dat[, 2]), length.out = Y.bin + 1), include.lowest = TRUE)))#
+    } else if (is.null(lineup.dat)) {#
+        if (!is.numeric(X[, 1])) {#
+            X[, 1] <- as.numeric(X[, 1])#
+            nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[, #
+                1])) + 1), include.lowest = TRUE), cut(X[, 2], breaks = seq(min(X[, 2]), max(X[, 2]), #
+                length.out = Y.bin + 1), include.lowest = TRUE)))#
+        } else nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = X.bin + #
+            1), include.lowest = TRUE), cut(X[, 2], breaks = seq(min(X[, 2]), max(X[, 2]), length.out = Y.bin + #
+            1), include.lowest = TRUE)))#
+        if (!is.numeric(PX[, 1])) {#
+            PX[, 1] <- as.numeric(PX[, 1])#
+            mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[, #
+                1])) + 1), include.lowest = TRUE), cut(PX[, 2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[, #
+                2]), length.out = Y.bin + 1), include.lowest = TRUE)))#
+        } else mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(PX[, 1]), max(PX[, 1]), length.out = X.bin + #
+            1), include.lowest = TRUE), cut(PX[, 2], breaks = seq(min(PX[, 2]), max(PX[, 2]), length.out = Y.bin + #
+            1), include.lowest = TRUE)))#
+    }#
+    sqrt(sum((nij - mij)^2))#
+}
+dat.bin <- dat.bin.28 <- dat.box <- NULL#
+for (i in 1:1000){#
+	samp.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.77))#
+	dat1 <- sapply(1:18, function(k){#
+		null.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.77))#
+ 		b1 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 8)#
+ 		s = box_dist(samp.dat, null.dat)#
+ 		return(list(b1 = b1, b2 = b2, s = s))#
+ 		})#
+ 		dat1 <- matrix(unlist(dat1), nrow = 3 )#
+ 		dat.bin <- c(dat.bin, mean(dat1[1,]))#
+ 		dat.bin.28 <- c(dat.bin.28, mean(dat1[2,]))#
+ 		dat.box <- c(dat.box, mean(dat1[3,]))#
+ }
+dat.bin <- dat.bin.28 <- dat.box <- NULL#
+for (i in 1:1000){#
+	samp.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.77))#
+	dat1 <- sapply(1:18, function(k){#
+		null.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.77))#
+ 		b1 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 8)#
+ 		s = box_dist(samp.dat, null.dat)#
+ 		return(list(b1 = b1, b2 = b2, s = s))#
+ 		})#
+ 		dat1 <- matrix(unlist(dat1), nrow = 3 )#
+ 		dat.bin <- c(dat.bin, mean(dat1[1,]))#
+ 		dat.bin.28 <- c(dat.bin.28, mean(dat1[2,]))#
+ 		dat.box <- c(dat.box, mean(dat1[3,]))#
+ }
+samp.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.77))
+null.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.77))
+b1 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 2)
+bin_dist(samp.dat, null.dat)
+lineup.dat <- NULL
+bin_dist(samp.dat, null.dat)
+bin_dist(samp.dat, null.dat, lineup.dat = NULL)
+if (!is.null(lineup.dat)) {#
+        if (!is.numeric(X[, 1])) {#
+            X[, 1] <- as.numeric(X[, 1])#
+            nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[, #
+                1])) + 1), include.lowest = TRUE), cut(X[, 2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[, #
+                2]), length.out = Y.bin + 1), include.lowest = TRUE)))#
+        } else nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(lineup.dat[, 1]), max(lineup.dat[, #
+            1]), length.out = X.bin + 1), include.lowest = TRUE), cut(X[, 2], breaks = seq(min(lineup.dat[, #
+            2]), max(lineup.dat[, 2]), length.out = Y.bin + 1), include.lowest = TRUE)))#
+        if (!is.numeric(PX[, 1])) {#
+            PX[, 1] <- as.numeric(PX[, 1])#
+            mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[, #
+                1])) + 1), include.lowest = TRUE), cut(PX[, 2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[, #
+                2]), length.out = Y.bin + 1), include.lowest = TRUE)))#
+        } else mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(lineup.dat[, 1]), max(lineup.dat[, #
+            1]), length.out = X.bin + 1), include.lowest = TRUE), cut(PX[, 2], breaks = seq(min(lineup.dat[, #
+            2]), max(lineup.dat[, 2]), length.out = Y.bin + 1), include.lowest = TRUE)))#
+    }
+bin_dist <- function(X, PX, lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5) {#
+    if (!is.null(lineup.dat)) {#
+        if (!is.numeric(X[, 1])) {#
+            X[, 1] <- as.numeric(X[, 1])#
+            nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[, #
+                1])) + 1), include.lowest = TRUE), cut(X[, 2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[, #
+                2]), length.out = Y.bin + 1), include.lowest = TRUE)))#
+        } else nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(lineup.dat[, 1]), max(lineup.dat[, #
+            1]), length.out = X.bin + 1), include.lowest = TRUE), cut(X[, 2], breaks = seq(min(lineup.dat[, #
+            2]), max(lineup.dat[, 2]), length.out = Y.bin + 1), include.lowest = TRUE)))#
+        if (!is.numeric(PX[, 1])) {#
+            PX[, 1] <- as.numeric(PX[, 1])#
+            mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[, #
+                1])) + 1), include.lowest = TRUE), cut(PX[, 2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[, #
+                2]), length.out = Y.bin + 1), include.lowest = TRUE)))#
+        } else mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(lineup.dat[, 1]), max(lineup.dat[, #
+            1]), length.out = X.bin + 1), include.lowest = TRUE), cut(PX[, 2], breaks = seq(min(lineup.dat[, #
+            2]), max(lineup.dat[, 2]), length.out = Y.bin + 1), include.lowest = TRUE)))#
+    } #
+    else if (is.null(lineup.dat)) {#
+        if (!is.numeric(X[, 1])) {#
+            X[, 1] <- as.numeric(X[, 1])#
+            nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[, #
+                1])) + 1), include.lowest = TRUE), cut(X[, 2], breaks = seq(min(X[, 2]), max(X[, 2]), #
+                length.out = Y.bin + 1), include.lowest = TRUE)))#
+        } else nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = X.bin + #
+            1), include.lowest = TRUE), cut(X[, 2], breaks = seq(min(X[, 2]), max(X[, 2]), length.out = Y.bin + #
+            1), include.lowest = TRUE)))#
+        if (!is.numeric(PX[, 1])) {#
+            PX[, 1] <- as.numeric(PX[, 1])#
+            mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[, #
+                1])) + 1), include.lowest = TRUE), cut(PX[, 2], breaks = seq(min(PX[, 2]), max(PX[, 2]), length.out = Y.bin + 1), 						include.lowest = TRUE)))#
+        } else mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(PX[, 1]), max(PX[, 1]), length.out = X.bin + #
+            1), include.lowest = TRUE), cut(PX[, 2], breaks = seq(min(PX[, 2]), max(PX[, 2]), length.out = Y.bin + #
+            1), include.lowest = TRUE)))#
+    }#
+    sqrt(sum((nij - mij)^2))#
+}
+dat.bin <- dat.bin.28 <- dat.box <- NULL#
+for (i in 1:1000){#
+	samp.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.77))#
+	dat1 <- sapply(1:18, function(k){#
+		null.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.77))#
+ 		b1 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 8)#
+ 		s = box_dist(samp.dat, null.dat)#
+ 		return(list(b1 = b1, b2 = b2, s = s))#
+ 		})#
+ 		dat1 <- matrix(unlist(dat1), nrow = 3 )#
+ 		dat.bin <- c(dat.bin, mean(dat1[1,]))#
+ 		dat.bin.28 <- c(dat.bin.28, mean(dat1[2,]))#
+ 		dat.box <- c(dat.box, mean(dat1[3,]))#
+ }
+dat.bin <- head(as.data.frame(dat.bin))#
+#
+ggplot()  + geom_density(data = dat.bin, aes(x= dat.bin), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd1, len == 19), aes(x= bin.mean, xend = bin.mean, y=0.02, yend = 0.2*max(density(dat.bin$dat.bin)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd1, len != 19), aes(x = bin.mean, xend = bin.mean, y = rep(0.02,19), yend = rep(0.1*max(density(dat.bin$dat.bin)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd1, y = - 0.03*max(density(dat.bin$dat.bin)$y), size = 2.5, aes(x = bin.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin$dat.bin)$y), max(density(dat.bin$dat.bin)$y) + 0.1))
+ggplot()  + geom_density(data = dat.bin, aes(x= dat.bin), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd1, len == 19), aes(x= bin.mean, xend = bin.mean, y=0.02*max(density(dat.bin$dat.bin)$y)), yend = 0.2*max(density(dat.bin$dat.bin)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd1, len != 19), aes(x = bin.mean, xend = bin.mean, y = rep(0.02*max(density(dat.bin$dat.bin)$y)),19), yend = rep(0.1*max(density(dat.bin$dat.bin)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd1, y = - 0.03*max(density(dat.bin$dat.bin)$y), size = 2.5, aes(x = bin.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin$dat.bin)$y), max(density(dat.bin$dat.bin)$y) + 0.1))
+ggplot()  + geom_density(data = dat.bin, aes(x= dat.bin), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd1, len == 19), aes(x= bin.mean, xend = bin.mean, y=0.02*max(density(dat.bin$dat.bin)$y)), yend = 0.2*max(density(dat.bin$dat.bin)$y)), colour="darkorange", size=1)
+ggplot()  + geom_density(data = dat.bin, aes(x= dat.bin), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd1, len == 19), aes(x= bin.mean, xend = bin.mean, y=0.02*max(density(dat.bin$dat.bin)$y), yend = 0.2*max(density(dat.bin$dat.bin)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd1, len != 19), aes(x = bin.mean, xend = bin.mean, y = rep(0.02*max(density(dat.bin$dat.bin)$y),19), yend = rep(0.1*max(density(dat.bin$dat.bin)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd1, y = - 0.03*max(density(dat.bin$dat.bin)$y), size = 2.5, aes(x = bin.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin$dat.bin)$y), max(density(dat.bin$dat.bin)$y) + 0.1))
+ggplot()  + geom_density(data = dat.bin, aes(x= dat.bin), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd1, len == 19), aes(x= bin.mean, xend = bin.mean, y=0.02*max(density(dat.bin$dat.bin)$y), yend = 0.2*max(density(dat.bin$dat.bin)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd1, len != 19), aes(x = bin.mean, xend = bin.mean, y = rep(0.02*max(density(dat.bin$dat.bin)$y),19), yend = rep(0.1*max(density(dat.bin$dat.bin)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd1, y = - 0.03*max(density(dat.bin$dat.bin)$y), size = 2.5, aes(x = bin.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin$dat.bin)$y), max(density(dat.bin$dat.bin)$y) + 0.1*max(density(dat.bin$dat.bin)$y)))
+dat.bin <- dat.bin.28 <- dat.box <- NULL#
+for (i in 1:1000){#
+	samp.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.89))#
+	dat1 <- sapply(1:18, function(k){#
+		null.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.89))#
+ 		b1 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 8)#
+ 		s = box_dist(samp.dat, null.dat)#
+ 		return(list(b1 = b1, b2 = b2, s = s))#
+ 		})#
+ 		dat1 <- matrix(unlist(dat1), nrow = 3 )#
+ 		dat.bin <- c(dat.bin, mean(dat1[1,]))#
+ 		dat.bin.28 <- c(dat.bin.28, mean(dat1[2,]))#
+ 		dat.box <- c(dat.box, mean(dat1[3,]))#
+ }#
+pos.1 <- 1:20#
+pos.2 <- 1:20#
+#
+dat.pos <- expand.grid(pos.1 = pos.1, pos.2 = pos.2)#
+#
+metrics.dat <- ddply(dat.pos, .(pos.1, pos.2), summarize, bin.dist = bdist_mod_indx(pos.1, pos.2, nbin.X = 2, nbin.Y = 2))#
+#
+pos <- 20#
+#
+metrics.dat <- subset(metrics.dat, pos.1 != pos.2 & pos.2 != pos)#
+#
+dd1 <- ddply(metrics.dat, .(pos.1), summarize, bin.mean = mean(bin.dist), len = length(bin.dist))#
+#
+dat.bin <- head(as.data.frame(dat.bin))#
+#
+ggplot()  + geom_density(data = dat.bin, aes(x= dat.bin), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd1, len == 19), aes(x= bin.mean, xend = bin.mean, y=0.02*max(density(dat.bin$dat.bin)$y), yend = 0.2*max(density(dat.bin$dat.bin)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd1, len != 19), aes(x = bin.mean, xend = bin.mean, y = rep(0.02*max(density(dat.bin$dat.bin)$y),19), yend = rep(0.1*max(density(dat.bin$dat.bin)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd1, y = - 0.03*max(density(dat.bin$dat.bin)$y), size = 2.5, aes(x = bin.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin$dat.bin)$y), max(density(dat.bin$dat.bin)$y) + 0.1*max(density(dat.bin$dat.bin)$y)))
+samp.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.89))
+null.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.89))
+b1 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 2)
+b1
+b2 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 8)
+b2
+s = box_dist(samp.dat, null.dat)
+s
+obs.dat$group
+head(obs.dat)
+dat.m <- melt(dat, id = c("age", "grp", "weight"))#
+#
+### Changing the categorical variable to a numerical variable#
+#
+dat.m$x <- as.numeric(dat.m$grp) #
+#
+### Breaking the variable name to get the position and type of plot (null or obs)#
+#
+dat.m$plot <- substring(dat.m$variable, 1, 3)#
+#
+dat.m$position <- substring(dat.m$variable, 4, 5)#
+#
+### Finding the observed data#
+#
+obs <- dat.m[dat.m$plot == "obs", c("x", "value") ]#
+#
+dat.m <- dat.m[, c("x", "value", "position")]#
+#
+names(dat.m) <- c("group", "val", ".sample")#
+#
+lineup.dat <- dat.m#
+#
+lineup.dat$group <- as.factor(lineup.dat$group)#
+#
+lineup.dat$.sample <- as.numeric(as.character(lineup.dat$.sample))#
+#
+obs.dat <- subset(lineup.dat, .sample == 20)
+head(obs.dat)
+dat <- read.table(file.choose(), header = T)  ## plot_turk1_100_8_12_2#
+#
+### The detection rate for the above lineup is 0.28. But the difference for both binned distance and regression based distance are large negative.#
+#
+### Melting the data#
+#
+dat.m <- melt(dat, id = c("age", "grp", "weight"))#
+#
+### Changing the categorical variable to a numerical variable#
+#
+dat.m$x <- as.numeric(dat.m$grp) #
+#
+### Breaking the variable name to get the position and type of plot (null or obs)#
+#
+dat.m$plot <- substring(dat.m$variable, 1, 3)#
+#
+dat.m$position <- substring(dat.m$variable, 4, 5)#
+#
+### Finding the observed data#
+#
+obs <- dat.m[dat.m$plot == "obs", c("x", "value") ]#
+#
+dat.m <- dat.m[, c("x", "value", "position")]#
+#
+names(dat.m) <- c("group", "val", ".sample")#
+#
+lineup.dat <- dat.m#
+#
+lineup.dat$group <- as.factor(lineup.dat$group)#
+#
+lineup.dat$.sample <- as.numeric(as.character(lineup.dat$.sample))#
+#
+obs.dat <- subset(lineup.dat, .sample == 20)
+head(obs.dat)
+dat <- read.table(file.choose(), header = T)  ## plot_turk1_100_8_12_2
+dat.m <- melt(dat, id = c("age", "grp", "weight"))
+head(dat.m)
+head(dat)
+dat.m$x <- as.numeric(dat.m$grp)
+dat.m$plot <- substring(dat.m$variable, 1, 3)
+dat.m$position <- substring(dat.m$variable, 4, 5)
+obs <- dat.m[dat.m$plot == "obs", c("x", "value") ]
+obs
+qplot(x, val, geom = "boxplot")
+qplot(x, value, data = obs, geom = "boxplot")
+qplot(factor(x), value, data = obs, geom = "boxplot")
+dat.m <- dat.m[, c("x", "value", "position")]
+names(dat.m) <- c("group", "val", ".sample")
+lineup.dat <- dat.m
+lineup.dat$group <- as.factor(lineup.dat$group)
+lineup.dat$.sample <- as.numeric(as.character(lineup.dat$.sample))
+obs.dat <- subset(lineup.dat, .sample == 20)
+levels(lineup.dat$group) <- c("A", "B")
+qplot(group, val, data = lineup.dat, geom = "boxplot", col = group, ylab = "", xlab = "Group") + facet_wrap(~ .sample) + scale_color_discrete(name = "Group") + theme(legend.position = "none")
+b0 <- 5#
+b1 <- 15#
+b2 <- 8#
+sigma <- 12#
+#
+x1 <- rpois(100, 30)#
+x2 <- as.numeric(obs.dat$group)#
+eps <- rnorm(100, 0, sigma)#
+#
+y = b0 + b1*x1 + b2*x2 + eps
+mod1 <- lm(y ~ x1)
+qplot(factor(x2), mod1$resid, geom = "boxplot")
+b0 <- 5#
+b1 <- 15#
+b2 <- 8#
+sigma <- 12#
+#
+x1 <- rpois(100, 30)#
+x2 <- as.numeric(obs.dat$group)#
+eps <- rnorm(100, 0, sigma)#
+#
+y = b0 + b1*x1 + b2*x2 + eps#
+#
+mod1 <- lm(y ~ x1)#
+#
+summary(mod1)$sigma ##11.77#
+#
+qplot(factor(x2), mod1$resid, geom = "boxplot")
+b0 <- 5#
+b1 <- 15#
+b2 <- 8#
+sigma <- 12#
+#
+x1 <- rpois(100, 30)#
+x2 <- as.numeric(obs.dat$group)#
+eps <- rnorm(100, 0, sigma)#
+#
+y = b0 + b1*x1 + b2*x2 + eps#
+#
+mod1 <- lm(y ~ x1)#
+#
+summary(mod1)$sigma ##11.77#
+#
+qplot(factor(x2), mod1$resid, geom = "boxplot")
+set.seed(1234)#
+#
+b0 <- 5#
+b1 <- 15#
+b2 <- 8#
+sigma <- 12#
+#
+x1 <- rpois(100, 30)#
+x2 <- as.numeric(obs.dat$group)#
+eps <- rnorm(100, 0, sigma)#
+#
+y = b0 + b1*x1 + b2*x2 + eps#
+#
+mod1 <- lm(y ~ x1)#
+#
+summary(mod1)$sigma ##11.77#
+#
+qplot(factor(x2), mod1$resid, geom = "boxplot")
+set.seed(1000)#
+#
+b0 <- 5#
+b1 <- 15#
+b2 <- 8#
+sigma <- 12#
+#
+x1 <- rpois(100, 30)#
+x2 <- as.numeric(obs.dat$group)#
+eps <- rnorm(100, 0, sigma)#
+#
+y = b0 + b1*x1 + b2*x2 + eps#
+#
+mod1 <- lm(y ~ x1)#
+#
+summary(mod1)$sigma ##11.77#
+#
+qplot(factor(x2), mod1$resid, geom = "boxplot")
+summary(mod1)
+mod1 <- lm(y ~ x1 + x2)
+summary(mod1)
+b0 <- 5#
+b1 <- 15#
+b2 <- 8#
+sigma <- 12#
+#
+x1 <- rpois(100, 30)#
+x2 <- obs.dat$group#
+eps <- rnorm(100, 0, sigma)#
+#
+y = b0 + b1*x1 + b2*x2 + eps#
+#
+mod1 <- lm(y ~ x1)
+x1 <- rpois(100, 30)
+x1
+b0 <- 5#
+b1 <- 15#
+b2 <- 8#
+sigma <- 12#
+#
+x1 <- rpois(100, 30)#
+x2 <- as.numeric(obs.dat$group)#
+eps <- rnorm(100, 0, sigma)#
+#
+y = b0 + b1*x1 + b2*x2 + eps#
+#
+mod1 <- lm(y ~ x1)#
+#
+summary(mod1)
+summary(mod1)$sigma ##11.77
+qplot(factor(x2), mod1$resid, geom = "boxplot")
+b0 <- 5#
+b1 <- 15#
+b2 <- 8#
+sigma <- 12#
+#
+x1 <- rpois(100, 30)#
+x2 <- as.numeric(obs.dat$group)#
+eps <- rnorm(100, 0, sigma)#
+#
+y = b0 + b1*x1 + b2*x2 + eps#
+#
+mod1 <- lm(y ~ x1)#
+#
+summary(mod1)$sigma ##11.77#
+#
+qplot(factor(x2), mod1$resid, geom = "boxplot")
+b0 <- 5#
+b1 <- 15#
+b2 <- 8#
+sigma <- 12#
+#
+x1 <- rpois(100, 30)#
+x2 <- as.numeric(obs.dat$group)#
+eps <- rnorm(100, 0, sigma)#
+#
+y = b0 + b1*x1 + b2*x2 + eps#
+#
+mod1 <- lm(y ~ x1)#
+#
+summary(mod1)$sigma ##11.77#
+#
+qplot(factor(x2), mod1$resid, geom = "boxplot")
+qplot(group, val, data = obs.dat, geom = "boxplot")
+as.numeric(obs.dat$group)
+table(as.numeric(obs.dat$group))
+x2 <- rep(c(1,2), c(51, 49))
+b0 <- 5#
+b1 <- 15#
+b2 <- 8#
+sigma <- 12#
+#
+x1 <- rpois(100, 30)#
+x2 <- rep(c(1,2), c(51, 49))#
+eps <- rnorm(100, 0, sigma)#
+#
+y = b0 + b1*x1 + b2*x2 + eps#
+#
+mod1 <- lm(y ~ x1)#
+#
+summary(mod1)$sigma ##11.77#
+#
+qplot(factor(x2), mod1$resid, geom = "boxplot")
+b0 <- 5#
+b1 <- 15#
+b2 <- 8#
+sigma <- 12#
+#
+x1 <- rpois(100, 30)#
+x2 <- rep(c(1,2), c(51, 49))#
+eps <- rnorm(100, 0, sigma)#
+#
+y = b0 + b1*x1 + b2*x2 + eps#
+#
+mod1 <- lm(y ~ x1)#
+#
+summary(mod1)$sigma ##11.77#
+#
+qplot(factor(x2), mod1$resid, geom = "boxplot")
+dat.bin <- dat.bin.28 <- dat.box <- NULL#
+for (i in 1:5){#
+	samp.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.89))#
+	dat1 <- sapply(1:18, function(k){#
+		null.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.89))#
+ 		b1 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 8)#
+ 		s = box_dist(samp.dat, null.dat)#
+ 		return(list(b1 = b1, b2 = b2, s = s))#
+ 		})#
+ 		dat1 <- matrix(unlist(dat1), nrow = 3 )#
+ 		dat.bin <- c(dat.bin, mean(dat1[1,]))#
+ 		dat.bin.28 <- c(dat.bin.28, mean(dat1[2,]))#
+ 		dat.box <- c(dat.box, mean(dat1[3,]))#
+ }
+dat1
+samp.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.89))
+dat1 <- sapply(1:18, function(k){#
+		null.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.89))#
+ 		b1 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 8)#
+ 		s = box_dist(samp.dat, null.dat)#
+ 		return(list(b1 = b1, b2 = b2, s = s))#
+ 		})
+head(dat1)
+dat1 <- sapply(1:18, function(k){#
+		null.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.89))#
+ 		b1 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 8)#
+ 		s = box_dist(samp.dat, null.dat)#
+ 		return(list(b1 = b1, b2 = b2, s = s))#
+ 		})
+dat1
+dat1 <- matrix(unlist(dat1), nrow = 3 )
+dat1
+dat.bin <- c(dat.bin, mean(dat1[1,]))
+dat.bin <- dat.bin.28 <- dat.box <- NULL
+dat.bin <- c(dat.bin, mean(dat1[1,]))
+dat.bin
+dat.bin.28 <- c(dat.bin.28, mean(dat1[2,]))
+dat.bin.28
+dat.box <- c(dat.box, mean(dat1[3,]))
+dat.box
+dat.bin <- dat.bin.28 <- dat.box <- NULL#
+for (i in 1:5){#
+	samp.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.89))#
+	dat1 <- sapply(1:18, function(k){#
+		null.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.89))#
+ 		b1 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 8)#
+ 		s = box_dist(samp.dat, null.dat)#
+ 		return(list(b1 = b1, b2 = b2, s = s))#
+ 		})#
+ 		dat1 <- matrix(unlist(dat1), nrow = 3 )#
+ 		dat.bin <- c(dat.bin, mean(dat1[1,]))#
+ 		dat.bin.28 <- c(dat.bin.28, mean(dat1[2,]))#
+ 		dat.box <- c(dat.box, mean(dat1[3,]))#
+ }
+dat.bin
+dat.bin.28
+dat.box
+dat.bin <- dat.bin.28 <- dat.box <- NULL#
+for (i in 1:50){#
+	samp.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.89))#
+	dat1 <- sapply(1:18, function(k){#
+		null.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.89))#
+ 		b1 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 8)#
+ 		s = box_dist(samp.dat, null.dat)#
+ 		return(list(b1 = b1, b2 = b2, s = s))#
+ 		})#
+ 		dat1 <- matrix(unlist(dat1), nrow = 3 )#
+ 		dat.bin <- c(dat.bin, mean(dat1[1,]))#
+ 		dat.bin.28 <- c(dat.bin.28, mean(dat1[2,]))#
+ 		dat.box <- c(dat.box, mean(dat1[3,]))#
+ }
+dat.bin
+hist(dat.bin)
+dat.bin <- dat.bin.28 <- dat.box <- NULL#
+for (i in 1:1000){#
+	samp.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.89))#
+	dat1 <- sapply(1:18, function(k){#
+		null.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.89))#
+ 		b1 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 8)#
+ 		s = box_dist(samp.dat, null.dat)#
+ 		return(list(b1 = b1, b2 = b2, s = s))#
+ 		})#
+ 		dat1 <- matrix(unlist(dat1), nrow = 3 )#
+ 		dat.bin <- c(dat.bin, mean(dat1[1,]))#
+ 		dat.bin.28 <- c(dat.bin.28, mean(dat1[2,]))#
+ 		dat.box <- c(dat.box, mean(dat1[3,]))#
+ }
+hist(dat.bin)
+hist(dat.box)
+hist(dat.bin.28)
+dat.bin <- as.data.frame(dat.bin)#
+#
+ggplot()  + geom_density(data = dat.bin, aes(x= dat.bin), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd1, len == 19), aes(x= bin.mean, xend = bin.mean, y=0.02*max(density(dat.bin$dat.bin)$y), yend = 0.2*max(density(dat.bin$dat.bin)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd1, len != 19), aes(x = bin.mean, xend = bin.mean, y = rep(0.02*max(density(dat.bin$dat.bin)$y),19), yend = rep(0.1*max(density(dat.bin$dat.bin)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd1, y = - 0.03*max(density(dat.bin$dat.bin)$y), size = 2.5, aes(x = bin.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin$dat.bin)$y), max(density(dat.bin$dat.bin)$y) + 0.1*max(density(dat.bin$dat.bin)$y)))
+pos.1 <- 1:20#
+pos.2 <- 1:20#
+#
+dat.pos <- expand.grid(pos.1 = pos.1, pos.2 = pos.2)#
+#
+metrics.dat <- ddply(dat.pos, .(pos.1, pos.2), summarize, bin.dist = bdist_mod_indx(pos.1, pos.2, nbin.X = 2, nbin.Y = 2))#
+#
+pos <- 20#
+#
+metrics.dat <- subset(metrics.dat, pos.1 != pos.2 & pos.2 != pos)#
+#
+dd1 <- ddply(metrics.dat, .(pos.1), summarize, bin.mean = mean(bin.dist), len = length(bin.dist))
+dd1
+pos.1 <- 1:20#
+pos.2 <- 1:20#
+#
+dat.pos <- expand.grid(pos.1 = pos.1, pos.2 = pos.2)#
+#
+metrics.dat <- ddply(dat.pos, .(pos.1, pos.2), summarize, bin.dist = bdist_mod_indx(pos.1, pos.2, nbin.X = 2, nbin.Y = 2))#
+#
+pos <- 20#
+#
+metrics.dat <- subset(metrics.dat, pos.1 != pos.2 & pos.2 != pos)#
+#
+dd1 <- ddply(metrics.dat, .(pos.1), summarize, bin.mean = mean(bin.dist), len = length(bin.dist))#
+#
+dat.bin <- as.data.frame(dat.bin)#
+#
+ggplot()  + geom_density(data = dat.bin, aes(x= dat.bin), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd1, len == 19), aes(x= bin.mean, xend = bin.mean, y=0.02*max(density(dat.bin$dat.bin)$y), yend = 0.2*max(density(dat.bin$dat.bin)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd1, len != 19), aes(x = bin.mean, xend = bin.mean, y = rep(0.02*max(density(dat.bin$dat.bin)$y),19), yend = rep(0.1*max(density(dat.bin$dat.bin)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd1, y = - 0.03*max(density(dat.bin$dat.bin)$y), size = 2.5, aes(x = bin.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin$dat.bin)$y), max(density(dat.bin$dat.bin)$y) + 0.1*max(density(dat.bin$dat.bin)$y)))
+dat.bin <- dat.bin.28 <- dat.box <- NULL#
+for (i in 1:1000){#
+	samp.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.77))#
+	dat1 <- sapply(1:18, function(k){#
+		null.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.77))#
+ 		b1 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = NULL, X.bin = 2, Y.bin = 8)#
+ 		s = box_dist(samp.dat, null.dat)#
+ 		return(list(b1 = b1, b2 = b2, s = s))#
+ 		})#
+ 		dat1 <- matrix(unlist(dat1), nrow = 3 )#
+ 		dat.bin <- c(dat.bin, mean(dat1[1,]))#
+ 		dat.bin.28 <- c(dat.bin.28, mean(dat1[2,]))#
+ 		dat.box <- c(dat.box, mean(dat1[3,]))#
+ }#
+pos.1 <- 1:20#
+pos.2 <- 1:20#
+#
+dat.pos <- expand.grid(pos.1 = pos.1, pos.2 = pos.2)#
+#
+metrics.dat <- ddply(dat.pos, .(pos.1, pos.2), summarize, bin.dist = bdist_mod_indx(pos.1, pos.2, nbin.X = 2, nbin.Y = 2))#
+#
+pos <- 20#
+#
+metrics.dat <- subset(metrics.dat, pos.1 != pos.2 & pos.2 != pos)#
+#
+dd1 <- ddply(metrics.dat, .(pos.1), summarize, bin.mean = mean(bin.dist), len = length(bin.dist))#
+#
+dat.bin <- as.data.frame(dat.bin)#
+#
+ggplot()  + geom_density(data = dat.bin, aes(x= dat.bin), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd1, len == 19), aes(x= bin.mean, xend = bin.mean, y=0.02*max(density(dat.bin$dat.bin)$y), yend = 0.2*max(density(dat.bin$dat.bin)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd1, len != 19), aes(x = bin.mean, xend = bin.mean, y = rep(0.02*max(density(dat.bin$dat.bin)$y),19), yend = rep(0.1*max(density(dat.bin$dat.bin)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd1, y = - 0.03*max(density(dat.bin$dat.bin)$y), size = 2.5, aes(x = bin.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin$dat.bin)$y), max(density(dat.bin$dat.bin)$y) + 0.1*max(density(dat.bin$dat.bin)$y)))
+obs.dat$group
+obs.dat$group
+?rnomr
+?rnorm
+dat.bin <- dat.bin.28 <- dat.box <- NULL#
+for (i in 1:1000){#
+	samp.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.77))#
+	dat1 <- sapply(1:18, function(k){#
+		null.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.77))#
+ 		b1 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 8)#
+ 		s = box_dist(samp.dat, null.dat)#
+ 		return(list(b1 = b1, b2 = b2, s = s))#
+ 		})#
+ 		dat1 <- matrix(unlist(dat1), nrow = 3 )#
+ 		dat.bin <- c(dat.bin, mean(dat1[1,]))#
+ 		dat.bin.28 <- c(dat.bin.28, mean(dat1[2,]))#
+ 		dat.box <- c(dat.box, mean(dat1[3,]))#
+ }#
+pos.1 <- 1:20#
+pos.2 <- 1:20#
+#
+dat.pos <- expand.grid(pos.1 = pos.1, pos.2 = pos.2)#
+#
+metrics.dat <- ddply(dat.pos, .(pos.1, pos.2), summarize, bin.dist = bdist_mod_indx(pos.1, pos.2, nbin.X = 2, nbin.Y = 2))#
+#
+pos <- 20#
+#
+metrics.dat <- subset(metrics.dat, pos.1 != pos.2 & pos.2 != pos)#
+#
+dd1 <- ddply(metrics.dat, .(pos.1), summarize, bin.mean = mean(bin.dist), len = length(bin.dist))#
+#
+dat.bin <- as.data.frame(dat.bin)#
+#
+ggplot()  + geom_density(data = dat.bin, aes(x = dat.bin), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd1, len == 19), aes(x= bin.mean, xend = bin.mean, y=0.02*max(density(dat.bin$dat.bin)$y), yend = 0.2*max(density(dat.bin$dat.bin)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd1, len != 19), aes(x = bin.mean, xend = bin.mean, y = rep(0.02*max(density(dat.bin$dat.bin)$y),19), yend = rep(0.1*max(density(dat.bin$dat.bin)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd1, y = - 0.03*max(density(dat.bin$dat.bin)$y), size = 2.5, aes(x = bin.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin$dat.bin)$y), max(density(dat.bin$dat.bin)$y) + 0.1*max(density(dat.bin$dat.bin)$y)))
+getwd()
+ggsave("distribution-bin-dist-2-2-exp1.pdf", height = 4, width = 4.5)
+metrics.dat <- ddply(dat.pos, .(pos.1, pos.2), summarize, bin.dist = bdist_mod_indx(pos.1, pos.2, nbin.X = 2, nbin.Y = 8))#
+#
+pos <- 20#
+#
+metrics.dat <- subset(metrics.dat, pos.1 != pos.2 & pos.2 != pos)#
+#
+dd1 <- ddply(metrics.dat, .(pos.1), summarize, bin.mean = mean(bin.dist), len = length(bin.dist))#
+#
+dat.bin <- as.data.frame(dat.bin.28)
+head(dat.bin)
+ggplot()  + geom_density(data = dat.bin, aes(x = dat.bin.28), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd1, len == 19), aes(x= bin.mean, xend = bin.mean, y=0.02*max(density(dat.bin$dat.bin.28)$y), yend = 0.2*max(density(dat.bin$dat.bin.28)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd1, len != 19), aes(x = bin.mean, xend = bin.mean, y = rep(0.02*max(density(dat.bin$dat.bin.28)$y),19), yend = rep(0.1*max(density(dat.bin$dat.bin.28)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd1, y = - 0.03*max(density(dat.bin$dat.bin.28)$y), size = 2.5, aes(x = bin.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin$dat.bin.28)$y), max(density(dat.bin$dat.bin.28)$y) + 0.1*max(density(dat.bin$dat.bin.28)$y)))
+ggsave("distribution-bin-dist-2-8-exp1.pdf", height = 4, width = 4.5)
+metrics.dat <- ddply(dat.pos, .(pos.1, pos.2), summarize, box.dist = box_dist_indx(pos.1, pos.2))
+pos <- 20#
+#
+metrics.dat <- subset(metrics.dat, pos.1 != pos.2 & pos.2 != pos)
+dd1 <- ddply(metrics.dat, .(pos.1), summarize, box.mean = mean(box.dist), len = length(box.dist))
+dd1
+dd3 <- ddply(metrics.dat, .(pos.1), summarize, box.mean = mean(box.dist), len = length(box.dist))#
+#
+dat.box <- as.data.frame(dat.box)#
+#
+ggplot()  + geom_density(data = dat.box, aes(x = dat.box), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= box.mean, xend = box.mean, y=0.02*max(density(dat.box$dat.box)$y), yend = 0.2*max(density(dat.box$dat.box)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = box.mean, xend = box.mean, y = rep(0.02*max(density(dat.box$dat.box)$y),19), yend = rep(0.1*max(density(dat.box$dat.box)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd1, y = - 0.03*max(density(dat.box$dat.box)$y), size = 2.5, aes(x = box.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.box$dat.box)$y), max(density(dat.box$dat.box)$y) + 0.1*max(density(dat.box$dat.box)$y)))
+ggsave("distribution-box-dist-exp1.pdf", height = 4, width = 4.5)
+dat <- read.table(file.choose(), header = TRUE) #plot_turk2_100_350_12_3#
+dat.m <- melt(dat, id = "X")#
+dat.m$.sample <- substring(dat.m$variable, 2)#
+lineup.dat <- data.frame(x = dat.m$X, z = dat.m$value, .sample = dat.m$.sample)#
+#
+lineup.dat$.sample <- as.numeric(as.character(lineup.dat$.sample))#
+#
+qplot(x, z, data = lineup.dat, alpha = I(0.2), xlab = "X1", ylab = "X2") + geom_smooth(method = "lm", se = FALSE, size = I(0.8)) + facet_wrap(~ .sample)
+qplot(x, z, data = lineup.dat, alpha = I(0.1), xlab = "X1", ylab = "X2") + geom_smooth(method = "lm", se = FALSE, size = 1) + facet_wrap(~ .sample)
+ggsave("lineup-exp2-neg-diff-large-prop.pdf", height = 4, width = 4.5)
+obs.dat <- lineup.dat[lineup.dat$.sample == 10, ]   #
+#
+#qplot(x, z, data = obs.dat, geom = "point") + geom_smooth(method = "lm", se = FALSE) #
+#
+mod2 <- lm(z ~ 1, data = obs.dat)#
+#
+mean.null <- predict(mod2)#
+#
+sd.null <- summary(mod2)$sigma
+sd.null
+dat.bin <- dat.bin.82 <- dat.reg <- dat.reg.no.int <- dat.pval <- NULL#
+for (i in 1:1000){#
+	zz <- NULL#
+	for(i in 1:dim(obs.dat)[1]){#
+		zz[i] <- rnorm(1, mean.null[i], sd.null)#
+	}#
+	samp.dat <- data.frame(group = obs.dat$x, z = zz )#
+	dat1 <- sapply(1:18, {#
+		yy <- NULL#
+	for(i in 1:dim(obs.dat)[1]){#
+		yy[i] <- rnorm(1, mean.null[i], sd.null)#
+		}#
+		null.dat <- data.frame(group = obs.dat$x, z = yy)#
+		b1 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 8)#
+ 		r.int = reg_dist(samp.dat, null.dat)#
+ 		r.no.int <- reg_no_int_dist(samp.dat, null.dat)#
+ 		pval <- pval_dist(null.dat)#
+ 		return(list(b1 = b1, b2 = b2, r.int = r.int, r.no.int = r.no.int, pval = pval))#
+ 		})#
+	 	dat1 <- matrix(unlist(dat1), nrow = 5 )#
+ 		dat.bin <- c(dat.bin, mean(dat1[1,]))#
+ 		dat.bin.82 <- c(dat.bin.82, mean(dat1[2,]))#
+ 		dat.reg <- c(dat.reg, mean(dat1[3,]))#
+ 		dat.reg.no.int <- c(dat.reg.no.int, mean(dat1[4,]))#
+ 		dat.pval <- c(dat.pval, mean(dat1[5,]))#
+}
+reg_no_int_dist <- function(X, PX, nbins = 1) {#
+    ss <- seq(min(X[, 1]), max(X[, 1]), length = nbins + 1)#
+    beta.X <- NULL#
+    beta.PX <- NULL#
+    for (k in 1:nbins) {#
+        X.sub <- subset(X, X[, 1] >= ss[k] & X[, 1] <= ss[k + 1])#
+        PX.sub <- subset(PX, X[, 1] >= ss[k] & X[, 1] <= ss[k + 1])#
+        b.X <- as.numeric(coef(lm(X.sub[, 2] ~ X.sub[, 1])))#
+        b.PX <- as.numeric(coef(lm(PX.sub[, 2] ~ PX.sub[, 1])))#
+        beta.X <- rbind(beta.X, b.X)#
+        beta.PX <- rbind(beta.PX, b.PX)#
+    }#
+    beta.X <- subset(beta.X, !is.na(beta.X[, 2]))#
+    beta.PX <- subset(beta.PX, !is.na(beta.PX[, 2]))#
+    sum((beta.X[, 2] - beta.PX[, 2])^2)#
+}
+dat.bin <- dat.bin.82 <- dat.reg <- dat.reg.no.int <- dat.pval <- NULL#
+for (i in 1:1000){#
+	zz <- NULL#
+	for(i in 1:dim(obs.dat)[1]){#
+		zz[i] <- rnorm(1, mean.null[i], sd.null)#
+	}#
+	samp.dat <- data.frame(group = obs.dat$x, z = zz )#
+	dat1 <- sapply(1:18, {#
+		yy <- NULL#
+	for(i in 1:dim(obs.dat)[1]){#
+		yy[i] <- rnorm(1, mean.null[i], sd.null)#
+		}#
+		null.dat <- data.frame(group = obs.dat$x, z = yy)#
+		b1 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 8)#
+ 		r.int = reg_dist(samp.dat, null.dat)#
+ 		r.no.int <- reg_no_int_dist(samp.dat, null.dat)#
+ 		pval <- pval_dist(null.dat)#
+ 		return(list(b1 = b1, b2 = b2, r.int = r.int, r.no.int = r.no.int, pval = pval))#
+ 		})#
+	 	dat1 <- matrix(unlist(dat1), nrow = 5 )#
+ 		dat.bin <- c(dat.bin, mean(dat1[1,]))#
+ 		dat.bin.82 <- c(dat.bin.82, mean(dat1[2,]))#
+ 		dat.reg <- c(dat.reg, mean(dat1[3,]))#
+ 		dat.reg.no.int <- c(dat.reg.no.int, mean(dat1[4,]))#
+ 		dat.pval <- c(dat.pval, mean(dat1[5,]))#
+}
+pval_dist <- function(X) {#
+        as.numeric(summary(lm(X[,2] ~ X[,1], data = X))$coefficients[,4][2])#
+}
+dat.bin <- dat.bin.82 <- dat.reg <- dat.reg.no.int <- dat.pval <- NULL#
+for (i in 1:1000){#
+	zz <- NULL#
+	for(i in 1:dim(obs.dat)[1]){#
+		zz[i] <- rnorm(1, mean.null[i], sd.null)#
+	}#
+	samp.dat <- data.frame(group = obs.dat$x, z = zz )#
+	dat1 <- sapply(1:18, {#
+		yy <- NULL#
+	for(i in 1:dim(obs.dat)[1]){#
+		yy[i] <- rnorm(1, mean.null[i], sd.null)#
+		}#
+		null.dat <- data.frame(group = obs.dat$x, z = yy)#
+		b1 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 8)#
+ 		r.int = reg_dist(samp.dat, null.dat)#
+ 		r.no.int <- reg_no_int_dist(samp.dat, null.dat)#
+ 		pval <- pval_dist(null.dat)#
+ 		return(list(b1 = b1, b2 = b2, r.int = r.int, r.no.int = r.no.int, pval = pval))#
+ 		})#
+	 	dat1 <- matrix(unlist(dat1), nrow = 5 )#
+ 		dat.bin <- c(dat.bin, mean(dat1[1,]))#
+ 		dat.bin.82 <- c(dat.bin.82, mean(dat1[2,]))#
+ 		dat.reg <- c(dat.reg, mean(dat1[3,]))#
+ 		dat.reg.no.int <- c(dat.reg.no.int, mean(dat1[4,]))#
+ 		dat.pval <- c(dat.pval, mean(dat1[5,]))#
+}
+zz <- NULL#
+	for(i in 1:dim(obs.dat)[1]){#
+		zz[i] <- rnorm(1, mean.null[i], sd.null)#
+	}
+samp.dat <- data.frame(group = obs.dat$x, z = zz )
+yy <- NULL#
+	for(i in 1:dim(obs.dat)[1]){#
+		yy[i] <- rnorm(1, mean.null[i], sd.null)#
+		}
+null.dat <- data.frame(group = obs.dat$x, z = yy)
+b1 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 2)
+b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 8)
+r.int = reg_dist(samp.dat, null.dat)
+r.no.int <- reg_no_int_dist(samp.dat, null.dat)
+pval <- pval_dist(null.dat)
+return(list(b1 = b1, b2 = b2, r.int = r.int, r.no.int = r.no.int, pval = pval))
+list(b1 = b1, b2 = b2, r.int = r.int, r.no.int = r.no.int, pval = pval)
+dat1 <- sapply(1:18, {#
+		yy <- NULL#
+	for(i in 1:dim(obs.dat)[1]){#
+		yy[i] <- rnorm(1, mean.null[i], sd.null)#
+		}#
+		null.dat <- data.frame(group = obs.dat$x, z = yy)#
+		b1 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 8)#
+ 		r.int = reg_dist(samp.dat, null.dat)#
+ 		r.no.int <- reg_no_int_dist(samp.dat, null.dat)#
+ 		pval <- pval_dist(null.dat)#
+ 		return(list(b1 = b1, b2 = b2, r.int = r.int, r.no.int = r.no.int, pval = pval))#
+ 		})
+dat1 <- sapply(1:18, function(k){#
+		yy <- NULL#
+	for(i in 1:dim(obs.dat)[1]){#
+		yy[i] <- rnorm(1, mean.null[i], sd.null)#
+		}#
+		null.dat <- data.frame(group = obs.dat$x, z = yy)#
+		b1 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 8)#
+ 		r.int = reg_dist(samp.dat, null.dat)#
+ 		r.no.int <- reg_no_int_dist(samp.dat, null.dat)#
+ 		pval <- pval_dist(null.dat)#
+ 		return(list(b1 = b1, b2 = b2, r.int = r.int, r.no.int = r.no.int, pval = pval))#
+ 		})
+dat1
+dat1 <- matrix(unlist(dat1), nrow = 5 )
+dat1
+dat.bin <- c(dat.bin, mean(dat1[1,]))#
+ 		dat.bin.82 <- c(dat.bin.82, mean(dat1[2,]))#
+ 		dat.reg <- c(dat.reg, mean(dat1[3,]))#
+ 		dat.reg.no.int <- c(dat.reg.no.int, mean(dat1[4,]))#
+ 		dat.pval <- c(dat.pval, mean(dat1[5,]))
+dat.bin <- dat.bin.82 <- dat.reg <- dat.reg.no.int <- dat.pval <- NULL#
+for (i in 1:1000){#
+	zz <- NULL#
+	for(i in 1:dim(obs.dat)[1]){#
+		zz[i] <- rnorm(1, mean.null[i], sd.null)#
+	}#
+	samp.dat <- data.frame(group = obs.dat$x, z = zz )#
+	dat1 <- sapply(1:18, function(k){#
+		yy <- NULL#
+	for(i in 1:dim(obs.dat)[1]){#
+		yy[i] <- rnorm(1, mean.null[i], sd.null)#
+		}#
+		null.dat <- data.frame(group = obs.dat$x, z = yy)#
+		b1 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 8)#
+ 		r.int = reg_dist(samp.dat, null.dat)#
+ 		r.no.int <- reg_no_int_dist(samp.dat, null.dat)#
+ 		pval <- pval_dist(null.dat)#
+ 		return(list(b1 = b1, b2 = b2, r.int = r.int, r.no.int = r.no.int, pval = pval))#
+ 		})#
+	 	dat1 <- matrix(unlist(dat1), nrow = 5 )#
+ 		dat.bin <- c(dat.bin, mean(dat1[1,]))#
+ 		dat.bin.82 <- c(dat.bin.82, mean(dat1[2,]))#
+ 		dat.reg <- c(dat.reg, mean(dat1[3,]))#
+ 		dat.reg.no.int <- c(dat.reg.no.int, mean(dat1[4,]))#
+ 		dat.pval <- c(dat.pval, mean(dat1[5,]))#
+}
+hist(dat.bin)
+hist(dat.bin.82)
+metrics.dat <- ddply(dat.pos, .(pos.1, pos.2), summarize, bin.dist = bdist_mod_indx(pos.1, pos.2, nbin.X = 2, nbin.Y = 2), bin.dist.82 = bdist_mod_indx(pos.1, pos.2, nbin.X = 8, nbin.Y = 2), reg.dist = reg_dist_indx(pos.1, pos.2), reg.dist.no.int = reg_no_int_indx(pos.1, pos.2))
+reg_bin_indx <- function(i, j, nbins = 1){#
+	X <- lineup.dat[lineup.dat$.sample == i, ]#
+	PX <- lineup.dat[lineup.dat$.sample == j, ]#
+	ss <- seq(min(X[,1]), max(X[,1]), length = nbins + 1)#
+	beta.X <- NULL ; beta.PX <- NULL#
+	for(k in 1:nbins){#
+		X.sub <- subset(X, X[,1] >= ss[k] & X[,1] <= ss[k + 1])#
+		PX.sub <- subset(PX, X[,1] >= ss[k] & X[,1] <= ss[k + 1])#
+		b.X <- as.numeric(coef(lm(X.sub[,2] ~ X.sub[,1])))#
+		b.PX <- as.numeric(coef(lm(PX.sub[,2] ~ PX.sub[,1])))#
+		beta.X <- rbind(beta.X, b.X)#
+		beta.PX <- rbind(beta.PX, b.PX)#
+	}#
+	beta.X <- subset(beta.X, !is.na(beta.X[,2]))#
+	beta.PX <- subset(beta.PX, !is.na(beta.PX[,2]))#
+	sum((beta.X[,1] - beta.PX[,1])^2 + (beta.X[,2] - beta.PX[,2])^2)#
+}
+reg_no_int_indx <- function(i, j, nbins = 1){#
+	X <- lineup.dat[lineup.dat$.sample == i, ]#
+	PX <- lineup.dat[lineup.dat$.sample == j, ]#
+	ss <- seq(min(X[,1]), max(X[,1]), length = nbins + 1)#
+	beta.X <- NULL ; beta.PX <- NULL#
+	for(k in 1:nbins){#
+		X.sub <- subset(X, X[,1] >= ss[k] & X[,1] <= ss[k + 1])#
+		PX.sub <- subset(PX, X[,1] >= ss[k] & X[,1] <= ss[k + 1])#
+		b.X <- as.numeric(coef(lm(X.sub[,2] ~ X.sub[,1])))#
+		b.PX <- as.numeric(coef(lm(PX.sub[,2] ~ PX.sub[,1])))#
+		beta.X <- rbind(beta.X, b.X)#
+		beta.PX <- rbind(beta.PX, b.PX)#
+	}#
+	beta.X <- subset(beta.X, !is.na(beta.X[,2]))#
+	beta.PX <- subset(beta.PX, !is.na(beta.PX[,2]))#
+	sum((beta.X[,2] - beta.PX[,2])^2)#
+}
+metrics.dat <- ddply(dat.pos, .(pos.1, pos.2), summarize, bin.dist = bdist_mod_indx(pos.1, pos.2, nbin.X = 2, nbin.Y = 2), bin.dist.82 = bdist_mod_indx(pos.1, pos.2, nbin.X = 8, nbin.Y = 2), reg.dist = reg_bin_indx(pos.1, pos.2), reg.dist.no.int = reg_no_int_indx(pos.1, pos.2))
+pos <- 10#
+#
+metrics.dat <- subset(metrics.dat, pos.1 != pos.2 & pos.2 != pos)
+dd3 <- ddply(metrics.dat, .(pos.1), summarize, bin.mean = mean(bin.dist), bin.mean.82 = mean(bin.dist.82), reg.mean = mean(reg.dist), reg.mean.no.int = mean(reg.dist.no.int), len = length(bin.dist))
+head(dd3)
+dd3
+dat.bin <- as.data.frame(dat.bin)#
+#
+ggplot()  + geom_density(data = dat.bin, aes(x = dat.bin), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= bin.mean, xend = bin.mean, y=0.02*max(density(dat.bin$dat.bin)$y), yend = 0.2*max(density(dat.bin$dat.bin)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = bin.mean, xend = bin.mean, y = rep(0.02*max(density(dat.bin$dat.bin)$y),19), yend = rep(0.1*max(density(dat.bin$dat.bin)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd1, y = - 0.03*max(density(dat.bin$dat.bin)$y), size = 2.5, aes(x = bin.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin$dat.bin)$y), max(density(dat.bin$dat.bin)$y) + 0.1*max(density(dat.bin$dat.bin)$y)))
+head(dd3)
+ggplot()  + geom_density(data = dat.bin, aes(x = dat.bin), fill = "grey80", col = "grey80" )
+ggplot()  + geom_density(data = dat.bin, aes(x = dat.bin), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= bin.mean, xend = bin.mean, y=0.02*max(density(dat.bin$dat.bin)$y), yend = 0.2*max(density(dat.bin$dat.bin)$y)), colour="darkorange", size=1)
+ggplot()  + geom_density(data = dat.bin, aes(x = dat.bin), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= bin.mean, xend = bin.mean, y=0.02*max(density(dat.bin$dat.bin)$y), yend = 0.2*max(density(dat.bin$dat.bin)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = bin.mean, xend = bin.mean, y = rep(0.02*max(density(dat.bin$dat.bin)$y),19), yend = rep(0.1*max(density(dat.bin$dat.bin)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd3, y = - 0.03*max(density(dat.bin$dat.bin)$y), size = 2.5, aes(x = bin.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin$dat.bin)$y), max(density(dat.bin$dat.bin)$y) + 0.1*max(density(dat.bin$dat.bin)$y)))
+ggplot()  + geom_density(data = dat.bin.82, aes(x = dat.bin.82), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= bin.mean.82, xend = bin.mean.82, y=0.02*max(density(dat.bin.82$dat.bin.82)$y), yend = 0.2*max(density(dat.bin.82$dat.bin.82)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = bin.mean.82, xend = bin.mean.82, y = rep(0.02*max(density(dat.bin.82$dat.bin.82)$y),19), yend = rep(0.1*max(density(dat.bin.82$dat.bin.82)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd3, y = - 0.03*max(density(dat.bin.82$dat.bin.82)$y), size = 2.5, aes(x = bin.mean.82, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin.82$dat.bin.82)$y), max(density(dat.bin.82$dat.bin.82)$y) + 0.1*max(density(dat.bin.82$dat.bin.82)$y)))
+dat.bin.82 <- as.data.frame(dat.bin.82)#
+#
+ggplot()  + geom_density(data = dat.bin.82, aes(x = dat.bin.82), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= bin.mean.82, xend = bin.mean.82, y=0.02*max(density(dat.bin.82$dat.bin.82)$y), yend = 0.2*max(density(dat.bin.82$dat.bin.82)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = bin.mean.82, xend = bin.mean.82, y = rep(0.02*max(density(dat.bin.82$dat.bin.82)$y),19), yend = rep(0.1*max(density(dat.bin.82$dat.bin.82)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd3, y = - 0.03*max(density(dat.bin.82$dat.bin.82)$y), size = 2.5, aes(x = bin.mean.82, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin.82$dat.bin.82)$y), max(density(dat.bin.82$dat.bin.82)$y) + 0.1*max(density(dat.bin.82$dat.bin.82)$y)))
+dat.reg <- as.data.frame(dat.reg)#
+#
+ggplot()  + geom_density(data = dat.reg, aes(x = dat.bin), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= reg.mean, xend = reg.mean, y=0.02*max(density(dat.reg$dat.reg)$y), yend = 0.2*max(density(dat.reg$dat.reg)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = reg.mean, xend = reg.mean, y = rep(0.02*max(density(dat.reg$dat.reg)$y),19), yend = rep(0.1*max(density(dat.reg$dat.reg)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd3, y = - 0.03*max(density(dat.reg$dat.reg)$y), size = 2.5, aes(x = reg.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.reg$dat.reg)$y), max(density(dat.reg$dat.reg)$y) + 0.1*max(density(dat.reg$dat.reg)$y)))
+ggplot()  + geom_density(data = dat.reg, aes(x = dat.reg), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= reg.mean, xend = reg.mean, y=0.02*max(density(dat.reg$dat.reg)$y), yend = 0.2*max(density(dat.reg$dat.reg)$y)), colour="darkorange", size=1)
+ggplot()  + geom_density(data = dat.reg, aes(x = dat.reg), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= reg.mean, xend = reg.mean, y=0.02*max(density(dat.reg$dat.reg)$y), yend = 0.2*max(density(dat.reg$dat.reg)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = reg.mean, xend = reg.mean, y = rep(0.02*max(density(dat.reg$dat.reg)$y),19), yend = rep(0.1*max(density(dat.reg$dat.reg)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd3, y = - 0.03*max(density(dat.reg$dat.reg)$y), size = 2.5, aes(x = reg.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.reg$dat.reg)$y), max(density(dat.reg$dat.reg)$y) + 0.1*max(density(dat.reg$dat.reg)$y)))
+dd3
+dat.reg.no.int <- as.data.frame(dat.reg.no.int)#
+#
+ggplot()  + geom_density(data = dat.reg.no.int, aes(x = dat.reg.no.int), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= reg.mean.no.int, xend = reg.mean.no.int, y=0.02*max(density(dat.reg.no.int$dat.reg.no.int)$y), yend = 0.2*max(density(dat.reg.no.int$dat.reg.no.int)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = reg.mean.no.int, xend = reg.mean.no.int, y = rep(0.02*max(density(dat.reg.no.int$dat.reg.no.int)$y),19), yend = rep(0.1*max(density(dat.reg.no.int$dat.reg.no.int)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd3, y = - 0.03*max(density(dat.reg.no.int$dat.reg.no.int)$y), size = 2.5, aes(x = reg.mean.no.int, label = pos.1)) + ylim(c(- 0.04*max(density(dat.reg.no.int$dat.reg.no.int)$y), max(density(dat.reg.no.int$dat.reg.no.int)$y) + 0.1*max(density(dat.reg.no.int$dat.reg.no.int)$y)))
+pval <- ddply(lineup.dat, .(.sample), summarize, p = pval_dist(data.frame(lineup.dat[lineup.dat$.sample == .sample,1], lineup.dat[lineup.dat$.sample == .sample,2])))
+qplot(dat, geom = "density", fill = I("grey80"), colour = I("grey80"), #
+        xlab = "p-value", ylab = "") + geom_segment(aes(x = pval$p[pval$.sample != #
+        10], xend = pval$p[pval$.sample != pos], y = rep(0.01 * min(density(dat)$y), #
+        (m - 1)), yend = rep(0.1 * max(density(dat)$y), (m - 1))), size = 1, alpha = I(0.7)) + #
+        geom_segment(aes(x = pval$p[pval$.sample == #
+        10], xend = pval$p[pval$.sample == 10], y = 0.01 * min(density(dat)$y), yend = 0.2 * max(density(dat)$y)), #
+            colour = "darkorange", size = 1) + geom_text(data = pval, y = -0.03 * max(density(dat)$y), #
+        size = 2.5, aes(x = p, label = .sample)) + ylim(c(-0.04 * max(density(dat)$y), #
+        max(density(dat)$y) + 0.1))
+qplot(dat.pval, geom = "density", fill = I("grey80"), colour = I("grey80"), #
+        xlab = "p-value", ylab = "")
+qplot(dat.pval, geom = "density", fill = I("grey80"), colour = I("grey80"), #
+        xlab = "p-value", ylab = "") + geom_segment(aes(x = pval$p[pval$.sample != #
+        10], xend = pval$p[pval$.sample != pos], y = rep(0.01 * min(density(dat.pval$dat.pval)$y), #
+        (m - 1)), yend = rep(0.1 * max(density(dat.pval$dat.pval)$y), (m - 1))), size = 1, alpha = I(0.7)) + #
+        geom_segment(aes(x = pval$p[pval$.sample == #
+        10], xend = pval$p[pval$.sample == 10], y = 0.01 * min(density(dat.pval$dat.pval)$y), yend = 0.2 * max(density(dat.pval$dat.pval)$y)), colour = "darkorange", size = 1) + geom_text(data = pval, y = -0.03 * max(density(dat.pval$dat.pval)$y), #
+        size = 2.5, aes(x = p, label = .sample)) + ylim(c(-0.04 * max(density(dat.pval$dat.pval)$y), #
+        max(density(dat.pval$dat.pval)$y) + 0.1))
+dat.pval <- as.data.frame(dat.pval)
+qplot(dat.pval, geom = "density", fill = I("grey80"), colour = I("grey80"), #
+        xlab = "p-value", ylab = "") + geom_segment(aes(x = pval$p[pval$.sample != #
+        10], xend = pval$p[pval$.sample != pos], y = rep(0.01 * min(density(dat.pval$dat.pval)$y), #
+        (m - 1)), yend = rep(0.1 * max(density(dat.pval$dat.pval)$y), (m - 1))), size = 1, alpha = I(0.7)) + #
+        geom_segment(aes(x = pval$p[pval$.sample == #
+        10], xend = pval$p[pval$.sample == 10], y = 0.01 * min(density(dat.pval$dat.pval)$y), yend = 0.2 * max(density(dat.pval$dat.pval)$y)), colour = "darkorange", size = 1) + geom_text(data = pval, y = -0.03 * max(density(dat.pval$dat.pval)$y), #
+        size = 2.5, aes(x = p, label = .sample)) + ylim(c(-0.04 * max(density(dat.pval$dat.pval)$y), #
+        max(density(dat.pval$dat.pval)$y) + 0.1))
+m <- 20
+qplot(dat.pval, geom = "density", fill = I("grey80"), colour = I("grey80"), #
+        xlab = "p-value", ylab = "") + geom_segment(aes(x = pval$p[pval$.sample != #
+        10], xend = pval$p[pval$.sample != pos], y = rep(0.01 * min(density(dat.pval$dat.pval)$y), #
+        (m - 1)), yend = rep(0.1 * max(density(dat.pval$dat.pval)$y), (m - 1))), size = 1, alpha = I(0.7)) + #
+        geom_segment(aes(x = pval$p[pval$.sample == #
+        10], xend = pval$p[pval$.sample == 10], y = 0.01 * min(density(dat.pval$dat.pval)$y), yend = 0.2 * max(density(dat.pval$dat.pval)$y)), colour = "darkorange", size = 1) + geom_text(data = pval, y = -0.03 * max(density(dat.pval$dat.pval)$y), #
+        size = 2.5, aes(x = p, label = .sample)) + ylim(c(-0.04 * max(density(dat.pval$dat.pval)$y), #
+        max(density(dat.pval$dat.pval)$y) + 0.1))
+qplot(dat.pval, aes(x = dat.pval), geom = "density", fill = I("grey80"), colour = I("grey80"), #
+        xlab = "p-value", ylab = "") + geom_segment(aes(x = pval$p[pval$.sample != #
+        10], xend = pval$p[pval$.sample != pos], y = rep(0.01 * min(density(dat.pval$dat.pval)$y), #
+        (m - 1)), yend = rep(0.1 * max(density(dat.pval$dat.pval)$y), (m - 1))), size = 1, alpha = I(0.7)) + #
+        geom_segment(aes(x = pval$p[pval$.sample == #
+        10], xend = pval$p[pval$.sample == 10], y = 0.01 * min(density(dat.pval$dat.pval)$y), yend = 0.2 * max(density(dat.pval$dat.pval)$y)), colour = "darkorange", size = 1) + geom_text(data = pval, y = -0.03 * max(density(dat.pval$dat.pval)$y), #
+        size = 2.5, aes(x = p, label = .sample)) + ylim(c(-0.04 * max(density(dat.pval$dat.pval)$y), #
+        max(density(dat.pval$dat.pval)$y) + 0.1))
+qplot(dat.pval, aes(x = dat.pval), geom = "density", fill = I("grey80"), colour = I("grey80"), #
+        xlab = "p-value", ylab = "")
+head(dat.pval)
+ggplot() + geom_density(dat.pval, aes(x = dat.pval), fill = I("grey80"), colour = I("grey80"), #
+        xlab = "p-value", ylab = "")
+ggplot() + geom_density(data = dat.pval, aes(x = dat.pval), fill = I("grey80"), colour = I("grey80"), #
+        xlab = "p-value", ylab = "")
+ggplot() + geom_density(data = dat.pval, aes(x = dat.pval), fill = I("grey80"), colour = I("grey80"), #
+        xlab = "p-value", ylab = "") + geom_segment(aes(x = pval$p[pval$.sample != #
+        10], xend = pval$p[pval$.sample != pos], y = rep(0.01 * min(density(dat.pval$dat.pval)$y), #
+        (m - 1)), yend = rep(0.1 * max(density(dat.pval$dat.pval)$y), (m - 1))), size = 1, alpha = I(0.7)) + #
+        geom_segment(aes(x = pval$p[pval$.sample == #
+        10], xend = pval$p[pval$.sample == 10], y = 0.01 * min(density(dat.pval$dat.pval)$y), yend = 0.2 * max(density(dat.pval$dat.pval)$y)), colour = "darkorange", size = 1) + geom_text(data = pval, y = -0.03 * max(density(dat.pval$dat.pval)$y), #
+        size = 2.5, aes(x = p, label = .sample)) + ylim(c(-0.04 * max(density(dat.pval$dat.pval)$y), #
+        max(density(dat.pval$dat.pval)$y) + 0.1))
+dat <- NULL#
+for (i in 1:1000){#
+	zz <- NULL#
+	for(k in 1:dim(obs.dat)[1]){#
+		zz[k] <- rnorm(1, mean = mean.null[k], sd = sd.null)#
+	}#
+	samp.dat <- data.frame(group = obs.dat$x, z = zz )#
+	qplot(group, z, data = samp.dat) + geom_smooth(method = "lm", se = FALSE)#
+	dat <- c(dat, pval_dist(samp.dat))#
+}#
+pval <- ddply(lineup.dat, .(.sample), summarize, p = pval_dist(data.frame(lineup.dat[lineup.dat$.sample == .sample,1], lineup.dat[lineup.dat$.sample == .sample,2])))#
+#
+pos <- 10#
+m <- 20#
+#
+qplot(dat, geom = "density", fill = I("grey80"), colour = I("grey80"), #
+        xlab = "p-value", ylab = "") + geom_segment(aes(x = pval$p[pval$.sample != #
+        10], xend = pval$p[pval$.sample != pos], y = rep(0.01 * min(density(dat)$y), #
+        (m - 1)), yend = rep(0.1 * max(density(dat)$y), (m - 1))), size = 1, alpha = I(0.7)) + #
+        geom_segment(aes(x = pval$p[pval$.sample == #
+        10], xend = pval$p[pval$.sample == 10], y = 0.01 * min(density(dat)$y), yend = 0.2 * max(density(dat)$y)), #
+            colour = "darkorange", size = 1) + geom_text(data = pval, y = -0.03 * max(density(dat)$y), #
+        size = 2.5, aes(x = p, label = .sample)) + ylim(c(-0.04 * max(density(dat)$y), #
+        max(density(dat)$y) + 0.1))
+dat.bin <- dat.bin.82 <- dat.reg <- dat.reg.no.int <-  NULL#
+for (i in 1:1000){#
+	zz <- NULL#
+	for(i in 1:dim(obs.dat)[1]){#
+		zz[i] <- rnorm(1, mean.null[i], sd.null)#
+	}#
+	samp.dat <- data.frame(group = obs.dat$x, z = zz )#
+	dat1 <- sapply(1:18, function(k){#
+		yy <- NULL#
+	for(i in 1:dim(obs.dat)[1]){#
+		yy[i] <- rnorm(1, mean.null[i], sd.null)#
+		}#
+		null.dat <- data.frame(group = obs.dat$x, z = yy)#
+		b1 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 8)#
+ 		r.int = reg_dist(samp.dat, null.dat)#
+ 		r.no.int <- reg_no_int_dist(samp.dat, null.dat)#
+ 		return(list(b1 = b1, b2 = b2, r.int = r.int, r.no.int = r.no.int))#
+ 		})#
+	 	dat1 <- matrix(unlist(dat1), nrow = 4 )#
+ 		dat.bin <- c(dat.bin, mean(dat1[1,]))#
+ 		dat.bin.82 <- c(dat.bin.82, mean(dat1[2,]))#
+ 		dat.reg <- c(dat.reg, mean(dat1[3,]))#
+ 		dat.reg.no.int <- c(dat.reg.no.int, mean(dat1[4,]))#
+}
+dat.bin <- dat.bin.82 <- dat.reg <- dat.reg.no.int <-  NULL#
+for (i in 1:1000){#
+	zz <- NULL#
+	for(i in 1:dim(obs.dat)[1]){#
+		zz[i] <- rnorm(1, mean.null[i], sd.null)#
+	}#
+	samp.dat <- data.frame(group = obs.dat$x, z = zz )#
+	dat1 <- sapply(1:18, function(k){#
+		yy <- NULL#
+	for(i in 1:dim(obs.dat)[1]){#
+		yy[i] <- rnorm(1, mean.null[i], sd.null)#
+		}#
+		null.dat <- data.frame(group = obs.dat$x, z = yy)#
+		b1 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 2)#
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 8, Y.bin = 2)#
+ 		r.int = reg_dist(samp.dat, null.dat)#
+ 		r.no.int <- reg_no_int_dist(samp.dat, null.dat)#
+ 		return(list(b1 = b1, b2 = b2, r.int = r.int, r.no.int = r.no.int))#
+ 		})#
+	 	dat1 <- matrix(unlist(dat1), nrow = 4 )#
+ 		dat.bin <- c(dat.bin, mean(dat1[1,]))#
+ 		dat.bin.82 <- c(dat.bin.82, mean(dat1[2,]))#
+ 		dat.reg <- c(dat.reg, mean(dat1[3,]))#
+ 		dat.reg.no.int <- c(dat.reg.no.int, mean(dat1[4,]))#
+}
+metrics.dat <- ddply(dat.pos, .(pos.1, pos.2), summarize, bin.dist = bdist_mod_indx(pos.1, pos.2, nbin.X = 2, nbin.Y = 2), bin.dist.82 = bdist_mod_indx(pos.1, pos.2, nbin.X = 8, nbin.Y = 2), reg.dist = reg_bin_indx(pos.1, pos.2), reg.dist.no.int = reg_no_int_indx(pos.1, pos.2))#
+#
+pos <- 10#
+#
+metrics.dat <- subset(metrics.dat, pos.1 != pos.2 & pos.2 != pos)#
+#
+dd3 <- ddply(metrics.dat, .(pos.1), summarize, bin.mean = mean(bin.dist), bin.mean.82 = mean(bin.dist.82), reg.mean = mean(reg.dist), reg.mean.no.int = mean(reg.dist.no.int), len = length(bin.dist))#
+#
+dat.bin <- as.data.frame(dat.bin)#
+#
+ggplot()  + geom_density(data = dat.bin, aes(x = dat.bin), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= bin.mean, xend = bin.mean, y=0.02*max(density(dat.bin$dat.bin)$y), yend = 0.2*max(density(dat.bin$dat.bin)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = bin.mean, xend = bin.mean, y = rep(0.02*max(density(dat.bin$dat.bin)$y),19), yend = rep(0.1*max(density(dat.bin$dat.bin)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd3, y = - 0.03*max(density(dat.bin$dat.bin)$y), size = 2.5, aes(x = bin.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin$dat.bin)$y), max(density(dat.bin$dat.bin)$y) + 0.1*max(density(dat.bin$dat.bin)$y)))#
+ggsave("distribution-bin-dist-2-2-exp2.pdf", height = 4, width = 4.5)   #
+#
+dat.bin.82 <- as.data.frame(dat.bin.82)#
+#
+ggplot()  + geom_density(data = dat.bin.82, aes(x = dat.bin.82), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= bin.mean.82, xend = bin.mean.82, y=0.02*max(density(dat.bin.82$dat.bin.82)$y), yend = 0.2*max(density(dat.bin.82$dat.bin.82)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = bin.mean.82, xend = bin.mean.82, y = rep(0.02*max(density(dat.bin.82$dat.bin.82)$y),19), yend = rep(0.1*max(density(dat.bin.82$dat.bin.82)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd3, y = - 0.03*max(density(dat.bin.82$dat.bin.82)$y), size = 2.5, aes(x = bin.mean.82, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin.82$dat.bin.82)$y), max(density(dat.bin.82$dat.bin.82)$y) + 0.1*max(density(dat.bin.82$dat.bin.82)$y)))#
+ggsave("distribution-bin-dist-8-2-exp2.pdf", height = 4, width = 4.5)         #
+#
+dat.reg <- as.data.frame(dat.reg)#
+#
+ggplot()  + geom_density(data = dat.reg, aes(x = dat.reg), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= reg.mean, xend = reg.mean, y=0.02*max(density(dat.reg$dat.reg)$y), yend = 0.2*max(density(dat.reg$dat.reg)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = reg.mean, xend = reg.mean, y = rep(0.02*max(density(dat.reg$dat.reg)$y),19), yend = rep(0.1*max(density(dat.reg$dat.reg)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd3, y = - 0.03*max(density(dat.reg$dat.reg)$y), size = 2.5, aes(x = reg.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.reg$dat.reg)$y), max(density(dat.reg$dat.reg)$y) + 0.1*max(density(dat.reg$dat.reg)$y)))#
+#
+ggsave("distribution-reg-dist-exp2.pdf", height = 4, width = 4.5)#
+#
+dat.reg.no.int <- as.data.frame(dat.reg.no.int)#
+#
+ggplot()  + geom_density(data = dat.reg.no.int, aes(x = dat.reg.no.int), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= reg.mean.no.int, xend = reg.mean.no.int, y=0.02*max(density(dat.reg.no.int$dat.reg.no.int)$y), yend = 0.2*max(density(dat.reg.no.int$dat.reg.no.int)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = reg.mean.no.int, xend = reg.mean.no.int, y = rep(0.02*max(density(dat.reg.no.int$dat.reg.no.int)$y),19), yend = rep(0.1*max(density(dat.reg.no.int$dat.reg.no.int)$y),19)), size=1, alpha = I(0.7)) + xlab("Distance") + ylab("") + geom_text(data = dd3, y = - 0.03*max(density(dat.reg.no.int$dat.reg.no.int)$y), size = 2.5, aes(x = reg.mean.no.int, label = pos.1)) + ylim(c(- 0.04*max(density(dat.reg.no.int$dat.reg.no.int)$y), max(density(dat.reg.no.int$dat.reg.no.int)$y) + 0.1*max(density(dat.reg.no.int$dat.reg.no.int)$y)))#
+ggsave("distribution-reg-no-int-dist-exp2.pdf", height = 4, width = 4.5)
+pval_dist <- function(X) {#
+        as.numeric(summary(lm(X[,2] ~ X[,1], data = X))$coefficients[,4][2])#
+}#
+dat <- NULL#
+for (i in 1:1000){#
+	zz <- NULL#
+	for(k in 1:dim(obs.dat)[1]){#
+		zz[k] <- rnorm(1, mean = mean.null[k], sd = sd.null)#
+	}#
+	samp.dat <- data.frame(group = obs.dat$x, z = zz )#
+	qplot(group, z, data = samp.dat) + geom_smooth(method = "lm", se = FALSE)#
+	dat <- c(dat, pval_dist(samp.dat))#
+}#
+pval <- ddply(lineup.dat, .(.sample), summarize, p = pval_dist(data.frame(lineup.dat[lineup.dat$.sample == .sample,1], lineup.dat[lineup.dat$.sample == .sample,2])))#
+#
+pos <- 10#
+m <- 20#
+#
+qplot(dat, geom = "density", fill = I("grey80"), colour = I("grey80"), #
+        xlab = "p-value", ylab = "") + geom_segment(aes(x = pval$p[pval$.sample != #
+        10], xend = pval$p[pval$.sample != pos], y = rep(0.01 * min(density(dat)$y), #
+        (m - 1)), yend = rep(0.1 * max(density(dat)$y), (m - 1))), size = 1, alpha = I(0.7)) + #
+        geom_segment(aes(x = pval$p[pval$.sample == #
+        10], xend = pval$p[pval$.sample == 10], y = 0.01 * min(density(dat)$y), yend = 0.2 * max(density(dat)$y)), #
+            colour = "darkorange", size = 1) + geom_text(data = pval, y = -0.03 * max(density(dat)$y), #
+        size = 2.5, aes(x = p, label = .sample)) + ylim(c(-0.04 * max(density(dat)$y), #
+        max(density(dat)$y) + 0.1))
+ggsave("distribution-pval-exp2.pdf", height = 4, width = 4.5)
+dat <- read.table(file.choose(), header = TRUE) #plot_turk2_100_600_12_2#
+dat.m <- melt(dat, id = "X")#
+dat.m$.sample <- substring(dat.m$variable, 2)#
+lineup.dat <- data.frame(x = dat.m$X, z = dat.m$value, .sample = dat.m$.sample)#
+#
+lineup.dat$.sample <- as.numeric(as.character(lineup.dat$.sample))#
+#
+qplot(x, z, data = lineup.dat, alpha = I(0.1), xlab = "X1", ylab = "X2") + geom_smooth(method = "lm", se = FALSE, size = 1) + facet_wrap(~ .sample)#
+#
+ggsave("turk2-example.pdf", height = 5, width = 5.5)
+X1 <- rnorm(50, 10, 2)#
+X2 <- NULL#
+for(i in 1:50){#
+	X2[i] <- rnorm(1, mean = 3 + 0.7*(X1[i] - 10), sd = sqrt(4*(1 - 0.7^2)))#
+}#
+cor(X1, X2)#
+qplot(X1, X2, geom = "point", size = I(3))
+binplot <- function(x, y, nbins= 8, plot=TRUE) {#
+	xd <- cut(x, breaks=nbins, labels=as.character(1:nbins))#
+	yd <- cut(y, breaks=nbins, labels=as.character(1:nbins))#
+	ndf <- as.data.frame(xtabs(~yd+xd))#
+	X <- data.frame(x=x, y=y)#
+	X$xnew <- (x-min(x))/(max(x)-min(x))*nbins + 0.5#
+	X$ynew <- (y-min(y))/(max(y)-min(y))*nbins + 0.5#
+	if (plot) {#
+	print(ggplot() + geom_raster(aes(xd,yd,value=Freq), colour="grey50", data=ndf) + scale_fill_gradient2(name = "Count") + xlab("p") + ylab("q") )#
+	}#
+	invisible(ndf)#
+}#
+nij <- binplot(X1,X2)
+binplot <- function(x, y, nbins= 8, plot=TRUE) {#
+	xd <- cut(x, breaks=nbins, labels=as.character(1:nbins))#
+	yd <- cut(y, breaks=nbins, labels=as.character(1:nbins))#
+	ndf <- as.data.frame(xtabs(~yd+xd))#
+	X <- data.frame(x=x, y=y)#
+	X$xnew <- (x-min(x))/(max(x)-min(x))*nbins + 0.5#
+	X$ynew <- (y-min(y))/(max(y)-min(y))*nbins + 0.5#
+	if (plot) {#
+	print(ggplot() + geom_raster(aes(xd,yd,fill=Freq), colour="grey50", data=ndf) + scale_fill_gradient2(name = "Count") + xlab("p") + ylab("q") )#
+	}#
+	invisible(ndf)#
+}#
+nij <- binplot(X1,X2)
+?geom_text
+x <- X1
+y <- X2
+nbins <- 8
+xd <- cut(x, breaks=nbins, labels=as.character(1:nbins))#
+	yd <- cut(y, breaks=nbins, labels=as.character(1:nbins))#
+	ndf <- as.data.frame(xtabs(~yd+xd))#
+	X <- data.frame(x=x, y=y)#
+	X$xnew <- (x-min(x))/(max(x)-min(x))*nbins + 0.5#
+	X$ynew <- (y-min(y))/(max(y)-min(y))*nbins + 0.5
+head(X)
+head(ndf)
+ggplot() + geom_raster(aes(xd,yd,fill=Freq), colour="grey50", data=ndf) + scale_fill_gradient2(name = "Count") + xlab("p") + ylab("q")
+ggplot() + geom_tile(aes(xd,yd,fill=Freq), colour="grey50", data=ndf) + scale_fill_gradient2(name = "Count") + xlab("p") + ylab("q")
+ggplot() + geom_tile(aes(xd,yd), colour="grey50", data=ndf) + scale_fill_gradient2(name = "Count") + xlab("p") + ylab("q")
+ggplot() + geom_tile(aes(xd,yd, fill = 0.001), colour="grey50", data=ndf) + scale_fill_gradient2(name = "Count") + xlab("p") + ylab("q")
+ggplot() + geom_tile(aes(xd,yd, fill = 0.001), colour="grey50", data=ndf) + scale_fill_gradient2(name = "Count") + xlab("p") + ylab("q") + geom_text(aes(xd, yd, label = Freq), data = ndf)
+ggplot() + geom_tile(aes(xd,yd, fill = Freq), colour="grey50", data=ndf) + scale_fill_gradient2(name = "Count") + xlab("p") + ylab("q") + geom_text(aes(xd, yd, label = Freq), data = ndf)
+ggplot() + geom_tile(aes(xd,yd, fill = 0.5), colour="grey50", data=ndf) + scale_fill_gradient2(name = "Count") + xlab("p") + ylab("q") + geom_text(aes(xd, yd, label = Freq), data = ndf) + theme(legend.position = "none")
+X1 <- rnorm(50, 10, 2)#
+X2 <- NULL#
+for(i in 1:50){#
+	X2[i] <- rnorm(1, mean = 3 + 0.7*(X1[i] - 10), sd = sqrt(4*(1 - 0.7^2)))#
+}#
+cor(X1, X2)
+X1 <- rnorm(50, 10, 2)#
+X2 <- NULL#
+for(i in 1:50){#
+	X2[i] <- rnorm(1, mean = 3 + 0.7*(X1[i] - 10), sd = sqrt(4*(1 - 0.7^2)))#
+}#
+cor(X1, X2)
+qplot(X1, X2, geom = "point", size = I(3))
+binplot <- function(x, y, nbins= 8, plot=TRUE) {#
+	xd <- cut(x, breaks=nbins, labels=as.character(1:nbins))#
+	yd <- cut(y, breaks=nbins, labels=as.character(1:nbins))#
+	ndf <- as.data.frame(xtabs(~yd+xd))#
+	X <- data.frame(x=x, y=y)#
+	X$xnew <- (x-min(x))/(max(x)-min(x))*nbins + 0.5#
+	X$ynew <- (y-min(y))/(max(y)-min(y))*nbins + 0.5#
+	if (plot) {#
+	print(ggplot() + geom_tile(aes(xd,yd,fill=Freq), colour="grey50", data=ndf) + scale_fill_gradient2(name = "Count") + xlab("p") + ylab("q") )#
+	}#
+	invisible(ndf)#
+}#
+nij <- binplot(X1,X2)
+freqplot <- function(x, y, nbins= 8, plot=TRUE) {#
+	xd <- cut(x, breaks=nbins, labels=as.character(1:nbins))#
+	yd <- cut(y, breaks=nbins, labels=as.character(1:nbins))#
+	ndf <- as.data.frame(xtabs(~yd+xd))#
+	X <- data.frame(x=x, y=y)#
+	if (plot) {#
+	print(ggplot() + geom_tile(aes(xd,yd,fill=0.5), colour="grey50", data=ndf) + scale_fill_gradient2(name = "Count") + xlab("p") + ylab("q") + geom_text(aes(xd, yd, label = "Freq")) + theme(legend.position = "none") )#
+	}#
+	invisible(ndf)#
+}#
+mij <- freqplot(X1,X2)
+freqplot <- function(x, y, nbins= 8, plot=TRUE) {#
+	xd <- cut(x, breaks=nbins, labels=as.character(1:nbins))#
+	yd <- cut(y, breaks=nbins, labels=as.character(1:nbins))#
+	ndf <- as.data.frame(xtabs(~yd+xd))#
+	X <- data.frame(x=x, y=y)#
+	if (plot) {#
+	print(ggplot() + geom_tile(aes(xd,yd,fill=0.5), colour="grey50", data=ndf) + scale_fill_gradient2(name = "Count") + xlab("p") + ylab("q") + geom_text(aes(xd, yd, label = Freq)) + theme(legend.position = "none") )#
+	}#
+	invisible(ndf)#
+}#
+mij <- freqplot(X1,X2)
+freqplot <- function(x, y, nbins= 8, plot=TRUE) {#
+	xd <- cut(x, breaks=nbins, labels=as.character(1:nbins))#
+	yd <- cut(y, breaks=nbins, labels=as.character(1:nbins))#
+	ndf <- as.data.frame(xtabs(~yd+xd))#
+	X <- data.frame(x=x, y=y)#
+	if (plot) {#
+	print(ggplot() + geom_tile(aes(xd,yd,fill=0.5), colour="grey50", data=ndf) + scale_fill_gradient2(name = "Count") + xlab("p") + ylab("q") + geom_text(aes(xd, yd, label = Freq), data = ndf) + theme(legend.position = "none") )#
+	}#
+	invisible(ndf)#
+}#
+mij <- freqplot(X1,X2)
+X1 <- rnorm(50, 10, 2)#
+X2 <- NULL#
+for(i in 1:50){#
+	X2[i] <- rnorm(1, mean = 3 + 0.7*(X1[i] - 10), sd = sqrt(4*(1 - 0.7^2)))#
+}#
+cor(X1, X2)#
+qplot(X1, X2, geom = "point", size = I(3))
+X1 <- rnorm(50, 10, 2)#
+X2 <- NULL#
+for(i in 1:50){#
+	X2[i] <- rnorm(1, mean = 3 + 0.7*(X1[i] - 10), sd = sqrt(4*(1 - 0.7^2)))#
+}#
+cor(X1, X2)#
+qplot(X1, X2, geom = "point", size = I(3))
+nij <- binplot(X1,X2)
+mij <- freqplot(X1,X2)
+set.seed(1234)#
+X1 <- rnorm(50, 10, 2)#
+X2 <- NULL#
+for(i in 1:50){#
+	X2[i] <- rnorm(1, mean = 3 + 0.7*(X1[i] - 10), sd = sqrt(4*(1 - 0.7^2)))#
+}#
+cor(X1, X2)#
+qplot(X1, X2, geom = "point", size = I(3))
+set.seed(1454)#
+X1 <- rnorm(50, 10, 2)#
+X2 <- NULL#
+for(i in 1:50){#
+	X2[i] <- rnorm(1, mean = 3 + 0.7*(X1[i] - 10), sd = sqrt(4*(1 - 0.7^2)))#
+}#
+cor(X1, X2)#
+qplot(X1, X2, geom = "point", size = I(3))
+set.seed(1454)#
+X1 <- rnorm(50, 10, 2)#
+X2 <- NULL#
+for(i in 1:50){#
+	X2[i] <- rnorm(1, mean = 3 + 0.7*(X1[i] - 10), sd = sqrt(4*(1 - 0.7^2)))#
+}#
+cor(X1, X2)#
+qplot(X1, X2, geom = "point", size = I(3))
+set.seed(1454)#
+X1 <- rnorm(50, 10, 2)#
+X2 <- NULL#
+for(i in 1:50){#
+	X2[i] <- rnorm(1, mean = 3 + 0.7*(X1[i] - 10), sd = sqrt(4*(1 - 0.7^2)))#
+}#
+cor(X1, X2)#
+qplot(X1, X2, geom = "point", size = I(3))
+set.seed(1500)#
+X1 <- rnorm(50, 10, 2)#
+X2 <- NULL#
+for(i in 1:50){#
+	X2[i] <- rnorm(1, mean = 3 + 0.7*(X1[i] - 10), sd = sqrt(4*(1 - 0.7^2)))#
+}#
+cor(X1, X2)#
+qplot(X1, X2, geom = "point", size = I(3))
+nij <- binplot(X1,X2)
+mij <- freqplot(X1,X2)
+getwd()
+qplot(X1, X2, geom = "point", size = I(3))#
+#
+ggsave("dat-example-1.pdf", height = 3.5, width = 3.5)
+nij <- binplot(X1,X2) #
+#
+ggsave("bin-example-1.pdf", height = 3.5, width = 4.2)
+mij <- freqplot(X1,X2) #
+#
+ggsave("freq-example-1.pdf", height = 3.5, width = 3.5)
+X1 <- sample(X1)#
+qplot(X1, X2, geom = "point", size = I(3), xlab = "Permuted X1")#
+#
+ggsave("dat-example-2.pdf", height = 3.5, width = 3.5)
+nij <- binplot(X1,X2) #
+#
+ggsave("bin-example-2.pdf", height = 3.5, width = 4.2)
+mij <- freqplot(X1,X2) #
+#
+ggsave("freq-example-2.pdf", height = 3.5, width = 3.5)
+ndf
+samp.dat <- data.frame(X1 = X1, X2 = X2)
+samp.dat
+set.seed(1500)#
+X1 <- rnorm(50, 10, 2)#
+X2 <- NULL#
+for(i in 1:50){#
+	X2[i] <- rnorm(1, mean = 3 + 0.7*(X1[i] - 10), sd = sqrt(4*(1 - 0.7^2)))#
+}#
+true.dat <- data.frame(X1 = X1, X2 = X2)
+bin_dist(true.dist, samp.dat, lineup.dat = NULL, X.bin = 8, Y.bin = 8)
+bin_dist(true.dat, samp.dat, lineup.dat = NULL, X.bin = 8, Y.bin = 8)

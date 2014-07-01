@@ -1,0 +1,95 @@
+\begin{thebibliography}{14}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Amazon(2010)]{turk}
+Amazon.
+\newblock Mechanical {T}urk, 2010.
+\newblock URL \url{http://aws.amazon.com/mturk/}.
+
+\bibitem[Anscombe(1972)]{anscombe:1972}
+A.~J. Anscombe.
+\newblock {G}raphs in {S}tatistical {A}nalysis.
+\newblock \emph{The American Statistician}, 27:1:\penalty0 17--21, 1972.
+
+\bibitem[Buja et~al.(2009)Buja, Cook, Hofmann, Lawrence, Lee, Swayne, and
+  Wickham]{buja:2009}
+A.~Buja, D.~Cook, H.~Hofmann, M.~Lawrence, E.~Lee, D.~Swayne, and H.~Wickham.
+\newblock {S}tatistical {I}nference for {E}xploratory {D}ata {A}nalysis and
+  {M}odel {D}iagnostics.
+\newblock \emph{Royal Society Philosophical Transactions A}, 367\penalty0
+  (1906):\penalty0 4361--4383, 2009.
+
+\bibitem[Fernholz(2003)]{fernholz03}
+L.~Fernholz.
+\newblock Remembering {J}ohn {W}. {T}ukey.
+\newblock \emph{Statistical Science}, 18\penalty0 (3):\penalty0 pp. 336--340,
+  2003.
+\newblock ISSN 08834237.
+\newblock URL \url{http://www.jstor.org/stable/3182751}.
+
+\bibitem[Gelman(2004)]{gelman:2004}
+A.~Gelman.
+\newblock Exploratory {D}ata {A}nalysis for {C}omplex {M}odels.
+\newblock \emph{Journal of Computational and Graphical Statistics}, 13\penalty0
+  (4):\penalty0 755--779, 2004.
+
+\bibitem[Hennig(2010)]{hennig:2010}
+C.~Hennig.
+\newblock fpc : {F}lexible {P}rocedures for {C}lustering.
+\newblock \emph{R package version 2}, 2010.
+
+\bibitem[Huttenlocher et~al.(1993)Huttenlocher, Klanderman, and
+  Rucklidge]{huttenlocher:1993}
+D.P. Huttenlocher, G.A. Klanderman, and W.~J. Rucklidge.
+\newblock {C}omparing {I}mages {U}sing the {Hausdorff} {D}istance.
+\newblock \emph{IEEE Transactions on Pattern Analysis and Machine
+  Intelligence}, 15:9, 1993.
+
+\bibitem[Kirk(1996)]{kirk:1996}
+R.~E. Kirk.
+\newblock {P}ractical significance: {A} concept whose time has come.
+\newblock \emph{Educational and psychological measurement}, 56.5:\penalty0 746
+  -- 759, 1996.
+
+\bibitem[Majumder et~al.(2013)Majumder, Hofmann, and Cook]{majumder:2011}
+M.~Majumder, H.~Hofmann, and D.~Cook.
+\newblock {V}alidation of {V}isual {S}tatistical {I}nference, {A}pplied to
+  {L}inear {M}odels.
+\newblock \emph{Journal of American Statistical Association}, 108\penalty0
+  (503):\penalty0 942--956, 2013.
+
+\bibitem[Roy~Chowdhury et~al.(2013)Roy~Chowdhury, Cook, Hofmann, Majumder, Lee,
+  and Toth]{roychowdhury:2013}
+N.~Roy~Chowdhury, D.~Cook, H.~Hofmann, M.~Majumder, E.~Lee, and Amy Toth.
+\newblock {V}isual {S}tatistical {I}nference for {H}igh {D}imension, {S}mall
+  {S}ample {S}ize {D}ata.
+\newblock \emph{Computational Statistics: Submitted}, 2013.
+
+\bibitem[Tukey(1977)]{tukey:1977}
+J.~W. Tukey.
+\newblock \emph{Exploratory Data Analysis}.
+\newblock Addison-Wesley Publishing Company, Reading, MA, 1977.
+
+\bibitem[Wickham(2009)]{hadley:2009}
+H.~Wickham.
+\newblock \emph{ggplot2: {E}legant {G}raphics for {D}ata {A}nalysis}.
+\newblock {useR}. Springer, 2009.
+
+\bibitem[Wilkinson et~al.(2005)Wilkinson, Anand, and
+  Grossman]{wilkinson2005graph}
+Leland Wilkinson, Anushka Anand, and Robert~L Grossman.
+\newblock Graph-theoretic scagnostics.
+\newblock In \emph{INFOVIS}, volume~5, page~21, 2005.
+
+\bibitem[Zhao et~al.(2012)Zhao, Cook, Hofmann, Majumder, and
+  Roy~Chowdhury]{zhao:2012}
+Y.~Zhao, D.~Cook, H.~Hofmann, M.~Majumder, and N.~Roy~Chowdhury.
+\newblock {M}ind {R}eading {U}sing an {E}yetracker to {S}ee {H}ow {P}eople
+  {A}re {L}ooking at {L}ineups.
+\newblock \emph{The American Statistician: Submitted}, 2012.
+
+\end{thebibliography}
