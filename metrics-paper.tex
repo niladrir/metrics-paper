@@ -181,16 +181,40 @@ The article is organized as follows. Section \ref{sec:null} discusses the null g
 %\item Selection of the number of bins
 %\end{enumerate}}
 
+\section{Experimental Data} \label{sec:expts}
+
+There have been eleven experiments conducted using Amazon's Mechanical Turk~\citep{turk} (MTurk), with some used for evaluating the lineup protocol against classical testing, and the others using the protocol for different purposes. The web site to try the task provided to Turkers is \\{\verb#http://www.public.iastate.edu/~mahbub/feedback_turk#{\bf X}\verb#/homepage.html#}, 
+where {\bf X} is replaced by blank, 2, 3, ..., 11. For evaluating the distance metrics we used the data collected on experiments 1, 2, and 7. Table \ref{tbl:visual_stat} describes the experiments.
+
+%that are being used to evaluate the effects of observers' demographic factors on the inference. Table \ref{tbl:visual_stat} summarizes these experiments. Each of these experiments collected demographic details of the subjects. Experiments 5, 6 and 7 are used to study the learning trend of the observer. The design of experiment 9 incorporated components that allows position of the actual data plot in the lineup, and the sample of nulls, to be evaluated. Section \ref{sec:factor_performance} discusses human factors that may affect the performance of the observer. Section \ref{sec:exp_design} describes the methods used to assess the effects, and Section \ref{sec:result_socio} describes the results.
+
+\begin{table*}[hbtp] 
+\centering 
+\caption{Overview of the different Turk experiments, from where data was taken to study distance metrics and how subjects read the plots. } 
+\begin{tabular}{m{.5cm}m{2.6cm}m{2cm}m{5.5cm}} 
+\hline\hline 
+ Turk ID & Experiment &  Test Statistic  & Lineup question \\ [0.5ex] % inserts table %heading 
+\hline 
+1  & Box plot & \begin{minipage}[t]{2cm} \begin{center}	\scalebox{0.12}{\includegraphics{stat_category1.pdf}} \end{center} \end{minipage} & Which set of box plots shows biggest vertical difference 
+between group A and B? \\
+2 &  Scatter plot & \begin{minipage}[t]{2cm}  \begin{center} \scalebox{0.3}{\includegraphics{stat_beta_k1.png}} \end{center} \end{minipage} & Of the scatter plots below which one shows data that has steepest slope? \\
+  7 & Group separation & \begin{minipage}[t]{2cm} \begin{center}  \scalebox{0.4}{\includegraphics{stat_separation.pdf}} \end{center} \end{minipage} &Which of these plots has the most separation between the coloured groups?  \\
+\hline 
+\end{tabular} 
+\label{tbl:visual_stat} 
+\end{table*} 
+
+
 \section{Null Generating Mechanism} \label{sec:null}
 
 The lineup protocol embeds the true data plot among a set of null plots. The method of obtaining the data for these null plots is called the null generating mechanism. %These null plots are obtained from the null distribution in a method consistent with the null hypothesis. 
-The null hypothesis directly affects the choice of null generating method. Some examples are:
+The null hypothesis directly affects the choice of null generating method. In the experimental data that we analyzed the null generating methods used were:
 \begin{itemize}
 \item Permutation: This is the most common approach, because it requires few assumptions and can be used in a variety of problems. Permutations can be used to break association between two or more variables, and thus is appropriate when the null hypothesis is that there is no association. Consider two variables $X_1$ and $X_2$. Either $X_1$ or $X_2$ is permuted keeping the other variable fixed. Any association between $X_1$ and $X_2$ is broken in the process. The marginal distribution of $X_1$ and $X_2$ remains the same while the joint distribution is altered. The method works in situations where one or both the variables are continuous or categorical. Let us consider a case where we have one categorical variable, say, Group and a continuous variable. Let us assume that the variable Group has two levels (say, A and B) and we want to test whether there is any significant difference between the two groups, i.e. $H_o: \mu_A = \mu_B$. To generate the null data, the values of the variable Group are permuted keeping the continuous variable fixed. If there is a difference between the two groups, this difference is broken by the permutation, and any difference observed in the permuted data is consistent with random variation.
 \item Simulation under the null model: Sometimes there is a model underlying the problem being studied. In this situation simulating from the model will be the null generating mechanism. Assuming that the null hypothesis is true, the model is fitted to the true data. The parameter estimates are obtained from the fitted model and then the data is generated using the parameter estimates. Let us consider that we are interested in testing whether there is any significant linear relationship between two continuous variables $X_1$ and $X_2$. Hence we test for $H_o : \beta_1 = 0$ versus $H_a: \beta_1 \ne 0$. Under the null hypothesis, we fit the following model to the data:
 $$Y = \beta_0 + \varepsilon$$
 where $\varepsilon \sim \hbox{Normal}(0, \sigma^2)$. The parameter estimates of $\beta_0$ and $\sigma^2$ are obtained and the null data is generated from $\hbox{Normal}(\widehat{\beta_0}, \widehat{\sigma}^2)$. 
-\item Simulation from a specific distribution:  When the null hypothesis is that the data comes from a specific distribution, this distribution can be used to simulate new samples that generate the null plots. The parameters for the null distribution are obtained from the estimates calculated using the data. For example, suppose we want to test whether data comes from a Normal distribution, $H_o:$ data $\sim$ Normal vs. $H_A:$ data $\nsim$ Normal, then the null data are generated from the Normal distribution with mean and standard deviation equal to the estimated mean and standard deviation from the data. 
+\item \red{*** was this used by us?} Simulation from a specific distribution:  When the null hypothesis is that the data comes from a specific distribution, this distribution can be used to simulate new samples that generate the null plots. The parameters for the null distribution are obtained from the estimates calculated using the data. For example, suppose we want to test whether data comes from a Normal distribution, $H_o:$ data $\sim$ Normal vs. $H_A:$ data $\nsim$ Normal, then the null data are generated from the Normal distribution with mean and standard deviation equal to the estimated mean and standard deviation from the data. 
 \end{itemize} 
 
 Other null generating mechanisms might be utilized depending on the null hypothesis underlying a data plot. 
@@ -211,7 +235,7 @@ Other null generating mechanisms might be utilized depending on the null hypothe
 %
 %\red{Another thing that we should discuss on Friday is whether it might be better to call the measures we use norms rather than distances - a distance usually assumes the comparison of two objects, and we implicitly compare against null or identity, which is what a norm does..}
 
-By calculating the ``distance'' between plots we may be able to determine if a lineup should be easy -- when the actual data plot is detectably different from the null plots -- and also to better understand what aspect of the plot people use to make their choice. It is not an easy task to measure the difference between plots. Here we examine several possibilities. The primary method used in our analyses of the Turk experimental data is designed to work reasonably well in a large number of circumstances. However, it was clear immediately that plot design has a large impact on how a plot is read, and specific distance metrics designed for specific plot types is needed. 
+By calculating the ``distance'' between plots we may be able to determine if a lineup should be easy -- the the actual data plot is detectably different from the null plots -- and also to better understand what aspect of the plot people use to make their choice. It is not an easy task to measure the difference between plots. Here we examine several possibilities. The primary method used in our analyses of the Turk experimental data is designed to work reasonably well in a large number of circumstances. However, it was clear immediately that plot design has a large impact on how a plot is read, and specific distance metrics designed for specific plot types is needed. 
 
 
 \red{*** This next paragraph needs to be a literature review of distance metrics. You need to briefly refer to distributional test statistics like Kolmogorov-Smirnov, and interpoint distances used commonly in cluster analysis.}
@@ -372,8 +396,6 @@ d^2_{\hbox{reg}}(X, Y) := \hbox{tr} (B(X) - B(Y))' (B(X) - B(Y)) = \sum_{i=1}^b 
 
 where $b_0$ and $b_1$ denote the vector of the intercept and slope respectively while $b$ is the number of bins. $B(.)$ is a $b \times 2$ matrix of the regression coefficients where each row represent the  intercept and the slope obtained from each bin. The number of bins have a significant effect on the distance measure. It can be seen that it works best for smaller number of bins like 1 or 2. With larger number of bins (i.e. smaller bin sizes), the regression coefficients are affected by the skewness of the data.
 
-\red{*** Didn't we switch to using only the slope?}
-
 \item Distance based on separation: Let $X_1$ and $X_2$ be two continuous variable. Let $X_3$ be a categorical variable providing the groups associated with each variable. $X_1$ and $X_2$ are plotted in a scatterplot colored by the group variable $X_3$. The separation can be described in a number of different ways (\cite{hennig:2010}). Two versions are used in this paper. Let us define, 
 
 (i)  $s_{g}(.)$ be a vector of cluster wise minimum distance between a point in the cluster to the points in other clusters for $g$ clusters. The distance metric based on separation is defined as
@@ -385,8 +407,6 @@ d^2_{\hbox{minsep}}(X, Y):= ||s_g(X) - s_g(Y)||^2 = \sum_{i = 1}^g ((s_g(X))_i -
 \[
 d^2_{\hbox{avesep}}(X, Y):= ||s_g(X) - s_g(Y)||^2 = \sum_{i = 1}^g ((s_g(X))_i - (s_g(Y))_i)^2
 \]
-
-\red{*** These two formula are the same, why are they both needed?}
 
 \end{itemize}
 
@@ -993,8 +1013,6 @@ Figure \ref{lp-exp} shows the lineup in a high dimension, low sample size settin
 
 
 \section{Conclusion}
-
-\red{*** What problem was solved in the paper?}
 
 {\color{red} 1.  Distance metrics are compared to the response of human subjects on lineups. They are comparable to a certain extent except in certain situations where they disagree. There seems to be various reasons behind the disagreement. When people look at a lineup, they may identify a plot as different from the others due to various reasons. But the distance metrics are constructed such that it takes into specific properties of the plot. \\
 
