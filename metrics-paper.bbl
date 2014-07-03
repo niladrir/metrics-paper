@@ -1,4 +1,4 @@
-\begin{thebibliography}{14}
+\begin{thebibliography}{19}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -14,6 +14,12 @@ Amazon.
 A.~J. Anscombe.
 \newblock {G}raphs in {S}tatistical {A}nalysis.
 \newblock \emph{The American Statistician}, 27:1:\penalty0 17--21, 1972.
+
+\bibitem[Bhattacharyya(1946)]{bhattacharyya:1946}
+A.~Bhattacharyya.
+\newblock {O}n a measure of divergence between two multinomial populations.
+\newblock \emph{Sankhy{\=a}: The Indian Journal of Statistics}, pages 401--406,
+  1946.
 
 \bibitem[Buja et~al.(2009)Buja, Cook, Hofmann, Lawrence, Lee, Swayne, and
   Wickham]{buja:2009}
@@ -37,9 +43,15 @@ A.~Gelman.
 \newblock \emph{Journal of Computational and Graphical Statistics}, 13\penalty0
   (4):\penalty0 755--779, 2004.
 
+\bibitem[Hamming(1950)]{hamming:1950}
+R.~W. Hamming.
+\newblock {E}rror detecting and error correcting codes.
+\newblock \emph{Bell System technical journal}, 29\penalty0 (2):\penalty0
+  147--160, 1950.
+
 \bibitem[Hennig(2010)]{hennig:2010}
-C.~Hennig.
-\newblock fpc : {F}lexible {P}rocedures for {C}lustering.
+C~Hennig.
+\newblock fpc: {F}lexible {P}rocedures for {C}lustering.
 \newblock \emph{R package version 2}, 2010.
 
 \bibitem[Huttenlocher et~al.(1993)Huttenlocher, Klanderman, and
@@ -55,6 +67,12 @@ R.~E. Kirk.
 \newblock \emph{Educational and psychological measurement}, 56.5:\penalty0 746
   -- 759, 1996.
 
+\bibitem[Mahalanobis(1936)]{mahalanobis:1936}
+P.~C. Mahalanobis.
+\newblock {O}n the generalized distance in statistics.
+\newblock \emph{Proceedings of the National Institute of Sciences (Calcutta)},
+  2:\penalty0 49--55, 1936.
+
 \bibitem[Majumder et~al.(2013)Majumder, Hofmann, and Cook]{majumder:2011}
 M.~Majumder, H.~Hofmann, and D.~Cook.
 \newblock {V}alidation of {V}isual {S}tatistical {I}nference, {A}pplied to
@@ -68,6 +86,17 @@ N.~Roy~Chowdhury, D.~Cook, H.~Hofmann, M.~Majumder, E.~Lee, and Amy Toth.
 \newblock {V}isual {S}tatistical {I}nference for {H}igh {D}imension, {S}mall
   {S}ample {S}ize {D}ata.
 \newblock \emph{Computational Statistics: Submitted}, 2013.
+
+\bibitem[Shapiro and Wilk(1965)]{shapiro:1965}
+S.~S. Shapiro and M.~B. Wilk.
+\newblock {A}n analysis of variance test for normality (complete samples).
+\newblock \emph{Biometrika}, pages 591--611, 1965.
+
+\bibitem[Stephens(1974)]{stephens:1974}
+M.~A. Stephens.
+\newblock {E}{D}{F} statistics for goodness of fit and some comparisons.
+\newblock \emph{Journal of the American statistical Association}, 69\penalty0
+  (347):\penalty0 730--737, 1974.
 
 \bibitem[Tukey(1977)]{tukey:1977}
 J.~W. Tukey.
