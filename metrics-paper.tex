@@ -214,7 +214,7 @@ The null hypothesis directly affects the choice of null generating method. In th
 \item Simulation under a null model: Sometimes there is a model underlying the problem being studied. In this situation simulating from the model will be the null generating mechanism. Assuming that the null hypothesis is true, the model is fitted to the true data. The parameter estimates are obtained from the fitted model and then the data is generated using the parameter estimates. Let us consider that we are interested in testing whether there is any significant linear relationship between two continuous variables $X_1$ and $X_2$. Hence we test for $H_o : \beta_1 = 0$ versus $H_a: \beta_1 \ne 0$. Under the null hypothesis, we fit the following model to the data:
 $$Y = \beta_0 + \varepsilon$$
 where $\varepsilon \sim \hbox{Normal}(0, \sigma^2)$. The parameter estimates of $\beta_0$ and $\sigma^2$ are obtained and the null data is generated from $\hbox{Normal}(\widehat{\beta_0}, \widehat{\sigma}^2)$. 
-%\item \red{*** was this used by us?} Simulation from a specific distribution:  When the null hypothesis is that the data comes from a specific distribution, this distribution can be used to simulate new samples that generate the null plots. The parameters for the null distribution are obtained from the estimates calculated using the data. For example, suppose we want to test whether data comes from a Normal distribution, $H_o:$ data $\sim$ Normal vs. $H_A:$ data $\nsim$ Normal, then the null data are generated from the Normal distribution with mean and standard deviation equal to the estimated mean and standard deviation from the data. 
+%\item \red{*** Not used by us, so exclude for now} Simulation from a specific distribution:  When the null hypothesis is that the data comes from a specific distribution, this distribution can be used to simulate new samples that generate the null plots. The parameters for the null distribution are obtained from the estimates calculated using the data. For example, suppose we want to test whether data comes from a Normal distribution, $H_o:$ data $\sim$ Normal vs. $H_A:$ data $\nsim$ Normal, then the null data are generated from the Normal distribution with mean and standard deviation equal to the estimated mean and standard deviation from the data. 
 \end{itemize} 
 
 %Other null generating mechanisms might be utilized depending on the null hypothesis underlying a data plot. 
@@ -239,6 +239,9 @@ By calculating the ``distance'' between plots we may be able to determine if a l
 
 
 \red{*** This next paragraph needs to be a literature review of distance metrics. You need to briefly refer to distributional test statistics like Kolmogorov-Smirnov, and interpoint distances used commonly in cluster analysis.}
+
+\green{*** Comparing a data with a reference probability distribution or comparing two datasets are common in statistical methodology. Kolmogorov-Smirnov tests (\cite{stephens:1974}) are designed for this purpose. Anderson-Darling (\cite{stephens:1974}) and Shapiro-Wilk (\cite{shapiro:1965}) tests compare datasets with normal probability distributions. Bhattacharyya distance (\cite{bhattacharyya:1946}) measures the similarity between two discrete or continuous probability distributions. It has a wide use in image processing, feature extraction and selection and phone clustering. Mahalanobis distance (\cite{mahalanobis:1936}) is a special case in the sense that the same sets of variances and covariances are used. Similar interpoint distances are widely used in cluster analysis and classification techniques. On the other hand, Hamming distance  (\cite{hamming:1950}) measures the number of positions at which the corresponding symbols are different in two variables of equal length. This can be used to measure the distance between two datasets where only one variable is permuted and the other is constant. }
+
 
 %Some of the distance metrics are generic and uses the raw data to calculate the distances. They do not consider any graphical element in the plot which may somehow affect the decision of the subjects in identifying the true plot. A regression line overlaid on a scatterplot may affect the decision of a plot. Same can be done when a boxplot is used to represent the data instead of a dot plot. The distance metrics should take into account the presence of these graphical elements. Distance metrics like distance based on regression line, distance based on boxplots are designed to address this issue. \\
 
@@ -296,8 +299,8 @@ For all of the distance measures below, let $X$ denote the true dataset with one
 
 \item Binned Distance (BD):
 %\red{write out mathematically, include all definitions - i.e. C(X,Y) needs to be defined - have a look at the grammar of graphics}
-Let $X_1$ and $X_2$ be two continuous variables. Let $X_1$ be divided into $p$ bins and $X_2$ divided into $q$ bins.% $(i,j)$-th cell represents the $j$-th bin of $X_2$ corresponding to the $i$-th bin of $X_1$. 
-Let $C(X_1,X_2)$ be defined as a $p \times q$ matrix. Each $(i,j)$-th element of the matrix represents the number of points falling in the $(i,j)$-th cell, where $i = 1, \dots, p$ , $j = 1, \dots, q$.
+Let $X_1$ and $X_2$ be two continuous variables. Let $X_1$ be divided into $p$ bins and $X_2$ divided into $q$ bins. % $(i,j)$-th cell represents the $j$-th bin of $X_2$ corresponding to the $i$-th bin of $X_1$. 
+ Let $C(X_1,X_2)$ be defined as a $p \times q$ matrix. Each $(i,j)$-th element of the matrix represents the number of points falling in the $(i,j)$-th cell, where $i = 1, \dots, p$ , $j = 1, \dots, q$.
 The distance is then defined as
 \begin{eqnarray*}
 d_{\hbox{BD}}^2 (X, Y) &:=& ||C_X(X_1, X_2) - C_Y(X_1,X_2)||^2 \\ &=& \sum_{i=1}^p \sum_{j=1}^q (C_X(X_{1i},X_{2j}) - C_Y(X_{1i},X_{2j}))^2.
@@ -365,7 +368,7 @@ d_{\hbox{BD}}^2 (X, Y) &:=& ||C_X(X_1, X_2) - C_Y(X_1,X_2)||^2 \\ &=& \sum_{i=1}
 \end{itemize}
 
 This distance can be calculated for univariate continuous data, bivariate data with two categorical variables, or data with one continuous and one categorical variable. For the categorical variable, the number of bins would equal to the number of categories.
-Binned distance is highly susceptible to small differences in values and depends on the number of bins as well the \red{starting value of the initial bin (*** check the correct name)}. We initially considered variations on this distance, using kernel density estimates and Hausdorff distance (\cite{huttenlocher:1993}), but the simpler metric was faster to calculate and performed as well as the others as a rough, generic measure of similarity of plots.
+Binned distance is highly susceptible to small differences in values and depends on the number of bins as well the \red{starting value of the initial bin (*** check the correct name)} \green{range of data over which the binning is done}.  We initially considered variations on this distance, using kernel density estimates and Hausdorff distance (\cite{huttenlocher:1993}), but the simpler metric was faster to calculate and performed as well as the others as a rough, generic measure of similarity of plots.
 
 %The remaining distance measures are different from the ones above, in that they are used to directly draw inference on a linear association between variables $X$ and $Y$, whereas the other ones were not specifically tailored to this purpose.
 
