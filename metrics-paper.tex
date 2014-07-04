@@ -242,7 +242,7 @@ The problem could be tackled by considering the data as a reference distribution
 
 Hausdorff distance \citep{huttenlocher:1993} has been successfully used for comparing images. It effectively matches points between sets and computes the distances between the matched points. When permutation is the null generating mechanism, Hamming distance \citep{hamming:1950} can be used to calculate how different the permutations are, by measuring the minimum number of substitutions it takes to get from one permutation to another. 
 
-Alternatively, interpoint distance metrics might be adapted to measure distances between plots. For example, when the purpose is differences between groups in a single plot, like side-by-side boxplots, a distance metric that focuses on group separationcalculated on each data set might be useful. Bhattacharyya distance \citep{bhattacharyya:1946} is widely used in image processing, for feature extraction. The R package {\tt fpc} \cite{hennig:2010} contains many different ways to calculate distances between groups. 
+Alternatively, interpoint distance metrics might be adapted to measure distances between plots. For example, when the purpose is differences between groups in a single plot, like side-by-side boxplots, a distance metric that focuses on group separation calculated on each data set might be useful. Bhattacharyya distance \citep{bhattacharyya:1946} is widely used in image processing, for feature extraction. The R package {\tt fpc} \cite{hennig:2010} contains many different ways to calculate distances between groups. 
 
 Ultimately, a very simple binned distance was used in the analyses of the MTurk data, which worked fairly well in most circumstances. However, it was clear immediately that plot design, and the question asked, has a large impact on how a plot is read, and specific distance metrics designed for specific plot types is needed. Below is a summary of distance metrics used. For all of the distance measures below, let $X$ denote the true dataset with one or two variables. Let $Y$ denote the null dataset obtained from $X$ using an appropriate null generating mechanism.
 
@@ -419,6 +419,8 @@ d^2_{\hbox{AS}}(X, Y):= ||s_a(X) - s_g(Y)||^2 = \sum_{i = 1}^g ((s_a(X))_i - (s_
 
 \red{*** You need to discuss distance between means relative to variance, and other ways that separation might be measured. I thought you had looked at a Wilks Lambda measure already, and ruled it out because it didn't match what people chose. That would be a good illustration of what does not work.} 
 
+\green{*** Wilk's lambda does not work for one dimensional projections. Hence it is not an automatic choice. I looked at the test statistic for testing difference between groups for one dimensional projections. What are you looking at exactly? Should I use a new distance metric? }
+
 Figure \ref{sep-dist} illustrates the difference between the different distance metrics separation. In practice, many possible metrics could be used to measure the separation, such as those readily available in the {\tt fpc} package.
 
 %Here the two methods are applied on two dimensional projections of a dataset with 60 dimensions and 30 observations with three classes. The same is done on the projections of the same dataset with permuted classes. The average separation calculates the euclidean distance between each point in one cluster to all the points in the other two clusters. For example, for the original data, the distance between the points in the green cluster and the other two clusters are calculated and then the average of these distances represent the average distance for the green cluster. Similarly, the average distances for the other two clusters are calculated. The minimum distance also calculates the euclidean distance between each point in one cluster to all the points in the other two clusters. But instead of taking the average, it looks at the minimum distance. For the original data, the minimum distance between any point in the green cluster and the other two clusters is the distance between the point and a point in the red cluster. 
@@ -434,7 +436,7 @@ Figure \ref{sep-dist} illustrates the difference between the different distance 
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
-How well each distance measure matches the observers' repsonses depends some on the question of interest. But, in general, this should not be a problem because the question which is typically asked is ``Which plot among these is different ?''. In the MTurk experiments, more focused questions were asked because the purpose was very specific, to compare visual inference with classical inference.
+How well each distance measure matches the observers' responses depends some on the question of interest. But, in general, this should not be a problem because the question which is typically asked is ``Which plot among these is different ?''. In the MTurk experiments, more focused questions were asked because the purpose was very specific, to compare visual inference with classical inference.
 %\item $t$ statistic: In this paper we used the test statistic of a t-test based on the correlation coefficient $r$ where $$t =\frac{r \sqrt{n - 2}}{\sqrt{1 - r^2}}$$ where $n$ is the number of observations in $X$ or $Y$. This is the only measure that makes a distributional assumption that the ($X$,$Y$) follows approximately a bivariate Normal distribution. Hence the $t$-statistic follows a t distribution with ($n$ - 2) degrees of freedom.
 %%\red{use either upper case or lower case $T$, not both. }
 %%The first one was used when one variable is continuous and the other is categorical while the other is used when both the variables are continuous.  
@@ -490,6 +492,18 @@ How well each distance measure matches the observers' repsonses depends some on 
 \section{Distance Metric Distribution} \label{sec:distri}
 
 \red{*** You need an algorithm written in here}
+
+For a given lineup of size $m$, the empirical distribution of distance metrics is obtained using the following algorithm:
+
+Step 1: Calculate the distance between the true data and all the null datasets and take the average of these distances. 
+
+Step 2: For each of the ($m$ - 1) null datasets, calculate the distance between the null data and all the other ($m$ - 2) null datasets and obtain the average distance. Hence obtain ($m$ - 1) distances corresponding to each null plot.
+
+Step 3: Generate a null dataset from the true dataset by the null generating mechanism. Consider this null dataset as ``true'' dataset. From this ``true'' dataset, generate ($m$ - 2) null datasets and calculate the average distance between the ``true'' data and the null datasets. Hence obtain a distance corresponding to this ``true'' dataset. Repeat this procedure a large number of times ( order of 1000 or 10000).
+
+Step 4: Plot these 1000 distances to obtain the empirical distribution of the distance metric. Plot the distances for the true plot and the null plots to show the distances for the lineups. \\
+
+
 
 The empirical distribution of the distance measures is obtained by calculating the distances between the null plots among themselves. One null data is generated from the true data set using the null generating mechanism. Assuming this null data to be the ``true'' data set, a number of null data sets are obtained from this null data and the distances between these datasets are calculated. One single distance value is obtained by averaging all these distances. This process is repeated a large number of times, say, $N$ where $N$ is a large number of the order $10^3$ or $10^4$. Finally $N$ mean distances or average distances are obtained which gives the empirical distribution of the distance. 
 
@@ -625,7 +639,7 @@ The response of the subjects were noted and the proportion of correct response w
 %\label{t1bin_2}
 %}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{Plot showing the detection rate against the difference and the number of null plots greater than the observed plot based on the boxplot distance and  the binned distance . In (a) the vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The detection rate increases with the difference. In (b) the detection rate decreases as the number of null plots greater than the observed plot increases.  }
+\caption[Optional caption for list of figures]{Comparison of distance metrics for side-by-side boxplots. Detection Rate (a) and the number of plots greater than the observed (b) are plotted against the difference based on the boxplot and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The detection rate increases with the difference. As the number of plots with distance greater than the observed increases, the detection rate decreases.  The triangle represents a lineup which has high detection rate but negative difference. This particular lineup is examined in Figure \ref{turk1-exp}. }
 \label{turk1comp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -666,7 +680,7 @@ The time taken to respond by the subjects is another measure of difficulty of th
 %\label{t1bin_1}
 %}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{Plot showing the mean time to respond by the subjects against the difference based on the boxplot distance and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time decreases with the difference.  }
+\caption[Optional caption for list of figures]{Comparison of distance metrics for side-by-side boxplots. Mean time to respond is plotted against the difference based on the boxplot and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time taken decreases with the difference. The triangle represents a lineup which is examined in Figure \ref{turk1-exp}. }
 \label{turk1-mtime}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -734,7 +748,7 @@ The distances between the plots in this experiment were computed using both the 
 %\label{t2comp_2}
 %}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{Plot showing the detection rate against the difference and the number of null plots greater than the observed based on the regression distance and based on the binned distance. In (a) the vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The detection rate increases with the difference.  In (b) the detection rate decreases as the number of null plots greater than the observed plot increases.}
+\caption[Optional caption for list of figures]{Comparison of distance metrics for scatteplots with a regression line overlaid. Detection Rate (a) and the number of plots greater than the observed (b) are plotted against the difference based on the regression based and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The detection rate increases with the difference. As the number of plots with distance greater than the observed increases, the detection rate decreases.  The triangle represents a lineup which has high detection rate but negative difference. This particular lineup is examined in Figure \ref{turk2-exp}.}
 \label{turk2comp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -756,10 +770,10 @@ Figure \ref{turk2comp} also shows the detection rate against the number of null 
 %\includegraphics[scale=0.55]{turk2-diff-bin-mtime.pdf}
 %\label{t1bin_1}
 %}
-\label{turk2-mtime}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{Plot showing the mean time to respond by the subjects against the difference based on the regression distance and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time decreases with the difference.  }
+\caption[Optional caption for list of figures]{Comparison of distance metrics for scatterplots with a regression line over laid. Mean time to respond is plotted against the difference based on the regression based and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time taken decreases with the difference. The triangle represents a lineup which is examined in Figure \ref{turk2-exp}.   }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
+\label{turk2-mtime}
 \end{figure}
 
 Figure \ref{turk2-mtime} shows the relationship between the mean time taken to respond and the difference for both the distances. It can be clearly seen that there is a strong negative association showing that as the difference increases, the subjects take less time to respond. Also the variability of the mean time is higher for smaller difference. In case of binned distance, the relationship is negative though the variability is higher for the above mentioned reasons.
@@ -847,7 +861,7 @@ The distances between the plots in this experiment were computed using the dista
 %\label{lpcomp_2}
 %}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{Comparison of distance metrics for the side-by-side boxplots. Detection rate (a) and the number of plots greater than the observed (b) are plotted against the difference based on the minimum separation, average separation and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The detection rate increases with the difference. As the number of plots with diatnce greater than the observed increases, the detection rate decreases.\red{*** what does the triangle represent??} }
+\caption[Optional caption for list of figures]{Comparison of distance metrics for the scatterplot with clusters. Detection rate (a) and the number of plots greater than the observed (b) are plotted against the difference based on the minimum separation, average separation and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The detection rate increases with the difference. As the number of plots with distance greater than the observed increases, the detection rate decreases. The triangle represents a lineup with high detection rate and negative difference based on the average separation distance. This is examined in Figure \ref{lp-exp}. }
 \label{lp-comp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -855,6 +869,8 @@ The distances between the plots in this experiment were computed using the dista
 In Figure \ref{lp-comp}, the detection rate is plotted against the difference for distance based on minimum separation, average separation and the binned distance. The red vertical line shows difference equal to 0.  It can be seen that as the difference increases, the detection rate increases and both the distances do a good job in capturing the response of the subjects.  In (b) it can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, a large number of the subjects identify the observed plot although there is more extreme null plots. 
 
 \red{*** Explain the triangle. Is the lineup that corresponds to this included in the figures?}
+
+The triangle shown in Figure \ref{lp-comp} and Figure \ref{lp-mtime} is examined in Figure \ref{lp-exp}. The distribution of the distance metrics are compared based on this lineup. 
 
 \begin{figure}[hbtp]
 \centering
@@ -900,7 +916,7 @@ Figure \ref{lp-mtime} shows the relationship between the mean time taken to resp
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
-Figure \ref{lp-exp} shows the lineup in a high dimension, low sample size setting. The number of dimensions used is 100 and two of the dimensions have some separation. Plot 20 shows the two-dimensional projections of the original data. The null plots are obtained by permuting the group variable and plotting the two dimensional projections obtained from a projection pursuit with PDA index\red{*** Needs refernce added}. Since the true plot has real separation, it is expected that the subjects would be able to identify the plot. The distance based on average separation yields a negative difference showing that the lineup is difficult, while the distance based on minimum separation yields a positive difference. The distance metrics identifies different characteristics in a plot. The average separation looks at the average of the distances of the points in a cluster to the points in other clusters. The presence of an outlier point in the opposite side of the other clusters affects this distance considerably. On the other hand, the minimum separation looks at the minimum of the distances. Hence it is not affected by the outlier point. 
+Figure \ref{lp-exp} shows the lineup in a high dimension, low sample size setting. The number of dimensions used is 100 and two of the dimensions have some separation. Plot 20 shows the two-dimensional projections of the original data. The null plots are obtained by permuting the group variable and plotting the two dimensional projections obtained from a projection pursuit with PDA index (\cite{lee:2009}). Since the true plot has real separation, it is expected that the subjects would be able to identify the plot. The distance based on average separation yields a negative difference showing that the lineup is difficult, while the distance based on minimum separation yields a positive difference. The distance metrics identifies different characteristics in a plot. The average separation looks at the average of the distances of the points in a cluster to the points in other clusters. The presence of an outlier point in the opposite side of the other clusters affects this distance considerably. On the other hand, the minimum separation looks at the minimum of the distances. Hence it is not affected by the outlier point. 
 
 
 \section{Conclusion}
