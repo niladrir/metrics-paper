@@ -50,7 +50,7 @@ R.~W. Hamming.
   147--160, 1950.
 
 \bibitem[Hennig(2010)]{hennig:2010}
-C~Hennig.
+C.~Hennig.
 \newblock fpc: {F}lexible {P}rocedures for {C}lustering.
 \newblock \emph{R package version 2}, 2010.
 
@@ -67,11 +67,14 @@ R.~E. Kirk.
 \newblock \emph{Educational and psychological measurement}, 56.5:\penalty0 746
   -- 759, 1996.
 
-\bibitem[Mahalanobis(1936)]{mahalanobis:1936}
-P.~C. Mahalanobis.
-\newblock {O}n the generalized distance in statistics.
-\newblock \emph{Proceedings of the National Institute of Sciences (Calcutta)},
-  2:\penalty0 49--55, 1936.
+\bibitem[Majumder(2013)]{majumder:2013}
+M.~Majumder.
+\newblock Web sites for conducting amazon turk experiments.
+\newblock
+  \url{http://www.public.iastate.edu/~mahbub/feedback_turk/homepage.html},
+  2013.
+\newblock Replace `turk' with `turk2', ..., `turk11' to get to other
+  experiments.
 
 \bibitem[Majumder et~al.(2013)Majumder, Hofmann, and Cook]{majumder:2011}
 M.~Majumder, H.~Hofmann, and D.~Cook.
