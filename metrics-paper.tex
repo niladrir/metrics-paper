@@ -417,9 +417,7 @@ d^2_{\hbox{MS}}(X, Y):= ||s_m(X) - s_m(Y)||^2 = \sum_{i = 1}^g ((s_m(X))_i - (s_
 d^2_{\hbox{AS}}(X, Y):= ||s_a(X) - s_g(Y)||^2 = \sum_{i = 1}^g ((s_a(X))_i - (s_a(Y))_i)^2
 \]
 
-\red{*** You need to discuss distance between means relative to variance, and other ways that separation might be measured. I thought you had looked at a Wilks Lambda measure already, and ruled it out because it didn't match what people chose. That would be a good illustration of what does not work.} 
-
-\green{*** Wilk's lambda does not work for one dimensional projections. Hence it is not an automatic choice. I looked at the test statistic for testing difference between groups for one dimensional projections. What are you looking at exactly? Should I use a new distance metric? }
+(iii) \red{Now write the formula for the mean, since it is included below}
 
 Figure \ref{sep-dist} illustrates the difference between the different distance metrics separation. In practice, many possible metrics could be used to measure the separation, such as those readily available in the {\tt fpc} package.
 
@@ -442,7 +440,7 @@ Figure \ref{sep-dist} illustrates the difference between the different distance 
 \label{type_2}
 }
 	\vspace{-.1in}
-\caption{Comparison of three different distance metrics based on separation. Two dimensional projections are plotted with 3 groups. Minimum Separation (in (a)) calculates the minimum distance between points of each cluster from the other clusters. Average separation (in (b)) calculates the average distance of each point  in a cluster to the other clusters. In (c), the cluster mean distance calculates the distance between the means of each cluster. }
+\caption{Illustration of three different distance metrics based on separation. Two dimensional projections are plotted with 3 groups. Minimum Separation (in (a)) calculates the minimum distance between points of each cluster from the other clusters. Average separation (in (b)) calculates the average distance of each point  in a cluster to the other clusters. In (c), the cluster mean distance calculates the distance between the means of each cluster. }
 \label{sep-dist}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -502,19 +500,17 @@ How well each distance measure matches the observers' responses depends some on 
 
 \section{Distance Metric Distribution} \label{sec:distri}
 
-\red{*** You need an algorithm written in here}
-
 For a given lineup of size $m$, the empirical distribution of distance metrics is obtained using the following algorithm:
 
-Step 1: Calculate the distance between the true data and all the null datasets and take the average of these distances. 
+\begin{enumerate} \itemsep 0in
+\item Calculate the distance between the true data and all the null datasets and take the average of these distances. 
 
-Step 2: For each of the ($m$ - 1) null datasets, calculate the distance between the null data and all the other ($m$ - 2) null datasets and obtain the average distance. Hence obtain ($m$ - 1) distances corresponding to each null plot.
+\item For each of the ($m$ - 1) null datasets, calculate the distance between the null data and all the other ($m$ - 2) null datasets and obtain the average distance. Hence obtain ($m$ - 1) distances corresponding to each null plot.
 
-Step 3: Generate a null dataset from the true dataset by the null generating mechanism. Consider this null dataset as ``true'' dataset. From this ``true'' dataset, generate ($m$ - 2) null datasets and calculate the average distance between the ``true'' data and the null datasets. Hence obtain a distance corresponding to this ``true'' dataset. Repeat this procedure a large number of times ( order of 1000 or 10000).
+\item Generate a null dataset from the true dataset by the null generating mechanism. Consider this null dataset as ``true'' dataset. From this ``true'' dataset, generate ($m$ - 2) null datasets and calculate the average distance between the ``true'' data and the null datasets. Hence obtain a distance corresponding to this ``true'' dataset. Repeat this procedure a large number of times ( order of 1000 or 10000).
 
-Step 4: Plot these 1000 distances to obtain the empirical distribution of the distance metric. Plot the distances for the true plot and the null plots to show the distances for the lineups. \\
-
-
+\item Plot these 1000 distances to obtain the empirical distribution of the distance metric. Plot the distances for the true plot and the null plots to show the distances for the lineups. 
+\end{enumerate}
 
 The empirical distribution of the distance measures is obtained by calculating the distances between the null plots among themselves. One null data is generated from the true data set using the null generating mechanism. Assuming this null data to be the ``true'' data set, a number of null data sets are obtained from this null data and the distances between these datasets are calculated. One single distance value is obtained by averaging all these distances. This process is repeated a large number of times, say, $N$ where $N$ is a large number of the order $10^3$ or $10^4$. Finally $N$ mean distances or average distances are obtained which gives the empirical distribution of the distance. 
 
@@ -794,27 +790,27 @@ Although the regression based distance seems to efficiently identify the quality
 \begin{figure}[hbtp]
 \centering
 \subfigure[]{
-\includegraphics[scale=0.67]{lineup-exp2-neg-diff-large-prop.pdf}
+\includegraphics[scale=0.55]{lineup-exp2-neg-diff-large-prop.pdf}
 \label{t2comp_1}
 }
 \subfigure[]{
-\includegraphics[scale=0.67]{distribution-reg-dist-exp2.pdf}
+\includegraphics[scale=0.55]{distribution-reg-dist-exp2.pdf}
 \label{t2comp_1}
 }
 \subfigure[]{
-\includegraphics[scale=0.67]{distribution-bin-dist-2-2-exp2.pdf}
+\includegraphics[scale=0.55]{distribution-bin-dist-2-2-exp2.pdf}
 \label{t2comp_2}
 }
 \subfigure[]{
-\includegraphics[scale=0.67]{distribution-bin-dist-8-2-exp2.pdf}
+\includegraphics[scale=0.55]{distribution-bin-dist-8-2-exp2.pdf}
 \label{t2comp_1}
 }
 \subfigure[]{
-\includegraphics[scale=0.67]{distribution-reg-no-int-dist-exp2.pdf}
+\includegraphics[scale=0.55]{distribution-reg-no-int-dist-exp2.pdf}
 \label{t2comp_1}
 }
 \subfigure[]{
-\includegraphics[scale=0.67]{distribution-pval-exp2.pdf}
+\includegraphics[scale=0.55]{distribution-pval-exp2.pdf}
 \label{t2comp_1}
 }
 	\vspace{-.1in}
@@ -879,10 +875,6 @@ The distances between the plots in this experiment were computed using the dista
 
 In Figure \ref{lp-comp}, the detection rate is plotted against the difference for distance based on minimum separation, average separation and the binned distance. The red vertical line shows difference equal to 0.  It can be seen that as the difference increases, the detection rate increases and both the distances do a good job in capturing the response of the subjects.  In (b) it can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, a large number of the subjects identify the observed plot although there is more extreme null plots. 
 
-\red{*** Explain the triangle. Is the lineup that corresponds to this included in the figures?}
-
-The triangle shown in Figure \ref{lp-comp} and Figure \ref{lp-mtime} is examined in Figure \ref{lp-exp}. The distribution of the distance metrics are compared based on this lineup. 
-
 \begin{figure}[hbtp]
 \centering
 \includegraphics[scale=0.75]{largep-mtime-sep-bin.pdf}
@@ -932,22 +924,21 @@ Figure \ref{lp-exp} shows the lineup in a high dimension, low sample size settin
 
 \section{Conclusion}
 
-{\color{red} 1.  Distance metrics are compared to the response of human subjects on lineups. They are comparable to a certain extent except in certain situations where they disagree. There seems to be various reasons behind the disagreement. When people look at a lineup, they may identify a plot as different from the others due to various reasons. But the distance metrics are constructed such that it takes into specific properties of the plot. \\
+Distance metrics are compared to the response of human subjects on lineups. They are comparable to a certain extent except in certain situations where they disagree. There seems to be various reasons behind the disagreement. When people look at a lineup, they may identify a plot as different from the others due to various reasons. But the distance metrics are constructed such that it takes into specific properties of the plot. 
 
-2. Distance metrics can be used to measure the quality of a lineup before showing the lineups to human subjects. Hence the distance metrics allows us to provide a range of lineups to the human subjects to evaluate. \\
+Distance metrics can be used to measure the quality of a lineup before showing the lineups to human subjects. Hence the distance metrics allows us to provide a range of lineups to the human subjects to evaluate.
 
-3.  In classical inference, the test statistic under null hypothesis follows a certain distribution. Similarly the null plots in visual inference can also be assumed to be random samples from a sampling distribution. Though theoretically this is true, practically it is impossible to investigate such a distribution. The distribution of the distance metrics approximates such a sampling distribution for a given distance metric. The value of the distance metric for the actual plot can be compared to all the other plots using such a distribution.\\
+In classical inference, the test statistic under null hypothesis follows a certain distribution. Similarly the null plots in visual inference can also be assumed to be random samples from a sampling distribution. Though theoretically this is true, practically it is impossible to investigate such a distribution. The distribution of the distance metrics approximates such a sampling distribution for a given distance metric. The value of the distance metric for the actual plot can be compared to all the other plots using such a distribution.
 
-4. The reason of choice can provide a way of evaluating the performance of a distance metric. For example, for a lineup of scatterplots with regression line overlaid, if the choice of reason for majority is steepest slope, the regression based distance may work better than the binned distance. Similarly if the reason of choice is presence of outliers, the binned distance with large number of bins on both axes may be the best distance metric. This can be a probable future work.\\
- }
+The reason of choice can provide a way of evaluating the performance of a distance metric. For example, for a lineup of scatterplots with regression line overlaid, if the choice of reason for majority is steepest slope, the regression based distance may work better than the binned distance. Similarly if the reason of choice is presence of outliers, the binned distance with large number of bins on both axes may be the best distance metric. This can be a probable future work.
 
-The lineup protocol places a statistical plot in the hypothesis testing framework. The null plots in the lineup has an instrumental effect on the response of the subjects since there are only a finite number of null plots which the subjects compare the observed data plot to. A `bad' set of null plots makes it difficult to identify the observed data plot. The quality of the lineup is measured by describing plots numerically using a set of distance metrics. 
+%The lineup protocol places a statistical plot in the hypothesis testing framework. The null plots in the lineup has an instrumental effect on the response of the subjects since there are only a finite number of null plots which the subjects compare the observed data plot to. A `bad' set of null plots makes it difficult to identify the observed data plot. The quality of the lineup is measured by describing plots numerically using a set of distance metrics. 
 
-A number of existing distance metrics are studied. Most of these metrics use the raw data to calculate the distances. A number of distance measures are suggested which takes the graphical elements into account. The graphical elements in a plot of a lineup affects the response of the subjects. So considering the graphical elements in the distance metric calculation seems logical.
+%A number of existing distance metrics are studied. Most of these metrics use the raw data to calculate the distances. A number of distance measures are suggested which takes the graphical elements into account. The graphical elements in a plot of a lineup affects the response of the subjects. So considering the graphical elements in the distance metric calculation seems logical.
 
-Unlike classical inference, the test statistic in visual inference is not a number, it is a plot. Hence it is not possible to obtain the distribution of the test statistics in visual inference. The empirical distribution of the distance metrics relates to the $t$-distribution followed by the test statistic in the classical inference framework. The distance for the observed data plot is compared to the empirical distribution and also the null plots obtained in the lineup. This provides a good idea about how extreme the observed plot is compared to the nulls.
+%Unlike classical inference, the test statistic in visual inference is not a number, it is a plot. Hence it is not possible to obtain the distribution of the test statistics in visual inference. The empirical distribution of the distance metrics relates to the $t$-distribution followed by the test statistic in the classical inference framework. The distance for the observed data plot is compared to the empirical distribution and also the null plots obtained in the lineup. This provides a good idea about how extreme the observed plot is compared to the nulls.
 
-Comparing the observed data plot to the null plots may sometime complicate things. A single measure of the quality of a lineup is easy to interpret. Two measures are developed: the first one being the difference between the mean distance of the observed data plot and the maximum of the mean distances of the null plots and the second being the number of null plots which are more extreme than the true plot.
+%Comparing the observed data plot to the null plots may sometime complicate things. A single measure of the quality of a lineup is easy to interpret. Two measures are developed: the first one being the difference between the mean distance of the observed data plot and the maximum of the mean distances of the null plots and the second being the number of null plots which are more extreme than the true plot.
 
 
  
