@@ -429,10 +429,21 @@ Figure \ref{sep-dist} illustrates the difference between the different distance 
 
 \begin{figure}[hbtp]
 \centering
-\includegraphics[scale=0.75]{ave-min-sep.pdf}
-\label{sep-dist}
+\subfigure[Minimum Separation]{
+\includegraphics[scale=0.45]{min-sep-example.pdf}
+\label{type_1}
+}
+\subfigure[Average Separation]{
+\includegraphics[scale=0.45]{ave-sep-example.pdf}
+\label{type_2}
+}
+\subfigure[Cluster Mean Separation]{
+\includegraphics[scale=0.45]{mean-sep-example.pdf}
+\label{type_2}
+}
 	\vspace{-.1in}
-\caption{\red{*** This is too complicated. It needs a simple explanation of how min, ave, and mean is calculated on a single plot, not on the permuted plots.} Two dimensional projections with 3 classes for a particular data and a data with classes being permuted. Two different separation distances are used. Average distance calculates the distance between all the points in a cluster to all the points in the other clusters and takes the average of these distances. The lines show the distance between the points.  On the other hand,  minimum separation calculates the minimum distance of the points in a cluster to all the points in the other clusters. The line shows the minimum distances.  }
+\caption{Comparison of three different distance metrics based on separation. Two dimensional projections are plotted with 3 groups. Minimum Separation (in (a)) calculates the minimum distance between points of each cluster from the other clusters. Average separation (in (b)) calculates the average distance of each point  in a cluster to the other clusters. In (c), the cluster mean distance calculates the distance between the means of each cluster. }
+\label{sep-dist}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
@@ -561,9 +572,9 @@ Previous studies have suggested that the type of plot used in the lineup have an
 \includegraphics[scale=0.55]{plot-type-reg-line.pdf}
 \label{type_2}
 }
-\label{plottype}
 	\vspace{-.1in}
 \caption[Optional caption for list of figures]{Comparison of two lineups: scatterplots in (a) and scatterplots with a regression line overlaid in (b). The raw data is same for the lineups. The human subjects are shown the lineups and asked to identify the plot with the steepest slope. The presence of regression line may affect the decision of human subjects.  }
+\label{plottype}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
