@@ -417,7 +417,12 @@ d^2_{\hbox{MS}}(X, Y):= ||s_m(X) - s_m(Y)||^2 = \sum_{i = 1}^g ((s_m(X))_i - (s_
 d^2_{\hbox{AS}}(X, Y):= ||s_a(X) - s_g(Y)||^2 = \sum_{i = 1}^g ((s_a(X))_i - (s_a(Y))_i)^2
 \]
 
-(iii) \red{Now write the formula for the mean, since it is included below}
+(iii) Let $m_i(.) = (\bar{X_1}^i, \bar{X_2}^i)$ be the cluster mean for the $i$-th cluster, $i = 1, 2, \dots, g$. The distance metric based on the cluster means is given by
+\[
+d^2_{\hbox{CM}}(X, Y):= ||m(X) - m(Y)||^2 = \sum_{i=1}^g (m_i(X) - m_i(Y))^2
+\]
+
+%\red{Now write the formula for the mean, since it is included below}
 
 Figure \ref{sep-dist} illustrates the difference between the different distance metrics separation. In practice, many possible metrics could be used to measure the separation, such as those readily available in the {\tt fpc} package.
 
@@ -601,6 +606,28 @@ a_j =
 $\gamma_{\hbox{lineup}}$ takes all values between 0 and $(m - 1)$. A large value of this measure would indicate that there are a number of null plots more extreme than the true plot and hence it is hard to identify the true plot in the lineup.
 \end{enumerate}
 
+\section{Comparison of the distance metrics}
+
+
+The difference and detection rate can be divided as following:
+
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{r|cc}
+\hline
+ & Detection Rate $>$ 0.05 & Detection Rate $<$ 0.05\\ 
+  \hline
+Difference $>$ 0  & $n_{11}$ & $n_{12}$\\
+Difference $<$ 0 & $n_{21}$ & $n_{22}$\\
+ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+The best scenario would be when $n_{12} = n_{21} = 0$. This will mean that the detection rate perfectly matches with the difference.  For each distance metric, we calculate the ratio
+$$ \frac{(n_{11} + 0.5)(n_{22} + 0.5)}{(n_{12} + 0.5)(n_{21} + 0.5)}$$
+A larger value of this ratio would indicate that the distance metric matches more to the response of the human subjects. 
+
 
 %\newpage
 
@@ -658,6 +685,8 @@ In Figure \ref{turk1comp}, the detection rate is plotted against the difference.
 Though the distance based on the boxplots works better, the binned distance does a decent job in this case. According to the binned distance, there are a few lineups which has a negative difference but the proportion correct is above 60\%, which can be also be seen in Figure \ref{turk1comp}. It should be noted that the binned distance does not take into account the graphical elements of the plot (e.g. boxplot) and calculates the distance solely based on the data. So an outlier may have a huge effect on the binned distance but does not effect the distance based on the boxplots. Hence it is advisable to use a distance based on the graphical elements since that is exactly what the subjects look at in the lineup.
 
 The time taken to respond by the subjects is another measure of difficulty of the lineups. Due the presence of some huge outliers, the mean time taken by the subjects for each lineup is looked at and plotted against the difference for both the distance measures. Figure \ref{turk1-mtime} shows the plots. It can be clearly seen that when the difference is below 0, there is no real trend in the mean time and there is a huge variability, indicating that the time taken depends on the subjects. But when the difference is above 0, the mean time decreases rapidly as the difference increases. Hence the subjects can pick the true plot quickly if the true plot is extreme compared to the null plots.
+
+For Turk 1 experiment, the value of the ratio for boxplot distance is 86.52 and for binned distance is 18.82. This indicates that the boxplot distance works better than the binned distance. 
  
 %\begin{figure}[hbtp]
 %\centering
