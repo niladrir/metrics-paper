@@ -1,21 +1,30 @@
 %\documentclass{article}
-\documentclass[12]{article}
-\usepackage{times}
+\documentclass[12pt]{article}
 \usepackage{natbib}
-%\usepackage{multicol}
-
+% %\usepackage{fullpage}
 \usepackage{color}
+\usepackage[dvipsnames,svgnames*]{xcolor}
+\usepackage{array, algorithm2e}
+\usepackage[colorlinks=TRUE, linkcolor=blue]{hyperref}
+\usepackage{wrapfig,float}
+\usepackage{caption}
 \usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{url}
+\usepackage{ulem}
+\usepackage[section]{placeins}
 
-\usepackage{hyperref}
 \graphicspath{{figure/}}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
 \newcommand{\blue}[1]{{\color{blue} #1}}
-\newcommand{\red}[1]{{\color{red} #1}}
+\newcommand{\hh}[1]{{\color{magenta} #1}}
 \newcommand{\green}[1]{{\color{cyan} #1}}
 
-\usepackage{amsmath, amssymb, fullpage, amsthm, array, algorithm2e,graphicx}
+
 %\usepackage[dvips]{graphics}
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{dfn}{Definition}[section]
@@ -26,25 +35,70 @@
 %\topmargin -0.10in   % when making pdf
 %\textheight 9.15in  % when making pdf
 
+%\pdfminorversion=4
+% NOTE: To produce blinded version, replace "0" with "1" below.
+\newcommand{\blind}{0}
+
+% DON'T change margins - should be 1 inch all around.
+\addtolength{\oddsidemargin}{-.5in}%
+\addtolength{\evensidemargin}{-.5in}%
+\addtolength{\textwidth}{1in}%
+\addtolength{\textheight}{1.3in}%
+\addtolength{\topmargin}{-.8in}%
 
 
 \begin{document}
 
-% Article top matter
-%\title{Where's Waldo : Measuring the quality of a lineup}
-%\title{Where's Waldo: Looking closely at a Lineup}
-\title{Utilizing Distance Metrics on Lineups to Examine What People Read From Data Plots}
-\author{Niladri Roy Chowdhury, Dianne Cook, Heike Hofmann, Mahbubul Majumder, Yifan Zhao}
-\date{\today}  %\today is replaced with the current date
-%\date{}
-\maketitle
+%\bibliographystyle{natbib}
 
-\begin {abstract} 
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\if0\blind
+{
+  \title{\bf Utilizing Distance Metrics on Lineups to Examine What People Read From Data Plots}
+\author{Niladri Roy Chowdhury\thanks{
+    The authors gratefully acknowledge funding from the National Science Foundation Grant \# DMS 1007697. All data collection has been conducted with approval from the Institutional Review Board IRB 10-347}\hspace{.2cm}\\
+    Department of Statistics and Statistical Laboratory, Iowa State University\\
+    and \\
+    Dianne Cook\\
+    Department of Econometrics and Business Statistics, Monash University \\
+    and\\
+    Heike Hofmann\\ 
+    Department of Statistics and Statistical Laboratory, Iowa State University\\
+    and\\
+    Mahbubul Majumder\\ 
+    Department of Mathematics, University of Nebraska Omaha\\
+    and\\
+    Yifan Zhao}
+  \maketitle
+} \fi
+
+\if1\blind
+{
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf Utilizing Distance Metrics on Lineups to Examine What People Read From Data Plots}
+\end{center}
+  \medskip
+} \fi
+
+\bigskip
+\begin{abstract}
 Graphics play a crucial role in statistical analysis and data mining. This paper describes metrics developed to assist the use of lineups for making inferential statements. Lineups embed the plot of the data among a set of null plots, and engage a human observer to select the plot that is most different from the rest. If the data plot is selected it corresponds to the rejection of a null hypothesis. Metrics are calculated in association with lineups, to measure the quality of the lineup, and help to understand what people see in the data plots.  The null plots represent a finite sample from a null distribution, and the selected sample potentially affects the ease or difficulty of a lineup. Distance metrics are designed to describe how close the true data plot is to the null plots, and how close the null plots are to each other. The distribution of the distance metrics is studied to learn how well this matches to what people detect in the plots, the effect of null generating mechanism and plot choices for particular tasks.  The analysis was conducted on data that has already been collected from Amazon Turk studies conducted with lineups for studying an array of data analysis tasks.
+\end{abstract}
 
-%Statistical graphics play a crucial role in exploratory data analysis, model checking and diagnosis. Until recently there were no formal visual methods in place for determining statistical significance of findings. This changed, when \citep{buja:2009} conceptually introduced two protocols for formal tests of visual findings. In this paper we use the lineup protocol \citep{buja:2009} and take a closer look at the null plots that appear in a lineup along with the true plot. Different distance measures between the null plots and the true plot are calculated. On the basis of these distance measures, a measure of ``closeness'' between the null plots and the true plot is defined. A human subjects experiment is conducted using simulated data to provide controlled conditions. Results suggest that some of the distance measures works better than the others in most situations.
-\end {abstract}
+\noindent%
+{\it Keywords:}  3 to 6 keywords, that do not appear in the title
+\vfill
 
+\newpage
+\spacingset{1.45} % DON'T change the spacing!
 \tableofcontents
 \newpage
 %{\color{red} Key Ideas:
@@ -55,7 +109,6 @@ Graphics play a crucial role in statistical analysis and data mining. This paper
 %\end{itemize}}
 %\begin{multicols}{2}
 %\twocolumn
-
 \section{Introduction} 
 Graphics are an important component of big data analysis, providing a mechanism for discovering unexpected patterns in data. Pioneering research by \citet{gelman:2004}, \citet{buja:2009} and \cite{majumder:2011} provide methods to quantify the significance of discoveries made from visualizations. %Although, there have been major advances in statistical graphics over the years, for example, systems like R \citep{R} provide high quality static graphics, and very recently some access to interactive graphics. But the problem remains that graphics are not widely considered to be a part of inferential statistics. 
 \cite{buja:2009} introduced two protocols which bridge the gulf between traditional statistical inference and exploratory data analysis. These are the Rorschach and the lineup protocols. The Rorschach protocol helps to understand the extent of randomness. The lineup protocol places a statistical plot firmly in the hypothesis testing framework, where a plot of the data is considered to be a test statistic. Unlike the simpler numeric test statistics in classical inference, though, the plot as a test statistic is a complex entity. This plot is compared with a set of null plots, obtained from an appropriate distribution consistent with the null hypothesis. The lineup protocol places the data plot randomly among the obtained null plots, and requires a human observer to examine the plots and identify the most different plot. If this plot is that of the data, this is quantifiable evidence against the null hypothesis. 
@@ -437,15 +490,15 @@ Figure \ref{sep-dist} illustrates the difference between the different distance 
 \centering
 \subfigure[Minimum Separation]{
 \includegraphics[scale=0.45]{min-sep-example.pdf}
-\label{type_1}
+\label{type_1_minsep}
 }
 \subfigure[Average Separation]{
 \includegraphics[scale=0.45]{ave-sep-example.pdf}
-\label{type_2}
+\label{type_2_avesep}
 }
 \subfigure[Cluster Mean Separation]{
 \includegraphics[scale=0.45]{mean-sep-example.pdf}
-\label{type_2}
+\label{type_2_clsep}
 }
 	\vspace{-.1in}
 \caption{Illustration of three different distance metrics based on separation. Two dimensional projections are plotted with 3 groups. Minimum Separation (in (a)) calculates the minimum distance between points of each cluster from the other clusters. Average separation (in (b)) calculates the average distance of each point  in a cluster to the other clusters. In (c), the cluster mean distance calculates the distance between the means of each cluster. }
@@ -570,11 +623,11 @@ Previous studies have suggested that the type of plot used in the lineup have an
 \centering
 \subfigure[]{
 \includegraphics[scale=0.55]{plot-type-sca.pdf}
-\label{type_1}
+\label{type_1_sca}
 }
 \subfigure[]{
 \includegraphics[scale=0.55]{plot-type-reg-line.pdf}
-\label{type_2}
+\label{type_2_regline}
 }
 	\vspace{-.1in}
 \caption[Optional caption for list of figures]{Comparison of two lineups: scatterplots in (a) and scatterplots with a regression line overlaid in (b). The raw data is same for the lineups. The human subjects are shown the lineups and asked to identify the plot with the steepest slope. The presence of regression line may affect the decision of human subjects.  }
