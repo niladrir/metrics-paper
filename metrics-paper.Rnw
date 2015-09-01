@@ -520,21 +520,21 @@ With larger number of bins (i.e. smaller bin sizes), the regression coefficients
 
 \item {\bf Distance based on separation between multiple groups (MS, AS, WL):}
 \hh{XXX is the distance WL or CM? }
-Let $X_1$ and $X_2$ be two continuous variable. Let $X_3$ be a categorical variable providing the groups associated with each variable. $X_1$ and $X_2$ are plotted in a scatterplot colored by the group variable $X_3$. The separation can be described in a number of different ways. Two versions are used in this paper. \hh{XXX two versions or three? } Let us define, 
+Let $X_1$ and $X_2$ be two continuous variable. Let $X_3$ be a categorical variable providing the groups associated with each variable. $X_1$ and $X_2$ are plotted in a scatterplot colored by the group variable $X_3$. The separation can be described in a number of different ways. Two versions are used in this paper. \hh{XXX two versions or three? } %Let us define, 
 
 \begin{enumerate}
-\item[(i)]  $s_{m}(.)$ be a vector of cluster wise minimum distance between a point in the cluster to the points in other clusters for $g$ clusters. The distance metric based on separation is defined as
+\item[(i)] {\bf Minimum separation:} let  $s_{m}(.)$ be a vector of the minimum distance of a point in the cluster to a point in any of the other $g-1$ clusters. 
+The distance metric based on minimal separation is then defined as
 \[
 d^2_{\hbox{MS}}(X, Y):= ||s_m(X) - s_m(Y)||^2 = \sum_{i = 1}^g ((s_m(X))_i - (s_m(Y))_i)^2
 \]
-\hh{XXX I don't get the math yet}
 
-\item[(ii)]  $s_{a}(.)$ be a vector of cluster wise average distances of all the points in the cluster to all points of all other $g-1$ clusters. The distance metric based on separation is defined as
+\item[(ii)] {\bf Average point separation:} let $s_{a}(.)$ be a vector of cluster wise average distances of all the points in the cluster to all points in all other $g-1$ clusters. The distance metric based on average separation is defined as
 \[
 d^2_{\hbox{AS}}(X, Y):= ||s_a(X) - s_g(Y)||^2 = \sum_{i = 1}^g ((s_a(X))_i - (s_a(Y))_i)^2
 \]
 
-\item[(iii)] Let $m_i(.) = (\bar{X_1}^i, \bar{X_2}^i)$ be the cluster mean for the $i$-th cluster, $i = 1, 2, \dots, g$. The distance metric based on the cluster means is given by
+\item[(iii)] {\bf Cluster mean separation:} let $m_i(.) = \left(\bar{X_1}^i, \bar{X_2}^i\right)$ be the mean of the $i$-th cluster, $i = 1, 2, \dots, g$. The distance metric based on the cluster means is given by
 \[
 d^2_{\hbox{CM}}(X, Y):= ||m(X) - m(Y)||^2 = \sum_{i=1}^g (m_i(X) - m_i(Y))^2
 \]
