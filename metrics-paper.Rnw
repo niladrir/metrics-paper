@@ -471,7 +471,10 @@ This distance can be calculated for univariate continuous data, bivariate data w
 
 Binned distance is highly susceptible to small differences in values and depends on the number of bins as well as the anchor position. It is necessary to find the optimal number of bins in each direction. For our purposes `optimal' was defined as the number of bins that produced the most detectable difference to the observed data plot. The distance was measured between the observed data plot, and the closest null, and compared with the biggest distance between any pair of null plots. Details of these choices on various different data sets can be found in the Appendix.
 
-Variations on this distance are possible, using kernel density estimates, or using a different power than the square, or using transformations on the counts. Hausdorff distance \citep{huttenlocher:1993} was examined as a generic distance metric as well, but the binned distance was faster to calculate and performed as well as the Hausdorff as a rough, generic measure of similarity of plots.
+Several variations to this distance are possible, such as a change to using kernel density estimates, a change from $L_2$ to $L_p$ based distance, or using transformations on the counts. 
+\hh{XXX should the next sentence go into the discussion/conclusions?}
+
+Hausdorff distance \citep{huttenlocher:1993} was investigated as a generic distance metric as well, but the binned distance was faster to calculate and performed as well as the Hausdorff as a rough, generic measure of similarity of plots.
 
 %The remaining distance measures are different from the ones above, in that they are used to directly draw inference on a linear association between variables $X$ and $Y$, whereas the other ones were not specifically tailored to this purpose.
 
@@ -487,12 +490,22 @@ Variations on this distance are possible, using kernel density estimates, or usi
 %where $m(.)$ is a vector of the mean, the standard deviation, the skewness and the kurtosis of the variable. This distance metric works for univariate distributions using only the graphical elements in the plot.
 
 
-\item Distance based on boxplots (BX): Let $X_1$ be a categorical variable representing the groups in the data and $X_2$ be a continuous variable. Then the distance metric is given by
- \[
-d^2_{\hbox{BX}}(X, Y) := || d_q(X) - d_q(Y)||^2 = \sum_{i=1}^3 ((d_q(X))_i - (d_q(Y))_i)^2
+\item {\bf Distance based on boxplots (BX):} Let $X_1$ be a categorical variable representing the $J$ groups in the data and $X_2$ be a continuous variable. 
+\hh{We calculate group-based minimal statistics of $X_2$ for each level of $X_1$ as \[
+d_q(X_1, X_2=j) = (q_1, m, q_3), \text{ where } 1 \le j \le J
 \]
+where $q_1, m,$ and $q_3$ are the first, second, and third quartile of the subset of $X_2$, where $X_1$ is equal to the $j$th group.
+}
 
-where $d_q(.)$ is a vector giving the absolute difference of the first quartile, median and the third quartile of $X_2$ between the two groups in $X_1$. This distance measure works specifically for the boxplots using only the graphical elements. This is based on the assumption that after the boxplots have already been constructed, the subjects only look at the difference in the boxes to make the distinction. Variations on this might include adding whiskers ends, outliers, or even removing the absolute value. 
+Then the distance metric is given by
+ \begin{equation}\label{eq:BXdist}
+d^2_{\hbox{BX}}(X, Y) := || d_q(X) - d_q(Y)||^2 = \sum_{i=1}^3 ((d_q(X))_i - (d_q(Y))_i)^2
+\end{equation}
+
+where $d_q(.)$ is a vector giving the absolute difference of the first quartile, median and the third quartile of $X_2$ between the two groups in $X_1$. 
+\hh{XXX how are $X$ and $Y$ related to $X_1$ and $X_2$?}
+
+This distance measure works specifically for the boxplots using only the graphical elements. This is based on the assumption that after the boxplots have already been constructed, the subjects only look at the difference in the boxes to make the distinction. Variations on this might include adding whiskers ends, outliers, or even removing the absolute value. 
 
 \item Distance based on the regression line (RG): Let $X_1$ and $X_2$ be two continuous variables. $X_1$ and $X_2$ are plotted in a scatterplot and assume that the scatterplot is binned vertically into $b$ bins. In each vertical bin, a linear regression model is fitted and the regression coefficients i.e. the estimated intercept and the estimated slope are noted. The distance metric based on the regression coefficients is given by
  \[
