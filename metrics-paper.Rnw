@@ -633,13 +633,17 @@ For a given lineup of size $m$, the empirical distribution of distance metrics i
 \begin{enumerate} \itemsep 0in
 \item Calculate the distance between the true data and all the null datasets and take the average of these distances. 
 
-\item For each of the ($m$ - 1) null datasets, calculate the distance between the null data and all the other ($m$ - 2) null datasets and obtain the average distance. Hence obtain ($m$ - 1) distances corresponding to each null plot.
+\item For each of the ($m$ - 1) null datasets, calculate the distance between the null data and all the other ($m$ - 2) null datasets and obtain the average distance. Hence, we obtain ($m$ - 1) distances, one corresponding to each  null plot.
 
-\item Generate a null dataset from the true dataset by the null generating mechanism. Consider this null dataset as ``true'' dataset. From this ``true'' dataset, generate ($m$ - 2) null datasets and calculate the average distance between the ``true'' data and the null datasets. Hence obtain a distance corresponding to this ``true'' dataset. Repeat this procedure a large number of times ( order of 1000 or 10000).
+% \item Generate a null dataset from the true dataset by the null generating mechanism. Consider this null dataset as ``true'' dataset. From this ``true'' dataset, generate ($m$ - 2) null datasets and calculate the average distance between the ``true'' data and the null datasets. Hence obtain a distance corresponding to this ``true'' dataset. 
 
-\item Plot these 1000 distances to obtain the empirical distribution of the distance metric. Plot the distances for the true plot and the null plots to show the distances for the lineups. 
+\item \hh{Generate a lineup of size $m$ using the null generating mechanism. 
+Single out one of these nulls as the `data' plot, and calculate the distances as described in steps (1) and (2).  } Repeat this procedure $B$ times (where $B$ is large, usually on the order of 1,000 or 10,000).
+
+\item Plot these $B$ distances to obtain the empirical distribution of the distance metric. Plot the distances for the true plot and the null plots to show the distances for the lineup \hh{under consideration}. 
 \end{enumerate}
 
+\hh{XXX the paragraph below sounds like a re-do of the above algorithm, except that I just named the number of reps $B$. }
 The empirical distribution of the distance measures is obtained by calculating the distances between the null plots among themselves. One null data is generated from the true data set using the null generating mechanism. Assuming this null data to be the ``true'' data set, a number of null data sets are obtained from this null data and the distances between these datasets are calculated. One single distance value is obtained by averaging all these distances. This process is repeated a large number of times, say, $N$ where $N$ is a large number of the order $10^3$ or $10^4$. Finally $N$ mean distances or average distances are obtained which gives the empirical distribution of the distance. 
 
 The empirical distribution of the distance works as the $t$-distribution in the classical setting. In the classical setting, the test statistics follows a $t$-distribution under the null hypothesis. The observed test statistic is then compared to this distribution, as shown in Figure~\ref{compare}. In visual inference, the mean distances of the null plots gives the empirical distribution. The mean distance of the true plot from the null plots in the lineup acts as the observed test statistic. Unlike the $t$-distribution, the empirical distribution is generally skewed.
