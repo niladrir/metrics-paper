@@ -527,6 +527,7 @@ Let $X_1$ and $X_2$ be two continuous variable. Let $X_3$ be a categorical varia
 \[
 d^2_{\hbox{MS}}(X, Y):= ||s_m(X) - s_m(Y)||^2 = \sum_{i = 1}^g ((s_m(X))_i - (s_m(Y))_i)^2
 \]
+\hh{XXX I don't get the math yet}
 
 \item[(ii)]  $s_{a}(.)$ be a vector of cluster wise average distances of all the points in the cluster to all points of all other $g-1$ clusters. The distance metric based on separation is defined as
 \[
@@ -539,6 +540,8 @@ d^2_{\hbox{CM}}(X, Y):= ||m(X) - m(Y)||^2 = \sum_{i=1}^g (m_i(X) - m_i(Y))^2
 \]
 \end{enumerate}
 %\red{Now write the formula for the mean, since it is included below}
+
+\hh{XXX Why are there so many variations for the cluster distance? There are obvious variations for the other distances mentioned, too - it would be more consistent to just pick one distance and run with it.}
 
 Figure~\ref{sep-dist} illustrates the difference between the different distance metrics separation. In practice, many possible metrics could be used to measure the separation, such as those readily available in the {\tt fpc} package  \citep{hennig:2010}.
 
