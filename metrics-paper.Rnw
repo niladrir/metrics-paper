@@ -109,7 +109,7 @@ Graphics play a crucial role in statistical analysis and data mining. This paper
 %\end{itemize}}
 %\begin{multicols}{2}
 %\twocolumn
-<<setup, echo=FALSE, results='hide'>>=
+<<setup, echo=FALSE, results='hide', cache=TRUE>>=
 library(reshape2)
 suppressMessages(library(ggplot2))
 library(grid)
@@ -506,7 +506,7 @@ This distance is based on the assumption that %after the boxplots have already b
 subjects only consider the difference in the boxes to make the distinction. Variations on this might include adding whiskers' values, (number of) outliers, or including higher-order letter values \citep{tukey:1977, lvplot}. 
 
 \item {\bf Distance based on the regression line (RG):}
-Let $X_1$ and $X_2$ be two continuous variables. $X_1$ and $X_2$ are plotted in a scatterplot and assume that the scatterplot is binned vertically into $b$ bins.
+Let $X_1$ and $X_2$ be two continuous variables. $X_1$ and $X_2$ are plotted in a scatterplot and assume that the scatterplot is binned vertically into $b$ bins. \hh{XXX in the package, the binning is horizontal. }
 \hh{XXX how are these bins motivated? what kind of example do you have in mind? }
 In each vertical bin, a linear regression model is fitted and the regression coefficients. i.e.\ intercept and slope are estimated. The distance metric based on the regression coefficients is given as
  \begin{eqnarray}\nonumber
@@ -518,32 +518,34 @@ d^2_{\hbox{RG}}(X, Y) := \hbox{tr} (B(X) - B(Y))' (B(X) - B(Y))  \\
 where $b_0$ and $b_1$ denote the vector of the intercept and slope respectively while $b$ is the number of bins. $B(.)$ is a $b \times 2$ matrix of the regression coefficients where each row represent the  intercept and the slope obtained from each bin. The number of bins have a significant effect on the distance measure. It can be seen that it works best for smaller number of bins like 1 or 2. 
 With larger number of bins (i.e. smaller bin sizes), the regression coefficients are affected by the skewness of the data. Variations might include using slope alone, or absolute value of slope. \hh{XXX are regression coefficients really affected by skewness or is it sparseness? What is the sample size of the examples that you tried?}
 
-\item Distance based on separation between multiple groups (MS, AS, WL): Let $X_1$ and $X_2$ be two continuous variable. Let $X_3$ be a categorical variable providing the groups associated with each variable. $X_1$ and $X_2$ are plotted in a scatterplot colored by the group variable $X_3$. The separation can be described in a number of different ways (\cite{hennig:2010}). Two versions are used in this paper. Let us define, 
+\item {\bf Distance based on separation between multiple groups (MS, AS, WL):}
+\hh{XXX is the distance WL or CM? }
+Let $X_1$ and $X_2$ be two continuous variable. Let $X_3$ be a categorical variable providing the groups associated with each variable. $X_1$ and $X_2$ are plotted in a scatterplot colored by the group variable $X_3$. The separation can be described in a number of different ways. Two versions are used in this paper. \hh{XXX two versions or three? } Let us define, 
 
-(i) $s_{m}(.)$ be a vector of cluster wise minimum distance between a point in the cluster to the points in other clusters for $g$ clusters. The distance metric based on separation is defined as
+\begin{enumerate}
+\item[(i)]  $s_{m}(.)$ be a vector of cluster wise minimum distance between a point in the cluster to the points in other clusters for $g$ clusters. The distance metric based on separation is defined as
 \[
 d^2_{\hbox{MS}}(X, Y):= ||s_m(X) - s_m(Y)||^2 = \sum_{i = 1}^g ((s_m(X))_i - (s_m(Y))_i)^2
 \]
 
-(ii)  $s_{a}(.)$ be a vector of cluster wise average distances of all the points in the cluster to all point of other clusters for $g$ clusters. The distance metric based on separation is defined as
+\item[(ii)]  $s_{a}(.)$ be a vector of cluster wise average distances of all the points in the cluster to all points of all other $g-1$ clusters. The distance metric based on separation is defined as
 \[
 d^2_{\hbox{AS}}(X, Y):= ||s_a(X) - s_g(Y)||^2 = \sum_{i = 1}^g ((s_a(X))_i - (s_a(Y))_i)^2
 \]
 
-(iii) Let $m_i(.) = (\bar{X_1}^i, \bar{X_2}^i)$ be the cluster mean for the $i$-th cluster, $i = 1, 2, \dots, g$. The distance metric based on the cluster means is given by
+\item[(iii)] Let $m_i(.) = (\bar{X_1}^i, \bar{X_2}^i)$ be the cluster mean for the $i$-th cluster, $i = 1, 2, \dots, g$. The distance metric based on the cluster means is given by
 \[
 d^2_{\hbox{CM}}(X, Y):= ||m(X) - m(Y)||^2 = \sum_{i=1}^g (m_i(X) - m_i(Y))^2
 \]
-
+\end{enumerate}
 %\red{Now write the formula for the mean, since it is included below}
 
-Figure~\ref{sep-dist} illustrates the difference between the different distance metrics separation. In practice, many possible metrics could be used to measure the separation, such as those readily available in the {\tt fpc} package.
+Figure~\ref{sep-dist} illustrates the difference between the different distance metrics separation. In practice, many possible metrics could be used to measure the separation, such as those readily available in the {\tt fpc} package  \citep{hennig:2010}.
 
 %Here the two methods are applied on two dimensional projections of a dataset with 60 dimensions and 30 observations with three classes. The same is done on the projections of the same dataset with permuted classes. The average separation calculates the euclidean distance between each point in one cluster to all the points in the other two clusters. For example, for the original data, the distance between the points in the green cluster and the other two clusters are calculated and then the average of these distances represent the average distance for the green cluster. Similarly, the average distances for the other two clusters are calculated. The minimum distance also calculates the euclidean distance between each point in one cluster to all the points in the other two clusters. But instead of taking the average, it looks at the minimum distance. For the original data, the minimum distance between any point in the green cluster and the other two clusters is the distance between the point and a point in the red cluster. 
 
 \end{enumerate}
 
-\hh{XXX to be answered: how are these distance metrics chosen, how well do they work in general situations? At the moment the distances seem like they are tailored for very specific examples in very specific designs.}
 \begin{figure}[hbtp]
 \centering
 \begin{subfigure}[t]{0.3\textwidth}
@@ -564,7 +566,11 @@ Figure~\ref{sep-dist} illustrates the difference between the different distance 
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
+
 How well each distance measure matches the observers' responses depends some on the question of interest. But, in general, this should not be a problem because the question which is typically asked is ``Which plot among these is different ?''. In the MTurk experiments, more focused questions were asked because the purpose was very specific, to compare visual inference with classical inference.
+
+\hh{XXX still open questions after the first read-through: how are these distance metrics chosen, how well do they work in general situations? At the moment the distances seem like they are tailored for very specific examples in very specific designs.}
+
 %\item $t$ statistic: In this paper we used the test statistic of a t-test based on the correlation coefficient $r$ where $$t =\frac{r \sqrt{n - 2}}{\sqrt{1 - r^2}}$$ where $n$ is the number of observations in $X$ or $Y$. This is the only measure that makes a distributional assumption that the ($X$,$Y$) follows approximately a bivariate Normal distribution. Hence the $t$-statistic follows a t distribution with ($n$ - 2) degrees of freedom.
 %%\red{use either upper case or lower case $T$, not both. }
 %%The first one was used when one variable is continuous and the other is categorical while the other is used when both the variables are continuous.  
