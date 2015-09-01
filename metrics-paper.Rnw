@@ -215,11 +215,11 @@ This can be partially solved by having a large number of observers, who each eva
 
 %{\color{red} ***  Point 3: Metrics might replace human observers, eventually, but as of now, human eye can still beat numbers for finding unexpected patterns. The lineup protocol gives us a chance to evaluate metrics to finding unexpected structures - check out the scagnostics literature}
 
-This is a two way process: As metrics are devised to measure the quality of a lineup, the lineup protocol also provides an opportunity to measure the performance of a metric. The human eye can detect patterns in a plot that cannot be easily quantified numerically, which is why graphics provide an important tool for exploring data and finding the unexpected. Describing plots numerically, is something  of an oxymoron, it cannot be universally done. An example in past work are {\it scagnostics}, short for scatterplot cognostics \citep{tukey:1977}, which were further investigated in form of graph-based scagnostics \cite{wilkinson2005graph}. Both attempt to assess various aspects of scattered points like outliers, shape, trend, density and coherence.  If a scatterplot has just one of these structures the scagnostics are descriptive, however, they fail terribly if a plot contains more than one \hh{or an unforeseen feature instead}. The goal here is to find some distance measures that can provide some indications of the quality of a lineup, and then to use the results of observer evaluation to determine which metrics best match what people see.
+This is a two way process: As metrics are devised to measure the quality of a lineup, the lineup protocol also provides an opportunity to measure the performance of a metric. The human eye can detect patterns in a plot that cannot be easily quantified numerically, which is why graphics provide an important tool for exploring data and finding the unexpected. Describing plots numerically, is something  of an oxymoron, it cannot be universally done. An example in past work are {\it scagnostics}, short for scatterplot cognostics \citep{tukey:1977}, which were further investigated in form of graph-based scagnostics \cite{wilkinson2005graph}. Both attempt to assess various aspects of scattered points like outliers, shape, trend, density and coherence.  If a scatterplot has just one of these structures the scagnostics are descriptive, however, they fail terribly if a plot contains more than one \hh{or an unforeseen feature instead}. The goal here is to find  distance measures that can provide an indication of the quality of a lineup, and then to use the results of observer evaluation to determine which metrics best match what people see.
 
 %{\color{red} *** Point 4: Metrics can help us understand what it is that people pick up on to trigger a detection of the data. Currently lineups rely on people verbally reporting why they picked a plot. }
 
-Following up on choices, observers are asked to describe their reasoning. These reasons are used to obtain more information about the rejection: was it some nonlinear dependency, an outlier, clustering, that triggered the detection of the data plot? Good distance metrics may also help relate the descriptive words used to mathematically defined features. 
+Following up on choices, observers are asked to describe their reasoning. These reasons are used to obtain more information about the rejection: was it some nonlinear dependency, an outlier, clustering or something else that triggered the detection of the data plot? Good distance metrics may also help to relate the descriptive words used to mathematically defined features. 
 
 The article is organized as follows. Section~\ref{sec:null} discusses the null generating mechanisms. Section~\ref{sec:meas} defines the distance measures and discusses the choice of the measures. The distribution of the distance measures are studied in Section~\ref{sec:distri}. Section~\ref{sec:plot_type} describes the effect of the plot type and the question of interest on the distance measure while Section~\ref{sec:eval} talks about the distance evaluations. In Section~\ref{sec:nbin}, the methods to select the number of bins for the binned distance is described. Section~\ref{sec:results} presents a comparison of the distance measures to the performance of human subjects in several experiments conducted by Amazon's Mechanical Turk.
 
@@ -279,15 +279,15 @@ The article is organized as follows. Section~\ref{sec:null} discusses the null g
 \section{Experimental Data} \label{sec:expts}
 Various experiments employing the lineup protocol have been conducted 
 %There have been eleven experiments conducted
-using Amazon's Mechanical Turk~\citep{turk} (MTurk), with some used for evaluating the power of visual inference against that of classical tests, \hh{some for comparison of different designs \cite{hofmann2012graphical, loy:2015}, or for targeted conclusions based on visual inference \cite{tengfei:2013}.}
+using Amazon's Mechanical Turk~\citep{turk} (MTurk), with some used for evaluating the power of visual inference against that of classical tests \cite{majumder:2011}, \hh{some for comparison of different designs \cite{hofmann2012graphical, loy:2015}, or for targeted conclusions based on visual inference \cite{tengfei:2013}.}
 %and the others using the protocol for different purposes. 
-It is possible to try the tasks provided to Turkers \citep{majumder:2013}. For evaluating the distance metrics we used the data collected on experiments 1, 2, and 7. Table \ref{tbl:visual_stat} describes the experiments.
+It is possible to try the tasks provided to Turkers \citep{majumder:2013}. For evaluating the distance metrics we used the data collected on experiments~1, 2, and~7. Table \ref{tbl:visual_stat} describes the experiments.
 
 %that are being used to evaluate the effects of observers' demographic factors on the inference. Table \ref{tbl:visual_stat} summarizes these experiments. Each of these experiments collected demographic details of the subjects. Experiments 5, 6 and 7 are used to study the learning trend of the observer. The design of experiment 9 incorporated components that allows position of the actual data plot in the lineup, and the sample of nulls, to be evaluated. Section~\ref{sec:factor_performance} discusses human factors that may affect the performance of the observer. Section~\ref{sec:exp_design} describes the methods used to assess the effects, and Section~\ref{sec:result_socio} describes the results.
 
 \begin{table*}[hbtp] 
 \centering 
-\caption{Overview of the different Turk experiments, from which data was included to investigate distance metrics and how subjects read the plots. } 
+\caption{Overview of the three Turk experiments, from which data was included to investigate distance metrics and how subjects read the plots. } 
 \begin{tabular}{m{.8cm}m{3.25cm}m{2cm}m{.5\textwidth}} 
 \hline\hline 
  ID & Experiment & Test Statistic  & Lineup question \\ [0.5ex] % inserts table %heading 
@@ -332,7 +332,7 @@ where $\varepsilon \sim N(0, \sigma^2)$. The parameter estimates of $\beta_0$ an
 %
 %\red{Another thing that we should discuss on Friday is whether it might be better to call the measures we use norms rather than distances - a distance usually assumes the comparison of two objects, and we implicitly compare against null or identity, which is what a norm does..}
 
-By calculating the ``distance'' between plots we may be able to determine if a lineup should be easy -- f ithe actual data plot is detectably different from the null plots -- and also to better understand what aspect of the plot people use to make their choice. It is not an easy task to measure the difference between plots. Here we examine several possibilities. 
+By calculating the ``distance'' between plots we may be able to determine if a lineup should be easy -- if the actual data plot is detectably different from the null plots -- and also to better understand what aspect of the plot people use to make their choice. It is not an easy task to measure the difference between plots. Here we examine several possibilities. 
 
 The problem could be tackled by considering the data as a reference distribution, and compare all of the null sets with this reference. Comparing data with a reference probability distribution or comparing two datasets are common statistical tasks. For example, the Kolmogorov-Smirnov test \citep{stephens:1974} sorts values in two samples, computes the empirical distribution function of each and compares these two, to determine if the two samples are likely to have come from the same distribution.  The Anderson-Darling \citep{stephens:1974} and Shapiro-Wilk \citep{shapiro:1965} tests compare datasets with normal probability distributions. These measure differences between univariate distributions which limits their applicability to distances between plots, generally. 
 
@@ -340,7 +340,7 @@ Hausdorff distance \citep{huttenlocher:1993} has been successfully used for comp
 
 Alternatively, interpoint distance metrics might be adapted to measure distances between plots. For example, when the purpose is differences between groups in a single plot, like side-by-side boxplots, a distance metric that focuses on group separation calculated on each data set might be useful. Bhattacharyya distance \citep{bhattacharyya:1946} is widely used in image processing, for feature extraction. The R package {\tt fpc} \cite{hennig:2010} contains many different ways to calculate distances between groups. 
 
-Ultimately, a very simple binned distance was used in the analyses of the MTurk data, which worked fairly well in most circumstances. However, it was clear immediately that plot design, and the question asked, has a large impact on how a plot is read, and specific distance metrics designed for specific plot types is needed. Below is a summary of distance metrics used. For all of the distance measures below, let $X$ denote the true dataset with one or two variables. Let $Y$ denote the null dataset obtained from $X$ using an appropriate null generating mechanism.
+Ultimately, a very simple binned distance was used in the analyses of the MTurk data, which worked fairly well in most circumstances. However, it was clear immediately that plot design, and the question asked, has a large impact on how a plot is read, and specific distance metrics designed for specific plot types and tasks are needed. Below is a summary of distance metrics used. For all of these distance measures, let $X$ denote the true dataset with one or two variables. Let $Y$ denote the null dataset obtained by using an appropriate null generating mechanism.
 
 %Bhattacharyya distance \citep{bhattacharyya:1946} is used to compare two samples, . It has a wide use in image processing, feature extraction and selection and phone clustering. Mahalanobis distance \citep{mahalanobis:1936} is a special case in the sense that the same sets of variances and covariances are used. Similar interpoint distances are widely used in cluster analysis and classification techniques. On the other hand, Hamming distance  \citep{hamming:1950} measures the number of positions at which the corresponding symbols are different in two variables of equal length. This can be used to measure the distance between two datasets where only one variable is permuted and the other is constant.
 
@@ -349,7 +349,7 @@ Ultimately, a very simple binned distance was used in the analyses of the MTurk 
 
 %\blue{For all of the distance measures below, let $P$ be a permutation mapping  the set $\{1, 2, ..., n\}$ onto itself. Let further $[P]$ denote the $n \times n$ matrix associated to permutation $P$.
 %}
-\begin{itemize}
+\begin{enumerate}
 
 %\item Hamming Distance: The hamming distance $H$ of $P$ is defined as 
 %\[
@@ -397,14 +397,15 @@ Ultimately, a very simple binned distance was used in the analyses of the MTurk 
 
 %Euclidean Distance between two equal length strings measure the distance between the permuted values of one variable and the original continuous variable while the other variable, either continuous or categorical, remains unaltered. This distance matrix takes into  account the actual values of the variable that is permuted and does not depend on the values of the other variable. 
 
-\item Binned Distance (BN):
+\item {\bf Binned Distance (BN):}
 %\red{write out mathematically, include all definitions - i.e. C(X,Y) needs to be defined - have a look at the grammar of graphics}
 Let $X_1$ and $X_2$ be two continuous variables. Let $X_1$ be divided into $p$ bins and $X_2$ divided into $q$ bins. % $(i,j)$-th cell represents the $j$-th bin of $X_2$ corresponding to the $i$-th bin of $X_1$. 
- Let $C(X_1,X_2)$ be defined as a $p \times q$ matrix. Each $(i,j)$-th element of the matrix represents the number of points falling in the $(i,j)$-th cell, where $i = 1, \dots, p$ , $j = 1, \dots, q$.
-The distance is then defined as
-\begin{eqnarray*}
-d_{\hbox{BN}}^2 (X, Y) &:=& ||C_X(X_1, X_2) - C_Y(X_1,X_2)||^2 \\ &=& \sum_{i=1}^p \sum_{j=1}^q (C_X(X_{1i},X_{2j}) - C_Y(X_{1i},X_{2j}))^2.
-\end{eqnarray*}
+ Let $C(X_1,X_2)$ be defined as a $p \times q$ matrix \hh{consisting of the binned frequency of the joint distribution of $X_1$ and $X_2$, i.e.\ the $(i,j)$-th element of the matrix represents the cell count of the number of points falling in this cell.}
+ %. Each $(i,j)$-th element of the matrix represents the number of points falling in the $(i,j)$-th cell, where $i = 1, \dots, p$ , $j = 1, \dots, q$.
+The BN distance is defined as
+\begin{eqnarray}\nonumber
+d_{\hbox{BN}}^2 (X, Y) &:=& ||C_X(X_1, X_2) - C_Y(X_1,X_2)||^2 \\ &=& \sum_{i=1}^p \sum_{j=1}^q (C_X(X_{1i},X_{2j}) - C_Y(X_{1i},X_{2j}))^2.\label{eq:BNdist}
+\end{eqnarray}
 
 %\begin{figure}[hbt]
 %%\begin{figurehere}
@@ -435,7 +436,7 @@ d_{\hbox{BN}}^2 (X, Y) &:=& ||C_X(X_1, X_2) - C_Y(X_1,X_2)||^2 \\ &=& \sum_{i=1}
 \end{subfigure}
 \label{first-example}
 	\vspace{-.1in}
-       \caption{Illustration of binned distance, for data with strong association (a), and the same data where one variable has been permuted (b). The scatterplot of the data is shown (left) along with the binned view of the data (center) and the number of points in each cell (right). Binned distance is the euclidean distance of these counts. The binned distance between these plots is 6.4807. }
+       \caption{Illustration of binned distance, for data with strong association (a), and the same data where variable $X_1$ has been permuted (b). The scatterplot of the data is shown (left) along with the binned view of the data (center) and the number of points in each cell (right). Binned distance is the euclidean distance of these counts. The binned distance between these plots is 6.4807. }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure*}
 
@@ -466,9 +467,9 @@ d_{\hbox{BN}}^2 (X, Y) &:=& ||C_X(X_1, X_2) - C_Y(X_1,X_2)||^2 \\ &=& \sum_{i=1}
 %
 %\end{itemize}
 
-This distance can be calculated for univariate continuous data, bivariate data with two categorical variables, or data with one continuous and one categorical variable. For the categorical variable, the number of bins would equal to the number of categories.
+This distance can be calculated for univariate continuous data, bivariate data with two categorical variables, or data with one continuous and one categorical variable. For a categorical variable, we choose the number of bins  equal to the number of categories.
 
-Binned distance is highly susceptible to small differences in values and depends on the number of bins as well the anchor positions. It is necessary to find the optimal number of bins in each direction. For our purposes optimal was defined number of bins that produced the most detectable observed data plot. The distance was measured between the observed data plot, and the closest null, and compared with the biggest distance between any pair of null plots. Details of these choices on various different data sets is in the Appendix.
+Binned distance is highly susceptible to small differences in values and depends on the number of bins as well as the anchor position. It is necessary to find the optimal number of bins in each direction. For our purposes `optimal' was defined as the number of bins that produced the most detectable difference to the observed data plot. The distance was measured between the observed data plot, and the closest null, and compared with the biggest distance between any pair of null plots. Details of these choices on various different data sets can be found in the Appendix.
 
 Variations on this distance are possible, using kernel density estimates, or using a different power than the square, or using transformations on the counts. Hausdorff distance \citep{huttenlocher:1993} was examined as a generic distance metric as well, but the binned distance was faster to calculate and performed as well as the Hausdorff as a rough, generic measure of similarity of plots.
 
@@ -523,7 +524,7 @@ Figure~\ref{sep-dist} illustrates the difference between the different distance 
 
 %Here the two methods are applied on two dimensional projections of a dataset with 60 dimensions and 30 observations with three classes. The same is done on the projections of the same dataset with permuted classes. The average separation calculates the euclidean distance between each point in one cluster to all the points in the other two clusters. For example, for the original data, the distance between the points in the green cluster and the other two clusters are calculated and then the average of these distances represent the average distance for the green cluster. Similarly, the average distances for the other two clusters are calculated. The minimum distance also calculates the euclidean distance between each point in one cluster to all the points in the other two clusters. But instead of taking the average, it looks at the minimum distance. For the original data, the minimum distance between any point in the green cluster and the other two clusters is the distance between the point and a point in the red cluster. 
 
-\end{itemize}
+\end{enumerate}
 
 \begin{figure}[hbtp]
 \centering
