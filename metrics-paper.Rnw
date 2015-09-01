@@ -496,8 +496,9 @@ Let $X_1$ be a categorical variable representing $J$ groups in the data and $X_2
 Define $d_q(.)$ as a three dimensional vector giving the absolute maximal difference of the first quartile, median and the third quartile of $X_2$ between the groups in $X_1$. 
 
 Then the distance metric is given by
- \begin{equation}\label{eq:BXdist}
-d^2_{\hbox{BX}}(X, Y) := || d_q(X) - d_q(Y)||^2. 
+ \begin{equation}\nonumber
+d^2_{\hbox{BX}}(X, Y) := || d_q(X) - d_q(Y)||^2 \\=
+\sum_{i=1}^3 \left( d_q(X)_i - d_q(Y)_i\right)^2. \label{eq:BXdist}
 \end{equation}
 
 This distance measure works specifically for boxplots and is based on only their graphical elements. 
@@ -505,15 +506,17 @@ This distance is based on the assumption that %after the boxplots have already b
 subjects only consider the difference in the boxes to make the distinction. Variations on this might include adding whiskers' values, (number of) outliers, or including higher-order letter values \citep{tukey:1977, lvplot}. 
 
 \item {\bf Distance based on the regression line (RG):}
-Let $X_1$ and $X_2$ be two continuous variables. $X_1$ and $X_2$ are plotted in a scatterplot and assume that the scatterplot is binned vertically into $b$ bins. In each vertical bin, a linear regression model is fitted and the regression coefficients. i.e.\ intercept and slope are estimated. The distance metric based on the regression coefficients is given as
+Let $X_1$ and $X_2$ be two continuous variables. $X_1$ and $X_2$ are plotted in a scatterplot and assume that the scatterplot is binned vertically into $b$ bins.
+\hh{XXX how are these bins motivated? what kind of example do you have in mind? }
+In each vertical bin, a linear regression model is fitted and the regression coefficients. i.e.\ intercept and slope are estimated. The distance metric based on the regression coefficients is given as
  \begin{eqnarray}\nonumber
 d^2_{\hbox{RG}}(X, Y) := \hbox{tr} (B(X) - B(Y))' (B(X) - B(Y))  \\
 = \sum_{i=1}^b ((b_0(X))_i - (b_0(Y))_i)^2 + \sum_{i=1}^b ((b_1(X))_i - (b_1(Y))_i)^2
 \end{eqnarray*}
-\hh{XXX why would there be slope estimates for each bin? There should only be one slope parameter.}
 \hh{XXX intercept and slope could be on very different scales.  On what kind of examples did you try this distance out? }
 
-where $b_0$ and $b_1$ denote the vector of the intercept and slope respectively while $b$ is the number of bins. $B(.)$ is a $b \times 2$ matrix of the regression coefficients where each row represent the  intercept and the slope obtained from each bin. The number of bins have a significant effect on the distance measure. It can be seen that it works best for smaller number of bins like 1 or 2. \hh{do you mean bin width? bin=1 does not make much sense. } With larger number of bins (i.e. smaller bin sizes), the regression coefficients are affected by the skewness of the data. Variations might include using slope alone, or absolute value of slope.
+where $b_0$ and $b_1$ denote the vector of the intercept and slope respectively while $b$ is the number of bins. $B(.)$ is a $b \times 2$ matrix of the regression coefficients where each row represent the  intercept and the slope obtained from each bin. The number of bins have a significant effect on the distance measure. It can be seen that it works best for smaller number of bins like 1 or 2. 
+With larger number of bins (i.e. smaller bin sizes), the regression coefficients are affected by the skewness of the data. Variations might include using slope alone, or absolute value of slope. \hh{XXX are regression coefficients really affected by skewness or is it sparseness? What is the sample size of the examples that you tried?}
 
 \item Distance based on separation between multiple groups (MS, AS, WL): Let $X_1$ and $X_2$ be two continuous variable. Let $X_3$ be a categorical variable providing the groups associated with each variable. $X_1$ and $X_2$ are plotted in a scatterplot colored by the group variable $X_3$. The separation can be described in a number of different ways (\cite{hennig:2010}). Two versions are used in this paper. Let us define, 
 
@@ -540,6 +543,7 @@ Figure~\ref{sep-dist} illustrates the difference between the different distance 
 
 \end{enumerate}
 
+\hh{XXX to be answered: how are these distance metrics chosen, how well do they work in general situations? At the moment the distances seem like they are tailored for very specific examples in very specific designs.}
 \begin{figure}[hbtp]
 \centering
 \begin{subfigure}[t]{0.3\textwidth}
