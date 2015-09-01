@@ -120,8 +120,8 @@ theme_lineup <- theme(axis.text = element_blank(),
 @
 
 \section{Introduction} 
-Graphics are an important component of big data analysis, providing a mechanism for discovering unexpected patterns in data. Pioneering research by \citet{gelman:2004}, \citet{buja:2009} and \cite{majumder:2011} provide methods to quantify the significance of discoveries made from visualizations. %Although, there have been major advances in statistical graphics over the years, for example, systems like R \citep{R} provide high quality static graphics, and very recently some access to interactive graphics. But the problem remains that graphics are not widely considered to be a part of inferential statistics. 
-\cite{buja:2009} introduced two protocols which bridge the gulf between traditional statistical inference and exploratory data analysis. These are the Rorschach and the lineup protocols. \hh{The Rorschach protocol consists of a set of $m$ (usually, $m=20$) plots rendered from data that is consistent with a given null model.} That way, the Rorschach protocol helps to understand the extent of randomness \hh{in the null model}. The lineup protocol places a statistical plot firmly in the framework of hypothesis tests: a plot of the data is considered to be the test statistic. Unlike the simpler numeric test statistics in classical inference, plots as  test statistics are complex entities. In a lineup, the data plot is placed randomly among a  set of  null plots generated from a null model.
+Graphics are an important component of big data analysis, providing a mechanism for discovering unexpected patterns in data. Pioneering research by \citet{gelman:2004}, \citet{buja:2009} and \citet{majumder:2011} provide methods to quantify the significance of discoveries made from visualizations. %Although, there have been major advances in statistical graphics over the years, for example, systems like R \citep{R} provide high quality static graphics, and very recently some access to interactive graphics. But the problem remains that graphics are not widely considered to be a part of inferential statistics. 
+\citet{buja:2009} introduced two protocols which bridge the gulf between traditional statistical inference and exploratory data analysis. These are the Rorschach and the lineup protocols. \hh{The Rorschach protocol consists of a set of $m$ (usually, $m=20$) plots rendered from data that is consistent with a given null model.} That way, the Rorschach protocol helps to understand the extent of randomness \hh{in the null model}. The lineup protocol places a statistical plot firmly in the framework of hypothesis tests: a plot of the data is considered to be the test statistic. Unlike the simpler numeric test statistics in classical inference, plots as  test statistics are complex entities. In a lineup, the data plot is placed randomly among a  set of  null plots generated from a null model.
 Human observers are then asked to  examine the lineup and to identify the most different plot. If observers identify the data plot, this is quantifiable evidence against the null hypothesis. 
 
 Figure~\ref{lineup-example} is an example of a lineup \hh{where a more focussed test is considered}. Suppose we have the following statistical model
@@ -215,7 +215,7 @@ This can be partially solved by having a large number of observers, who each eva
 
 %{\color{red} ***  Point 3: Metrics might replace human observers, eventually, but as of now, human eye can still beat numbers for finding unexpected patterns. The lineup protocol gives us a chance to evaluate metrics to finding unexpected structures - check out the scagnostics literature}
 
-This is a two way process: As metrics are devised to measure the quality of a lineup, the lineup protocol also provides an opportunity to measure the performance of a metric. The human eye can detect patterns in a plot that cannot be easily quantified numerically, which is why graphics provide an important tool for exploring data and finding the unexpected. Describing plots numerically, is something  of an oxymoron, it cannot be universally done. An example in past work are {\it scagnostics}, short for scatterplot cognostics \citep{tukey:1977}, which were further investigated in form of graph-based scagnostics \cite{wilkinson2005graph}. Both attempt to assess various aspects of scattered points like outliers, shape, trend, density and coherence.  If a scatterplot has just one of these structures the scagnostics are descriptive, however, they fail terribly if a plot contains more than one \hh{or an unforeseen feature instead}. The goal here is to find  distance measures that can provide an indication of the quality of a lineup, and then to use the results of observer evaluation to determine which metrics best match what people see.
+This is a two way process: As metrics are devised to measure the quality of a lineup, the lineup protocol also provides an opportunity to measure the performance of a metric. The human eye can detect patterns in a plot that cannot be easily quantified numerically, which is why graphics provide an important tool for exploring data and finding the unexpected. Describing plots numerically, is something  of an oxymoron, it cannot be universally done. An example in past work are {\it scagnostics}, short for scatterplot cognostics \citep{tukey:1977}, which were further investigated in form of graph-based scagnostics \citep{wilkinson2005graph}. Both attempt to assess various aspects of scattered points like outliers, shape, trend, density and coherence.  If a scatterplot has just one of these structures the scagnostics are descriptive, however, they fail terribly if a plot contains more than one \hh{or an unforeseen feature instead}. The goal here is to find  distance measures that can provide an indication of the quality of a lineup, and then to use the results of observer evaluation to determine which metrics best match what people see.
 
 %{\color{red} *** Point 4: Metrics can help us understand what it is that people pick up on to trigger a detection of the data. Currently lineups rely on people verbally reporting why they picked a plot. }
 
@@ -279,7 +279,7 @@ The article is organized as follows. Section~\ref{sec:null} discusses the null g
 \section{Experimental Data} \label{sec:expts}
 Various experiments employing the lineup protocol have been conducted 
 %There have been eleven experiments conducted
-using Amazon's Mechanical Turk~\citep{turk} (MTurk), with some used for evaluating the power of visual inference against that of classical tests \cite{majumder:2011}, \hh{some for comparison of different designs \cite{hofmann2012graphical, loy:2015}, or for targeted conclusions based on visual inference \cite{tengfei:2013}.}
+using Amazon's Mechanical Turk~\citep{turk} (MTurk), with some used for evaluating the power of visual inference against that of classical tests \citep{majumder:2011}, \hh{some for comparison of different designs \citep{hofmann2012graphical, loy:2015}, or for targeted conclusions based on visual inference \citep{tengfei:2013}.}
 %and the others using the protocol for different purposes. 
 It is possible to try the tasks provided to Turkers \citep{majumder:2013}. For evaluating the distance metrics we used the data collected on experiments~1, 2, and~7. Table \ref{tbl:visual_stat} describes the experiments.
 
@@ -338,7 +338,7 @@ The problem could be tackled by considering the data as a reference distribution
 
 Hausdorff distance \citep{huttenlocher:1993} has been successfully used for comparing images. It effectively matches points between sets and computes the distances between the matched points. When permutation is the null generating mechanism, Hamming distance \citep{hamming:1950} can be used to calculate how different the permutations are, by measuring the minimum number of substitutions it takes to get from one permutation to another. 
 
-Alternatively, interpoint distance metrics might be adapted to measure distances between plots. For example, when the purpose is differences between groups in a single plot, like side-by-side boxplots, a distance metric that focuses on group separation calculated on each data set might be useful. Bhattacharyya distance \citep{bhattacharyya:1946} is widely used in image processing, for feature extraction. The R package {\tt fpc} \cite{hennig:2010} contains many different ways to calculate distances between groups. 
+Alternatively, interpoint distance metrics might be adapted to measure distances between plots. For example, when the purpose is differences between groups in a single plot, like side-by-side boxplots, a distance metric that focuses on group separation calculated on each data set might be useful. Bhattacharyya distance \citep{bhattacharyya:1946} is widely used in image processing, for feature extraction. The R package {\tt fpc} \citep{hennig:2010} contains many different ways to calculate distances between groups. 
 
 Ultimately, a very simple binned distance was used in the analyses of the MTurk data, which worked fairly well in most circumstances. However, it was clear immediately that plot design, and the question asked, has a large impact on how a plot is read, and specific distance metrics designed for specific plot types and tasks are needed. Below is a summary of distance metrics used. For all of these distance measures, let $X$ denote the true dataset with one or two variables. Let $Y$ denote the null dataset obtained by using an appropriate null generating mechanism.
 
@@ -490,29 +490,30 @@ Hausdorff distance \citep{huttenlocher:1993} was investigated as a generic dista
 %where $m(.)$ is a vector of the mean, the standard deviation, the skewness and the kurtosis of the variable. This distance metric works for univariate distributions using only the graphical elements in the plot.
 
 
-\item {\bf Distance based on boxplots (BX):} Let $X_1$ be a categorical variable representing the $J$ groups in the data and $X_2$ be a continuous variable. 
-\hh{We calculate group-based minimal statistics of $X_2$ for each level of $X_1$ as \[
-d_q(X_1, X_2=j) = (q_1, m, q_3), \text{ where } 1 \le j \le J
-\]
-where $q_1, m,$ and $q_3$ are the first, second, and third quartile of the subset of $X_2$, where $X_1$ is equal to the $j$th group.
-}
+\item {\bf Distance based on boxplots (BX):} 
+Let $X_1$ be a categorical variable representing $J$ groups in the data and $X_2$ be a continuous variable. 
+
+Define $d_q(.)$ as a three dimensional vector giving the absolute maximal difference of the first quartile, median and the third quartile of $X_2$ between the groups in $X_1$. 
 
 Then the distance metric is given by
  \begin{equation}\label{eq:BXdist}
-d^2_{\hbox{BX}}(X, Y) := || d_q(X) - d_q(Y)||^2 = \sum_{i=1}^3 ((d_q(X))_i - (d_q(Y))_i)^2
+d^2_{\hbox{BX}}(X, Y) := || d_q(X) - d_q(Y)||^2. 
 \end{equation}
 
-where $d_q(.)$ is a vector giving the absolute difference of the first quartile, median and the third quartile of $X_2$ between the two groups in $X_1$. 
-\hh{XXX how are $X$ and $Y$ related to $X_1$ and $X_2$?}
+This distance measure works specifically for boxplots and is based on only their graphical elements. 
+This distance is based on the assumption that %after the boxplots have already been constructed, the 
+subjects only consider the difference in the boxes to make the distinction. Variations on this might include adding whiskers' values, (number of) outliers, or including higher-order letter values \citep{tukey:1977, lvplot}. 
 
-This distance measure works specifically for the boxplots using only the graphical elements. This is based on the assumption that after the boxplots have already been constructed, the subjects only look at the difference in the boxes to make the distinction. Variations on this might include adding whiskers ends, outliers, or even removing the absolute value. 
+\item {\bf Distance based on the regression line (RG):}
+Let $X_1$ and $X_2$ be two continuous variables. $X_1$ and $X_2$ are plotted in a scatterplot and assume that the scatterplot is binned vertically into $b$ bins. In each vertical bin, a linear regression model is fitted and the regression coefficients. i.e.\ intercept and slope are estimated. The distance metric based on the regression coefficients is given as
+ \begin{eqnarray}\nonumber
+d^2_{\hbox{RG}}(X, Y) := \hbox{tr} (B(X) - B(Y))' (B(X) - B(Y))  \\
+= \sum_{i=1}^b ((b_0(X))_i - (b_0(Y))_i)^2 + \sum_{i=1}^b ((b_1(X))_i - (b_1(Y))_i)^2
+\end{eqnarray*}
+\hh{XXX why would there be slope estimates for each bin? There should only be one slope parameter.}
+\hh{XXX intercept and slope could be on very different scales.  On what kind of examples did you try this distance out? }
 
-\item Distance based on the regression line (RG): Let $X_1$ and $X_2$ be two continuous variables. $X_1$ and $X_2$ are plotted in a scatterplot and assume that the scatterplot is binned vertically into $b$ bins. In each vertical bin, a linear regression model is fitted and the regression coefficients i.e. the estimated intercept and the estimated slope are noted. The distance metric based on the regression coefficients is given by
- \[
-d^2_{\hbox{RG}}(X, Y) := \hbox{tr} (B(X) - B(Y))' (B(X) - B(Y)) = \sum_{i=1}^b ((b_0(X))_i - (b_0(Y))_i)^2 + \sum_{i=1}^b ((b_1(X))_i - (b_1(Y))_i)^2
-\]
-
-where $b_0$ and $b_1$ denote the vector of the intercept and slope respectively while $b$ is the number of bins. $B(.)$ is a $b \times 2$ matrix of the regression coefficients where each row represent the  intercept and the slope obtained from each bin. The number of bins have a significant effect on the distance measure. It can be seen that it works best for smaller number of bins like 1 or 2. With larger number of bins (i.e. smaller bin sizes), the regression coefficients are affected by the skewness of the data. Variations might include using slope alone, or absolute value of slope.
+where $b_0$ and $b_1$ denote the vector of the intercept and slope respectively while $b$ is the number of bins. $B(.)$ is a $b \times 2$ matrix of the regression coefficients where each row represent the  intercept and the slope obtained from each bin. The number of bins have a significant effect on the distance measure. It can be seen that it works best for smaller number of bins like 1 or 2. \hh{do you mean bin width? bin=1 does not make much sense. } With larger number of bins (i.e. smaller bin sizes), the regression coefficients are affected by the skewness of the data. Variations might include using slope alone, or absolute value of slope.
 
 \item Distance based on separation between multiple groups (MS, AS, WL): Let $X_1$ and $X_2$ be two continuous variable. Let $X_3$ be a categorical variable providing the groups associated with each variable. $X_1$ and $X_2$ are plotted in a scatterplot colored by the group variable $X_3$. The separation can be described in a number of different ways (\cite{hennig:2010}). Two versions are used in this paper. Let us define, 
 
