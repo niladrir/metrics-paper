@@ -194,7 +194,7 @@ This is a two way process: As metrics are devised to measure the quality of a li
 
 Following up on choices, observers are asked to describe their reasoning. These reasons are used to obtain more information about the rejection: was it some nonlinear dependency, an outlier, clustering, that triggered the detection of the data plot? Good distance metrics may also help relate the descriptive words used to mathematically defined features. 
 
-The article is organized as follows. ection~\ref{sec:null} discusses the null generating mechanisms. ection~\ref{sec:meas} defines the distance measures and discusses the choice of the measures. The distribution of the distance measures are studied in ection~\ref{sec:distri}. ection~\ref{sec:plot_type} describes the effect of the plot type and the question of interest on the distance measure while ection~\ref{sec:eval} talks about the distance evaluations. In ection~\ref{sec:nbin}, the methods to select the number of bins for the binned distance is described. ection~\ref{sec:results} presents a comparison of the distance measures to the performance of human subjects in several experiments conducted by Amazon's Mechanical Turk.
+The article is organized as follows. Section~\ref{sec:null} discusses the null generating mechanisms. Section~\ref{sec:meas} defines the distance measures and discusses the choice of the measures. The distribution of the distance measures are studied in Section~\ref{sec:distri}. Section~\ref{sec:plot_type} describes the effect of the plot type and the question of interest on the distance measure while Section~\ref{sec:eval} talks about the distance evaluations. In Section~\ref{sec:nbin}, the methods to select the number of bins for the binned distance is described. Section~\ref{sec:results} presents a comparison of the distance measures to the performance of human subjects in several experiments conducted by Amazon's Mechanical Turk.
 
 
 %Any statistical analysis must include some sreftatistical graphics. For exploratory data analysis, statistical graphics play an invaluable role in model checking and diagnostics. Even though we have established mathematical procedures to obtain various statistics, we need to support the results by also producing the relevant plots. 
@@ -203,7 +203,7 @@ The article is organized as follows. ection~\ref{sec:null} discusses the null ge
 
 %In this paper we are interested in the quality of a lineup plot. In visual inference, the actual plot is the test statistic and the lineup plot is the null distribution. Unlike classical inference, the null distribution is represented by the 19 null plots that we obtain randomly from the actual plot assuming that the null hypothesis is true. So the decision of rejection or failure of rejection of the null hypothesis is heavily dependent on these 19 null plots. This induces us to take a closer look at the null plots. For this purpose, we calculate different distance matrices between the null plots and the actual plot to get a measure on how close is each null plot to the actual plot. We also calculate the distance matrices between the null plots to see how close are the null plots to each often. Finally a percentile value is calculated to find how often such a distance appears in a lineup and a z-score of the different distances is calculated to get a measure on the closeness between the null plot and the actual plot and also compare between two different lineups.  
 
-%In this paper we presents results of a human-subject study assessing the performance of the different distance matrices. ection~\ref{sec:visual_test} describes the basic idea of the visual inference and also gives the definition of the different distance measures. ection~\ref{sec:asso} and ection~\ref{user.distance} applies these ideas and uses the definitions to calculate the different distance measures. In ection~\ref{results} and ection~\ref{sec:conclusions} we outline the setup and present results.
+%In this paper we presents results of a human-subject study assessing the performance of the different distance matrices. Section~\ref{sec:visual_test} describes the basic idea of the visual inference and also gives the definition of the different distance measures. Section~\ref{sec:asso} and Section~\ref{user.distance} applies these ideas and uses the definitions to calculate the different distance measures. In Section~\ref{results} and Section~\ref{sec:conclusions} we outline the setup and present results.
 
 %\section{Visual Statistical Inference and Definitions} \label{sec:visual_test} 
 
@@ -260,15 +260,15 @@ It is possible to try the tasks provided to Turkers \citep{majumder:2013}. For e
 
 \begin{table*}[hbtp] 
 \centering 
-\caption{Overview of the different Turk experiments, from where data was taken to study distance metrics and how subjects read the plots. } 
-\begin{tabular}{m{.5cm}m{2.6cm}m{2cm}m{5.5cm}} 
+\caption{Overview of the different Turk experiments, from which data was included to investigate distance metrics and how subjects read the plots. } 
+\begin{tabular}{m{.8cm}m{3.25cm}m{2cm}m{.5\textwidth}} 
 \hline\hline 
- Turk ID & Experiment &  Test Statistic  & Lineup question \\ [0.5ex] % inserts table %heading 
+ ID & Experiment & Test Statistic  & Lineup question \\ [0.5ex] % inserts table %heading 
 \hline 
-1  & Box plot & \begin{minipage}[t]{2cm} \begin{center}	\scalebox{0.12}{\includegraphics{stat_category1.pdf}} \end{center} \end{minipage} & Which set of box plots shows biggest vertical difference 
+1  & Box plot & \begin{minipage}[c]{2cm} \begin{center}	\scalebox{0.12}{\includegraphics{stat_category1.pdf}} \end{center} \end{minipage} & Which set of box plots shows biggest vertical difference 
 between group A and B? \\
-2 &  Scatter plot & \begin{minipage}[t]{2cm}  \begin{center} \scalebox{0.3}{\includegraphics{stat_beta_k1.png}} \end{center} \end{minipage} & Of the scatter plots below which one shows data that has steepest slope? \\
-  7 & Group separation & \begin{minipage}[t]{2cm} \begin{center}  \scalebox{0.4}{\includegraphics{stat_separation.pdf}} \end{center} \end{minipage} &Which of these plots has the most separation between the coloured groups?  \\
+2 &  Scatter plot & \begin{minipage}[c]{2cm}  \begin{center} \scalebox{0.3}{\includegraphics{stat_beta_k1.png}} \end{center} \end{minipage} & Of the scatter plots below which one shows data that has steepest slope? \\
+  7 & Group separation & \begin{minipage}[c]{2cm} \begin{center}  \scalebox{0.4}{\includegraphics{stat_separation.pdf}} \end{center} \end{minipage} & Which of these plots has the most separation between the coloured groups?  \\
 \hline 
 \end{tabular} 
 \label{tbl:visual_stat} 
@@ -279,13 +279,13 @@ between group A and B? \\
 
 The lineup protocol embeds the true data plot among a set of null plots. The method of obtaining the data for these null plots is called the null generating mechanism. %These null plots are obtained from the null distribution in a method consistent with the null hypothesis. 
 The null hypothesis directly affects the choice of null generating method. In the experimental data that we analyzed the null generating methods used were:
-\begin{itemize}
-\item Permutation: This is the most commonly used approach thus far, because it  can be used in a variety of problems. Permutation is used to break association between two or more variables, and thus is appropriate when the null hypothesis is that there is no association. Consider two variables $X_1$ and $X_2$. Either $X_1$ or $X_2$ is permuted keeping the other variable fixed. Any association between $X_1$ and $X_2$ is broken in the process. The marginal distribution of $X_1$ and $X_2$ remains the same while the joint distribution is altered. The method works in situations where one or both the variables are continuous or categorical. Let us consider a case where we have one categorical variable, say, Group and a continuous variable. Let us assume that the variable Group has two levels (say, A and B) and we want to test whether there is any significant difference between the two groups, i.e. $H_o: \mu_A = \mu_B$. To generate the null data, the values of the variable Group are permuted keeping the continuous variable fixed. If there is a difference between the two groups, this difference is broken by the permutation, and any difference observed in the permuted data is consistent with random variation.
-\item Simulation under a null model: Sometimes there is a model underlying the problem being studied. In this situation simulating from the model will be the null generating mechanism. Assuming that the null hypothesis is true, the model is fitted to the true data. The parameter estimates are obtained from the fitted model and then the data is generated using the parameter estimates. Let us consider that we are interested in testing whether there is any significant linear relationship between two continuous variables $X_1$ and $X_2$. Hence we test for $H_o : \beta_1 = 0$ versus $H_a: \beta_1 \ne 0$. Under the null hypothesis, we fit the following model to the data:
+\begin{enumerate}
+\item {\bf Permutation:} Because of its versatility, this is a commonly used apporach. Permutation is used to break the association between two or more variables, and thus is appropriate when the null hypothesis is that there is no association. Consider two variables $X_1$ and $X_2$. Either $X_1$ or $X_2$ is permuted while keeping the other variable fixed. Any association between $X_1$ and $X_2$ is broken in the process altering the joint distribution between the variables, whereas the marginals of $X_1$ and $X_2$ remains the same. The method works in situations where one or both the variables are continuous or categorical. Let us consider a case where we have one categorical variable, say, Group and a continuous variable. Let us assume that the variable Group has two levels (say, A and B) and we want to test whether there is any significant difference between the two groups, i.e.\ $H_o: \mu_A = \mu_B$. To generate the null data, the values of the variable Group are permuted keeping the continuous variable fixed. If there is a difference between the two groups, this difference is broken by the permutation, and any difference observed in the permuted data is consistent with random variation.
+\item {\bf Simulation under a null model:} Sometimes there is a model underlying the problem being studied. In this situation simulating from the model will be the null generating mechanism.  The parameter estimates are obtained from  fitting  the model to the true data. Data is then generated using the parameter estimates. Let us assume that we are interested in testing whether there is any significant linear relationship between two continuous variables $X_1$ and $X_2$. Hence, we test for $H_o : \beta_1 = 0$ versus $H_a: \beta_1 \ne 0$. Under the null hypothesis, we fit the following model to the data:
 $$Y = \beta_0 + \varepsilon$$
-where $\varepsilon \sim \hbox{Normal}(0, \sigma^2)$. The parameter estimates of $\beta_0$ and $\sigma^2$ are obtained and the null data is generated from $\hbox{Normal}(\widehat{\beta_0}, \widehat{\sigma}^2)$. 
+where $\varepsilon \sim N(0, \sigma^2)$. The parameter estimates of $\beta_0$ and $\sigma^2$ are obtained and null data is generated from $N(\widehat{\beta_0}, \widehat{\sigma}^2)$. 
 %\item \red{*** Not used by us, so exclude for now} Simulation from a specific distribution:  When the null hypothesis is that the data comes from a specific distribution, this distribution can be used to simulate new samples that generate the null plots. The parameters for the null distribution are obtained from the estimates calculated using the data. For example, suppose we want to test whether data comes from a Normal distribution, $H_o:$ data $\sim$ Normal vs. $H_A:$ data $\nsim$ Normal, then the null data are generated from the Normal distribution with mean and standard deviation equal to the estimated mean and standard deviation from the data. 
-\end{itemize} 
+\end{enumerate} 
 
 %Other null generating mechanisms might be utilized depending on the null hypothesis underlying a data plot. 
 
@@ -305,7 +305,7 @@ where $\varepsilon \sim \hbox{Normal}(0, \sigma^2)$. The parameter estimates of 
 %
 %\red{Another thing that we should discuss on Friday is whether it might be better to call the measures we use norms rather than distances - a distance usually assumes the comparison of two objects, and we implicitly compare against null or identity, which is what a norm does..}
 
-By calculating the ``distance'' between plots we may be able to determine if a lineup should be easy -- the the actual data plot is detectably different from the null plots -- and also to better understand what aspect of the plot people use to make their choice. It is not an easy task to measure the difference between plots. Here we examine several possibilities. 
+By calculating the ``distance'' between plots we may be able to determine if a lineup should be easy -- f ithe actual data plot is detectably different from the null plots -- and also to better understand what aspect of the plot people use to make their choice. It is not an easy task to measure the difference between plots. Here we examine several possibilities. 
 
 The problem could be tackled by considering the data as a reference distribution, and compare all of the null sets with this reference. Comparing data with a reference probability distribution or comparing two datasets are common statistical tasks. For example, the Kolmogorov-Smirnov test \citep{stephens:1974} sorts values in two samples, computes the empirical distribution function of each and compares these two, to determine if the two samples are likely to have come from the same distribution.  The Anderson-Darling \citep{stephens:1974} and Shapiro-Wilk \citep{shapiro:1965} tests compare datasets with normal probability distributions. These measure differences between univariate distributions which limits their applicability to distances between plots, generally. 
 
@@ -406,7 +406,7 @@ d_{\hbox{BN}}^2 (X, Y) &:=& ||C_X(X_1, X_2) - C_Y(X_1,X_2)||^2 \\ &=& \sum_{i=1}
 \includegraphics[scale=0.55]{bin-example-2.pdf}
 \includegraphics[scale=0.55]{freq-example-2.pdf}
 \end{subfigure}
-\label{plottype}
+\label{first-example}
 	\vspace{-.1in}
        \caption{Illustration of binned distance, for data with strong association (a), and the same data where one variable has been permuted (b). The scatterplot of the data is shown (left) along with the binned view of the data (center) and the number of points in each cell (right). Binned distance is the euclidean distance of these counts. The binned distance between these plots is 6.4807. }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
