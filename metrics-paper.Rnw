@@ -113,7 +113,7 @@ library(reshape2)
 suppressMessages(library(ggplot2))
 library(grid)
 library(nullabor)
-#library(dplyr)
+library(dplyr)
 theme_lineup <- theme(axis.text = element_blank(), 
                       axis.title = element_blank(),
                       axis.ticks = element_blank(),
@@ -699,10 +699,10 @@ qplot(X, value, data=mlp2, alpha=I(0.5), facets=~variable, size=I(2.5)) +
 \begin{figure}[hbtp]
 \centering
 \begin{subfigure}[t]{0.55\textwidth}
-\includegraphics[width=\textwidth]{dist-example-2.pdf}
-<<lp-box, echo=FALSE, fig.width=6, fig.height=6, out.width='\\textwidth'>>=
+%\includegraphics[width=\textwidth]{dist-example-2.pdf}
+<<lp-box, echo=FALSE, fig.width=6, fig.height=6, out.width='\\textwidth', fig.align='bottom'>>=
 # directly from metrics-paper.R
-dat <- read.table("data/dat_turk1_100_8_12_2.txt", header = T)  ## plot_turk1_100_8_12_2
+dat <- read.table("data/dat_turk1_100_0_5_1.txt", header = T)  ## plot_turk1_100_8_12_2
 
 ### The detection rate for the above lineup is 0.28. But the difference for both binned distance and regression based distance are large negative.
 
@@ -741,15 +741,17 @@ qplot(group, val, data = lineup.dat, geom = "boxplot", col = group,
 @
 \end{subfigure}
 \begin{subfigure}[t]{0.44\textwidth}
-\includegraphics[width=\textwidth]{dist-metric-2.pdf}
+%\includegraphics[width=\textwidth]{dist-metric-2.pdf}
 <<lp-turk1-distr, echo=FALSE, cache=TRUE>>=
+sd <- 5
+
 df <- data.frame(t(replicate(1000, {
   	samp.dat <- data.frame(group = obs.dat$group, 
-  	                       val = rnorm(dim(obs.dat)[1], 0, 11.77))
+  	                       val = rnorm(dim(obs.dat)[1], 0, sd))
 
   	dat1 <- data.frame(t(replicate(18, {
   	  null.dat <- data.frame(group = obs.dat$group, 
-  	                         val = rnorm(dim(obs.dat)[1], 0, 11.77))
+  	                         val = rnorm(dim(obs.dat)[1], 0, sd))
  		b1 = bin_dist(X=samp.dat, PX=null.dat, lineup.dat = lineup.dat, 
  		              X.bin = 2, Y.bin = 2)
  		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, 
@@ -767,50 +769,47 @@ df <- data.frame(t(replicate(1000, {
 @
 
 <<lp-box-dist-simu, dependson='lp-box', echo=FALSE>>=
-# dat.pos <- data.frame(expand.grid(pos.1 = 1:20, pos.2 = 1:20))
-# 
-# # lineup.dat from lp-box
-# metrics.dat <- dat.pos
-# metrics.dat$box.dist <- NA
-# 
-# for (i in 1:nrow(dat.pos)) {
-#   P <- subset(lineup.dat, .sample == metrics.dat$pos.1[i])
-#   PX <- subset(lineup.dat, .sample == metrics.dat$pos.2[i])
-#     
-#   metrics.dat$box.dist[i] <- box_dist(P, PX)
-# }
-# print("done")
-# 
-# pos <- 20
-# 
-# metrics.dat <- subset(metrics.dat, pos.1 != pos.2 & pos.2 != pos)
-# 
-# dd3 <- metrics.dat %>% group_by(pos.1) %>% summarize(
-#   box.mean = mean(box.dist), len = length(box.dist))
+dat.pos <- data.frame(expand.grid(pos.1 = 1:20, pos.2 = 1:20))
+
+# lineup.dat from lp-box
+metrics.dat <- dat.pos
+metrics.dat$box.dist <- NA
+
+for (i in 1:nrow(dat.pos)) {
+  P <- subset(lineup.dat, .sample == metrics.dat$pos.1[i])[,1:2]
+  PX <- subset(lineup.dat, .sample == metrics.dat$pos.2[i])[,1:2]
+    
+  metrics.dat$box.dist[i] <- box_dist(P, PX)
+}
+pos <- 20
+
+metrics.dat <- subset(metrics.dat, pos.1 != pos.2 & pos.2 != pos)
+
+dd3 <- metrics.dat %>% group_by(pos.1) %>% summarize(
+  box.mean = mean(box.dist), len = length(box.dist))
 
 @
 
-<<lp-box-dist, dependson='lp-box-dist-simu', echo=FALSE,  fig.width=4.5, fig.height = 4, out.width='\\textwidth'>>=
+<<lp-box-dist, dependson='lp-box-dist-simu', echo=FALSE,  fig.width=4.5, fig.height = 4, out.width='\\textwidth', fig.align='bottom'>>=
 
 ymax <- max(density(df$box)$y)
 ggplot()  + 
   geom_density(data = df, aes(x = box), 
                fill = "grey80", col = "grey80") +
   xlab("Boxplot Based Distance") + ylab("") + 
-  ylim(c(- 0.04*ymax, ymax + 0.1*ymax))
-#+ 
-#   geom_segment(data = subset(dd3, len == 19), 
-#                aes(x= box.mean, xend = box.mean, 
-#                    y=0.002*ymax, yend = 0.2*ymax), 
-#                colour="darkorange", size=1)  + 
-#   geom_segment(data = subset(dd3, len != 19), 
-#                aes(x = box.mean, xend = box.mean, 
-#                    y = rep(0.002*ymax,19), yend = rep(0.1*ymax,19)), 
-#                size=1, alpha = I(0.7)) + 
-#    + 
-#   geom_text(data = dd3, y = - 0.03*ymax, size = 2.5, 
-#             aes(x = box.mean, label = pos.1)) + 
-#   
+  ylim(c(- 0.04*ymax, ymax + 0.1*ymax)) + 
+  geom_segment(data = subset(dd3, len != 19), 
+               aes(x = box.mean, xend = box.mean, 
+                   y = rep(0.002*ymax,19), yend = rep(0.1*ymax,19)), 
+               size=1, alpha = I(0.7)) + 
+  geom_segment(data = subset(dd3, len == 19), 
+               aes(x= box.mean, xend = box.mean, 
+                   y=0.002*ymax, yend = 0.2*ymax), 
+               colour="darkorange", size=1)  + 
+  geom_text(data = subset(dd3, len != 19), y = - 0.03*ymax, size = 2.5, 
+            aes(x = box.mean, label = pos.1)) + 
+  geom_text(data = subset(dd3, len == 19), y = 0.25*ymax , size = 3, 
+            aes(x = box.mean, label = pos.1), colour="darkorange")
  
 @
 \end{subfigure}
