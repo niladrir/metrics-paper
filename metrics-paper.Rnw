@@ -1,4 +1,3 @@
-%\documentclass{article}
 \documentclass[12pt]{article}
 \usepackage{natbib}
 % %\usepackage{fullpage}
@@ -109,11 +108,12 @@ Graphics play a crucial role in statistical analysis and data mining. This paper
 %\end{itemize}}
 %\begin{multicols}{2}
 %\twocolumn
-<<setup, echo=FALSE, results='hide'>>=
+<<setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE>>=
 library(reshape2)
 suppressMessages(library(ggplot2))
 library(grid)
 library(nullabor)
+library(dplyr)
 theme_lineup <- theme(axis.text = element_blank(), 
                       axis.title = element_blank(),
                       axis.ticks = element_blank(),
@@ -738,8 +738,8 @@ qplot(group, val, data = lineup.dat, geom = "boxplot", col = group,
 \end{subfigure}
 \begin{subfigure}[t]{0.44\textwidth}
 \includegraphics[width=\textwidth]{dist-metric-2.pdf}
-<<lp-turk1-distr, echo=FALSE>>=
-df <- data.frame(t(replicate(1000, {
+<<lp-turk1-distr, echo=FALSE, cache=TRUE>>=
+df <- data.frame(t(replicate(10, {
   	samp.dat <- data.frame(group = obs.dat$group, val = rnorm(dim(obs.dat)[1], 0, 11.77))
 
   	dat1 <- data.frame(t(replicate(18, {
@@ -759,23 +759,25 @@ df <- data.frame(t(replicate(1000, {
 @
 
 <<lp-box-dist-simu, dependson='lp-turk1-distr', echo=FALSE>>=
-dat.pos <- expand.grid(pos.1 = 1:20, pos.2 = 1:20)
+dat.pos <- data.frame(expand.grid(pos.1 = 1:20, pos.2 = 1:20))
 
 # lineup.dat
-metrics.dat <- ddply(dat.pos, .(pos.1, pos.2), summarize, 
+metrics.dat <- dat.pos %>% group_by(pos.1, pos.2) %>% summarize(
                      box.dist = box_dist(lineup.dat[lineup.dat$.sample == pos.1, ],
-                                         lineup.dat[lineup.dat$.sample == pos.2, ],
-                                         lineup.dat=lineup.dat))
+                                         lineup.dat[lineup.dat$.sample == pos.2, ])
+                     )
 
 pos <- 20
 
 metrics.dat <- subset(metrics.dat, pos.1 != pos.2 & pos.2 != pos)
 
-dd3 <- ddply(metrics.dat, .(pos.1), summarize, box.mean = mean(box.dist), len = length(box.dist))
+dd3 <- metrics.dat %>% group_by(pos.1) %>% summarize(
+  box.mean = mean(box.dist), len = length(box.dist))
 
 @
 
-<<lp-box-dist, dependson='lp-box-dist-simu', fig.width=, fig.height = , out.width='\\textwidth'>>=
+<<lp-box-dist, dependson='lp-box-dist-simu', echo=FALSE,  fig.width=4, fig.height = 4.5, out.width='\\textwidth'>>=
+
 ymax <- max(density(df$box)$y)
 ggplot()  + 
   geom_density(data = df, aes(x = box), 
