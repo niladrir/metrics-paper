@@ -778,7 +778,7 @@ ggplot()  +
 %\includegraphics[width=\textwidth]{dist-example-2.pdf}
 <<lp-box, echo=FALSE, fig.width=6, fig.height=6, out.width='\\textwidth', fig.align='bottom'>>=
 # directly from metrics-paper.R
-dat <- read.table("data/dat_turk1_100_0_5_1.txt", header = T)  ## plot_turk1_100_8_12_2
+dat <- read.table("data/dat_turk1_100_0_5_2.txt", header = T)  ## plot_turk1_100_8_12_2
 
 ### The detection rate for the above lineup is 0.28. But the difference for both binned distance and regression based distance are large negative.
 
