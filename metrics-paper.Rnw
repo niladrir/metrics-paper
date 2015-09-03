@@ -669,7 +669,7 @@ Figure~\ref{dist_1} shows the lineup plot for $m = 20$ for testing whether there
 \includegraphics[width=\textwidth]{dist-example.pdf}
 <<lp-reg, echo=FALSE, fig.width=6, fig.height=6, out.width='\\textwidth'>>=
 # plot_turk2_100_75_5_3.png
-dat <- read.table("data/dat_turk2_100_350_12_3.txt", header = TRUE) #plot_turk2_100_350_12_3.png
+dat <- read.table("data/dat_turk2_100_25_5_1.txt", header = TRUE) #plot_turk2_100_350_12_3.png
 dat.m <- melt(dat, id = "X")
 dat.m$.sample <- substring(dat.m$variable, 2)
 lineup.dat <- data.frame(x = dat.m$X, z = dat.m$value, .sample = dat.m$.sample)
@@ -684,43 +684,74 @@ qplot(x, z, data=lineup.dat, alpha=I(0.2), facets=~.sample, size=I(2.5)) +
 \begin{subfigure}[b]{0.44\textwidth}
 \caption{\label{dist_2}Regression based distance metric.}
 \includegraphics[width=\textwidth]{dist-metric.pdf}
-<<turk2-distr, echo=FALSE>>=
-obs.dat <- lineup.dat[lineup.dat$.sample == 10, ]   
+<<turk2-distr, dependson='lp-reg', echo=FALSE, cache=TRUE>>=
+obs.dat <- lineup.dat[lineup.dat$.sample == 7, ]   
 
-mod2 <- lm(z ~ 1, data = obs.dat)
+#qplot(x, z, data = obs.dat, geom = "point") + geom_smooth(method = "lm", se = FALSE) 
+# mod2 <- lm(z ~ 1, data = obs.dat)
+mean.null <- mean(obs.dat$z) # doesn't matter
+sd.null <- 5
+# use null model rather than estimated sigma from data
+# sd.null <- summary(mod2)$sigma
 
-mean.null <- predict(mod2)
-
-sd.null <- summary(mod2)$sigma
-
-dat.bin <- dat.bin.82 <- dat.reg <- dat.reg.no.int <-  NULL
-for (i in 1:1000){
-	zz <- NULL
-	for(i in 1:dim(obs.dat)[1]){
-		zz[i] <- rnorm(1, mean.null[i], sd.null)
-	}
+dfreg <- replicate(1000, {
+	zz <- rnorm(nrow(obs.dat), mean=mean.null, sd=sd.null)
 	samp.dat <- data.frame(group = obs.dat$x, z = zz )
-	dat1 <- sapply(1:18, function(k){
-		yy <- NULL
-	for(i in 1:dim(obs.dat)[1]){
-		yy[i] <- rnorm(1, mean.null[i], sd.null)
-		}
+	dat1 <- replicate(18, {
+		yy <- rnorm(nrow(obs.dat), mean=mean.null, sd=sd.null)
 		null.dat <- data.frame(group = obs.dat$x, z = yy)
-		b1 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 2)
- 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 8, Y.bin = 2)
+		
+# 		b1 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 2)
+#  		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 8, Y.bin = 2)
  		r.int = reg_dist(samp.dat, null.dat)
- 		r.no.int <- reg_no_int_dist(samp.dat, null.dat)
- 		return(list(b1 = b1, b2 = b2, r.int = r.int, r.no.int = r.no.int))
+# 		r.no.int <- reg_no_int_dist(samp.dat, null.dat)
+ 		return(r.int)
  		})
-	 	dat1 <- matrix(unlist(dat1), nrow = 4 )
- 		dat.bin <- c(dat.bin, mean(dat1[1,]))
- 		dat.bin.82 <- c(dat.bin.82, mean(dat1[2,]))
- 		dat.reg <- c(dat.reg, mean(dat1[3,]))
- 		dat.reg.no.int <- c(dat.reg.no.int, mean(dat1[4,]))
+	 	
+ 		reg=mean(dat1)
+})
+@
+
+<<turk2-lp, dependson='turk2-distr', echo=FALSE>>=
+body(reg_dist)
+
+# lineup.dat from lp-box
+metrics.dat <- data.frame(expand.grid(pos.1 = 1:20, pos.2 = 1:20))
+metrics.dat$reg.dist <- NA
+
+for (i in 1:nrow(metrics.dat)) {
+  P <- subset(lineup.dat, .sample == metrics.dat$pos.1[i])[,1:2]
+  PX <- subset(lineup.dat, .sample == metrics.dat$pos.2[i])[,1:2]
+    
+  metrics.dat$reg.dist[i] <- reg_dist(P, PX)
 }
 
-df <- as.data.frame(t(dat1))
-names(df) <- c("Binned-2-2", "Binned-8-2", "Regression Dist", "Regression No Intercept")
+pos <- 7
+
+metrics.dat <- subset(metrics.dat, pos.1 != pos.2 & pos.2 != pos)
+
+dd3 <- metrics.dat %>% group_by(pos.1) %>% summarize(
+  reg.mean = mean(reg.dist), len=n())
+
+@
+
+<<dens-reg-dist, dependson='turk2-lp', echo=FALSE, fig.width=4.5, fig.height=4, out.width='\\textwidth'>>=
+dframe <- data.frame(reg=dfreg)
+ymax <- max(density(dframe$reg)$y)
+ggplot()  + 
+  geom_density(data = dframe, aes(x = reg), 
+               fill = "grey80", col = "grey80" ) + 
+  geom_segment(data = subset(dd3, len != 19), 
+               aes(x = reg.mean, xend = reg.mean, 
+                   y = rep(0.02*ymax,19), yend = rep(0.1*ymax,19)), 
+               size=1, alpha = I(0.7)) + 
+  geom_segment(data = subset(dd3, len == 19), 
+               aes(x= reg.mean, xend = reg.mean, 
+                   y=0.02*ymax, yend = 0.2*ymax), colour="darkorange", size=1)  +
+  xlab("Regression Distance") + ylab("") + 
+  geom_text(data = dd3, y = - 0.03*ymax, size = 2.5, 
+            aes(x = reg.mean, label = pos.1)) + 
+  ylim(c(- 0.04*ymax, ymax + 0.1*ymax))
 @
 \end{subfigure}
 \label{dist}
