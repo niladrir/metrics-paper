@@ -694,36 +694,36 @@ sd.null <- 5
 # use null model rather than estimated sigma from data
 # sd.null <- summary(mod2)$sigma
 
-dfreg <- replicate(1000, {
+dframe <- data.frame(t(replicate(1000, {
 	zz <- rnorm(nrow(obs.dat), mean=mean.null, sd=sd.null)
 	samp.dat <- data.frame(group = obs.dat$x, z = zz )
-	dat1 <- replicate(18, {
+	dat1 <- data.frame(t(replicate(18, {
 		yy <- rnorm(nrow(obs.dat), mean=mean.null, sd=sd.null)
 		null.dat <- data.frame(group = obs.dat$x, z = yy)
 		
 # 		b1 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 2)
 #  		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 8, Y.bin = 2)
  		r.int = reg_dist(samp.dat, null.dat)
-# 		r.no.int <- reg_no_int_dist(samp.dat, null.dat)
- 		return(r.int)
- 		})
+ 		r.no.int <- reg_dist(samp.dat, null.dat, intercept=FALSE)
+ 		return(c(reg.dist=r.int, reg.no.int.dist=r.no.int))
+ 		})))
 	 	
- 		reg=mean(dat1)
-})
+ 		colSums(dat1)/18
+})))
 @
 
 <<turk2-lp, dependson='turk2-distr', echo=FALSE>>=
-body(reg_dist)
-
 # lineup.dat from lp-box
 metrics.dat <- data.frame(expand.grid(pos.1 = 1:20, pos.2 = 1:20))
 metrics.dat$reg.dist <- NA
+metrics.dat$reg.no.int.dist <- NA
 
 for (i in 1:nrow(metrics.dat)) {
   P <- subset(lineup.dat, .sample == metrics.dat$pos.1[i])[,1:2]
   PX <- subset(lineup.dat, .sample == metrics.dat$pos.2[i])[,1:2]
     
   metrics.dat$reg.dist[i] <- reg_dist(P, PX)
+  metrics.dat$reg.dist[i] <- reg_dist(P, PX, intercept=FALSE)
 }
 
 pos <- 7
@@ -731,15 +731,16 @@ pos <- 7
 metrics.dat <- subset(metrics.dat, pos.1 != pos.2 & pos.2 != pos)
 
 dd3 <- metrics.dat %>% group_by(pos.1) %>% summarize(
-  reg.mean = mean(reg.dist), len=n())
+  reg.mean = mean(reg.dist),
+  reg.no.int.mean = mean(reg.no.int.dist),
+  len=n())
 
 @
 
 <<dens-reg-dist, dependson='turk2-lp', echo=FALSE, fig.width=4.5, fig.height=4, out.width='\\textwidth'>>=
-dframe <- data.frame(reg=dfreg)
-ymax <- max(density(dframe$reg)$y)
+ymax <- max(density(dframe$reg.mean)$y)
 ggplot()  + 
-  geom_density(data = dframe, aes(x = reg), 
+  geom_density(data = dframe, aes(x = reg.dist), 
                fill = "grey80", col = "grey80" ) + 
   geom_segment(data = subset(dd3, len != 19), 
                aes(x = reg.mean, xend = reg.mean, 
