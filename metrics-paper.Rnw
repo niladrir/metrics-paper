@@ -572,7 +572,7 @@ Figure~\ref{sep-dist} illustrates the difference between the different distance 
 \end{figure}
 
 
-How well each distance measure matches the observers' responses depends some on the question of interest. But, in general, this should not be a problem because the question which is typically asked is ``Which plot among these is different ?''. In the MTurk experiments, more focused questions were asked because the purpose was very specific, to compare visual inference with classical inference.
+How well each distance measure matches the observers' responses depends some on the question of interest. But, in general, this should not be a problem because the question which is typically asked is ``Which plot among these is different?''. In the MTurk experiments, more focused questions were asked because the purpose was very specific, to compare visual inference with classical inference.
 
 \hh{XXX still open questions after the first read-through: how are these distance metrics chosen, how well do they work in general situations? At the moment the distances seem like they are tailored for very specific examples in very specific designs.}
 
@@ -906,28 +906,65 @@ Figure~\ref{plottype} illustrates this idea.
 
 \begin{figure}[hbtp]
 \centering
-\begin{subfigure}[t]{0.49\textwidth}
-\caption{\label{type_1}Lineup of scatterplots}
-\includegraphics[width=\textwidth]{plot-type-sca.pdf}
+<<lp-data, echo=FALSE, results='hide'>>=
+dat <- read.table("data/dat_turk2_100_25_5_1.txt", header = TRUE) #plot_turk2_100_350_12_3.png
+dat.m <- melt(dat, id = "X")
+dat.m$.sample <- substring(dat.m$variable, 2)
+lineup.dat <- data.frame(x = dat.m$X, z = dat.m$value, .sample = dat.m$.sample)
+
+lineup.dat$.sample <- as.numeric(as.character(lineup.dat$.sample))
+@
+\hfill
+\begin{subfigure}[t]{0.45\textwidth}
+\caption{\label{sca:type_1}Lineup of scatterplots}
+%\includegraphics[width=\textwidth]{plot-type-sca.pdf}
+<<lp-sca, dependson='lp-data', echo=FALSE, fig.width=6, fig.height=6, out.width='\\textwidth'>>=
+# plot_turk2_100_75_5_3.png
+qplot(x, z, data=lineup.dat, alpha=I(0.6), facets=~.sample, size=I(2.5)) + 
+#  geom_smooth(method="lm", se=FALSE, size=1.25, alpha=0.05) +
+  theme(aspect.ratio=1) + xlab("") +
+  theme(axis.text.y = element_blank(), 
+        axis.title.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.ticks.x = element_line(color="white"),
+        axis.text.x = element_text(color="white"), 
+        plot.margin=unit(c(0,0,0,0), unit="cm"))
+@
 \end{subfigure}
-\begin{subfigure}[t]{0.49\textwidth}
-\caption{\label{type_2}Lineup of scatterplots with trend lines}
-\includegraphics[width=\textwidth]{plot-type-reg-line.pdf}
+\hfill
+\begin{subfigure}[t]{0.45\textwidth}
+\caption{\label{sca:type_2}Lineup of scatterplots with trend lines}
+%\includegraphics[width=\textwidth]{plot-type-reg-line.pdf}
+<<lp-sca-line, dependson='lp-data', echo=FALSE, fig.width=6, fig.height=6, out.width='\\textwidth'>>=
+# plot_turk2_100_75_5_3.png
+qplot(x, z, data=lineup.dat, alpha=I(0.2), facets=~.sample, size=I(2.5)) + 
+  geom_smooth(method="lm", se=FALSE, size=1.25, alpha=0.05) +
+  theme(aspect.ratio=1) + xlab("") +
+  theme(axis.text.y = element_blank(), 
+        axis.title.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.ticks.x = element_line(color="white"),
+        axis.text.x = element_text(color="white"), 
+        plot.margin=unit(c(0,0,0,0), unit="cm"))
+@
 \end{subfigure}
+\hfill
 	\vspace{-.1in}
-\caption{Comparison of two lineups: scatterplots in (a) and scatterplots with a regression line overlaid in (b). The raw data is same for the lineups. The human subjects are shown the lineups and asked to identify the plot with the steepest slope. The presence of the regression line directs the decision of observers.  }
+\caption{\label{fig:sca}Comparison of two lineups: scatterplots in (a) and scatterplots with a regression line overlaid in (b). The raw data is same for the lineups. The human subjects are shown the lineups and asked to identify the plot with the steepest slope. The presence of the regression line directs the decision of observers.  }
 \label{plottype}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
-Figure~\ref{type_1} shows a lineup of scatterplots with 100 points between two variables $X_1$ and $X_2$. Figure~\ref{type_2}, on the other hand, gives a lineup of the same scatterplots with the regression line overlaid. The overlaid regression lines are likely to help observers in identifying the panel with the steepest slope.
+Figure~\ref{sca:type_1} shows a lineup of scatterplots with 100 points between two variables $X_1$ and $X_2$. Figure~\ref{sca:type_2}, on the other hand, gives a lineup of the same scatterplots with the regression line overlaid. The overlaid regression lines are likely to help observers in identifying the panel with the steepest slope.
 %Showing Figure~\ref{type_1}, if the subjects are asked to identify the plot which has the steepest slope, then the subjects probably will face some difficulty in identifying the true plot. But in Figure~\ref{type_2}, the regression line overlaid makes it easier for the subjects to identify the true plot. 
 A different distance metric should be used in each case to correctly measure the quality of the lineup.
 \hh{XXX the goal this needs to be stated more clearly. I am not quite sure at this point of why we are trying to get the distance measures to reflect the choice so closely. I think this is getting into fighting wind mills - we can't win this one. }
 
-The question posed to observers plays an important role in the decision they make. A minor change in the question can change the response of the subject. For example,  if  subjects are asked to identify the plot  form Figure~\ref{box-1}, in which the green group has a larger vertical difference than the red group, plot \#6 exhibits the strongest signal.  If the question asks for the plot with the largest vertical difference between the two groups, plot \#15 shows the largest one. 
+The question posed to observers plays an important role in the decision they make. A minor change in the question can change the response of the subject. For example,  if  subjects are asked to identify the plot  from on of the lineups in Figure~\ref{fig:sca}, in which there is the strongest positive relationship between the variables, plot \#2 exhibits the strongest signal.  If the question asks for the plot with the largest slope, plot \#7 should be the obvious pick. 
 \hh{XXX again, why do we try to reflect a plot in a single number, when we know that we can't?}
 A distance metric should also take into account the question of interest. But, in general, the question of interest is which plot among these is different.
+
+\hh{XXX it matters what kind of comparisons those distance measures are supposed to allow. Internally, when the same design is used, the measures are consistent - and alow for a relative comparison: an easier lineup will show a bigger positive distance between the true plot and the nulls than a more difficult one. The distance measure does not necessarily allow for an absolute assessment of difficulty. When the comparison is additionally supposed to distinguish between designs showing the same data, the distance measures definitely need to take the graphical elements used into account. }
 
 \section{Metric Evaluation} \label{sec:eval}
 
