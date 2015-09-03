@@ -967,15 +967,21 @@ A distance metric should also take into account the question of interest. But, i
 \hh{XXX it matters what kind of comparisons those distance measures are supposed to allow. Internally, when the same design is used, the measures are consistent - and alow for a relative comparison: an easier lineup will show a bigger positive distance between the true plot and the nulls than a more difficult one. The distance measure does not necessarily allow for an absolute assessment of difficulty. When the comparison is additionally supposed to distinguish between designs showing the same data, the distance measures definitely need to take the graphical elements used into account. }
 
 \section{Metric Evaluation} \label{sec:eval}
-
-For a lineup of size $m = 20$, the distance for the true plot is compared to the 19 null plots. This comparison can sometimes complicate things. A logical solution can be to look at one statistic for one lineup. Such a statistic can be defined as the difference between the mean distance of the true plot and maximum of the mean distances for the null plots. Hence we define, 
+%
+For a lineup of size $m = 20$, the average distance of the true plot from all null plots is compared 18 average distances between the null plots. This comparison can sometimes complicate things. A logical solution is to calculate a single statistic for each lineup. Such a statistic should be based on the mean distance of the true plot and the maximum of the mean distances for the null plots. Hence we define, 
 \begin{enumerate}
-\item Difference: the difference between the mean distance for the true plot and the maximum of the mean distances for the null plots. Mathematically,
+\item {\bf Difference:} let $\bar{d}_.$ be the average difference of plot $.$ to all of the (other) null plots. We define the difference between the mean distance for the true plot and the maximum of the mean distances for the null plots as a measure of lineup difficulty. Mathematically,
 $$\delta_{\hbox{lineup}} = \bar{d}_{\hbox{true}} - \max_j \bar{d}_{\hbox{null}_j}$$
 for $j = 1, \dots, (m  - 1).$
- A positive difference would indicate that the mean distance of the true plot is greater than the maximum of the mean distances of the null plots. Hence the true plot is extreme compared to all the null plots. Similarly a negative difference indicates that there is at least one null plot which is extreme compared to the true plot based on the distance.
+ A positive difference  indicates that the mean distance of the true plot is larger than the maximum of the mean distances of the null plots. Hence the true plot is more extreme compared to the set of null plots in the lineup. A larger difference should make a data plot identification easier. 
+ Similarly, a negative difference indicates that there is at least one null plot which is more extreme compared to the true plot based on the distance metric.
  
-The issue with this statistic is that $\delta_{\hbox{lineup}}$ indicates an ``easy" or ``difficult" lineup only on the basis of whether it is positive or negative, although it may be really close to 0. The statistic does not imply how many null plots are more extreme than the true plot. So we define,
+The issue with this statistic is that $\delta_{\hbox{lineup}}$ indicates an ``easy" or ``difficult" lineup only on the basis of whether it is positive or negative, although it may be really close to 0.
+\hh{XXX why should we base the decision on difficulty on the sign only? Shouldn't the absolute value of the difference also taken into account?}
+
+
+
+However, this statistic does not imply how many null plots are more extreme than the true plot. So we define,
 \item Larger than the true plot: the number of null plots which have larger mean distances than the mean distance of the true plot is noted. Mathematically,
  $$\gamma_{\hbox{lineup}} = \sum_{j = 1}^{m - 1} a_j$$ where 
 \begin{equation}
@@ -988,6 +994,8 @@ a_j =
 \end{equation}
 $\gamma_{\hbox{lineup}}$ takes all values between 0 and $(m - 1)$. A large value of this measure would indicate that there are a number of null plots more extreme than the true plot and hence it is hard to identify the true plot in the lineup.
 \end{enumerate}
+
+\hh{XXX why don't you also use the distribution of the null distances that you created? That should give an empirical $p$-value for the data plot - it does not, however, take the dependency on the nulls into account.}
 
 \section{Comparison of the distance metrics}
 
