@@ -896,29 +896,38 @@ ggplot()  +
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
-Figure~\ref{box-1} shows a lineup of size $m = 20$ for testing whether there exists a significant difference in the group medians between A and B. The 19 null plots are generated from a null model, consisting of draws from a normal distribution.  Figure~\ref{box-2} shows the empirical distribution of the distance based on the boxplots with the mean distance for the true plot (in orange) and the null plots (in black). The true plot is hard to  identify from the lineup. This  is also evident from the boxplot based distance measure: many of the black lines corresponging to null plots are more extreme than the orange line of the data.
+Figure~\ref{box-1} shows a lineup of size $m = 20$ for testing whether there exists a significant difference in the group medians between A and B. The 19 null plots are generated from a null model, consisting of draws from a normal distribution.  Figure~\ref{box-2} shows the empirical distribution of the distance based on the boxplots with the mean distance for the true plot (in orange) and the null plots (in black). It is hard to identify the true plot from the lineup. During the study, only 2 out of 26 observers picked the data plot, indicating little to no evidence of a deviation from the null hypothesis. This  is also evident from the boxplot based distance measure: the orange line corresponding to the true data is together with the mass of the black lines, one null plot exhibits a lot more signal than the true plot.
 
 \section{Effect of Plot Type and Question of Interest } \label{sec:plot_type}
 
-Previous studies have suggested that the type of plot used in the lineup have an effect on the response of the subjects \citep{zhao:2012}. For example the subjects find it easier to identify the true plot for a large sample data when a box plot is used in the lineup instead of a dot plot. Similarly the distance metric should also be altered according to the plot type. The distance metric should account for the additional information provided by the graphical elements in the lineup. The graphical elements, like the presence of a box or a regression line overlaid on a scatterplot may influence the response of the subject. Figure~\ref{plottype} illustrates this idea. 
+Previous studies have suggested that the type of plot used in the lineup has an effect on the response of the subjects \citep{zhao:2012, hofmann2012graphical}. For example,  subjects find it easier to identify the true plot for a large sample data when a box plot is used in the lineup instead of a dot plot. Similarly, the use of aesthetics, such as colors or shapes, and graphical elements, such as a trend line, also influence an observer's decision \citep{vanderplas:2016}. In order to account for this, the distance metric has to be adjusted for the plot type and graphical elements. 
+%The distance metric should account for the additional information provided by the graphical elements in the lineup. The graphical elements, like the presence of a box or a regression line overlaid on a scatterplot may influence the response of the subject. 
+Figure~\ref{plottype} illustrates this idea. 
 
 \begin{figure}[hbtp]
 \centering
 \begin{subfigure}[t]{0.49\textwidth}
+\caption{\label{type_1}Lineup of scatterplots}
 \includegraphics[width=\textwidth]{plot-type-sca.pdf}
 \end{subfigure}
 \begin{subfigure}[t]{0.49\textwidth}
+\caption{\label{type_2}Lineup of scatterplots with trend lines}
 \includegraphics[width=\textwidth]{plot-type-reg-line.pdf}
 \end{subfigure}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{Comparison of two lineups: scatterplots in (a) and scatterplots with a regression line overlaid in (b). The raw data is same for the lineups. The human subjects are shown the lineups and asked to identify the plot with the steepest slope. The presence of regression line may affect the decision of human subjects.  }
+\caption{Comparison of two lineups: scatterplots in (a) and scatterplots with a regression line overlaid in (b). The raw data is same for the lineups. The human subjects are shown the lineups and asked to identify the plot with the steepest slope. The presence of the regression line directs the decision of observers.  }
 \label{plottype}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
-Figure~\ref{type_1} shows a lineup of scatterplots with 100 points between two variables $X_1$ and $X_2$. Figure~\ref{type_2}, on the other hand, gives a lineup of the same scatterplots with the regression line overlaid. Showing Figure~\ref{type_1}, if the subjects are asked to identify the plot which has the steepest slope, then the subjects probably will face some difficulty in identifying the true plot. But in Figure~\ref{type_2}, the regression line overlaid makes it easier for the subjects to identify the true plot. A different distance metric should be used in each case to correctly measure the quality of the lineup.
+Figure~\ref{type_1} shows a lineup of scatterplots with 100 points between two variables $X_1$ and $X_2$. Figure~\ref{type_2}, on the other hand, gives a lineup of the same scatterplots with the regression line overlaid. The overlaid regression lines are likely to help observers in identifying the panel with the steepest slope.
+%Showing Figure~\ref{type_1}, if the subjects are asked to identify the plot which has the steepest slope, then the subjects probably will face some difficulty in identifying the true plot. But in Figure~\ref{type_2}, the regression line overlaid makes it easier for the subjects to identify the true plot. 
+A different distance metric should be used in each case to correctly measure the quality of the lineup.
+\hh{XXX the goal this needs to be stated more clearly. I am not quite sure at this point of why we are trying to get the distance measures to reflect the choice so closely. I think this is getting into fighting wind mills - we can't win this one. }
 
-The question asked to the subjects plays an important role to identify the true plot in the lineup. A minor change in the question can change the response of the subject. In Figure~\ref{dist2_1}, if the subjects are asked to identify the plot in which the green group has a larger vertical difference than the red group, the subjects should pick Plot 6. If the subjects are asked which plot has the largest vertical difference between the two groups, the subjects should pick Plot 15. A distance metric should also take into account the question of interest. But, in general, the question of interest is which plot among these is different.
+The question posed to observers plays an important role in the decision they make. A minor change in the question can change the response of the subject. For example,  if  subjects are asked to identify the plot  form Figure~\ref{box-1}, in which the green group has a larger vertical difference than the red group, plot \#6 exhibits the strongest signal.  If the question asks for the plot with the largest vertical difference between the two groups, plot \#15 shows the largest one. 
+\hh{XXX again, why do we try to reflect a plot in a single number, when we know that we can't?}
+A distance metric should also take into account the question of interest. But, in general, the question of interest is which plot among these is different.
 
 \section{Metric Evaluation} \label{sec:eval}
 
