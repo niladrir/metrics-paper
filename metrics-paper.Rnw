@@ -1058,8 +1058,9 @@ The response of the subjects were noted and the proportion of correct response w
 
 \begin{figure}[hbtp]
 \centering
-\begin{subfigure}[t]{0.49\textwidth}
-\includegraphics[width=\textwidth]{turk1-prop-box-bin.pdf}
+\begin{subfigure}[t]{0.7\textwidth}
+%\includegraphics[width=\textwidth]{turk1-prop-box-bin.pdf}
+\caption{\hh{XXX Smooth lines come from logistic regression models using a quadratic effect for distance. The fit is not terrific, but not too shabby. What do you think? AIC/anova of the binned  distance is a smidgen better than for the boxplot distance.}}
 <<dist-box-bin, echo=FALSE, fig.width=8.5, fig.height=4.5, out.width='\\textwidth'>>=
 res.exp1 <- read.csv("data/raw_data_turk1.csv")
 results <- read.table("data/turk1-metrics.txt", header=TRUE)
@@ -1091,16 +1092,25 @@ dd <- dat.merge %>% group_by(pic_name, pos.1) %>%
             correct=mean(correct))
 #dd <- ddply(dat.merge, .(pic_name, pos.1), summarize, box.mean = mean(box.dist), bin.mean = mean(bin.dist), len = length(box.dist), prop = mean(prop), m.time = mean(m.time))
 
+
 prop.dist <- dd %>% group_by(pic_name) %>%
-  summarize(diff.box = box.mean[len == 19] - max(box.mean[len == 18]), grtr.box = sum(box.mean[len == 18] > box.mean[len == 19]) , diff.bin = bin.mean[len == 19] - max(bin.mean[len == 18]), grtr.bin = sum(bin.mean[len == 18] > bin.mean[len == 19]) , prop = mean(prop), m.time = mean(m.time), n=mean(n), correct=mean(correct))
+  summarize(
+    diff.box = box.mean[len == 19] - max(box.mean[len == 18]), 
+    grtr.box = sum(box.mean[len == 18] > box.mean[len == 19]) , 
+    diff.bin = bin.mean[len == 19] - max(bin.mean[len == 18]), 
+    grtr.bin = sum(bin.mean[len == 18] > bin.mean[len == 19]) , 
+    prop = mean(prop), 
+    m.time = mean(m.time), 
+    n=mean(n), 
+    correct=mean(correct))
 
 #prop.dist <- ddply(dd, .(pic_name), summarize, diff.box = box.mean[len == 19] - max(box.mean[len == 18]), grtr.box = sum(box.mean[len == 18] > box.mean[len == 19]) , diff.bin = bin.mean[len == 19] - max(bin.mean[len == 18]), grtr.bin = sum(bin.mean[len == 18] > bin.mean[len == 19]) , prop = mean(prop), m.time = mean(m.time))
 
 prop.dist$special <- ifelse(prop.dist$pic_name == "plot_turk1_100_8_12_2.png", 1, 0)
 
 ### Faceting
-dbn <- glm(cbind(correct,n-correct)~diff.bin, data=prop.dist, family=binomial())
-dbx <- glm(cbind(correct,n-correct)~diff.box, data=prop.dist, family=binomial())
+dbn <- glm(cbind(correct,n-correct)~poly(diff.bin,2), data=prop.dist, family=binomial())
+dbx <- glm(cbind(correct,n-correct)~poly(diff.box,2), data=prop.dist, family=binomial())
 prop.dist$dbn <- predict(dbn, type="response")
 prop.dist$dbx <- predict(dbx, type="response")
 
@@ -1126,15 +1136,14 @@ ggplot(data = prop.diff.m) +
             colour="steelblue", size=1) +
   geom_point(aes(x=value, y=prop, shape = factor(special)), 
              size = 3, alpha=0.8) + 
-  ylim(c(0, 1)) + xlab("Difference")+ ylab("Detection Rate") + 
+  ylim(c(0, 1)) + xlab(expression(paste(delta,"-Difference", sep="")))+ ylab("Detection Rate") + 
   geom_smooth(aes(x=value, y=prop), se = FALSE, method="loess") + 
   facet_wrap( ~ variable, scales = "free_x") + 
   theme(legend.position = "none") 
 @
-
-
 \end{subfigure}
-\begin{subfigure}[t]{0.49\textwidth}
+\begin{subfigure}[t]{0.7\textwidth}
+\caption{\hh{still the old picture}}
 \includegraphics[width=\textwidth]{turk1-grtr-box-bin.pdf}
 \end{subfigure}
 %\subfigure[]{
