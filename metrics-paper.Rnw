@@ -766,7 +766,7 @@ ggplot()  +
 \end{subfigure}
 \label{dist}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{
+\caption{
 \label{fig:distances}Illustration of the behavior of a distance metric with a lineup plot in (a) and the distribution of regression based distance metric in (b). A lineup of size $m$ = 20 is shown (left) for testing whether there exists a significant linear relationship between $X_1$ and $X_2$. The 19 null plots are obtained by simulating from the null model.  The empirical distribution of the distance metric is shown (right). The distances for the true plot and the null plots are shown in orange and black respectively.  }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -892,7 +892,7 @@ ggplot()  +
 @
 \end{subfigure}
 	\vspace{-.3in}
-\caption[Optional caption for list of figures]{\label{fig:boxes}Illustration of the behavior of a distance metric with a lineup plot in (a) and the distribution of boxplot based distance metric in (b). A lineup of size $m$ = 20 is shown (left) for testing whether there exists a significant linear relationship between $X_1$ and $X_2$. The 19 null plots are obtained by simulating from the null model.  The empirical distribution of the distance metric is shown (right). The distances for the true plot and the null plots are shown in orange and black respectively.}
+\caption{\label{fig:boxes}Illustration of the behavior of a distance metric with a lineup plot in (a) and the distribution of boxplot based distance metric in (b). A lineup of size $m$ = 20 is shown (left) for testing whether there exists a significant linear relationship between $X_1$ and $X_2$. The 19 null plots are obtained by simulating from the null model.  The empirical distribution of the distance metric is shown (right). The distances for the true plot and the null plots are shown in orange and black respectively.}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
@@ -970,29 +970,33 @@ A distance metric should also take into account the question of interest. But, i
 %
 For a lineup of size $m = 20$, the average distance of the true plot from all null plots is compared 18 average distances between the null plots. This comparison can sometimes complicate things. A logical solution is to calculate a single statistic for each lineup. Such a statistic should be based on the mean distance of the true plot and the maximum of the mean distances for the null plots. Hence we define, 
 \begin{enumerate}
-\item {\bf Difference:} let $\bar{d}_.$ be the average difference of plot $.$ to all of the (other) null plots. We define the difference between the mean distance for the true plot and the maximum of the mean distances for the null plots as a measure of lineup difficulty. Mathematically,
-$$\delta_{\hbox{lineup}} = \bar{d}_{\hbox{true}} - \max_j \bar{d}_{\hbox{null}_j}$$
-for $j = 1, \dots, (m  - 1).$
+\item {\bf Difference:} let $\bar{d}_.$ be the average difference of plot $.$ to all of the (other) null plots. We define the difference between the mean distance for the true plot and the maximum of the mean distances for the null plots as a measure of lineup difficulty, more specifically, 
+$$\delta(\ell) = \bar{d}_{\hbox{true}} - \max_j \bar{d}_{\hbox{null}_j}$$
+for $j = 1, \dots, (m  - 1)$ 
+defines the lineup difference for lineup $\ell$.
  A positive difference  indicates that the mean distance of the true plot is larger than the maximum of the mean distances of the null plots. Hence the true plot is more extreme compared to the set of null plots in the lineup. A larger difference should make a data plot identification easier. 
  Similarly, a negative difference indicates that there is at least one null plot which is more extreme compared to the true plot based on the distance metric.
  
-The issue with this statistic is that $\delta_{\hbox{lineup}}$ indicates an ``easy" or ``difficult" lineup only on the basis of whether it is positive or negative, although it may be really close to 0.
+The issue with this statistic is that $\delta$ indicates an ``easy" or ``difficult" lineup only on the basis of whether it is positive or negative, although it may be really close to 0.
 \hh{XXX why should we base the decision on difficulty on the sign only? Shouldn't the absolute value of the difference also taken into account?}
 
 
 
 However, this statistic does not imply how many null plots are more extreme than the true plot. So we define,
-\item Larger than the true plot: the number of null plots which have larger mean distances than the mean distance of the true plot is noted. Mathematically,
- $$\gamma_{\hbox{lineup}} = \sum_{j = 1}^{m - 1} a_j$$ where 
-\begin{equation}
-a_j =
-\begin{cases}
-1 & \text{if } \bar{d}_{\hbox{null}_j} > \bar{d}_{\hbox{true}} ,
-\\
-0 & \text{otherwise}
-\end{cases}
+\item {\bf Larger than the true plot:} \hh{XXX that might need a simpler name} the number of null plots which have larger mean distances than the mean distance of the true plot is noted. Mathematically, for lineup $\ell$, we define 
+\begin{equation}\label{eq:nullcount}
+\gamma (\ell) = \sum_{j = 1}^{m - 1} 1\!|_{\bar{d}_{\hbox{null}_j} > \bar{d}_{\hbox{true}}}.
 \end{equation}
-$\gamma_{\hbox{lineup}}$ takes all values between 0 and $(m - 1)$. A large value of this measure would indicate that there are a number of null plots more extreme than the true plot and hence it is hard to identify the true plot in the lineup.
+% where 
+% \begin{equation}
+% a_j =
+% \begin{cases}
+% 1 & \text{if } \bar{d}_{\hbox{null}_j} > \bar{d}_{\hbox{true}} ,
+% \\
+% 0 & \text{otherwise}
+% \end{cases}
+% \end{equation}
+$\gamma(.)$ takes integer values between 0 and $(m - 1)$. The higher this value, the more null plots are more extreme than the true plot and hence the data plot is harder to identify from the lineup.
 \end{enumerate}
 
 \hh{XXX why don't you also use the distribution of the null distances that you created? That should give an empirical $p$-value for the data plot - it does not, however, take the dependency on the nulls into account.}
@@ -1015,10 +1019,12 @@ Difference $<$ 0 & $n_{21}$ & $n_{22}$\\
 \end{center}
 \end{table}
 
-The best scenario would be when $n_{12} = n_{21} = 0$. This will mean that the detection rate perfectly matches with the difference.  For each distance metric, we calculate the ratio
+\hh{XXX what about including a neutral zone? Difference $> c$ means detection, difference $< -c$ means no detection, and in between we admit that it could go either way? That would reflect what we see in practice a bit closer, and we could try to estimate $c$. another approach would be to fit a logistic regression it should have an inflection point in 0, and the slope would be indicative of the predictive value of the difference on detection. }
+The best scenario would be when $n_{12} = n_{21} = 0$. This will mean that the detection rate perfectly matches with the difference.  For each distance metric, we estimate the odds ratio
 $$ \frac{(n_{11} + 0.5)(n_{22} + 0.5)}{(n_{12} + 0.5)(n_{21} + 0.5)}$$
 A larger value of this ratio would indicate that the distance metric matches more to the response of the human subjects. 
-
+\hh{XXX we would hope this to be at least positive to indicate some positive relationship between difference and detection rate. 
+}
 
 %\newpage
 
@@ -1027,28 +1033,83 @@ A larger value of this ratio would indicate that the distance metric matches mor
 
 %{\color{blue} Description of the Turk Results and analysis.}
 
-The performance of the distance metrics was evaluated with comparing the distances with the response of the subjects. A number of experiments were done in Amazon Mechanical Turk \citep{turk}. Subjects were recruited through Amazon Mechanical Turk \citep{turk} and were shown a sequence of lineups. In each experiment, they were asked specific questions. Their responses were recorded along with other demographic informations. The details about the design of experiments can be found in \cite{majumder:2011} and \cite{roychowdhury:2013}. 
+The performance of the distance metrics was evaluated by comparing  distances to observers' responses. A number of experiments were run using the MTurk service \citep{turk}. Subjects were recruited through this service and were shown a sequence of lineups. In each experiment, they were asked specific questions. Their responses were recorded along with other demographic informations. Details on the design of experiments can be found in \cite{majumder:2011} and \cite{roychowdhury:2013}. 
+
+\hh{XXX above paragraph could be tightened up a bit}
+\hh{XXX still missing - what is the plan for this section?}
 
 \subsection{Turk Experiment 1 -- Side by Side Boxplots}
 
-In this experiment, all the lineups generated had a side by side boxplot as the test statistic. Assuming that the null hypothesis is true, the null plots were generated by assuming that there is no difference between the two distributions. The subjects were shown a few lineups and were asked to identify the plot which has the largest vertical difference between group 1 and group 2. Figure~\ref{turk1} gives such a lineup. \\
+\hh{XXX we've had this information earlier}
+In this experiment, all the lineups generated had a side by side boxplot as the test statistic. Assuming that the null hypothesis is true, the null plots were generated by assuming that there is no difference between the two distributions. The subjects were shown a few lineups and were asked to identify the plot which has the largest vertical difference between group 1 and group 2. 
+%Figure~\ref{turk1} gives such a lineup. \\
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=.95\textwidth]{turk1-example.pdf}
-% plot_turk1_100_16_12_3
-%\includegraphics[width=.65\textwidth]{large-p-trim-bin.pdf}
-\caption{An example lineup from Turk Experiment 1. The lineup has $m = 20$ plots of which one is the observed data plot and the remaining $m - 1$ are the null plots generated assuming that the null hypothesis is true. Subjects were asked to identify the plot which has the largest vertical difference between the two groups. Can you identify the observed data plot?}
-\label{turk1}
-\end{figure}
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=.95\textwidth]{turk1-example.pdf}
+% % plot_turk1_100_16_12_3
+% %\includegraphics[width=.65\textwidth]{large-p-trim-bin.pdf}
+% \caption{An example lineup from Turk Experiment 1. The lineup has $m = 20$ plots of which one is the observed data plot and the remaining $m - 1$ are the null plots generated assuming that the null hypothesis is true. Subjects were asked to identify the plot which has the largest vertical difference between the two groups. Can you identify the observed data plot?}
+% \label{turk1}
+% \end{figure}
 
-The response of the subjects were noted and the proportion of correct response was calculated for each lineup. The distances between the plots in each lineup were computed using both the distance based on boxplots ($d_{\hbox{box}}$) and the binned distance ($d_{\hbox{bin}}$). The mean distance for the true plot and the null plots were calculated and $\delta_{\hbox{lineup}}$ and $\gamma_{\hbox{lineup}}$ are obtained. The proportion of correct response was plotted against each of the two statistics. Figure~\ref{turk1comp} shows the detection rate against the difference for $d_{\hbox{box}}$ and $d_{\hbox{bin}}$ and the number of null plots greater than the observed plot for the two distance measures. 
+The response of the subjects were noted and the proportion of correct response was calculated for each lineup. The distances between the plots in each lineup were computed using both the distance based on boxplots ($d_{BX}$) and the binned distance ($d_{BN}$). For each lineup the mean distance for the true plot and the null plots were calculated and $\delta$ and $\gamma$ are obtained. The proportion of correct response was plotted against each of the two statistics. Figure~\ref{turk1comp} shows the detection rate against the difference for $d_{BX}$ and $d_{BN}$ and the number of null plots greater than the observed plot for the two distance measures. 
 
 
 \begin{figure}[hbtp]
 \centering
 \begin{subfigure}[t]{0.49\textwidth}
 \includegraphics[width=\textwidth]{turk1-prop-box-bin.pdf}
+<<dist-box-bin, echo=FALSE>>=
+res.exp1 <- read.csv("data/raw_data_turk1.csv")
+results <- read.table("data/turk1-metrics.txt", header=TRUE)
+
+res.exp1 <- subset(res.exp1, select = c(pic_name, response, plot_location, time_taken))
+
+res.dat <- res.exp1 %>% group_by(pic_name) %>% summarize(
+  prop = mean(response), 
+  pos = mean(plot_location), 
+  m.time = median(1.0*time_taken))
+
+
+metrics.sub <- subset(results, pos.1 != pos.2)
+
+dat.merge <- merge(metrics.sub, res.dat, by = "pic_name")
+
+dat.merge <- subset(dat.merge, pos.2 != pos)
+
+dd <- dat.merge %>% group_by(pic_name, pos.1) %>%
+  summarize(box.mean = mean(box.dist), 
+            bin.mean = mean(bin.dist), 
+            len = length(box.dist), 
+            prop = mean(prop), 
+            m.time = mean(m.time))
+#dd <- ddply(dat.merge, .(pic_name, pos.1), summarize, box.mean = mean(box.dist), bin.mean = mean(bin.dist), len = length(box.dist), prop = mean(prop), m.time = mean(m.time))
+
+prop.dist <- dd %>% group_by(pic_name) %>%
+  summarize(diff.box = box.mean[len == 19] - max(box.mean[len == 18]), grtr.box = sum(box.mean[len == 18] > box.mean[len == 19]) , diff.bin = bin.mean[len == 19] - max(bin.mean[len == 18]), grtr.bin = sum(bin.mean[len == 18] > bin.mean[len == 19]) , prop = mean(prop), m.time = mean(m.time))
+
+#prop.dist <- ddply(dd, .(pic_name), summarize, diff.box = box.mean[len == 19] - max(box.mean[len == 18]), grtr.box = sum(box.mean[len == 18] > box.mean[len == 19]) , diff.bin = bin.mean[len == 19] - max(bin.mean[len == 18]), grtr.bin = sum(bin.mean[len == 18] > bin.mean[len == 19]) , prop = mean(prop), m.time = mean(m.time))
+
+prop.dist$special <- ifelse(prop.dist$pic_name == "plot_turk1_100_8_12_2.png", 1, 0)
+
+### Faceting
+
+prop.diff <- subset(prop.dist, select = c(pic_name, diff.box, diff.bin, prop, m.time, special))
+prop.diff.m <- melt(prop.diff, id = c("pic_name", "prop", "special", "m.time"))
+
+levels(prop.diff.m$variable) <- c("Boxplot Based Distance", "Binned Distance")
+
+qplot(value, prop, data = prop.diff.m, geom = "point", size = I(3), 
+      ylim = c(0, 1), xlab = "Difference", ylab = "Detection Rate", 
+      shape = factor(special)) + 
+  geom_smooth(se = FALSE, method="loess") + 
+  facet_wrap( ~ variable, scales = "free_x") + 
+  geom_vline(xintercept = 0, col = "red") + 
+  theme(legend.position = "none")
+@
+
+
 \end{subfigure}
 \begin{subfigure}[t]{0.49\textwidth}
 \includegraphics[width=\textwidth]{turk1-grtr-box-bin.pdf}
@@ -1062,7 +1123,7 @@ The response of the subjects were noted and the proportion of correct response w
 %\label{t1bin_2}
 %}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{Comparison of distance metrics for side-by-side boxplots. Detection Rate (a) and the number of plots greater than the observed (b) are plotted against the difference based on the boxplot and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The detection rate increases with the difference. As the number of plots with distance greater than the observed increases, the detection rate decreases.  The triangle represents a lineup which has high detection rate but negative difference. This particular lineup is examined in Figure~\ref{turk1-exp}. }
+\caption{Comparison of distance metrics for side-by-side boxplots. Detection Rate (a) and the number of plots greater than the observed (b) are plotted against the difference based on the boxplot and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The detection rate increases with the difference. As the number of plots with distance greater than the observed increases, the detection rate decreases.  The triangle represents a lineup which has high detection rate but negative difference. This particular lineup is examined in Figure~\ref{turk1-exp}. }
 \label{turk1comp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -1089,7 +1150,7 @@ For Turk 1 experiment, the value of the ratio for boxplot distance is 86.52 and 
 %}
 %%\label{turk1-bin}
 %	\vspace{-.1in}
-%\caption[Optional caption for list of figures]{(a) Plot showing the proportion correct against the difference based on the binned distance with 8 bins on each axis. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The proportion correct increases with the difference. (b) Plot showing the proportion correct against the number of null plots greater than the observed plot according to the binned distance. The proportion correct decreases as the number of null plots greater than the observed plot increases.  }
+%\caption{(a) Plot showing the proportion correct against the difference based on the binned distance with 8 bins on each axis. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The proportion correct increases with the difference. (b) Plot showing the proportion correct against the number of null plots greater than the observed plot according to the binned distance. The proportion correct decreases as the number of null plots greater than the observed plot increases.  }
 %%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 %\end{figure}
 
@@ -1105,7 +1166,7 @@ For Turk 1 experiment, the value of the ratio for boxplot distance is 86.52 and 
 %\label{t1bin_1}
 %}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{Comparison of distance metrics for side-by-side boxplots. Mean time to respond is plotted against the difference based on the boxplot and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time taken decreases with the difference. The triangle represents a lineup which is examined in Figure~\ref{turk1-exp}. }
+\caption{Comparison of distance metrics for side-by-side boxplots. Mean time to respond is plotted against the difference based on the boxplot and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time taken decreases with the difference. The triangle represents a lineup which is examined in Figure~\ref{turk1-exp}. }
 \label{turk1-mtime}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -1128,7 +1189,7 @@ It can be noticed in Figure~\ref{turk1comp} that for some of the lineups, the de
 \end{subfigure}
 
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{Illustration of the behavior of the different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics based on this lineup is shown in the other plots: boxplot based distance in (b), binned distance with 2 and 8 bins on x and y axis in (c) and binned distance with 2 bins in both axes in (d). The lineup corresponds to the point marked with a triangle in difference vs. detection rate plot in Figure~\ref{turk1comp}. }
+\caption{Illustration of the behavior of the different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics based on this lineup is shown in the other plots: boxplot based distance in (b), binned distance with 2 and 8 bins on x and y axis in (c) and binned distance with 2 bins in both axes in (d). The lineup corresponds to the point marked with a triangle in difference vs. detection rate plot in Figure~\ref{turk1comp}. }
 \label{turk1-exp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -1168,7 +1229,7 @@ The distances between the plots in this experiment were computed using both the 
 %\label{t2comp_2}
 %}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{Comparison of distance metrics for scatteplots with a regression line overlaid. Detection Rate (a) and the number of plots greater than the observed (b) are plotted against the difference based on the regression based and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The detection rate increases with the difference. As the number of plots with distance greater than the observed increases, the detection rate decreases.  The triangle represents a lineup which has high detection rate but negative difference. This particular lineup is examined in Figure~\ref{turk2-exp}.}
+\caption{Comparison of distance metrics for scatteplots with a regression line overlaid. Detection Rate (a) and the number of plots greater than the observed (b) are plotted against the difference based on the regression based and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The detection rate increases with the difference. As the number of plots with distance greater than the observed increases, the detection rate decreases.  The triangle represents a lineup which has high detection rate but negative difference. This particular lineup is examined in Figure~\ref{turk2-exp}.}
 \label{turk2comp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -1191,7 +1252,7 @@ Figure~\ref{turk2comp} also shows the detection rate against the number of null 
 %\label{t1bin_1}
 %}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{Comparison of distance metrics for scatterplots with a regression line over laid. Mean time to respond is plotted against the difference based on the regression based and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time taken decreases with the difference. The triangle represents a lineup which is examined in Figure~\ref{turk2-exp}.   }
+\caption{Comparison of distance metrics for scatterplots with a regression line over laid. Mean time to respond is plotted against the difference based on the regression based and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time taken decreases with the difference. The triangle represents a lineup which is examined in Figure~\ref{turk2-exp}.   }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \label{turk2-mtime}
 \end{figure}
@@ -1223,7 +1284,7 @@ Although the regression based distance seems to efficiently identify the quality
 \end{subfigure}
 
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{Illustration of the behavior of different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics using this lineup is shown in the other plots ((b) - (e)): regression based distance in (b), binned distance with 2 bins on each axes in (c), binned distance with 8 and 2 bins in x and y axis respectively in (d) and regression distance based only on slope in (e). In (f), the distribution of the conventional $p$-values are plotted with $p$-values for the lineups marked on the distribution. The lineup corresponds to the point marked with a triangle in difference vs. detection rate plot in Figure~\ref{turk2comp}.}
+\caption{Illustration of the behavior of different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics using this lineup is shown in the other plots ((b) - (e)): regression based distance in (b), binned distance with 2 bins on each axes in (c), binned distance with 8 and 2 bins in x and y axis respectively in (d) and regression distance based only on slope in (e). In (f), the distribution of the conventional $p$-values are plotted with $p$-values for the lineups marked on the distribution. The lineup corresponds to the point marked with a triangle in difference vs. detection rate plot in Figure~\ref{turk2comp}.}
 \label{turk2-exp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -1276,7 +1337,7 @@ The distances between the plots in this experiment were computed using the dista
 %\label{lpcomp_2}
 %}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{Comparison of distance metrics for the scatterplot with clusters. Detection rate (a) and the number of plots greater than the observed (b) are plotted against the difference based on the minimum separation, average separation and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The detection rate increases with the difference. As the number of plots with distance greater than the observed increases, the detection rate decreases. The triangle represents a lineup with high detection rate and negative difference based on the average separation distance. This is examined in Figure~\ref{lp-exp}. }
+\caption{Comparison of distance metrics for the scatterplot with clusters. Detection rate (a) and the number of plots greater than the observed (b) are plotted against the difference based on the minimum separation, average separation and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The detection rate increases with the difference. As the number of plots with distance greater than the observed increases, the detection rate decreases. The triangle represents a lineup with high detection rate and negative difference based on the average separation distance. This is examined in Figure~\ref{lp-exp}. }
 \label{lp-comp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -1295,7 +1356,7 @@ In Figure~\ref{lp-comp}, the detection rate is plotted against the difference fo
 %\label{t1bin_1}
 %}
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{Plot showing the mean time to respond by the subjects against the difference based on the minimum separation distance, average separation and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time decreases as the difference increases.  }
+\caption{Plot showing the mean time to respond by the subjects against the difference based on the minimum separation distance, average separation and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time decreases as the difference increases.  }
 \label{lp-mtime}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -1318,7 +1379,7 @@ Figure~\ref{lp-mtime} shows the relationship between the mean time taken to resp
 \end{subfigure}
 
 	\vspace{-.1in}
-\caption[Optional caption for list of figures]{Illustration of the behavior of different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics are shown in the other plots:  binned distance with 6 and 4 bins in x and y axis respectively in (b), distance based on average separation in (c) and distance based on minimum separation in (d). }
+\caption{Illustration of the behavior of different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics are shown in the other plots:  binned distance with 6 and 4 bins in x and y axis respectively in (b), distance based on average separation in (c) and distance based on minimum separation in (d). }
 \label{lp-exp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -1388,7 +1449,7 @@ The reason of choice can provide a way of evaluating the performance of a distan
 %}
 %\label{sca_lineup}
 %	\vspace{-.1in}
-%\caption[Optional caption for list of figures]{(a) Lineup Plot ($m$ = 20) for testing whether there exists a positive association between $X$ and $Y$. The 19 null plots are obtained by permuting $Y$ of the true data while keeping $X$ fixed. Can you identify the true plot?  (b) The chart on the right gives an overview of the closest plots according to all distance measures. The People's pick is discussed in more detail in Section~\ref{user.distance}. }
+%\caption{(a) Lineup Plot ($m$ = 20) for testing whether there exists a positive association between $X$ and $Y$. The 19 null plots are obtained by permuting $Y$ of the true data while keeping $X$ fixed. Can you identify the true plot?  (b) The chart on the right gives an overview of the closest plots according to all distance measures. The People's pick is discussed in more detail in Section~\ref{user.distance}. }
 %%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 %\end{figure*}
 
@@ -1914,7 +1975,7 @@ The reason of choice can provide a way of evaluating the performance of a distan
 %}
 %\label{dist_z_perc}
 %	\vspace{-.1in}
-%\caption[Optional caption for list of figures]{(a) Scatterplot of the People's pick against the z-scores for each distance measure colored by the lineups. (b) Scatterplot of the People's pick against the percentiles for t-statistic and Spearman's $\rho$ colored by the lineups. }
+%\caption{(a) Scatterplot of the People's pick against the z-scores for each distance measure colored by the lineups. (b) Scatterplot of the People's pick against the percentiles for t-statistic and Spearman's $\rho$ colored by the lineups. }
 %%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 %\end{figure*}
 
@@ -1947,7 +2008,7 @@ The choice of number of bins or bin sizes is investigated with different types o
 %}
 %\label{nbin1}
 %	\vspace{-.1in}
-%\caption[Optional caption for list of figures]{(a) Plot showing the observed data (b) Binned distance plotted against the number of bins. }
+%\caption{(a) Plot showing the observed data (b) Binned distance plotted against the number of bins. }
 %%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 %\end{figure*}
 %
@@ -1963,7 +2024,7 @@ The choice of number of bins or bin sizes is investigated with different types o
 %}
 %\label{nbin2}
 %	\vspace{-.1in}
-%\caption[Optional caption for list of figures]{(a) Plot showing the observed data (b) Binned distance plotted against the number of bins. }
+%\caption{(a) Plot showing the observed data (b) Binned distance plotted against the number of bins. }
 %%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 %\end{figure*}
 %
@@ -1979,7 +2040,7 @@ The choice of number of bins or bin sizes is investigated with different types o
 %}
 %\label{nbin3}
 %	\vspace{-.1in}
-%\caption[Optional caption for list of figures]{(a) Plot showing the observed data (b) Binned distance plotted against the number of bins. }
+%\caption{(a) Plot showing the observed data (b) Binned distance plotted against the number of bins. }
 %%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 %\end{figure*}
 
