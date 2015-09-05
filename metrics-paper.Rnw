@@ -1198,7 +1198,7 @@ For Turk 1 experiment, the value of the ratio for boxplot distance is 86.52 and 
 
 \begin{figure}[hbtp]
 \centering
-\includegraphics[scale=0.75]{turk1-mtime-box-bin.pdf}
+\includegraphics[width=0.6\textwidth]{turk1-mtime-box-bin.pdf}
 <<time-taken, dependson='dist-box-bin', fig.width=8.5, fig.height=4.5, out.width='\\textwidth', echo=FALSE>>=
 ggplot(data = prop.diff.m) +
   geom_vline(xintercept = 0, col = "grey50") + 
@@ -1219,7 +1219,7 @@ ggplot(data = prop.diff.m) +
 %\label{t1bin_1}
 %}
 	\vspace{-.1in}
-\caption{Comparison of distance metrics for side-by-side boxplots. Mean time to respond is plotted against the difference based on the boxplot and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time taken decreases with the difference. The triangle represents a lineup which is examined in Figure~\ref{turk1-exp}. }
+\caption{Comparison of distance metrics for side-by-side boxplots. Mean time to respond is plotted against the difference based on the boxplot and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time taken decreases with the difference. The triangle represents a lineup which is examined further in Figure~\ref{turk1-exp}. \hh{XXX compared to the old picture, the new boxplot based distance shows differences in $\delta$-difference. I am using turk1-metrics.txt for the differences, I have not actually computed those differences (yet). }}
 \label{turk1-mtime}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -1232,13 +1232,14 @@ Figure~\ref{turk1-exp} shows the lineup and the distribution of the distance met
 \begin{subfigure}[t]{0.6\textwidth}
 \includegraphics[width=\textwidth]{lineup-high-prop-neg-diff.pdf}
 \end{subfigure}\hfill
-\begin{subfigure}[t]{0.3\textwidth}
+
+\begin{subfigure}[t]{0.32\textwidth}
 \includegraphics[width=\textwidth]{distribution-box-dist-exp1.pdf}
 \end{subfigure}
-\begin{subfigure}[t]{0.3\textwidth}
+\begin{subfigure}[t]{0.32\textwidth}
 \includegraphics[width=\textwidth]{distribution-bin-dist-2-8-exp1.pdf}
 \end{subfigure}
-\begin{subfigure}[t]{0.3\textwidth}
+\begin{subfigure}[t]{0.32\textwidth}
 \includegraphics[width=\textwidth]{distribution-bin-dist-2-2-exp1.pdf}
 \end{subfigure}
 
