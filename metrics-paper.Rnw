@@ -1071,6 +1071,7 @@ res.dat <- res.exp1 %>% group_by(pic_name) %>% summarize(
   prop = mean(response), 
   pos = mean(plot_location), 
   m.time = median(1.0*time_taken),
+  m2.time = mean(log(1.0*time_taken)),
   n=n(),
   correct=sum(response))
 
@@ -1088,6 +1089,7 @@ dd <- dat.merge %>% group_by(pic_name, pos.1) %>%
             len = length(box.dist), 
             prop = mean(prop), 
             m.time = mean(m.time),
+            m2.time = mean(m2.time),
             n=mean(n),
             correct=mean(correct))
 #dd <- ddply(dat.merge, .(pic_name, pos.1), summarize, box.mean = mean(box.dist), bin.mean = mean(bin.dist), len = length(box.dist), prop = mean(prop), m.time = mean(m.time))
@@ -1101,6 +1103,7 @@ prop.dist <- dd %>% group_by(pic_name) %>%
     grtr.bin = sum(bin.mean[len == 18] > bin.mean[len == 19]) , 
     prop = mean(prop), 
     m.time = mean(m.time), 
+    m2.time = mean(m2.time), 
     n=mean(n), 
     correct=mean(correct))
 
@@ -1124,8 +1127,8 @@ dpred2$variable <- "Boxplot Based Distance"
 
 dpred <- rbind(dpred1, dpred2)
 
-prop.diff <- subset(prop.dist, select = c(pic_name, diff.box, diff.bin, prop, m.time, special))
-prop.diff.m <- melt(prop.diff, id = c("pic_name", "prop", "special", "m.time"))
+prop.diff <- subset(prop.dist, select = c(pic_name, diff.box, diff.bin, prop, m.time, m2.time, special))
+prop.diff.m <- melt(prop.diff, id = c("pic_name", "prop", "special", "m.time", "m2.time"))
 
 levels(prop.diff.m$variable) <- c("Boxplot Based Distance", "Binned Distance")
 
@@ -1167,9 +1170,11 @@ In Figure~\ref{turk1comp}, the detection rate is plotted against the $\delta$-di
 \hh{XXX on what measure is the following statement based? AIC or anova shows that the binned distance is doing (a little bit) better. }
 Though the distance based on the boxplots works better, the binned distance does a decent job in this case. According to the binned distance, there are a few lineups which has a negative difference but the proportion correct is above 60\%, which can be also be seen in Figure~\ref{turk1comp}. It should be noted that the binned distance does not take into account the graphical elements of the plot (e.g. boxplot) and calculates the distance solely based on the data. So an outlier may have a huge effect on the binned distance but does not effect the distance based on the boxplots. Hence it is advisable to use a distance based on the graphical elements since that is exactly what the subjects look at in the lineup.
 
+\hh{XXX wouldn't median time be better? XXX update: it is median time. 
+Aside from that, we've been usually using the log of time taken - assuming that time taken is not that far from a Gamma distribution. XXX checked on log versus median, and the relationship to difference is qualitatively not that different. Median time is much easier to interpret than log times.  }
+The time taken to respond by the subjects is another measure of difficulty of the lineups. Due to the presence of some huge outliers, median time taken by the subjects for each lineup is used and plotted against  $\delta$-difference for both the distance measures. Figure~\ref{turk1-mtime} shows the plots. It can be clearly seen that when $\delta$-difference is below 0, there is no real trend in the mean time and there is a huge variability, indicating that the time taken depends on the subjects. But when the difference is above 0, the median time to respond decreases rapidly as $\delta$-difference increases. Hence, subjects are able to make their choice of a plot more quickly if the true plot is extreme compared to the null plots.
 
-The time taken to respond by the subjects is another measure of difficulty of the lineups. Due the presence of some huge outliers, the mean time taken by the subjects for each lineup is looked at and plotted against the difference for both the distance measures. Figure~\ref{turk1-mtime} shows the plots. It can be clearly seen that when the difference is below 0, there is no real trend in the mean time and there is a huge variability, indicating that the time taken depends on the subjects. But when the difference is above 0, the mean time decreases rapidly as the difference increases. Hence the subjects can pick the true plot quickly if the true plot is extreme compared to the null plots.
-
+\hh{XXX I don't think that the following statement is true -- there is no reason, why boxplot distance and binned distance are on the same scale. }
 For Turk 1 experiment, the value of the ratio for boxplot distance is 86.52 and for binned distance is 18.82. This indicates that the boxplot distance works better than the binned distance. 
  
 %\begin{figure}[hbtp]
@@ -1191,6 +1196,16 @@ For Turk 1 experiment, the value of the ratio for boxplot distance is 86.52 and 
 \begin{figure}[hbtp]
 \centering
 \includegraphics[scale=0.75]{turk1-mtime-box-bin.pdf}
+<<time-taken, dependson='dist-box-bin', fig.width=8.5, fig.height=4.5, out.width='\\textwidth', echo=FALSE>>=
+ggplot(data = prop.diff.m) +
+  geom_vline(xintercept = 0, col = "grey50") + 
+  geom_point(aes(x=value, y=m.time, shape = factor(special)),
+             size = 3) +
+  xlab("Difference") + ylab("Median Time to Respond (in seconds)") + 
+  facet_wrap( ~ variable, scales = "free_x") + 
+  geom_smooth(aes(x=value, y=m.time), se=FALSE, method="loess") +
+  theme(legend.position = "none")
+@
 %\subfigure[]{
 %\includegraphics[scale=0.55]{turk1-diff-box-mtime.pdf}
 %\label{t1comp_1}
