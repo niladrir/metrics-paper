@@ -1307,7 +1307,7 @@ The distances between the plots in this experiment were computed using both the 
 \begin{figure}[hbtp]
 \begin{subfigure}[t]{\textwidth}
 \centering
-\caption{\label{turk2comp-1}$\delta$-difference \hh{XXX problem with binned distance - will re-calculate turk2-metrics next}}
+\caption{\label{turk2comp-1}$\delta$-difference \hh{XXX problem with binned distance - will re-calculate turk2-metrics next} \hh{XXX model for regression based distance works extremely well}}
 \includegraphics[width=0.7\textwidth]{turk2-prop-reg-bin.pdf}
 <<delta-turk2, echo=FALSE, fig.width=8.5, fig.height=4.5, out.width='0.7\\textwidth'>>=
 res.exp2 <- read.csv("data/raw_data_turk2.csv")
@@ -1325,13 +1325,9 @@ res.dat <- res.exp2 %>% group_by(pic_name) %>%
   )
 
 metrics <- read.table("data/turk2-metrics.txt", header=TRUE)
-
 metrics.sub <- subset(metrics, pos.1 != pos.2)
-
 dat.merge <- merge(metrics.sub, res.dat, by = "pic_name")
-
 dat.merge <- subset(dat.merge, pos.2 != pos)
-
 dd <- dat.merge %>% group_by(pic_name, pos.1) %>%
   summarize(
     reg.mean = mean(reg.bin), 
@@ -1352,9 +1348,21 @@ prop.dist <- dd %>% group_by(pic_name) %>%
     m.time = mean(m.time),
     n=mean(n),
     correct=mean(correct))
-
 prop.dist$special <- ifelse(prop.dist$pic_name == "plot_turk2_100_350_12_3.png", 1, 0)
 
+t2dbn <- glm(cbind(correct, n-correct)~poly(diff.bin,2), data=prop.dist, family=binomial())
+t2drg <- glm(cbind(correct, n-correct)~diff.reg, data=prop.dist, family=binomial())
+
+predrg <- data.frame(diff.reg=seq(-20,40, by=1))
+predrg$pred <- predict(t2drg, newdata=predrg, type="response")
+names(predrg)[1] <- "value"
+predrg$variable <- "Regression Based Distance"
+predbn <- data.frame(diff.bin=seq(-11,5, by=0.25))
+predbn$pred <- predict(t2dbn, newdata=predbn, type="response")
+names(predbn)[1] <- "value"
+predbn$variable <- "Binned Distance"
+
+t2pred <- rbind(predbn, predrg)
 ### Facetted Plots
 
 prop.diff <- subset(prop.dist, select = c(pic_name, diff.reg, diff.bin, prop, m.time, special))
@@ -1363,11 +1371,15 @@ prop.diff.m <- melt(prop.diff, id = c("pic_name", "prop", "special", "m.time"))
 
 levels(prop.diff.m$variable) <- c("Regression Based Distance", "Binned Distance")
 
-qplot(value, prop, data = prop.diff.m, geom = "point", size = I(3), xlab = "Difference", ylab = "Detection Rate", shape = factor(special)) + 
-  geom_smooth(se = FALSE, method='loess') + 
+ggplot(data=prop.diff.m) + 
+  geom_point(aes(x=value, y=prop, shape=factor(special)), size=3) +
+  xlab("delta-Difference") + 
+  ylab("Detection Rate") + 
+  geom_smooth(aes(x=value, y=prop), se = FALSE, method='loess') + 
   facet_wrap( ~ variable, scales = "free_x") + 
   geom_vline(xintercept = 0, col = "red") + 
-  theme(legend.position = "none")
+  theme(legend.position = "none") + 
+  geom_line(aes(value, pred, group=variable), colour="steelblue", size=1, data=t2pred)
 
 @
 \end{subfigure}
