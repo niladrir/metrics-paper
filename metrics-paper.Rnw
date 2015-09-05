@@ -1053,7 +1053,7 @@ In this experiment, all the lineups generated had a side by side boxplot as the 
 % \label{turk1}
 % \end{figure}
 
-The response of the subjects were noted and the proportion of correct response was calculated for each lineup. The distances between the plots in each lineup were computed using both the distance based on boxplots ($d_{BX}$) and the binned distance ($d_{BN}$). For each lineup the mean distance for the true plot and the null plots were calculated and $\delta$ and $\gamma$ are obtained. The proportion of correct response was plotted against each of the two statistics. Figure~\ref{turk1comp} shows the detection rate against the difference for $d_{BX}$ and $d_{BN}$ and the number of null plots greater than the observed plot for the two distance measures. 
+For each lineup the subjects' choice was noted and the proportion of data identifications was calculated. The distances between the plots in each lineup were computed using both the distance based on boxplots ($d_{BX}$) and the binned distance ($d_{BN}$). For each lineup the mean distance for the true plot and the null plots were calculated and $\delta$ and $\gamma$ are obtained. The proportion of data identification is plotted against each of the two statistics, shown in Figure~\ref{turk1comp}. Binned distance was calculated using 8 bins on both of the axes. %shows the detection rate against the difference for $d_{BX}$ and $d_{BN}$ and the number of null plots greater than the observed plot for the two distance measures. 
 
 
 \begin{figure}[hbtp]
@@ -1110,9 +1110,8 @@ prop.dist$special <- ifelse(prop.dist$pic_name == "plot_turk1_100_8_12_2.png", 1
 
 ### Faceting
 dbn <- glm(cbind(correct,n-correct)~poly(diff.bin,2), data=prop.dist, family=binomial())
+
 dbx <- glm(cbind(correct,n-correct)~poly(diff.box,2), data=prop.dist, family=binomial())
-prop.dist$dbn <- predict(dbn, type="response")
-prop.dist$dbx <- predict(dbx, type="response")
 
 dpred1 <- data.frame(diff.bin=seq(-14,21, by=0.5))
 dpred2 <- data.frame(diff.box=seq(-6,16, length=81))
@@ -1155,16 +1154,19 @@ ggplot(data = prop.diff.m) +
 %\label{t1bin_2}
 %}
 	\vspace{-.1in}
-\caption{Comparison of distance metrics for side-by-side boxplots. Detection Rate (a) and the number of plots greater than the observed (b) are plotted against the difference based on the boxplot and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The detection rate increases with the difference. As the number of plots with distance greater than the observed increases, the detection rate decreases.  The triangle represents a lineup which has high detection rate but negative difference. This particular lineup is examined in Figure~\ref{turk1-exp}. }
+\caption{Comparison of distance metrics for side-by-side boxplots. Detection Rate (a) and the number of plots greater than the observed (b) are plotted against the difference based on the boxplot and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The detection rate increases with the difference. As the number of plots with distance greater than the observed increases, the detection rate decreases.  The triangle represents a lineup which has a high detection rate but a negative $\delta$-difference. This particular lineup is examined in Figure~\ref{turk1-exp}. }
 \label{turk1comp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
 %\newpage
 
-In Figure~\ref{turk1comp}, the detection rate is plotted against the difference. The red vertical line represents difference equal to 0 indicating that the mean distance of the true plot is equal to the maximum of the mean distance of the null plots i.e. the mean distance of the true plot is equal to at least one of the mean distance of the null plots. It can be seen that as the difference increases, the detection rate increases. So the subjects do better in the easier lineups than the hard ones. The binned distance was calculated using 8 bins on both the axes. Figure~\ref{turk1comp} also shows the relation between detection rate and the number of null plots larger than the true plot. It can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. It is interesting to see that the subjects can pick the observed plot with one or two extreme null plots. 
+In Figure~\ref{turk1comp}, the detection rate is plotted against the $\delta$-difference. The  vertical line highlights a  difference of 0 indicating that the mean distance of the true plot is equal to the maximum of the mean distance of the null plots i.e.\ the mean distance of the true plot is equal to at least one of the mean distance of the null plots. As the $\delta$-difference increases, detection rate generally increases. %So the subjects do better in the easier lineups than the hard ones. 
+ Figure~\ref{turk1comp} also shows the relation between detection rate and the number of null plots larger than the true plot. As the number of plots that are more extreme than the data plot increases,  subjects find it more and more  difficult to pick the data plot. It is interesting to see that subjects are able to  pick the data plot even if there are  one or two more extreme null plots. 
 
+\hh{XXX on what measure is the following statement based? AIC or anova shows that the binned distance is doing (a little bit) better. }
 Though the distance based on the boxplots works better, the binned distance does a decent job in this case. According to the binned distance, there are a few lineups which has a negative difference but the proportion correct is above 60\%, which can be also be seen in Figure~\ref{turk1comp}. It should be noted that the binned distance does not take into account the graphical elements of the plot (e.g. boxplot) and calculates the distance solely based on the data. So an outlier may have a huge effect on the binned distance but does not effect the distance based on the boxplots. Hence it is advisable to use a distance based on the graphical elements since that is exactly what the subjects look at in the lineup.
+
 
 The time taken to respond by the subjects is another measure of difficulty of the lineups. Due the presence of some huge outliers, the mean time taken by the subjects for each lineup is looked at and plotted against the difference for both the distance measures. Figure~\ref{turk1-mtime} shows the plots. It can be clearly seen that when the difference is below 0, there is no real trend in the mean time and there is a huge variability, indicating that the time taken depends on the subjects. But when the difference is above 0, the mean time decreases rapidly as the difference increases. Hence the subjects can pick the true plot quickly if the true plot is extreme compared to the null plots.
 
