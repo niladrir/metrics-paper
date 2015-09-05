@@ -9,9 +9,11 @@
 \usepackage[font=small,skip=5pt]{caption}
 \usepackage{subcaption}
 \usepackage{graphicx}
-\usepackage{amssymb}
+%\usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{dsfont}
 \usepackage{amsthm}
+\usepackage{amsfonts}
 \usepackage{url}
 \usepackage{ulem}
 \usepackage[section]{placeins}
@@ -972,7 +974,9 @@ A distance metric should also take into account the question of interest. But, i
 For a lineup of size $m = 20$, the average distance of the true plot from all null plots is compared 18 average distances between the null plots. This comparison can sometimes complicate things. A logical solution is to calculate a single statistic for each lineup. Such a statistic should be based on the mean distance of the true plot and the maximum of the mean distances for the null plots. Hence we define, 
 \begin{enumerate}
 \item {\bf Difference:} let $\bar{d}_.$ be the average difference of plot $.$ to all of the (other) null plots. We define the difference between the mean distance for the true plot and the maximum of the mean distances for the null plots as a measure of lineup difficulty, more specifically, 
-$$\delta(\ell) = \bar{d}_{\hbox{true}} - \max_j \bar{d}_{\hbox{null}_j}$$
+\begin{equation}\label{eq:delta}
+\delta(\ell) = \bar{d}_{\text{data}} - \max_j \left(\bar{d}_{\text{null}_j}\right)
+\end{equation}
 for $j = 1, \dots, (m  - 1)$ 
 defines the lineup difference for lineup $\ell$.
  A positive difference  indicates that the mean distance of the true plot is larger than the maximum of the mean distances of the null plots. Hence the true plot is more extreme compared to the set of null plots in the lineup. A larger difference should make a data plot identification easier. 
@@ -984,10 +988,11 @@ The issue with this statistic is that $\delta$ indicates an ``easy" or ``difficu
 
 
 However, this statistic does not imply how many null plots are more extreme than the true plot. So we define,
-\item {\bf \hh{Number of Extreme Nulls}:}  the number of null plots which have larger mean distances than the mean distance of the true plot is noted. Mathematically, for lineup $\ell$, we define 
+\item {\bf \hh{Number of Extreme Nulls}:}  the number of null plots which have larger mean distances than the mean distance of the true plot is noted. Mathematically, for lineup $\ell$, we define the $\gamma$-number as
 \begin{equation}\label{eq:nullcount}
-\gamma(\ell) = \sum_{j = 1}^{m - 1} 1\!|_{\bar{d}_{\hbox{null}_j} > \bar{d}_{\hbox{true}}}.
+\gamma(\ell) = \sum_{j = 1}^{m - 1} 1\!\!\hbox{I}\left({\bar{d}_{\text{null}_j} > \bar{d}_{\text{data}}\right),
 \end{equation}
+where $\mathds{1}(.)$ is a zero/one indicator function.
 % where 
 % \begin{equation}
 % a_j =
@@ -1070,7 +1075,7 @@ For each lineup the subjects' choice was noted and the proportion of data identi
 \begin{subfigure}[t]{\textwidth}
 \centering
 %\includegraphics[width=\textwidth]{turk1-prop-box-bin.pdf}
-\caption{\hh{XXX Smooth lines come from logistic regression models using a quadratic effect for distance. The fit is not terrific, but not too shabby. What do you think? AIC/anova of the binned  distance is a smidgen better than for the boxplot distance. XXX update: with the fixed metrics, boxplot distance is actually a little better.}}
+\caption{\label{fig:turkcomp-1}\hh{Scatterplots of detection rate versus $\delta$-difference}}
 <<dist-box-bin, echo=FALSE, fig.width=8.5, fig.height=4.5, out.width='0.7\\textwidth', warning=FALSE>>=
 res.exp1 <- read.csv("data/raw_data_turk1.csv")
 results <- read.table("data/turk1-metrics.txt", header=TRUE)
@@ -1158,9 +1163,9 @@ ggplot(data = prop.diff.m) +
 \end{subfigure}
 \begin{subfigure}[t]{\textwidth}
 \centering
-\caption{\hh{still the old picture}}
-\includegraphics[width=0.7\textwidth]{turk1-grtr-box-bin.pdf}
-<<gamma-turk1, dependson='dist-box-bin',fig.width=8.5, fig.height=4.5, out.width='0.7\\textwidth', warning=FALSE>>=
+\caption{\hh{Scatterplots of detection rate versus $\gamma$-number of extreme nulls}}
+%\includegraphics[width=0.7\textwidth]{turk1-grtr-box-bin.pdf}
+<<gamma-turk1, echo=FALSE, dependson='dist-box-bin',fig.width=8.5, fig.height=4.5, out.width='0.7\\textwidth', warning=FALSE>>=
 grtr.diff <- subset(prop.dist, select = c(pic_name, grtr.box, grtr.bin, prop, special))
 grtr.diff.m <- melt(grtr.diff, id = c("pic_name", "prop", "special"))
 
@@ -1186,10 +1191,12 @@ ggplot(data = grtr.diff.m) +
 
 %\newpage
 
-In Figure~\ref{turk1comp}, the detection rate is plotted against the $\delta$-difference. The  vertical line highlights a  difference of 0 indicating that the mean distance of the true plot is equal to the maximum of the mean distance of the null plots i.e.\ the mean distance of the true plot is equal to at least one of the mean distance of the null plots. As the $\delta$-difference increases, detection rate generally increases. %So the subjects do better in the easier lineups than the hard ones. 
+In Figure~\ref{turk1comp},  detection rate is plotted against $\delta$-difference. The  vertical line highlights a  difference of 0 indicating that the mean distance of the true plot is equal to the maximum of the mean distance of the null plots i.e.\ the mean distance of the true plot is equal to at least one of the mean distance of the null plots. As the $\delta$-difference increases, detection rate generally increases. %So the subjects do better in the easier lineups than the hard ones. 
+\hh{The thick lines in Figure~\ref{fig:turkcomp-1} are fits  from  logistic regression models using a quadratic effect for each of the two distances.
+The fitted lines come very close to the non-paramteric smooth shown by the thin line. Qualitatively, both boxplot based distance and binned distance show very similar fits for detection rate. Based on the logistic regressions, boxplot distance is fitting detection rate a bit better (AIC: \Sexpr{round(AIC(dbx))}) than binned distances  (AIC: \Sexpr{round(AIC(dbn))}). }
+
  Figure~\ref{turk1comp} also shows the relation between detection rate and the number of null plots larger than the true plot. As the number of plots that are more extreme than the data plot increases,  subjects find it more and more  difficult to pick the data plot. It is interesting to see that subjects are able to  pick the data plot even if there are  one or two more extreme null plots. 
 
-\hh{XXX on what measure is the following statement based? AIC or anova shows that the binned distance is doing (a little bit) better. }
 Though the distance based on the boxplots works better, the binned distance does a decent job in this case. According to the binned distance, there are a few lineups which has a negative difference but the proportion correct is above 60\%, which can be also be seen in Figure~\ref{turk1comp}. It should be noted that the binned distance does not take into account the graphical elements of the plot (e.g. boxplot) and calculates the distance solely based on the data. So an outlier may have a huge effect on the binned distance but does not effect the distance based on the boxplots. Hence it is advisable to use a distance based on the graphical elements since that is exactly what the subjects look at in the lineup.
 
 \hh{XXX wouldn't median time be better? XXX update: it is median time. 
