@@ -1224,20 +1224,21 @@ ggplot(data = prop.diff.m) +
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
-It can be noticed in Figure~\ref{turk1comp} that for some of the lineups, the detection rate is high but the difference using distance metric is negative suggesting that the lineup is difficult. One such lineup is marked using a triangle in Figure~\ref{turk1comp}. It would be interesting to look into the lineup closely to identify what made the people pick the actual plot as different. Figure~\ref{turk1-exp} shows the lineup and the distribution of the distance metrics. 
+We noticed in Figure~\ref{turk1comp} that for some of the lineups, the detection rate is higher than $\delta$-difference would suggest. One such lineup is marked using a triangle in Figure~\ref{turk1comp}. %It would be interesting to look into the lineup closely to identify what made the people pick the actual plot as different. 
+Figure~\ref{turk1-exp} shows the lineup and the distribution of the distance metrics for a closer look at what might observers lead to pick the data plot as different. 
 
 \begin{figure}[hbtp]
 \centering
-\begin{subfigure}[t]{0.49\textwidth}
+\begin{subfigure}[t]{0.6\textwidth}
 \includegraphics[width=\textwidth]{lineup-high-prop-neg-diff.pdf}
-\end{subfigure}
-\begin{subfigure}[t]{0.49\textwidth}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{distribution-box-dist-exp1.pdf}
 \end{subfigure}
-\begin{subfigure}[t]{0.49\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{distribution-bin-dist-2-8-exp1.pdf}
 \end{subfigure}
-\begin{subfigure}[t]{0.49\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{distribution-bin-dist-2-2-exp1.pdf}
 \end{subfigure}
 
