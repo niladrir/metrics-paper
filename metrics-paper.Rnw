@@ -1197,6 +1197,8 @@ The fitted lines come very close to the non-paramteric smooth shown by the thin 
 
  Figure~\ref{turk1comp} also shows the relation between detection rate and the number of null plots larger than the true plot. As the number of plots that are more extreme than the data plot increases,  subjects find it more and more  difficult to pick the data plot. It is interesting to see that subjects are able to  pick the data plot even if there are  one or two more extreme null plots. 
 
+\hh{XXX I'm not teribly happy with the next paragraph - it  might be because I don't quite see the storyline that it is supposed to fit into. One suggestion for the story would be `while distances based on graphical elements do better, binned distance is a general approach independent of plot type and specific question, that does relativley well. But we have to be aware of its limitations' }
+
 Though the distance based on the boxplots works better, the binned distance does a decent job in this case. According to the binned distance, there are a few lineups which has a negative difference but the proportion correct is above 60\%, which can be also be seen in Figure~\ref{turk1comp}. It should be noted that the binned distance does not take into account the graphical elements of the plot (e.g. boxplot) and calculates the distance solely based on the data. So an outlier may have a huge effect on the binned distance but does not effect the distance based on the boxplots. Hence it is advisable to use a distance based on the graphical elements since that is exactly what the subjects look at in the lineup.
 
 The time subjects  take to respond  is another measure that can be used to evaluate  difficulty of lineups. 
@@ -1305,10 +1307,73 @@ The distances between the plots in this experiment were computed using both the 
 \begin{figure}[hbtp]
 \begin{subfigure}[t]{\textwidth}
 \centering
-\caption{\label{turk2comp-1}$\delta$-difference}
+\caption{\label{turk2comp-1}$\delta$-difference \hh{XXX problem with binned distance - will re-calculate turk2-metrics next}}
 \includegraphics[width=0.7\textwidth]{turk2-prop-reg-bin.pdf}
+<<delta-turk2, echo=FALSE, fig.width=8.5, fig.height=4.5, out.width='0.7\\textwidth'>>=
+res.exp2 <- read.csv("data/raw_data_turk2.csv")
+res.exp2 <- subset(res.exp2, select = c(pic_name, response, plot_location, time_taken))
+
+#res.dat <- ddply(res.exp2, .(pic_name), summarize, prop = sum(response)/length(response), pos = mean(plot_location), m.time = median(time_taken))
+
+res.dat <- res.exp2 %>% group_by(pic_name) %>%
+  summarize(
+    prop = sum(response)/length(response), 
+    pos = mean(plot_location), 
+    m.time = median(time_taken),
+    n = n(),
+    correct = sum(response)
+  )
+
+metrics <- read.table("data/turk2-metrics.txt", header=TRUE)
+
+metrics.sub <- subset(metrics, pos.1 != pos.2)
+
+dat.merge <- merge(metrics.sub, res.dat, by = "pic_name")
+
+dat.merge <- subset(dat.merge, pos.2 != pos)
+
+dd <- dat.merge %>% group_by(pic_name, pos.1) %>%
+  summarize(
+    reg.mean = mean(reg.bin), 
+    bin.mean = mean(bin.dist), 
+    len = length(reg.bin), 
+    prop = mean(prop), 
+    m.time = mean(m.time),
+    n=mean(n),
+    correct=mean(correct))
+
+prop.dist <- dd %>% group_by(pic_name) %>%
+  summarize(
+    diff.reg = reg.mean[len == 19] - max(reg.mean[len == 18]), 
+    grtr.reg = sum(reg.mean[len == 18] > reg.mean[len == 19]), 
+    diff.bin = bin.mean[len == 19] - max(bin.mean[len == 18]), 
+    grtr.bin = sum(bin.mean[len == 18] > bin.mean[len == 19]), 
+    prop = mean(prop), 
+    m.time = mean(m.time),
+    n=mean(n),
+    correct=mean(correct))
+
+prop.dist$special <- ifelse(prop.dist$pic_name == "plot_turk2_100_350_12_3.png", 1, 0)
+
+### Facetted Plots
+
+prop.diff <- subset(prop.dist, select = c(pic_name, diff.reg, diff.bin, prop, m.time, special))
+
+prop.diff.m <- melt(prop.diff, id = c("pic_name", "prop", "special", "m.time"))
+
+levels(prop.diff.m$variable) <- c("Regression Based Distance", "Binned Distance")
+
+qplot(value, prop, data = prop.diff.m, geom = "point", size = I(3), xlab = "Difference", ylab = "Detection Rate", shape = factor(special)) + 
+  geom_smooth(se = FALSE, method='loess') + 
+  facet_wrap( ~ variable, scales = "free_x") + 
+  geom_vline(xintercept = 0, col = "red") + 
+  theme(legend.position = "none")
+
+@
 \end{subfigure}
 \begin{subfigure}[t]{\textwidth}
+\centering
+\caption{old picture}
 \includegraphics[width=0.7\textwidth]{turk2-grtr-reg-bin.pdf}
 \end{subfigure}
 %\subfigure[]{
