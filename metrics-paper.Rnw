@@ -1172,7 +1172,10 @@ Though the distance based on the boxplots works better, the binned distance does
 
 \hh{XXX wouldn't median time be better? XXX update: it is median time. 
 Aside from that, we've been usually using the log of time taken - assuming that time taken is not that far from a Gamma distribution. XXX checked on log versus median, and the relationship to difference is qualitatively not that different. Median time is much easier to interpret than log times.  }
-The time taken to respond by the subjects is another measure of difficulty of the lineups. Due to the presence of some huge outliers, median time taken by the subjects for each lineup is used and plotted against  $\delta$-difference for both the distance measures. Figure~\ref{turk1-mtime} shows the plots. It can be clearly seen that when $\delta$-difference is below 0, there is no real trend in the mean time and there is a huge variability, indicating that the time taken depends on the subjects. But when the difference is above 0, the median time to respond decreases rapidly as $\delta$-difference increases. Hence, subjects are able to make their choice of a plot more quickly if the true plot is extreme compared to the null plots.
+The time taken to respond by the subjects is another measure of difficulty of the lineups. Due to the presence of some huge outliers, median time taken by the subjects for each lineup is used and plotted against  $\delta$-difference for both the distance measures. Figure~\ref{turk1-mtime} shows the plots.
+It can be clearly seen that when $\delta$-difference is below 0, there is no real trend in the mean time and there is a huge variability, indicating that the time taken depends on the subjects.
+\hh{XXX variability doesn't change that much over $x$; XXX for boxplot based distance the time to respond peaks at a $\delta$-difference of zero. This might indicate, that this situation is the most difficult for observers to judge. When there are more extreme plots, observers seem to be able to make their choice quickly (probably for the extreme null plot).}
+But when the difference is above 0, the median time to respond decreases rapidly as $\delta$-difference increases. Hence, subjects are able to make their choice of a plot more quickly if the true plot is extreme compared to the null plots.
 
 \hh{XXX I don't think that the following statement is true -- there is no reason, why boxplot distance and binned distance are on the same scale. }
 For Turk 1 experiment, the value of the ratio for boxplot distance is 86.52 and for binned distance is 18.82. This indicates that the boxplot distance works better than the binned distance. 
@@ -1201,7 +1204,8 @@ ggplot(data = prop.diff.m) +
   geom_vline(xintercept = 0, col = "grey50") + 
   geom_point(aes(x=value, y=m.time, shape = factor(special)),
              size = 3) +
-  xlab("Difference") + ylab("Median Time to Respond (in seconds)") + 
+  xlab(expression(paste(delta,"-Difference", sep=""))) + 
+  ylab("Median Time to Respond (in seconds)") + 
   facet_wrap( ~ variable, scales = "free_x") + 
   geom_smooth(aes(x=value, y=m.time), se=FALSE, method="loess") +
   theme(legend.position = "none")
