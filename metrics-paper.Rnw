@@ -15,6 +15,7 @@
 \usepackage{url}
 \usepackage{ulem}
 \usepackage[section]{placeins}
+\usepackage{afterpage}
 
 \graphicspath{{figure/}}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
@@ -1058,10 +1059,11 @@ For each lineup the subjects' choice was noted and the proportion of data identi
 
 \begin{figure}[hbtp]
 \centering
-\begin{subfigure}[t]{0.7\textwidth}
+\begin{subfigure}[t]{\textwidth}
+\centering
 %\includegraphics[width=\textwidth]{turk1-prop-box-bin.pdf}
 \caption{\hh{XXX Smooth lines come from logistic regression models using a quadratic effect for distance. The fit is not terrific, but not too shabby. What do you think? AIC/anova of the binned  distance is a smidgen better than for the boxplot distance.}}
-<<dist-box-bin, echo=FALSE, fig.width=8.5, fig.height=4.5, out.width='\\textwidth'>>=
+<<dist-box-bin, echo=FALSE, fig.width=8.5, fig.height=4.5, out.width='0.7\\textwidth'>>=
 res.exp1 <- read.csv("data/raw_data_turk1.csv")
 results <- read.table("data/turk1-metrics.txt", header=TRUE)
 
@@ -1144,9 +1146,10 @@ ggplot(data = prop.diff.m) +
   theme(legend.position = "none") 
 @
 \end{subfigure}
-\begin{subfigure}[t]{0.7\textwidth}
+\begin{subfigure}[t]{\textwidth}
+\centering
 \caption{\hh{still the old picture}}
-\includegraphics[width=\textwidth]{turk1-grtr-box-bin.pdf}
+\includegraphics[width=0.7\textwidth]{turk1-grtr-box-bin.pdf}
 \end{subfigure}
 %\subfigure[]{
 %\includegraphics[scale=0.55]{turk1-grtr-box-prop.pdf}
@@ -1219,10 +1222,11 @@ ggplot(data = prop.diff.m) +
 %\label{t1bin_1}
 %}
 	\vspace{-.1in}
-\caption{Comparison of distance metrics for side-by-side boxplots. Mean time to respond is plotted against the difference based on the boxplot and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time taken decreases with the difference. The triangle represents a lineup which is examined further in Figure~\ref{turk1-exp}. \hh{XXX compared to the old picture, the new boxplot based distance shows differences in $\delta$-difference. I am using turk1-metrics.txt for the differences, I have not actually computed those differences (yet). }}
+\caption{Comparison of distance metrics for side-by-side boxplots. Mean time to respond is plotted against the difference based on the boxplot and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time taken decreases with the difference. The triangle represents a lineup which is examined further in Figure~\ref{turk1-exp}. \hh{XXX compared to the old picture, the new boxplot based distance shows differences in $\delta$-difference. I am using turk1-metrics.txt for the differences, I have not actually computed those differences (yet). XXX update: I cannot get the bin\_dist values to match}}
 \label{turk1-mtime}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
+\afterpage{\clearpage}
 
 We noticed in Figure~\ref{turk1comp} that for some of the lineups, the detection rate is higher than $\delta$-difference would suggest. One such lineup is marked using a triangle in Figure~\ref{turk1comp}. %It would be interesting to look into the lineup closely to identify what made the people pick the actual plot as different. 
 Figure~\ref{turk1-exp} shows the lineup and the distribution of the distance metrics for a closer look at what might observers lead to pick the data plot as different. 
@@ -1248,6 +1252,8 @@ Figure~\ref{turk1-exp} shows the lineup and the distribution of the distance met
 \label{turk1-exp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
+\afterpage{\clearpage}
+
 \hh{XXX the discussion should be linked more to the metrics.}
 The lineup in Figure~\ref{turk1-exp} is a lineup of side-by-side boxplots. The observed data plot is Plot 20 but there are other candidates who can be picked easily. Plot 19 and Plot 16 seems to have large differences between the quartiles. Specifically in Plot 16, the difference between the  
 first quartiles for the two groups is very large but the differences between the medians and the third quartiles are small. The huge difference of the first quartiles may have affected the huge mean distance of Plot 16 from all the other plots.   
@@ -1269,13 +1275,13 @@ The distances between the plots in this experiment were computed using both the 
 
 
 \begin{figure}[hbtp]
+\begin{subfigure}[t]{\textwidth}
 \centering
 \caption{\label{turk2comp-1}$\delta$-difference}
-\begin{subfigure}[t]{0.49\textwidth}
-\includegraphics[width=\textwidth]{turk2-prop-reg-bin.pdf}
+\includegraphics[width=0.7\textwidth]{turk2-prop-reg-bin.pdf}
 \end{subfigure}
-\begin{subfigure}[t]{0.49\textwidth}
-\includegraphics[width=\textwidth]{turk2-grtr-reg-bin.pdf}
+\begin{subfigure}[t]{\textwidth}
+\includegraphics[width=0.7\textwidth]{turk2-grtr-reg-bin.pdf}
 \end{subfigure}
 %\subfigure[]{
 %\includegraphics[scale=0.55]{turk2-grtr-reg-prop.pdf}
@@ -1291,6 +1297,7 @@ Detection rate increases  on average with $\delta$-difference. As the number of 
 \label{turk2comp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
+\afterpage{\clearpage}
 
 Figure~\ref{turk2comp-1} shows the detection rate against $\delta$-difference. The vertical line represents difference equal to 0. It can be seen that as the difference increases, the detection rate increases. So the subjects do better in the easier lineups than the hard ones. The distance based on regression works well in capturing the complexity of the lineups. The difference is positive for lineups with large differences and negative for lineups with small difference. A few lineups have difference close to zero for which the detection rate is close to 50\%.
 
@@ -1314,6 +1321,7 @@ Figure~\ref{turk2comp} also shows the detection rate against the number of null 
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \label{turk2-mtime}
 \end{figure}
+\afterpage{\clearpage}
 
 Figure~\ref{turk2-mtime} shows the relationship between the mean time taken to respond and the difference for both the distances. It can be clearly seen that there is a strong negative association showing that as the difference increases, the subjects take less time to respond. Also the variability of the mean time is higher for smaller difference. In case of binned distance, the relationship is negative though the variability is higher for the above mentioned reasons.
 
@@ -1346,6 +1354,7 @@ Although the regression based distance seems to efficiently identify the quality
 \label{turk2-exp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
+\afterpage{\clearpage}
 
 The lineup in Figure~\ref{turk2-exp} is a difficult one as suggested by the distribution of the distance metrics based on regression. Although around 28\% of the people identified the true plot correctly, the conventional $p$-value for testing the slope equal to 0 is 0.085, which shows that the relationship is not significant. The binned distance with 2 bins on each axes also shows the same. However the binned distance using the optimal number of bins (8 on the x-axis and 2 on the y-axis) by the optimal number of bins selection method identifies the true plot as different from the others. 
 
@@ -1373,6 +1382,7 @@ The motivation behind this experiment is to study the effect of large dimensions
 \caption{An example lineup from Turk Experiment 7. Here two dimensional projections of the PDA index are plotted for a data with separation having $p = 20$ dimensions and $n = 30$ observations. The subjects were asked to identify the plot with the most separated colors. Can you identify the observed data plot?}
 \label{largep}
 \end{figure}
+\afterpage{\clearpage}
 
 The distances between the plots in this experiment were computed using the distance based on minimum separation and average separation of the clusters and also the binned distance. The number of bins used for the lineups with one dimensional projections is larger (10 in this case) but for the lineups with two dimensional projections, the number of bins used is 5. The proportion of correct response is plotted against $\delta_{\hbox{lineup}}$ and $\gamma_{\hbox{lineup}}$ for both the distances. Figure~\ref{lp-comp} shows the results.
 
@@ -1399,6 +1409,7 @@ The distances between the plots in this experiment were computed using the dista
 \label{lp-comp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
+\afterpage{\clearpage}
 
 In Figure~\ref{lp-comp}, the detection rate is plotted against the difference for distance based on minimum separation, average separation and the binned distance. The red vertical line shows difference equal to 0.  It can be seen that as the difference increases, the detection rate increases and both the distances do a good job in capturing the response of the subjects.  In (b) it can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, a large number of the subjects identify the observed plot although there is more extreme null plots. 
 
@@ -1418,6 +1429,7 @@ In Figure~\ref{lp-comp}, the detection rate is plotted against the difference fo
 \label{lp-mtime}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
+\afterpage{\clearpage}
 
 Figure~\ref{lp-mtime} shows the relationship between the mean time taken to respond and the difference for the three different distances. It can be clearly seen that there is a strong negative association showing that as the difference increases, the subjects take lesser time to respond. Also the variability of the mean time is higher for smaller difference. In case of binned distance, the relationship is negative though the variability is higher for all differences.
 
@@ -1441,6 +1453,7 @@ Figure~\ref{lp-mtime} shows the relationship between the mean time taken to resp
 \label{lp-exp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
+\afterpage{\clearpage}
 
 Figure~\ref{lp-exp} shows the lineup in a high dimension, low sample size setting. The number of dimensions used is 100 and two of the dimensions have some separation. Plot 20 shows the two-dimensional projections of the original data. The null plots are obtained by permuting the group variable and plotting the two dimensional projections obtained from a projection pursuit with PDA index (\cite{lee:2009}). Since the true plot has real separation, it is expected that the subjects would be able to identify the plot. The distance based on average separation yields a negative difference showing that the lineup is difficult, while the distance based on minimum separation yields a positive difference. The distance metrics identifies different characteristics in a plot. The average separation looks at the average of the distances of the points in a cluster to the points in other clusters. The presence of an outlier point in the opposite side of the other clusters affects this distance considerably. On the other hand, the minimum separation looks at the minimum of the distances. Hence it is not affected by the outlier point. 
 
