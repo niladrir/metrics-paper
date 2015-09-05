@@ -1270,6 +1270,7 @@ The distances between the plots in this experiment were computed using both the 
 
 \begin{figure}[hbtp]
 \centering
+\caption{\label{turk2comp-1}$\delta$-difference}
 \begin{subfigure}[t]{0.49\textwidth}
 \includegraphics[width=\textwidth]{turk2-prop-reg-bin.pdf}
 \end{subfigure}
@@ -1285,12 +1286,13 @@ The distances between the plots in this experiment were computed using both the 
 %\label{t2comp_2}
 %}
 	\vspace{-.1in}
-\caption{Comparison of distance metrics for scatteplots with a regression line overlaid. Detection Rate (a) and the number of plots greater than the observed (b) are plotted against the difference based on the regression based and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The detection rate increases with the difference. As the number of plots with distance greater than the observed increases, the detection rate decreases.  The triangle represents a lineup which has high detection rate but negative difference. This particular lineup is examined in Figure~\ref{turk2-exp}.}
+\caption{Comparison of distance metrics for scatterplots with a regression line overlaid.  Detection rate is plotted against (a) $\delta$-difference  and (b) the number of plots greater than the observed  based on  regression based and binned distances. The vertical line represents the difference equal to 0 when there is at least one null plot with an identical difference measure to the data plot. 
+Detection rate increases  on average with $\delta$-difference. As the number of plots with a distance greater than the data plot increases,  detection rate decreases.  The triangle represents a lineup which has high detection rate but negative difference. This particular lineup is examined in Figure~\ref{turk2-exp}.}
 \label{turk2comp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
-Figure~\ref{turk2comp} shows the detection rate against the difference. The vertical line represents difference equal to 0. It can be seen that as the difference increases, the detection rate increases. So the subjects do better in the easier lineups than the hard ones. The distance based on regression works well in capturing the complexity of the lineups. The difference is positive for lineups with large differences and negative for lineups with small difference. A few lineups have difference close to zero for which the detection rate is close to 50\%.
+Figure~\ref{turk2comp-1} shows the detection rate against $\delta$-difference. The vertical line represents difference equal to 0. It can be seen that as the difference increases, the detection rate increases. So the subjects do better in the easier lineups than the hard ones. The distance based on regression works well in capturing the complexity of the lineups. The difference is positive for lineups with large differences and negative for lineups with small difference. A few lineups have difference close to zero for which the detection rate is close to 50\%.
 
 But the binned distance fails terribly. Although the detection rate increases with difference, the detection rate is high for values with negative difference. This is a classic scenario where a graphical element affects the response. The presence of the overlaid regression line on almost transparent points of the scatterplot affected the response of the subjects. One other reason may be the use of the same number of bins (2 $\times$ 2) in this case for all the lineups. The relationship may improve if different number of bins can be used for different lineups.
 
