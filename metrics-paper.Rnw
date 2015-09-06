@@ -1265,6 +1265,7 @@ Figure~\ref{turk1-exp} shows the lineup and the distribution of the distance met
 \begin{figure}[hbtp]
 \centering
 \begin{subfigure}[t]{\textwidth}
+\centering
 \caption{Lineup of side-by-side boxplots}
 %\includegraphics[width=\textwidth]{lineup-high-prop-neg-diff.pdf}
 <<lp-exc, echo=FALSE, fig.width=6, fig.height=6, out.width='0.6\\textwidth'>>=
@@ -1303,8 +1304,8 @@ qplot(group, val, data = lineup.dat, geom = "boxplot", col = group,
 @
 \end{subfigure}\hfill
 
-<<lp-exc-distr, dependson='lp-exc', echo=FALSE, results='hide'>>=
-dframe <- data.frame(t(replicate(1000, {
+<<lp-exc-distr, dependson='lp-exc', echo=FALSE, results='hide', cache=TRUE>>=
+dframe <- data.frame(t(replicate(5000, {
 	samp.dat <- data.frame(group = obs.dat$group, 
 	                       val = rnorm(nrow(obs.dat), 0, 12))
   dat1 <- data.frame(t(replicate(18, {
@@ -1351,6 +1352,7 @@ dd1 <- metrics.dat %>% group_by(pos.1) %>%
 @
 \begin{subfigure}[t]{0.32\textwidth}
 \includegraphics[width=\textwidth]{distribution-box-dist-exp1.pdf}
+\caption{\small Boxplot based distance}
 <<dbx, dependson='lp-dist', echo=FALSE, fig.width=5, fig.height=5, out.width='\\textwidth'>>=
 ggplot()  + geom_density(data = metrics.dat, aes(x = bx), 
                          fill = "grey80", col = "grey80" ) + 
@@ -1372,6 +1374,7 @@ ggplot()  + geom_density(data = metrics.dat, aes(x = bx),
 \end{subfigure}
 \begin{subfigure}[t]{0.32\textwidth}
 \includegraphics[width=\textwidth]{distribution-bin-dist-2-8-exp1.pdf}
+\caption{\small Binned ($p=2, q=8$) distance}
 <<b28, dependson='lp-dist', echo=FALSE, fig.width=5, fig.height=5, out.width='\\textwidth'>>=
 ggplot()  + geom_density(data = metrics.dat, aes(x = b28), 
                          fill = "grey80", col = "grey80" ) + 
@@ -1393,6 +1396,7 @@ ggplot()  + geom_density(data = metrics.dat, aes(x = b28),
 \end{subfigure}
 \begin{subfigure}[t]{0.32\textwidth}
 \includegraphics[width=\textwidth]{distribution-bin-dist-2-2-exp1.pdf}
+\caption{\small Binned ($p=2, q=2$) distance}
 <<b22, dependson='lp-dist', echo=FALSE, fig.width=5, fig.height=5, out.width='\\textwidth'>>=
 ggplot()  + geom_density(data = metrics.dat, aes(x = b22), 
                          fill = "grey80", col = "grey80" ) + 
