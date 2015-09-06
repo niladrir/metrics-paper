@@ -516,9 +516,10 @@ Let $X_1$ and $X_2$ be two continuous variables. $X_1$ and $X_2$ are plotted in 
 In each vertical bin, a linear regression model is fitted and the regression coefficients. i.e.\ intercept and slope are estimated. The distance metric based on the regression coefficients is given as
  \begin{eqnarray}\nonumber
 d^2_{\hbox{RG}}(X, Y) := \hbox{tr} (B(X) - B(Y))' (B(X) - B(Y))  \\
-= \sum_{i=1}^b ((b_0(X))_i - (b_0(Y))_i)^2 + \sum_{i=1}^b ((b_1(X))_i - (b_1(Y))_i)^2
-\end{eqnarray*}
-\hh{XXX intercept and slope could be on very different scales.  On what kind of examples did you try this distance out? }
+= \sum_{i=1}^b ((b_0(X))_i - (b_0(Y))_i)^2 + \sum_{i=1}^b ((b_1(X))_i - (b_1(Y))_i)^2\label{eq:drg}
+\end{eqnarray}
+\hh{XXX intercept and slope could be on very different scales.  On what kind of examples did you try this distance out? 
+XXX I think we should try to scale X and Y to the same scale first. }
 
 where $b_0$ and $b_1$ denote the vector of the intercept and slope respectively while $b$ is the number of bins. $B(.)$ is a $b \times 2$ matrix of the regression coefficients where each row represent the  intercept and the slope obtained from each bin. The number of bins have a significant effect on the distance measure. It can be seen that it works best for smaller number of bins like 1 or 2. 
 With larger number of bins (i.e. smaller bin sizes), the regression coefficients are affected by the skewness of the data. Variations might include using slope alone, or absolute value of slope. \hh{XXX are regression coefficients really affected by skewness or is it sparseness? What is the sample size of the examples that you tried?}
@@ -1197,7 +1198,7 @@ The fitted lines come very close to the non-paramteric smooth shown by the thin 
 
  Figure~\ref{turk1comp} also shows the relation between detection rate and the number of null plots larger than the true plot. As the number of plots that are more extreme than the data plot increases,  subjects find it more and more  difficult to pick the data plot. It is interesting to see that subjects are able to  pick the data plot even if there are  one or two more extreme null plots. 
 
-\hh{XXX I'm not terribly happy with the next paragraph - it  might be because I don't quite see the storyline that it is supposed to fit into. One suggestion for the story would be `ideally, while distances based on graphical elements do better, binned distance would be a general approach independent of plot type and specific question, that does relatively well. Unfortunately, its limitations are quite restrictive. For turk1 binned distance performs almost as well as boxplot based distance. turk2 sows that binned distance is not able to deal well with large variability. The number of bins in X and Y direction is affecting the outcome a lot.' }
+\hh{XXX I'm not terribly happy with the next paragraph - it  might be because I don't quite see the storyline that it is supposed to fit into. One suggestion for the story would be `ideally, while distances based on graphical elements do better, binned distance would be a general approach independent of plot type and specific question, that does relatively well. Unfortunately, its limitations are quite restrictive. For turk1 binned distance performs almost as well as boxplot based distance. turk2 shows that binned distance is not able to deal well with large variability. The number of bins in X and Y direction is affecting the outcome massively.' }
 
 Though the distance based on the boxplots works better, the binned distance does a decent job in this case. According to the binned distance, there are a few lineups which has a negative difference but the proportion correct is above 60\%, which can be also be seen in Figure~\ref{turk1comp}. It should be noted that the binned distance does not take into account the graphical elements of the plot (e.g. boxplot) and calculates the distance solely based on the data. So an outlier may have a huge effect on the binned distance but does not effect the distance based on the boxplots. Hence it is advisable to use a distance based on the graphical elements since that is exactly what the subjects look at in the lineup.
 
@@ -1263,9 +1264,10 @@ Figure~\ref{turk1-exp} shows the lineup and the distribution of the distance met
 
 \begin{figure}[hbtp]
 \centering
-\begin{subfigure}[t]{0.6\textwidth}
+\begin{subfigure}[t]{\textwidth}
+\caption{Lineup of side-by-side boxplots}
 %\includegraphics[width=\textwidth]{lineup-high-prop-neg-diff.pdf}
-<<lp-exc, echo=FALSE, fig.width=6, fig.height=6, out.width='\\textwidth'>>=
+<<lp-exc, echo=FALSE, fig.width=6, fig.height=6, out.width='0.6\\textwidth'>>=
 dat <- read.table("data/turk1/dat_turk1_100_8_12_2.txt", header = T)  ## plot_turk1_100_8_12_2
 
 ### The detection rate for the above lineup is 0.28. But the difference for both binned distance and regression based distance are large negative.
@@ -1301,14 +1303,114 @@ qplot(group, val, data = lineup.dat, geom = "boxplot", col = group,
 @
 \end{subfigure}\hfill
 
+<<lp-exc-distr, dependson='lp-exc', echo=FALSE, results='hide'>>=
+dframe <- data.frame(t(replicate(1000, {
+	samp.dat <- data.frame(group = obs.dat$group, 
+	                       val = rnorm(nrow(obs.dat), 0, 12))
+  dat1 <- data.frame(t(replicate(18, {
+    null.dat <- data.frame(group = obs.dat$group, 
+                           val = rnorm(nrow(obs.dat), 0, 12))
+    b1 = bin_dist(X=samp.dat, PX=null.dat, lineup.dat = lineup.dat, 
+                  X.bin = 2, Y.bin = 2)
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, 
+ 		              X.bin = 2, Y.bin = 8)
+ 		s = box_dist(samp.dat, null.dat)
+ 		c(dbn22 = b1, dbn28 = b2, dbx = s)
+  })))
+  
+	colSums(dat1)/18
+})))
+ 
+#names(dframe) <- c("Binned-2-2", "Binned-2-8", "Boxplot Dist")
+
+#write.csv(df, "distr-turk1.csv", row.names = FALSE)
+@
+
+<<lp-dists, dependson='lp-exc', dependson='lp-exc', echo=FALSE, results='hide'>>=
+metrics.dat <- expand.grid(pos.1 = 1:20, pos.2 = 1:20)
+
+for (i in 1:nrow(metrics.dat)) {
+  P <- subset(lineup.dat, .sample == metrics.dat$pos.1[i])[,1:2]
+  PX <- subset(lineup.dat, .sample == metrics.dat$pos.2[i])[,1:2]
+  
+  metrics.dat$b22[i] <- bin_dist(P, PX, lineup.dat, X.bin=2, Y.bin = 2)
+  metrics.dat$b28[i] <- bin_dist(P, PX, lineup.dat, X.bin=2, Y.bin = 8)
+  metrics.dat$bx[i] <- box_dist(P, PX)
+}
+
+pos <- 20
+metrics.dat <- subset(metrics.dat, pos.1 != pos.2 & pos.2 != pos)
+
+dd1 <- metrics.dat %>% group_by(pos.1) %>% 
+  summarize(
+    len = n(),
+    b22 = mean(b22), 
+    b28 = mean(b28), 
+    bx = mean(bx)
+    )
+@
 \begin{subfigure}[t]{0.32\textwidth}
 \includegraphics[width=\textwidth]{distribution-box-dist-exp1.pdf}
+<<dbx, dependson='lp-dist', echo=FALSE, fig.width=5, fig.height=5, out.width='\\textwidth'>>=
+ggplot()  + geom_density(data = metrics.dat, aes(x = bx), 
+                         fill = "grey80", col = "grey80" ) + 
+  geom_segment(data = subset(dd1, len == 19), 
+               aes(x= bx, xend = bx, 
+                   y=0.02*max(density(metrics.dat$bx)$y), 
+                   yend = 0.2*max(density(metrics.dat$bx)$y)), 
+               colour="darkorange", size=1)  + 
+  geom_segment(data = subset(dd1, len != 19), 
+               aes(x = bx, xend = bx, 
+                   y = rep(0.02*max(density(metrics.dat$bx)$y),19), 
+                   yend = rep(0.1*max(density(metrics.dat$bx)$y),19)), 
+               size=1, alpha = I(0.7)) + xlab("Boxplot Based Distance") + 
+  ylab("") + geom_text(data = dd1, y = - 0.03*max(density(metrics.dat$bx)$y), 
+                       size = 2.5, aes(x = bx, label = pos.1)) + 
+  ylim(c(- 0.04*max(density(metrics.dat$bx)$y), 
+         max(density(metrics.dat$bx)$y) + 0.1*max(density(metrics.dat$bx)$y)))
+@
 \end{subfigure}
 \begin{subfigure}[t]{0.32\textwidth}
 \includegraphics[width=\textwidth]{distribution-bin-dist-2-8-exp1.pdf}
+<<b28, dependson='lp-dist', echo=FALSE, fig.width=5, fig.height=5, out.width='\\textwidth'>>=
+ggplot()  + geom_density(data = metrics.dat, aes(x = b28), 
+                         fill = "grey80", col = "grey80" ) + 
+  geom_segment(data = subset(dd1, len == 19), 
+               aes(x= b28, xend = b28, 
+                   y=0.02*max(density(metrics.dat$b28)$y), 
+                   yend = 0.2*max(density(metrics.dat$b28)$y)), 
+               colour="darkorange", size=1)  + 
+  geom_segment(data = subset(dd1, len != 19), 
+               aes(x = b28, xend = b28, 
+                   y = rep(0.02*max(density(metrics.dat$b28)$y),19), 
+                   yend = rep(0.1*max(density(metrics.dat$b28)$y),19)), 
+               size=1, alpha = I(0.7)) + xlab("Binned Distance (p = 2, q = 8)") + 
+  ylab("") + geom_text(data = dd1, y = - 0.03*max(density(metrics.dat$b28)$y), 
+                       size = 2.5, aes(x = b28, label = pos.1)) + 
+  ylim(c(- 0.04*max(density(metrics.dat$b28)$y), 
+         max(density(metrics.dat$b28)$y) + 0.1*max(density(metrics.dat$b28)$y)))
+@
 \end{subfigure}
 \begin{subfigure}[t]{0.32\textwidth}
 \includegraphics[width=\textwidth]{distribution-bin-dist-2-2-exp1.pdf}
+<<b22, dependson='lp-dist', echo=FALSE, fig.width=5, fig.height=5, out.width='\\textwidth'>>=
+ggplot()  + geom_density(data = metrics.dat, aes(x = b22), 
+                         fill = "grey80", col = "grey80" ) + 
+  geom_segment(data = subset(dd1, len == 19), 
+               aes(x= b22, xend = b22, 
+                   y=0.02*max(density(metrics.dat$b22)$y), 
+                   yend = 0.2*max(density(metrics.dat$b22)$y)), 
+               colour="darkorange", size=1)  + 
+  geom_segment(data = subset(dd1, len != 19), 
+               aes(x = b22, xend = b22, 
+                   y = rep(0.02*max(density(metrics.dat$b22)$y),19), 
+                   yend = rep(0.1*max(density(metrics.dat$b22)$y),19)), 
+               size=1, alpha = I(0.7)) + xlab("Binned Distance (p = q = 2)") + 
+  ylab("") + geom_text(data = dd1, y = - 0.03*max(density(metrics.dat$b22)$y), 
+                       size = 2.5, aes(x = b22, label = pos.1)) + 
+  ylim(c(- 0.04*max(density(metrics.dat$b22)$y), 
+         max(density(metrics.dat$b22)$y) + 0.1*max(density(metrics.dat$b22)$y)))
+@
 \end{subfigure}
 
 	\vspace{-.1in}
