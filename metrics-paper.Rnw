@@ -1307,9 +1307,9 @@ The distances between the plots in this experiment were computed using both the 
 \begin{figure}[hbtp]
 \begin{subfigure}[t]{\textwidth}
 \centering
-\caption{\label{turk2comp-1}$\delta$-difference \hh{XXX problem with binned distance - will re-calculate turk2-metrics next} \hh{XXX model for regression based distance works extremely well}}
-\includegraphics[width=0.7\textwidth]{turk2-prop-reg-bin.pdf}
-<<delta-turk2, echo=FALSE, fig.width=8.5, fig.height=4.5, out.width='0.7\\textwidth'>>=
+\caption{\label{turk2comp-1}$\delta$-difference }
+%\includegraphics[width=0.7\textwidth]{turk2-prop-reg-bin.pdf}
+<<delta-turk2, echo=FALSE, fig.width=8.5, fig.height=4.5, out.width='0.7\\textwidth', warning=FALSE>>=
 res.exp2 <- read.csv("data/raw_data_turk2.csv")
 res.exp2 <- subset(res.exp2, select = c(pic_name, response, plot_location, time_taken))
 
@@ -1357,7 +1357,7 @@ predrg <- data.frame(diff.reg=seq(-20,40, by=1))
 predrg$pred <- predict(t2drg, newdata=predrg, type="response")
 names(predrg)[1] <- "value"
 predrg$variable <- "Regression Based Distance"
-predbn <- data.frame(diff.bin=seq(-11,5, by=0.25))
+predbn <- data.frame(diff.bin=seq(-23,13, by=0.5))
 predbn$pred <- predict(t2dbn, newdata=predbn, type="response")
 names(predbn)[1] <- "value"
 predbn$variable <- "Binned Distance"
@@ -1371,22 +1371,40 @@ prop.diff.m <- melt(prop.diff, id = c("pic_name", "prop", "special", "m.time"))
 
 levels(prop.diff.m$variable) <- c("Regression Based Distance", "Binned Distance")
 
-ggplot(data=prop.diff.m) + 
+ggplot(data=prop.diff.m) +
+  geom_vline(xintercept = 0, col = "grey50") + 
   geom_point(aes(x=value, y=prop, shape=factor(special)), size=3) +
-  xlab("delta-Difference") + 
+  xlab(expression(paste(delta,"-Difference", sep=""))) +
   ylab("Detection Rate") + 
-  geom_smooth(aes(x=value, y=prop), se = FALSE, method='loess') + 
+  scale_y_continuous(breaks=(0:4)/4) + 
   facet_wrap( ~ variable, scales = "free_x") + 
-  geom_vline(xintercept = 0, col = "red") + 
+  geom_smooth(aes(x=value, y=prop, group=variable), se = FALSE, method='loess') + 
   theme(legend.position = "none") + 
-  geom_line(aes(value, pred, group=variable), colour="steelblue", size=1, data=t2pred)
+  geom_line(aes(value, pred, group=variable), colour="steelblue", size=1, 
+            data=t2pred)
 
 @
 \end{subfigure}
 \begin{subfigure}[t]{\textwidth}
 \centering
-\caption{old picture}
-\includegraphics[width=0.7\textwidth]{turk2-grtr-reg-bin.pdf}
+\caption{\label{turk2comp-2}$\gamma$-number of extreme nulls }
+%\includegraphics[width=0.7\textwidth]{turk2-grtr-reg-bin.pdf}
+<<gamma-turk2, dependson='delta-turk2', echo=FALSE, fig.width=8.5, fig.height=4.5, out.width='0.7\\textwidth'>>=
+
+grtr.diff <- subset(prop.dist, select = c(pic_name, grtr.reg, grtr.bin, prop, special))
+grtr.diff.m <- melt(grtr.diff, id = c("pic_name", "prop", "special"))
+
+levels(grtr.diff.m$variable) <- c("Regression Based Distance", "Binned Distance")
+
+
+qplot(value, prop, data = grtr.diff.m, geom = "point", size = I(3), ylim = c(0, 1), ylab = "Median Time to Respond (in seconds)", shape = factor(special)) + 
+  facet_wrap( ~ variable, scales = "free_x") + 
+#  geom_vline(xintercept = 0, col = "grey50") + 
+  theme(legend.position = "none") +
+#  geom_smooth(se=FALSE, method='loess') +
+  xlab(expression(paste(gamma,"-Number of extreme null plots", sep="")))
+
+@
 \end{subfigure}
 %\subfigure[]{
 %\includegraphics[scale=0.55]{turk2-grtr-reg-prop.pdf}
@@ -1421,6 +1439,16 @@ Figure~\ref{turk2comp} also shows the detection rate against the number of null 
 %\includegraphics[scale=0.55]{turk2-diff-bin-mtime.pdf}
 %\label{t1bin_1}
 %}
+<<turk2-time, dependson='delta-turk2', echo=FALSE, fig.width=8.5, fig.height=4.5, out.width='0.7\\textwidth'>>=
+ggplot(data = prop.diff.m) + 
+  geom_point(aes(value, m.time,  shape = factor(special)), size=3)
+  ylab("Median Time to Respond (in seconds)") +
+  xlab(expression(paste(delta,"-Difference", sep=""))) +
+  facet_wrap( ~ variable, scales = "free_x") + 
+  geom_vline(xintercept = 0, col = "grey50") + 
+  theme(legend.position = "none")
+
+@
 	\vspace{-.1in}
 \caption{Comparison of distance metrics for scatterplots with a regression line over laid. Mean time to respond is plotted against the difference based on the regression based and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time taken decreases with the difference. The triangle represents a lineup which is examined in Figure~\ref{turk2-exp}.   }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
