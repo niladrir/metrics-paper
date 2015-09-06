@@ -1193,8 +1193,8 @@ ggplot(data = grtr.diff.m) +
 %\newpage
 
 In Figure~\ref{turk1comp},  detection rate is plotted against $\delta$-difference. The  vertical line highlights a  difference of 0 indicating that the mean distance of the true plot is equal to the maximum of the mean distance of the null plots i.e.\ the mean distance of the true plot is equal to at least one of the mean distance of the null plots. As the $\delta$-difference increases, detection rate generally increases. %So the subjects do better in the easier lineups than the hard ones. 
-\hh{The thick lines in Figure~\ref{fig:turkcomp-1} are fits  from  logistic regression models using a quadratic effect for each of the two distances.
-The fitted lines come very close to the non-paramteric smooth shown by the thin line. Qualitatively, both boxplot based distance and binned distance show very similar fits for detection rate. Based on the logistic regressions, boxplot distance is fitting detection rate a bit better (AIC: \Sexpr{round(AIC(dbx),1)}) than binned distance  (AIC: \Sexpr{round(AIC(dbn),1)}). }
+\hh{The thick lines in Figure~\ref{fig:turkcomp-1} are fits  from  logistic regression models using a quadratic effect for distance.
+The fitted lines come very close to the non-parametric smooth shown by the thin line. Qualitatively, both boxplot based distance and binned distance show very similar fits for detection rate. Based on the logistic regressions, boxplot distance is fitting detection rate a bit better (AIC: \Sexpr{round(AIC(dbx),1)}) than binned distance  (AIC: \Sexpr{round(AIC(dbn),1)}). }
 
  Figure~\ref{turk1comp} also shows the relation between detection rate and the number of null plots larger than the true plot. As the number of plots that are more extreme than the data plot increases,  subjects find it more and more  difficult to pick the data plot. It is interesting to see that subjects are able to  pick the data plot even if there are  one or two more extreme null plots. 
 
@@ -1261,6 +1261,8 @@ ggplot(data = prop.diff.m) +
 
 \hh{From Figure~\ref{turk1comp} we see that for some of the lineups the detection rate is higher than its $\delta$-difference would suggest.} One such lineup is marked using a triangle in Figure~\ref{turk1comp}. %It would be interesting to look into the lineup closely to identify what made the people pick the actual plot as different. 
 Figure~\ref{turk1-exp} shows the lineup and the distribution of the distance metrics for a closer look at what might observers lead to pick the data plot as different. 
+\hh{XXX What did observers pick??}
+\hh{XXX the distributions for the distances seems to be off by the standard deviation setting in the simulation. It should be sd=12, which is what the lower row of density plots is using. Given the lineup they look more realistic to me than the upper row - given the small difference in the medians, the distance measures should not be very extreme. This would make a good example for using the empirical $p$-values as a more objective measure of lineup difficulty. }
 
 \begin{figure}[hbtp]
 \centering
@@ -1305,12 +1307,12 @@ qplot(group, val, data = lineup.dat, geom = "boxplot", col = group,
 \end{subfigure}\hfill
 
 <<lp-exc-distr, dependson='lp-exc', echo=FALSE, results='hide', cache=TRUE>>=
-dframe <- data.frame(t(replicate(5000, {
+dframe <- data.frame(t(replicate(100, {
 	samp.dat <- data.frame(group = obs.dat$group, 
-	                       val = rnorm(nrow(obs.dat), 0, 12))
+	                       val = rnorm(nrow(obs.dat), 0, 5))
   dat1 <- data.frame(t(replicate(18, {
     null.dat <- data.frame(group = obs.dat$group, 
-                           val = rnorm(nrow(obs.dat), 0, 12))
+                           val = rnorm(nrow(obs.dat), 0, 5))
     b1 = bin_dist(X=samp.dat, PX=null.dat, lineup.dat = lineup.dat, 
                   X.bin = 2, Y.bin = 2)
  		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, 
@@ -1374,7 +1376,7 @@ ggplot()  + geom_density(data = metrics.dat, aes(x = bx),
 \end{subfigure}
 \begin{subfigure}[t]{0.32\textwidth}
 \includegraphics[width=\textwidth]{distribution-bin-dist-2-8-exp1.pdf}
-\caption{\small Binned ($p=2, q=8$) distance}
+\caption{\small Binned (2,8) distance}
 <<b28, dependson='lp-dist', echo=FALSE, fig.width=5, fig.height=5, out.width='\\textwidth'>>=
 ggplot()  + geom_density(data = metrics.dat, aes(x = b28), 
                          fill = "grey80", col = "grey80" ) + 
@@ -1396,7 +1398,7 @@ ggplot()  + geom_density(data = metrics.dat, aes(x = b28),
 \end{subfigure}
 \begin{subfigure}[t]{0.32\textwidth}
 \includegraphics[width=\textwidth]{distribution-bin-dist-2-2-exp1.pdf}
-\caption{\small Binned ($p=2, q=2$) distance}
+\caption{\small Binned (2,2) distance}
 <<b22, dependson='lp-dist', echo=FALSE, fig.width=5, fig.height=5, out.width='\\textwidth'>>=
 ggplot()  + geom_density(data = metrics.dat, aes(x = b22), 
                          fill = "grey80", col = "grey80" ) + 
@@ -1418,7 +1420,7 @@ ggplot()  + geom_density(data = metrics.dat, aes(x = b22),
 \end{subfigure}
 
 	\vspace{-.1in}
-\caption{Illustration of the behavior of the different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics based on this lineup is shown in the other plots: boxplot based distance in (b), binned distance with 2 and 8 bins on x and y axis in (c) and binned distance with 2 bins in both axes in (d). The lineup corresponds to the point marked with a triangle in difference vs. detection rate plot in Figure~\ref{turk1comp}. }
+\caption{ Illustration of the behavior of the different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics based on this lineup is shown in the other plots: boxplot based distance in (b), binned distance with 2 and 8 bins on x and y axis in (c) and binned distance with 2 bins in both axes in (d). The lineup corresponds to the point marked with a triangle in difference vs. detection rate plot in Figure~\ref{turk1comp}. }
 \label{turk1-exp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -1427,7 +1429,7 @@ ggplot()  + geom_density(data = metrics.dat, aes(x = b22),
 \hh{XXX the discussion should be linked more to the metrics.}
 The lineup in Figure~\ref{turk1-exp} is a lineup of side-by-side boxplots. The observed data plot is Plot 20 but there are other candidates who can be picked easily. Plot 19 and Plot 16 seems to have large differences between the quartiles. Specifically in Plot 16, the difference between the  
 first quartiles for the two groups is very large but the differences between the medians and the third quartiles are small. The huge difference of the first quartiles may have affected the huge mean distance of Plot 16 from all the other plots.   
-
+\newpage
 \subsection{Turk Experiment 2 -- Scatterplots with an Overlaid Regression Line}
 
 In this experiment, the test statistic is a scatterplot with the regression line overlaid. Assuming that the null hypothesis is true, the null plots are generated by assuming that there is no significant linear relationship between the two variables. The subjects were shown a set of ten lineups each and were asked to identify the plot with the steepest slope. 
