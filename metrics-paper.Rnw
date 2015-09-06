@@ -1197,7 +1197,7 @@ The fitted lines come very close to the non-paramteric smooth shown by the thin 
 
  Figure~\ref{turk1comp} also shows the relation between detection rate and the number of null plots larger than the true plot. As the number of plots that are more extreme than the data plot increases,  subjects find it more and more  difficult to pick the data plot. It is interesting to see that subjects are able to  pick the data plot even if there are  one or two more extreme null plots. 
 
-\hh{XXX I'm not teribly happy with the next paragraph - it  might be because I don't quite see the storyline that it is supposed to fit into. One suggestion for the story would be `while distances based on graphical elements do better, binned distance is a general approach independent of plot type and specific question, that does relativley well. But we have to be aware of its limitations' }
+\hh{XXX I'm not terribly happy with the next paragraph - it  might be because I don't quite see the storyline that it is supposed to fit into. One suggestion for the story would be `ideally, while distances based on graphical elements do better, binned distance would be a general approach independent of plot type and specific question, that does relatively well. Unfortunately, its limitations are quite restrictive. For turk1 binned distance performs almost as well as boxplot based distance. turk2 sows that binned distance is not able to deal well with large variability. The number of bins in X and Y direction is affecting the outcome a lot.' }
 
 Though the distance based on the boxplots works better, the binned distance does a decent job in this case. According to the binned distance, there are a few lineups which has a negative difference but the proportion correct is above 60\%, which can be also be seen in Figure~\ref{turk1comp}. It should be noted that the binned distance does not take into account the graphical elements of the plot (e.g. boxplot) and calculates the distance solely based on the data. So an outlier may have a huge effect on the binned distance but does not effect the distance based on the boxplots. Hence it is advisable to use a distance based on the graphical elements since that is exactly what the subjects look at in the lineup.
 
@@ -1252,19 +1252,53 @@ ggplot(data = prop.diff.m) +
 %\label{t1bin_1}
 %}
 	\vspace{-.1in}
-\caption{Comparison of distance metrics for side-by-side boxplots. Mean time to respond is plotted against the difference based on the boxplot and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time taken decreases with the difference. The triangle represents a lineup which is examined further in Figure~\ref{turk1-exp}. }
+\caption{Comparison of distance metrics for side-by-side boxplots. Median time to respond is plotted against $\delta$-difference based on boxplot and binned(2,8) distance. The vertical line represents a $\delta$-difference equal to zero when there is at least one null plot similar to the observed plot. Median time to respond decreases as $\delta$-difference increases. The triangle represents a lineup which is examined further in Figure~\ref{turk1-exp}. }
 \label{turk1-mtime}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 \afterpage{\clearpage}
 
-We noticed in Figure~\ref{turk1comp} that for some of the lineups, the detection rate is higher than $\delta$-difference would suggest. One such lineup is marked using a triangle in Figure~\ref{turk1comp}. %It would be interesting to look into the lineup closely to identify what made the people pick the actual plot as different. 
+\hh{From Figure~\ref{turk1comp} we see that for some of the lineups the detection rate is higher than its $\delta$-difference would suggest.} One such lineup is marked using a triangle in Figure~\ref{turk1comp}. %It would be interesting to look into the lineup closely to identify what made the people pick the actual plot as different. 
 Figure~\ref{turk1-exp} shows the lineup and the distribution of the distance metrics for a closer look at what might observers lead to pick the data plot as different. 
 
 \begin{figure}[hbtp]
 \centering
 \begin{subfigure}[t]{0.6\textwidth}
-\includegraphics[width=\textwidth]{lineup-high-prop-neg-diff.pdf}
+%\includegraphics[width=\textwidth]{lineup-high-prop-neg-diff.pdf}
+<<lp-exc, echo=FALSE, fig.width=6, fig.height=6, out.width='\\textwidth'>>=
+dat <- read.table("data/turk1/dat_turk1_100_8_12_2.txt", header = T)  ## plot_turk1_100_8_12_2
+
+### The detection rate for the above lineup is 0.28. But the difference for both binned distance and regression based distance are large negative.
+
+### Melting the data
+dat.m <- melt(dat, id = c("age", "grp", "weight"))
+
+### Changing the categorical variable to a numerical variable
+dat.m$x <- as.numeric(dat.m$grp) 
+
+### Breaking the variable name to get the position and type of plot (null or obs)
+dat.m$plot <- substring(dat.m$variable, 1, 3)
+dat.m$position <- substring(dat.m$variable, 4, 5)
+
+### Finding the observed data
+obs <- dat.m[dat.m$plot == "obs", c("x", "value") ]
+dat.m <- dat.m[, c("x", "value", "position")]
+names(dat.m) <- c("group", "val", ".sample")
+lineup.dat <- dat.m
+lineup.dat$group <- as.factor(lineup.dat$group)
+lineup.dat$.sample <- as.numeric(as.character(lineup.dat$.sample))
+obs.dat <- subset(lineup.dat, .sample == 20)
+levels(lineup.dat$group) <- c("A", "B")
+
+qplot(group, val, data = lineup.dat, geom = "boxplot", col = group, 
+      ylab = "", xlab = "Group") + facet_wrap(~ .sample) + 
+  scale_color_discrete(name = "Group") + 
+  theme(legend.position = "none") + 
+  theme(axis.text.y = element_blank(), 
+        axis.title = element_blank(),
+        axis.ticks.y = element_blank(),
+        plot.margin=unit(c(0,0,0,0), unit="cm"))
+@
 \end{subfigure}\hfill
 
 \begin{subfigure}[t]{0.32\textwidth}
@@ -1381,7 +1415,8 @@ ggplot(data=prop.diff.m) +
   geom_smooth(aes(x=value, y=prop, group=variable), se = FALSE, method='loess') + 
   theme(legend.position = "none") + 
   geom_line(aes(value, pred, group=variable), colour="steelblue", size=1, 
-            data=t2pred)
+            data=t2pred) +
+  theme(plot.margin=unit(c(0,0,0,0), unit="line"))
 
 @
 \end{subfigure}
@@ -1397,12 +1432,13 @@ grtr.diff.m <- melt(grtr.diff, id = c("pic_name", "prop", "special"))
 levels(grtr.diff.m$variable) <- c("Regression Based Distance", "Binned Distance")
 
 
-qplot(value, prop, data = grtr.diff.m, geom = "point", size = I(3), ylim = c(0, 1), ylab = "Median Time to Respond (in seconds)", shape = factor(special)) + 
+qplot(value, prop, data = grtr.diff.m, geom = "point", size = I(3), ylim = c(0, 1), ylab = "Detection Rate", shape = factor(special)) + 
   facet_wrap( ~ variable, scales = "free_x") + 
 #  geom_vline(xintercept = 0, col = "grey50") + 
   theme(legend.position = "none") +
 #  geom_smooth(se=FALSE, method='loess') +
-  xlab(expression(paste(gamma,"-Number of extreme null plots", sep="")))
+  xlab(expression(paste(gamma,"-Number of extreme null plots", sep=""))) +
+  theme(plot.margin=unit(c(0,0,0,0), unit="line"))
 
 @
 \end{subfigure}
@@ -1441,22 +1477,23 @@ Figure~\ref{turk2comp} also shows the detection rate against the number of null 
 %}
 <<turk2-time, dependson='delta-turk2', echo=FALSE, fig.width=8.5, fig.height=4.5, out.width='0.7\\textwidth'>>=
 ggplot(data = prop.diff.m) + 
-  geom_point(aes(value, m.time,  shape = factor(special)), size=3)
+  geom_point(aes(value, m.time,  shape = factor(special)), size=3) +
   ylab("Median Time to Respond (in seconds)") +
   xlab(expression(paste(delta,"-Difference", sep=""))) +
   facet_wrap( ~ variable, scales = "free_x") + 
   geom_vline(xintercept = 0, col = "grey50") + 
-  theme(legend.position = "none")
+  geom_smooth(aes(value, m.time, group=variable), se=FALSE, method='loess') + 
+  theme(legend.position = "none", plot.margin=unit(c(0,0,0,0), unit="line"))
 
 @
 	\vspace{-.1in}
-\caption{Comparison of distance metrics for scatterplots with a regression line over laid. Mean time to respond is plotted against the difference based on the regression based and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time taken decreases with the difference. The triangle represents a lineup which is examined in Figure~\ref{turk2-exp}.   }
+\caption{Comparison of distance metrics for scatterplots with a regression line over laid. Median time to respond is plotted against $\delta$-difference based on  regression based and binned(2,2) distance. The vertical line represents a $\delta$-difference equal to zero, i.e.\ there is at least one null plot similar to the observed plot. The median time to response decreases as $\delta$-difference increases. The triangle represents a lineup which is examined in Figure~\ref{turk2-exp}.   }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \label{turk2-mtime}
 \end{figure}
-\afterpage{\clearpage}
+%\afterpage{\clearpage}
 
-Figure~\ref{turk2-mtime} shows the relationship between the mean time taken to respond and the difference for both the distances. It can be clearly seen that there is a strong negative association showing that as the difference increases, the subjects take less time to respond. Also the variability of the mean time is higher for smaller difference. In case of binned distance, the relationship is negative though the variability is higher for the above mentioned reasons.
+Figure~\ref{turk2-mtime} shows the relationship between the median time taken to respond and $\delta$-difference for both the distances. It can be clearly seen that there is a strong negative association showing that as the difference increases, the subjects take less time to respond. Also the variability of the mean time is higher for smaller difference. In case of binned distance, the relationship is negative though the variability is higher for the above mentioned reasons.
 
 Although the regression based distance seems to efficiently identify the quality of the lineup, there is one lineup (marked by a solid triangle in Figure~\ref{turk2comp}) which had a negative difference although people identified the true plot with reasonable success.  Figure~\ref{turk2-exp} shows the lineup and the distributions of different distance metrics. 
 
