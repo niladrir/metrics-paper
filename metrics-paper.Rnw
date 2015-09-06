@@ -1260,7 +1260,7 @@ ggplot(data = prop.diff.m) +
 \afterpage{\clearpage}
 
 \hh{From Figure~\ref{turk1comp} we see that for some of the lineups the detection rate is higher than its $\delta$-difference would suggest.} One such lineup is marked using a triangle in Figure~\ref{turk1comp}. %It would be interesting to look into the lineup closely to identify what made the people pick the actual plot as different. 
-Figure~\ref{turk1-exp} shows the lineup and the distribution of the distance metrics for a closer look at what might observers lead to pick the data plot as different. \hh{The grey numbers at the bottom right of each of the plots in the lineup gives an overview of which plots participants picked in \Sexpr{nrow(lpsub)} evaluations of the lineup.} 
+Figure~\ref{turk1-exp} shows the lineup and the distribution of the distance metrics for a closer look at what might observers lead to pick the data plot as different. \hh{The grey numbers at the bottom right of each of the plots in the lineup gives an overview of which plots participants picked in 168 evaluations of the lineup.} 
 
 \begin{figure}[hbtp]
 \centering
@@ -1317,12 +1317,12 @@ qplot(group, val, data = lineup.dat, geom = "boxplot", col = group,
 \end{subfigure}\hfill
 
 <<lp-exc-distr, dependson='lp-exc', echo=FALSE, results='hide', cache=TRUE>>=
-dframe <- data.frame(t(replicate(100, {
+dframe <- data.frame(t(replicate(1000, {
 	samp.dat <- data.frame(group = obs.dat$group, 
-	                       val = rnorm(nrow(obs.dat), 0, 5))
+	                       val = rnorm(nrow(obs.dat), 0, 12))
   dat1 <- data.frame(t(replicate(18, {
     null.dat <- data.frame(group = obs.dat$group, 
-                           val = rnorm(nrow(obs.dat), 0, 5))
+                           val = rnorm(nrow(obs.dat), 0, 12))
     b1 = bin_dist(X=samp.dat, PX=null.dat, lineup.dat = lineup.dat, 
                   X.bin = 2, Y.bin = 2)
  		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, 
@@ -1363,69 +1363,71 @@ dd1 <- metrics.dat %>% group_by(pos.1) %>%
     )
 @
 \begin{subfigure}[t]{0.32\textwidth}
-\includegraphics[width=\textwidth]{distribution-box-dist-exp1.pdf}
+%\includegraphics[width=\textwidth]{distribution-box-dist-exp1.pdf}
 \caption{\small Boxplot based distance}
 <<dbx, dependson='lp-dist', echo=FALSE, fig.width=5, fig.height=5, out.width='\\textwidth'>>=
-ggplot()  + geom_density(data = metrics.dat, aes(x = bx), 
+ybx <- max(density(dframe$dbx)$y)
+ggplot()  + geom_density(data = dframe, aes(x = dbx), 
                          fill = "grey80", col = "grey80" ) + 
   geom_segment(data = subset(dd1, len == 19), 
                aes(x= bx, xend = bx, 
-                   y=0.02*max(density(metrics.dat$bx)$y), 
-                   yend = 0.2*max(density(metrics.dat$bx)$y)), 
+                   y=0.02*ybx, 
+                   yend = 0.2*ybx), 
                colour="darkorange", size=1)  + 
   geom_segment(data = subset(dd1, len != 19), 
                aes(x = bx, xend = bx, 
-                   y = rep(0.02*max(density(metrics.dat$bx)$y),19), 
-                   yend = rep(0.1*max(density(metrics.dat$bx)$y),19)), 
+                   y = rep(0.02*ybx,19), 
+                   yend = rep(0.1*ybx,19)), 
                size=1, alpha = I(0.7)) + xlab("Boxplot Based Distance") + 
-  ylab("") + geom_text(data = dd1, y = - 0.03*max(density(metrics.dat$bx)$y), 
+  ylab("") + geom_text(data = dd1, y = - 0.03*ybx, 
                        size = 2.5, aes(x = bx, label = pos.1)) + 
-  ylim(c(- 0.04*max(density(metrics.dat$bx)$y), 
-         max(density(metrics.dat$bx)$y) + 0.1*max(density(metrics.dat$bx)$y)))
+  ylim(c(- 0.04*ybx, ybx + 0.1*ybx))
 @
 \end{subfigure}
 \begin{subfigure}[t]{0.32\textwidth}
-\includegraphics[width=\textwidth]{distribution-bin-dist-2-8-exp1.pdf}
+%\includegraphics[width=\textwidth]{distribution-bin-dist-2-8-exp1.pdf}
 \caption{\small Binned (2,8) distance}
 <<b28, dependson='lp-dist', echo=FALSE, fig.width=5, fig.height=5, out.width='\\textwidth'>>=
-ggplot()  + geom_density(data = metrics.dat, aes(x = b28), 
+yb28 <- max(density(dframe$dbn28)$y)
+ggplot()  + geom_density(data = dframe, aes(x = dbn28), 
                          fill = "grey80", col = "grey80" ) + 
   geom_segment(data = subset(dd1, len == 19), 
                aes(x= b28, xend = b28, 
-                   y=0.02*max(density(metrics.dat$b28)$y), 
-                   yend = 0.2*max(density(metrics.dat$b28)$y)), 
+                   y=0.02*yb28, 
+                   yend = 0.2*yb28), 
                colour="darkorange", size=1)  + 
   geom_segment(data = subset(dd1, len != 19), 
                aes(x = b28, xend = b28, 
-                   y = rep(0.02*max(density(metrics.dat$b28)$y),19), 
-                   yend = rep(0.1*max(density(metrics.dat$b28)$y),19)), 
+                   y = rep(0.02*yb28,19), 
+                   yend = rep(0.1*yb28,19)), 
                size=1, alpha = I(0.7)) + xlab("Binned Distance (p = 2, q = 8)") + 
-  ylab("") + geom_text(data = dd1, y = - 0.03*max(density(metrics.dat$b28)$y), 
+  ylab("") + geom_text(data = dd1, y = - 0.03*yb28, 
                        size = 2.5, aes(x = b28, label = pos.1)) + 
-  ylim(c(- 0.04*max(density(metrics.dat$b28)$y), 
-         max(density(metrics.dat$b28)$y) + 0.1*max(density(metrics.dat$b28)$y)))
+  ylim(c(- 0.04*yb28, 
+         yb28 + 0.1*yb28))
 @
 \end{subfigure}
 \begin{subfigure}[t]{0.32\textwidth}
-\includegraphics[width=\textwidth]{distribution-bin-dist-2-2-exp1.pdf}
+%\includegraphics[width=\textwidth]{distribution-bin-dist-2-2-exp1.pdf}
 \caption{\small Binned (2,2) distance}
 <<b22, dependson='lp-dist', echo=FALSE, fig.width=5, fig.height=5, out.width='\\textwidth'>>=
-ggplot()  + geom_density(data = metrics.dat, aes(x = b22), 
+yb22 <- max(density(dframe$dbn22)$y)
+ggplot()  + geom_density(data = dframe, aes(x = dbn22), 
                          fill = "grey80", col = "grey80" ) + 
   geom_segment(data = subset(dd1, len == 19), 
                aes(x= b22, xend = b22, 
-                   y=0.02*max(density(metrics.dat$b22)$y), 
-                   yend = 0.2*max(density(metrics.dat$b22)$y)), 
+                   y=0.02*yb22, 
+                   yend = 0.2*yb22), 
                colour="darkorange", size=1)  + 
   geom_segment(data = subset(dd1, len != 19), 
                aes(x = b22, xend = b22, 
-                   y = rep(0.02*max(density(metrics.dat$b22)$y),19), 
-                   yend = rep(0.1*max(density(metrics.dat$b22)$y),19)), 
+                   y = rep(0.02*yb22,19), 
+                   yend = rep(0.1*yb22,19)), 
                size=1, alpha = I(0.7)) + xlab("Binned Distance (p = q = 2)") + 
-  ylab("") + geom_text(data = dd1, y = - 0.03*max(density(metrics.dat$b22)$y), 
+  ylab("") + geom_text(data = dd1, y = - 0.03*yb22, 
                        size = 2.5, aes(x = b22, label = pos.1)) + 
-  ylim(c(- 0.04*max(density(metrics.dat$b22)$y), 
-         max(density(metrics.dat$b22)$y) + 0.1*max(density(metrics.dat$b22)$y)))
+  ylim(c(- 0.04*yb22, 
+         yb22 + 0.1*yb22))
 @
 \end{subfigure}
 
@@ -1436,10 +1438,14 @@ ggplot()  + geom_density(data = metrics.dat, aes(x = b22),
 \end{figure}
 \afterpage{\clearpage}
 
-\hh{XXX the distributions for the distances seems to be off by the standard deviation setting in the simulation. It should be sd=12, which is what the lower row of density plots is using. Given the lineup they look more realistic to me than the upper row - given the small difference in the medians, the distance measures should not be very extreme. This would make a good example for using the empirical $p$-values as a more objective measure of lineup difficulty. }
 \hh{XXX paragraph below needs some cleaning up. }
-The lineup in Figure~\ref{turk1-exp} is a lineup of side-by-side boxplots. The observed data plot is Plot 20 but there are other candidates who can be picked easily. Plot 19 and Plot 16 seems to have large differences between the quartiles. Specifically in Plot 16, the difference between the  
-first quartiles for the two groups is very large but the differences between the medians and the third quartiles are small. The huge difference of the first quartiles may have affected the huge mean distance of Plot 16 from all the other plots.   
+%The lineup in Figure~\ref{turk1-exp} is a lineup of side-by-side boxplots.
+\hh{The observed data plot is Plot \#20, which has been picked most often by participants, but there are other plots that are being chosen quite frequently. Plot \#16 is the plot with the  largest boxplot distance. This is reflected by the large number of times this plot has been singled out by observers. 
+
+Maybe surprisingly, plots Plots \#19 and \#15, which have relatively large differences between the quartiles, are not being chosen by many participants. Instead, observers seem to focus on the difference in interquartile ranges (i.e.\ the box size of the boxplot). Plots \#1, \#13 and \#16 exhibit a large interquartile difference and are being picked often by observers.}
+
+%\hh{XXX the distributions for the distances seems to be off by the standard deviation setting in the simulation. It should be sd=12, which is what the lower row of density plots is using. Given the lineup they look more realistic to me than the upper row - given the small difference in the medians, the distance measures should not be very extreme. This would make a good example for using the empirical $p$-values as a more objective measure of lineup difficulty. }
+
 \newpage
 \subsection{Turk Experiment 2 -- Scatterplots with an Overlaid Regression Line}
 
