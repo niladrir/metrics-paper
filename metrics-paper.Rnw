@@ -1260,15 +1260,13 @@ ggplot(data = prop.diff.m) +
 \afterpage{\clearpage}
 
 \hh{From Figure~\ref{turk1comp} we see that for some of the lineups the detection rate is higher than its $\delta$-difference would suggest.} One such lineup is marked using a triangle in Figure~\ref{turk1comp}. %It would be interesting to look into the lineup closely to identify what made the people pick the actual plot as different. 
-Figure~\ref{turk1-exp} shows the lineup and the distribution of the distance metrics for a closer look at what might observers lead to pick the data plot as different. 
-\hh{XXX What did observers pick??}
-\hh{XXX the distributions for the distances seems to be off by the standard deviation setting in the simulation. It should be sd=12, which is what the lower row of density plots is using. Given the lineup they look more realistic to me than the upper row - given the small difference in the medians, the distance measures should not be very extreme. This would make a good example for using the empirical $p$-values as a more objective measure of lineup difficulty. }
+Figure~\ref{turk1-exp} shows the lineup and the distribution of the distance metrics for a closer look at what might observers lead to pick the data plot as different. \hh{The grey numbers at the bottom right of each of the plots in the lineup gives an overview of which plots participants picked in \Sexpr{nrow(lpsub)} evaluations of the lineup.} 
 
 \begin{figure}[hbtp]
 \centering
 \begin{subfigure}[t]{\textwidth}
 \centering
-\caption{Lineup of side-by-side boxplots}
+\caption{\label{fig:turk1-exp-1}Lineup of side-by-side boxplots. The numbers at the bottom right are the number of times each of the plots was chosen by observers.}
 %\includegraphics[width=\textwidth]{lineup-high-prop-neg-diff.pdf}
 <<lp-exc, echo=FALSE, fig.width=6, fig.height=6, out.width='0.6\\textwidth'>>=
 dat <- read.table("data/turk1/dat_turk1_100_8_12_2.txt", header = T)  ## plot_turk1_100_8_12_2
@@ -1295,6 +1293,16 @@ lineup.dat$.sample <- as.numeric(as.character(lineup.dat$.sample))
 obs.dat <- subset(lineup.dat, .sample == 20)
 levels(lineup.dat$group) <- c("A", "B")
 
+### Number of picks by observers
+res.exp1 <- read.csv("data/raw_data_turk1.csv")
+lpsub <- unique(subset(res.exp1, pic_name=="plot_turk1_100_8_12_2.png")[,c("response", "ip_address", "response_no")])
+dt <- as.data.frame(xtabs(~response_no, data=lpsub))
+names(dt) <- c(".sample", "picks")
+picks <- data.frame(.sample=1:20)
+picks <- merge(picks, dt, by=".sample", all.x=TRUE)
+picks$picks[is.na(picks$picks)] <- 0
+
+### lineup
 qplot(group, val, data = lineup.dat, geom = "boxplot", col = group, 
       ylab = "", xlab = "Group") + facet_wrap(~ .sample) + 
   scale_color_discrete(name = "Group") + 
@@ -1302,7 +1310,9 @@ qplot(group, val, data = lineup.dat, geom = "boxplot", col = group,
   theme(axis.text.y = element_blank(), 
         axis.title = element_blank(),
         axis.ticks.y = element_blank(),
-        plot.margin=unit(c(0,0,0,0), unit="cm"))
+        plot.margin=unit(c(0,0,0,0), unit="cm")) + 
+  geom_text(aes(label=picks), x=2.6, y=-30, colour="grey70", size=8, hjust=1,
+            data=picks)
 @
 \end{subfigure}\hfill
 
@@ -1426,7 +1436,8 @@ ggplot()  + geom_density(data = metrics.dat, aes(x = b22),
 \end{figure}
 \afterpage{\clearpage}
 
-\hh{XXX the discussion should be linked more to the metrics.}
+\hh{XXX the distributions for the distances seems to be off by the standard deviation setting in the simulation. It should be sd=12, which is what the lower row of density plots is using. Given the lineup they look more realistic to me than the upper row - given the small difference in the medians, the distance measures should not be very extreme. This would make a good example for using the empirical $p$-values as a more objective measure of lineup difficulty. }
+\hh{XXX paragraph below needs some cleaning up. }
 The lineup in Figure~\ref{turk1-exp} is a lineup of side-by-side boxplots. The observed data plot is Plot 20 but there are other candidates who can be picked easily. Plot 19 and Plot 16 seems to have large differences between the quartiles. Specifically in Plot 16, the difference between the  
 first quartiles for the two groups is very large but the differences between the medians and the third quartiles are small. The huge difference of the first quartiles may have affected the huge mean distance of Plot 16 from all the other plots.   
 \newpage
