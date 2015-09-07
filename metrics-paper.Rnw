@@ -1203,62 +1203,7 @@ Though  distance based on  boxplots works better a bit better, the binned distan
 \hh{XXX the following sentence is a bit hard to swallow. XXX the case against one single distance needs to be built up more slowly. }
 Hence it is advisable to use a distance based on the graphical elements since that is exactly what the subjects look at in the lineup.
 
-The time subjects  take to respond  is another measure that can be used to evaluate  difficulty of lineups. 
-Due to the presence of some huge outliers, we decided to use the median of time taken for each lineup. These values are plotted against  $\delta$-difference for both distance measures as shown in Figure~\ref{turk1-mtime}.
-\hh{Both $\delta$-difference exhibit a similar pattern: the time to respond peaks at a $\delta$-difference of zero. This indicates, that the situation where two or more plots exhibits similarly extreme features is the most difficult for observers to judge. With negative $\delta$-differences at least one null plot is more extreme, and observers seem to be able to make their choice quickly (probably for the extreme null plot).}
-%It can be clearly seen that when $\delta$-difference is below 0, there is no real trend in the mean time and there is a huge variability, indicating that the time taken depends on the subjects.
-%\hh{XXX variability doesn't change that much over $x$; XXX for boxplot based distance the time to respond peaks at a $\delta$-difference of zero. This might indicate, that this situation is the most difficult for observers to judge. When there are more extreme plots, observers seem to be able to make their choice quickly (probably for the extreme null plot).}
-When $\delta$-difference is positive, the median time to respond decreases rapidly as $\delta$-difference increases. Hence, subjects are able to make their choice of a plot more quickly if the true plot is extreme compared to the null plots.
-
-\hh{Note that taking the log of time to respond is an alternative to using the median. Qualitatively, the relationships to distance metrics are very similar for median and log time taken, but median time is much easier to interpret. }
-
-% \hh{XXX I don't think that the following statement is true -- there is no reason, why boxplot distance and binned distance should be on the same scale. }
-% For Turk 1 experiment, the value of the ratio for boxplot distance is 86.52 and for binned distance is 18.82. This indicates that the boxplot distance works better than the binned distance. 
- 
-%\begin{figure}[hbtp]
-%\centering
-%\subfigure[]{
-%\includegraphics[scale=0.55]{turk1-diff-bin-prop-8.pdf}
-%\label{t1bin_1}
-%}
-%\subfigure[]{
-%\includegraphics[scale=0.55]{turk1-grtr-bin-prop-8.pdf}
-%\label{t1bin_2}
-%}
-%%\label{turk1-bin}
-%	\vspace{-.1in}
-%\caption{(a) Plot showing the proportion correct against the difference based on the binned distance with 8 bins on each axis. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The proportion correct increases with the difference. (b) Plot showing the proportion correct against the number of null plots greater than the observed plot according to the binned distance. The proportion correct decreases as the number of null plots greater than the observed plot increases.  }
-%%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
-%\end{figure}
-
-\begin{figure}[hbtp]
-\centering
-%\includegraphics[width=0.6\textwidth]{turk1-mtime-box-bin.pdf}
-<<time-taken, dependson='dist-box-bin', fig.width=8.5, fig.height=4.5, out.width='0.6\\textwidth', echo=FALSE>>=
-ggplot(data = prop.diff.m) +
-  geom_vline(xintercept = 0, col = "grey50") + 
-  geom_point(aes(x=value, y=m.time, shape = factor(special)),
-             size = 3) +
-  xlab(expression(paste(delta,"-Difference", sep=""))) + 
-  ylab("Median Time to Respond (in seconds)") + 
-  facet_wrap( ~ variable, scales = "free_x") + 
-  geom_smooth(aes(x=value, y=m.time), se=FALSE, method="loess") +
-  theme(legend.position = "none")
-@
-%\subfigure[]{
-%\includegraphics[scale=0.55]{turk1-diff-box-mtime.pdf}
-%\label{t1comp_1}
-%}
-%\subfigure[]{
-%\includegraphics[scale=0.55]{turk1-diff-bin-mtime.pdf}
-%\label{t1bin_1}
-%}
-	\vspace{-.1in}
-\caption{Comparison of distance metrics for side-by-side boxplots. Median time to respond is plotted against $\delta$-difference based on boxplot and binned(2,8) distance. The vertical line represents a $\delta$-difference equal to zero when there is at least one null plot similar to the observed plot. Median time to respond decreases as $\delta$-difference increases. The triangle represents a lineup which is examined further in Figure~\ref{turk1-exp}. }
-\label{turk1-mtime}
-%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
-\end{figure}
-
+\hh{In order to investigate on what participants base their choice, we are going to have a closer look at a lineup. }
 \hh{From Figure~\ref{turk1comp} we see that for some of the lineups the detection rate is higher than its $\delta$-difference would suggest.} One such lineup is marked using a triangle in Figure~\ref{turk1comp}. %It would be interesting to look into the lineup closely to identify what made the people pick the actual plot as different. 
 Figure~\ref{turk1-exp} shows the lineup and the distribution of the distance metrics for a closer look at what might observers lead to pick the data plot as different. \hh{The grey numbers at the bottom right of each of the plots in the lineup gives an overview of which plots participants picked in 168 evaluations of the lineup.} 
 
@@ -1443,7 +1388,63 @@ ggplot()  + geom_density(data = dframe, aes(x = dbn22),
 
 Maybe surprisingly, plots Plots \#19 and \#15, which have relatively large differences between the quartiles, are not being chosen by many participants. Instead, observers seem to focus on the difference in interquartile ranges (i.e.\ the height of the box in a  boxplot). Plots \#1, \#13 and \#16 exhibit a large interquartile difference and are being picked often by observers.}
 
-%\hh{XXX the distributions for the distances seems to be off by the standard deviation setting in the simulation. It should be sd=12, which is what the lower row of density plots is using. Given the lineup they look more realistic to me than the upper row - given the small difference in the medians, the distance measures should not be very extreme. This would make a good example for using the empirical $p$-values as a more objective measure of lineup difficulty. }
+
+The time subjects  take to respond  is another measure that can be used to evaluate  difficulty of lineups. 
+Due to the presence of some huge outliers, we decided to use the median of time taken for each lineup. These values are plotted against  $\delta$-difference for both distance measures as shown in Figure~\ref{turk1-mtime}.
+\hh{Both $\delta$-difference exhibit a similar pattern: the time to respond peaks at a $\delta$-difference of zero. This indicates, that the situation where two or more plots exhibits similarly extreme features is the most difficult for observers to judge. With negative $\delta$-differences at least one null plot is more extreme, and observers seem to be able to make their choice quickly (probably for the extreme null plot).}
+%It can be clearly seen that when $\delta$-difference is below 0, there is no real trend in the mean time and there is a huge variability, indicating that the time taken depends on the subjects.
+%\hh{XXX variability doesn't change that much over $x$; XXX for boxplot based distance the time to respond peaks at a $\delta$-difference of zero. This might indicate, that this situation is the most difficult for observers to judge. When there are more extreme plots, observers seem to be able to make their choice quickly (probably for the extreme null plot).}
+When $\delta$-difference is positive, the median time to respond decreases rapidly as $\delta$-difference increases. Hence, subjects are able to make their choice of a plot more quickly if the true plot is extreme compared to the null plots.
+
+\hh{Note that taking the log of time to respond is an alternative to using the median. Qualitatively, the relationships to distance metrics are very similar for median and log time taken, but median time is much easier to interpret. }
+
+% \hh{XXX I don't think that the following statement is true -- there is no reason, why boxplot distance and binned distance should be on the same scale. }
+% For Turk 1 experiment, the value of the ratio for boxplot distance is 86.52 and for binned distance is 18.82. This indicates that the boxplot distance works better than the binned distance. 
+ 
+%\begin{figure}[hbtp]
+%\centering
+%\subfigure[]{
+%\includegraphics[scale=0.55]{turk1-diff-bin-prop-8.pdf}
+%\label{t1bin_1}
+%}
+%\subfigure[]{
+%\includegraphics[scale=0.55]{turk1-grtr-bin-prop-8.pdf}
+%\label{t1bin_2}
+%}
+%%\label{turk1-bin}
+%	\vspace{-.1in}
+%\caption{(a) Plot showing the proportion correct against the difference based on the binned distance with 8 bins on each axis. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The proportion correct increases with the difference. (b) Plot showing the proportion correct against the number of null plots greater than the observed plot according to the binned distance. The proportion correct decreases as the number of null plots greater than the observed plot increases.  }
+%%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
+%\end{figure}
+
+\begin{figure}[hbtp]
+\centering
+%\includegraphics[width=0.6\textwidth]{turk1-mtime-box-bin.pdf}
+<<time-taken, dependson='dist-box-bin', fig.width=8.5, fig.height=4.5, out.width='0.6\\textwidth', echo=FALSE>>=
+ggplot(data = prop.diff.m) +
+  geom_vline(xintercept = 0, col = "grey50") + 
+  geom_point(aes(x=value, y=m.time, shape = factor(special)),
+             size = 3) +
+  xlab(expression(paste(delta,"-Difference", sep=""))) + 
+  ylab("Median Time to Respond (in seconds)") + 
+  facet_wrap( ~ variable, scales = "free_x") + 
+  geom_smooth(aes(x=value, y=m.time), se=FALSE, method="loess") +
+  theme(legend.position = "none")
+@
+%\subfigure[]{
+%\includegraphics[scale=0.55]{turk1-diff-box-mtime.pdf}
+%\label{t1comp_1}
+%}
+%\subfigure[]{
+%\includegraphics[scale=0.55]{turk1-diff-bin-mtime.pdf}
+%\label{t1bin_1}
+%}
+	\vspace{-.1in}
+\caption{Comparison of distance metrics for side-by-side boxplots. Median time to respond is plotted against $\delta$-difference based on boxplot and binned(2,8) distance. The vertical line represents a $\delta$-difference equal to zero when there is at least one null plot similar to the observed plot. Median time to respond decreases as $\delta$-difference increases. The triangle marks again the lineup examined in detail in Figure~\ref{turk1-exp}. }
+\label{turk1-mtime}
+%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
+\end{figure}
+
 
 \newpage
 \subsection{Turk Experiment 2 -- Scatterplots with an Overlaid Regression Line}
