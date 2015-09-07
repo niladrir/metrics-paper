@@ -1638,91 +1638,79 @@ Figure~\ref{turk2-mtime} shows the relationship between the median time taken to
 
 Although the regression based distance seems to efficiently identify the quality of the lineup, there is one lineup (marked by a solid triangle in Figure~\ref{turk2comp}) which had a negative difference although people identified the true plot with reasonable success.  Figure~\ref{turk2-exp} shows the lineup and the distributions of different distance metrics. 
 
-\begin{figure}[hbtp]
-\centering
-\begin{subfigure}[c]{0.6\textwidth}
-%\includegraphics[width=\textwidth]{lineup-exp2-neg-diff-large-prop.pdf}
-<<lp-turk2-exc, echo=FALSE, fig.width=5.5, fig.height=5.5, out.width='\\textwidth'>>=
+
+<<lp-exc-turk2-distr, dependson='lp-exc-turk2',echo=FALSE, cache=TRUE, results='hide'>>=
+## From the lineup data
+obs.dat <- lineup.dat[lineup.dat$.sample == 10, ]   
+
+# mod2 <- lm(z ~ 1, data = obs.dat)
+mean.null <- mean(obs.dat$z)
+sd.null <- 12 #  sd(obs.dat$z)
+
+###=============================================================================
+### generation of distribution of distance metric
+###=============================================================================
+
+### using bin_dist with x.bin = 2, y.bin = 2
+
+dframe <- data.frame(t(replicate(1000, {
+	zz <- rnorm(nrow(obs.dat), mean=mean.null, sd=sd.null)
+	samp.dat <- data.frame(group = obs.dat$x, z = zz )
+	dat1 <- data.frame(t(replicate(18, {
+		yy <- rnorm(nrow(obs.dat), mean=mean.null, sd=sd.null)
+		null.dat <- data.frame(group = obs.dat$x, z = yy)
+		
+		b1 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, 
+		              X.bin = 2, Y.bin = 2)
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, 
+ 		              X.bin = 8, Y.bin = 2)
+ 		r.int = reg_dist(samp.dat, null.dat)
+ 		r.no.int <- reg_dist(samp.dat, null.dat, intercept=FALSE)
+ 		c(dbn22 = b1, dbn28 = b2, drg = r.int, drgx = r.no.int)
+ 		})))
+	 	
+ 		colSums(dat1)/18
+})))
+
+#df <- as.data.frame(t(dat1))
+#names(df) <- c("Binned-2-2", "Binned-8-2", "Regression Dist", "Regression No Intercept")
+
+#write.csv(df, "distr-turk2.csv", row.names = FALSE)
+@
+
+<<lp-turk2-exc, echo=FALSE, results='hide'>>=
 dat <- read.table("data/turk2/dat_turk2_100_350_12_3.txt", header = TRUE) #
 dat.m <- melt(dat, id = "X")
 dat.m$.sample <- substring(dat.m$variable, 2)
 lineup.dat <- data.frame(x = dat.m$X, z = dat.m$value, .sample = dat.m$.sample)
 
 lineup.dat$.sample <- as.numeric(as.character(lineup.dat$.sample))
-
-qplot(x, z, data = lineup.dat, alpha = I(0.2), xlab = "X1", ylab = "X2", 
-      size=I(3)) +
-  geom_smooth(method = "lm", se = FALSE, size = 1) + 
-  facet_wrap(~ .sample) + theme_lineup
 @
-\end{subfigure}
-<<>>=
-## From the lineup data
+<<lp-exc-turk2-metrics, dependson='lp-exc-turk2', echo=FALSE, cache=TRUE, results='hide'>>=
+metrics.dat <- data.frame(expand.grid(pos.1=1:20, pos.2=1:20))
 
-obs.dat <- lineup.dat[lineup.dat$.sample == 10, ]   
-
-#qplot(x, z, data = obs.dat, geom = "point") + geom_smooth(method = "lm", se = FALSE) 
-
-mod2 <- lm(z ~ 1, data = obs.dat)
-
-mean.null <- predict(mod2)
-
-sd.null <- summary(mod2)$sigma
-
-###=============================================================================
-### generation of distribution of distance metric
-###=============================================================================
-
-
-### using bin_dist with x.bin = 2, y.bin = 2
-
-dat.bin <- dat.bin.82 <- dat.reg <- dat.reg.no.int <-  NULL
-for (i in 1:1000){
-	zz <- NULL
-	for(i in 1:dim(obs.dat)[1]){
-		zz[i] <- rnorm(1, mean.null[i], sd.null)
-	}
-	samp.dat <- data.frame(group = obs.dat$x, z = zz )
-	dat1 <- sapply(1:18, function(k){
-		yy <- NULL
-	for(i in 1:dim(obs.dat)[1]){
-		yy[i] <- rnorm(1, mean.null[i], sd.null)
-		}
-		null.dat <- data.frame(group = obs.dat$x, z = yy)
-		b1 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 2)
- 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 8, Y.bin = 2)
- 		r.int = reg_dist(samp.dat, null.dat)
- 		r.no.int <- reg_no_int_dist(samp.dat, null.dat)
- 		return(list(b1 = b1, b2 = b2, r.int = r.int, r.no.int = r.no.int))
- 		})
-	 	dat1 <- matrix(unlist(dat1), nrow = 4 )
- 		dat.bin <- c(dat.bin, mean(dat1[1,]))
- 		dat.bin.82 <- c(dat.bin.82, mean(dat1[2,]))
- 		dat.reg <- c(dat.reg, mean(dat1[3,]))
- 		dat.reg.no.int <- c(dat.reg.no.int, mean(dat1[4,]))
+for (i in 1:nrow(metrics.dat)) {
+  .X <- subset(lineup.dat, .sample==metrics.dat$pos.1[i])[,1:2]
+  .PX <- subset(lineup.dat, .sample==metrics.dat$pos.2[i])[,1:2]
+  
+  metrics.dat$b22[i] <- bin_dist(.X, .PX, lineup.dat=lineup.dat, X.bin=2, Y.bin=2)
+  metrics.dat$b28[i] <- bin_dist(.X, .PX, lineup.dat=lineup.dat, X.bin=8, Y.bin=2)
+  metrics.dat$brg[i] <- reg_dist(.X, .PX)
+  metrics.dat$brgx[i] <- reg_dist(.X, .PX, intercept=FALSE)
 }
 
-df <- as.data.frame(t(dat1))
-names(df) <- c("Binned-2-2", "Binned-8-2", "Regression Dist", "Regression No Intercept")
-
-write.csv(df, "distr-turk2.csv", row.names = FALSE)
-
-
-#opt_diff(lineup.dat, var = c('x', 'z'), 2, 10, 2, 10, 19, plot = TRUE) 
-
-metrics.dat <- ddply(dat.pos, .(pos.1, pos.2), summarize, bin.dist = bdist_mod_indx(pos.1, pos.2, nbin.X = 2, nbin.Y = 2), bin.dist.82 = bdist_mod_indx(pos.1, pos.2, nbin.X = 8, nbin.Y = 2), reg.dist = reg_bin_indx(pos.1, pos.2), reg.dist.no.int = reg_no_int_indx(pos.1, pos.2))
-
 pos <- 10
-
 metrics.dat <- subset(metrics.dat, pos.1 != pos.2 & pos.2 != pos)
 
-dd3 <- ddply(metrics.dat, .(pos.1), summarize, bin.mean = mean(bin.dist), bin.mean.82 = mean(bin.dist.82), reg.mean = mean(reg.dist), reg.mean.no.int = mean(reg.dist.no.int), len = length(bin.dist))
+dd3 <- metrics.dat %>% group_by(pos.1) %>% summarize(
+  b22 = mean(b22), 
+  b28 = mean(b28), 
+  brg = mean(brg),
+  brgx = mean(brgx),
+  len=n())
+@
 
-dat.bin <- as.data.frame(dat.bin)
-
-ggplot()  + geom_density(data = dat.bin, aes(x = dat.bin), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= bin.mean, xend = bin.mean, y=0.02*max(density(dat.bin$dat.bin)$y), yend = 0.2*max(density(dat.bin$dat.bin)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = bin.mean, xend = bin.mean, y = rep(0.02*max(density(dat.bin$dat.bin)$y),19), yend = rep(0.1*max(density(dat.bin$dat.bin)$y),19)), size=1, alpha = I(0.7)) + xlab("Binned Distance (p = q = 2)") + ylab("") + geom_text(data = dd3, y = - 0.03*max(density(dat.bin$dat.bin)$y), size = 2.5, aes(x = bin.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin$dat.bin)$y), max(density(dat.bin$dat.bin)$y) + 0.1*max(density(dat.bin$dat.bin)$y)))
-
-
+<<eval=FALSE, echo=FALSE, results='hide'>>=
 ggsave("distribution-bin-dist-2-2-exp2.pdf", height = 4, width = 4.5)   
 
 dat.bin.82 <- as.data.frame(dat.bin.82)
@@ -1780,19 +1768,103 @@ qplot(dat, geom = "density", fill = I("grey80"), colour = I("grey80"),
 
 ggsave("distribution-pval-exp2.pdf", height = 4, width = 4.5) 
 @
+\begin{figure}[hbtp]
+\centering
+\begin{subfigure}[c]{0.6\textwidth}
+%\includegraphics[width=\textwidth]{lineup-exp2-neg-diff-large-prop.pdf}
+<<lp-turk2-exc-lp, dependson='lp-turk2-exc', echo=FALSE, fig.width=5.5, fig.height=5.5, out.width='\\textwidth'>>=
 
+qplot(x, z, data = lineup.dat, alpha = I(0.15), xlab = "X1", ylab = "X2", 
+      size=I(3)) +
+  geom_smooth(method = "lm", se = FALSE, size = 1) + 
+  facet_wrap(~ .sample) + theme_lineup
+@
+\end{subfigure}
 \begin{subfigure}[c]{0.3\textwidth}
-\includegraphics[width=\textwidth]{distribution-reg-dist-exp2.pdf}
+%\includegraphics[width=\textwidth]{distribution-reg-dist-exp2.pdf}
+<<fig.height = 4, fig.width = 4.5, echo=FALSE, out.width='\\textwidth'>>=
+yreg <- max(density(dframe$drg)$y)
+ggplot()  + 
+  geom_density(data = dframe, aes(x = drg), fill = "grey80", col = "grey80") +
+  geom_segment(data = subset(dd3, len != 19), 
+               aes(x = brg, xend = brg, y = rep(0.02*yreg,19), 
+                   yend = rep(0.1*yreg,19)), 
+               size=1, alpha = I(0.7)) +
+  geom_segment(data = subset(dd3, len == 19), 
+               aes(x= brg, xend = brg, y=0.02*yreg, yend = 0.2*yreg), 
+               colour="darkorange", size=1) +
+  xlab("Binned Distance (p = q = 2)") + ylab("") + 
+  geom_text(data = subset(dd3, len != 19), y = - 0.03*yreg, size = 2.5, 
+            aes(x = brg, label = pos.1)) + 
+  geom_text(data = subset(dd3, len ==19), y = 0.23*yreg, size = 3, 
+            aes(x = brg, label = pos.1), colour="darkorange") + 
+  ylim(c(- 0.04*yreg, yreg + 0.1*yreg))
+@
 % \end{subfigure}
 % \begin{subfigure}[t]{0.3\textwidth}
-\includegraphics[width=\textwidth]{distribution-reg-no-int-dist-exp2.pdf}
+%\includegraphics[width=\textwidth]{distribution-reg-no-int-dist-exp2.pdf}
+<<fig.height = 4, fig.width = 4.5, echo=FALSE, out.width='\\textwidth'>>=
+yregx <- max(density(dframe$drgx)$y)
+ggplot()  + 
+  geom_density(data = dframe, aes(x = drgx), fill = "grey80", col = "grey80") +
+  geom_segment(data = subset(dd3, len != 19), 
+               aes(x = brgx, xend = brgx, y = rep(0.02*yregx,19), 
+                   yend = rep(0.1*yregx,19)), 
+               size=1, alpha = I(0.7)) +
+  geom_segment(data = subset(dd3, len == 19), 
+               aes(x= brgx, xend = brgx, y=0.02*yregx, yend = 0.2*yregx), 
+               colour="darkorange", size=1) +
+  xlab("Binned Distance (p = q = 2)") + ylab("") + 
+  geom_text(data = subset(dd3, len != 19), y = - 0.03*yregx, size = 2.5, 
+            aes(x = brgx, label = pos.1)) + 
+  geom_text(data = subset(dd3, len ==19), y = 0.23*yregx, size = 3, 
+            aes(x = brgx, label = pos.1), colour="darkorange") + 
+  ylim(c(- 0.04*yregx, yregx + 0.1*yregx))
+@
 \end{subfigure}
 
+
 \begin{subfigure}[t]{0.3\textwidth}
-\includegraphics[width=\textwidth]{distribution-bin-dist-2-2-exp2.pdf}
+%\includegraphics[width=\textwidth]{distribution-bin-dist-2-2-exp2.pdf}
+<<fig.height = 4, fig.width = 4.5, echo=FALSE, out.width='\\textwidth'>>=
+yb22 <- max(density(dframe$dbn22)$y)
+ggplot()  + 
+  geom_density(data = dframe, aes(x = dbn22), fill = "grey80", col = "grey80") +
+  geom_segment(data = subset(dd3, len != 19), 
+               aes(x = b22, xend = b22, y = rep(0.02*yb22,19), 
+                   yend = rep(0.1*yb22,19)), 
+               size=1, alpha = I(0.7)) +
+  geom_segment(data = subset(dd3, len == 19), 
+               aes(x= b22, xend = b22, y=0.02*yb22, yend = 0.2*yb22), 
+               colour="darkorange", size=1) +
+  xlab("Binned Distance (p = q = 2)") + ylab("") + 
+  geom_text(data = subset(dd3, len != 19), y = - 0.03*yb22, size = 2.5, 
+            aes(x = b22, label = pos.1)) + 
+  geom_text(data = subset(dd3, len ==19), y = 0.23*yb22, size = 3, 
+            aes(x = b22, label = pos.1), colour="darkorange") + 
+  ylim(c(- 0.04*yb22, yb22 + 0.1*yb22))
+@
 \end{subfigure}
 \begin{subfigure}[t]{0.3\textwidth}
-\includegraphics[width=\textwidth]{distribution-bin-dist-8-2-exp2.pdf}
+%\includegraphics[width=\textwidth]{distribution-bin-dist-8-2-exp2.pdf}
+<<fig.height = 4, fig.width = 4.5, echo=FALSE, out.width='\\textwidth'>>=
+yb28 <- max(density(dframe$dbn28)$y)
+ggplot()  + 
+  geom_density(data = dframe, aes(x = dbn28), fill = "grey80", col = "grey80") +
+  geom_segment(data = subset(dd3, len != 19), 
+               aes(x = b28, xend = b28, y = rep(0.02*yb28,19), 
+                   yend = rep(0.1*yb28,19)), 
+               size=1, alpha = I(0.7)) +
+  geom_segment(data = subset(dd3, len == 19), 
+               aes(x= b28, xend = b28, y=0.02*yb28, yend = 0.2*yb28), 
+               colour="darkorange", size=1) +
+  xlab("Binned Distance (p = 8, q = 2)") + ylab("") + 
+  geom_text(data = subset(dd3, len != 19), y = - 0.03*yb28, size = 2.5, 
+            aes(x = b28, label = pos.1)) + 
+  geom_text(data = subset(dd3, len ==19), y = 0.23*yb28, size = 3, 
+            aes(x = b28, label = pos.1), colour="darkorange") + 
+  ylim(c(- 0.04*yb28, yb28 + 0.1*yb28))
+@
 \end{subfigure}
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{distribution-pval-exp2.pdf}
