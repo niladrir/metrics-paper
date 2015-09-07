@@ -991,7 +991,7 @@ The issue with this statistic is that $\delta$ indicates an ``easy" or ``difficu
 However, this statistic does not imply how many null plots are more extreme than the true plot. So we define,
 \item {\bf \hh{Number of Extreme Nulls}:}  the number of null plots which have larger mean distances than the mean distance of the true plot is noted. Mathematically, for lineup $\ell$, we define the $\gamma$-number as
 \begin{equation}\label{eq:nullcount}
-\gamma(\ell) = \sum_{j = 1}^{m - 1} 1\!\!\hbox{I}\left({\bar{d}_{\text{null}_j} > \bar{d}_{\text{data}}\right),
+\gamma(\ell) = \sum_{j = 1}^{m - 1} 1\!\!\hbox{I}\left(\bar{d}_{\text{null}_j} > \bar{d}_{\text{data}}\right),
 \end{equation}
 where $\mathds{1}(.)$ is a zero/one indicator function.
 % where 
@@ -1642,6 +1642,19 @@ Although the regression based distance seems to efficiently identify the quality
 \centering
 \begin{subfigure}[c]{0.6\textwidth}
 \includegraphics[width=\textwidth]{lineup-exp2-neg-diff-large-prop.pdf}
+<<lp-turk2-exc, echo=FALSE, fig.width=5.5, fig.height=5.5, out.width='\\textwidth'>>=
+dat <- read.table("data/turk2/dat_turk2_100_350_12_3.txt", header = TRUE) #
+dat.m <- melt(dat, id = "X")
+dat.m$.sample <- substring(dat.m$variable, 2)
+lineup.dat <- data.frame(x = dat.m$X, z = dat.m$value, .sample = dat.m$.sample)
+
+lineup.dat$.sample <- as.numeric(as.character(lineup.dat$.sample))
+
+qplot(x, z, data = lineup.dat, alpha = I(0.2), xlab = "X1", ylab = "X2", 
+      size=I(3)) +
+  geom_smooth(method = "lm", se = FALSE, size = 1) + 
+  facet_wrap(~ .sample) + theme_lineup
+@
 \end{subfigure}
 \begin{subfigure}[c]{0.3\textwidth}
 \includegraphics[width=\textwidth]{distribution-reg-dist-exp2.pdf}
