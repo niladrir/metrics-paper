@@ -1327,7 +1327,7 @@ ggplot()  + geom_density(data = dframe, aes(x = dbx),
   ylab("") + 
   geom_text(data = subset(dd1, len != 19), y = - 0.03*ybx, 
                        size = 2.5, aes(x = bx, label = pos.1)) + 
-  geom_text(data = subset(dd1, len != 19), y = 0.23*ybx, 
+  geom_text(data = subset(dd1, len == 19), y = 0.23*ybx, 
                        size = 3, aes(x = bx, label = pos.1),
             colour="darkorange") + 
   ylim(c(- 0.04*ybx, ybx + 0.1*ybx))
@@ -1640,10 +1640,10 @@ Although the regression based distance seems to efficiently identify the quality
 
 \begin{figure}[hbtp]
 \centering
-\begin{subfigure}[t]{0.6\textwidth}
+\begin{subfigure}[c]{0.6\textwidth}
 \includegraphics[width=\textwidth]{lineup-exp2-neg-diff-large-prop.pdf}
 \end{subfigure}
-\begin{subfigure}[t]{0.3\textwidth}
+\begin{subfigure}[c]{0.3\textwidth}
 \includegraphics[width=\textwidth]{distribution-reg-dist-exp2.pdf}
 % \end{subfigure}
 % \begin{subfigure}[t]{0.3\textwidth}
