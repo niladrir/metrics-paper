@@ -1711,32 +1711,9 @@ dd3 <- metrics.dat %>% group_by(pos.1) %>% summarize(
 @
 
 <<eval=FALSE, echo=FALSE, results='hide'>>=
-ggsave("distribution-bin-dist-2-2-exp2.pdf", height = 4, width = 4.5)   
-
-dat.bin.82 <- as.data.frame(dat.bin.82)
-
-ggplot()  + geom_density(data = dat.bin.82, aes(x = dat.bin.82), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= bin.mean.82, xend = bin.mean.82, y=0.02*max(density(dat.bin.82$dat.bin.82)$y), yend = 0.2*max(density(dat.bin.82$dat.bin.82)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = bin.mean.82, xend = bin.mean.82, y = rep(0.02*max(density(dat.bin.82$dat.bin.82)$y),19), yend = rep(0.1*max(density(dat.bin.82$dat.bin.82)$y),19)), size=1, alpha = I(0.7)) + xlab("Binned Distance (p = 8, q = 2)") + ylab("") + geom_text(data = dd3, y = - 0.03*max(density(dat.bin.82$dat.bin.82)$y), size = 2.5, aes(x = bin.mean.82, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin.82$dat.bin.82)$y), max(density(dat.bin.82$dat.bin.82)$y) + 0.1*max(density(dat.bin.82$dat.bin.82)$y)))
-        
-ggsave("distribution-bin-dist-8-2-exp2.pdf", height = 4, width = 4.5)         
-
-dat.reg <- as.data.frame(dat.reg)
-
-ggplot()  + geom_density(data = dat.reg, aes(x = dat.reg), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= reg.mean, xend = reg.mean, y=0.02*max(density(dat.reg$dat.reg)$y), yend = 0.2*max(density(dat.reg$dat.reg)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = reg.mean, xend = reg.mean, y = rep(0.02*max(density(dat.reg$dat.reg)$y),19), yend = rep(0.1*max(density(dat.reg$dat.reg)$y),19)), size=1, alpha = I(0.7)) + xlab("Regression Based Distance") + ylab("") + geom_text(data = dd3, y = - 0.03*max(density(dat.reg$dat.reg)$y), size = 2.5, aes(x = reg.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.reg$dat.reg)$y), max(density(dat.reg$dat.reg)$y) + 0.1*max(density(dat.reg$dat.reg)$y)))
-
-ggsave("distribution-reg-dist-exp2.pdf", height = 4, width = 4.5)
-
-dat.reg.no.int <- as.data.frame(dat.reg.no.int)
-
-ggplot()  + geom_density(data = dat.reg.no.int, aes(x = dat.reg.no.int), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= reg.mean.no.int, xend = reg.mean.no.int, y=0.02*max(density(dat.reg.no.int$dat.reg.no.int)$y), yend = 0.2*max(density(dat.reg.no.int$dat.reg.no.int)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = reg.mean.no.int, xend = reg.mean.no.int, y = rep(0.02*max(density(dat.reg.no.int$dat.reg.no.int)$y),19), yend = rep(0.1*max(density(dat.reg.no.int$dat.reg.no.int)$y),19)), size=1, alpha = I(0.7)) + xlab("Regression Based Distance \n (only slope)") + ylab("") + geom_text(data = dd3, y = - 0.03*max(density(dat.reg.no.int$dat.reg.no.int)$y), size = 2.5, aes(x = reg.mean.no.int, label = pos.1)) + ylim(c(- 0.04*max(density(dat.reg.no.int$dat.reg.no.int)$y), max(density(dat.reg.no.int$dat.reg.no.int)$y) + 0.1*max(density(dat.reg.no.int$dat.reg.no.int)$y)))
-
-
-ggsave("distribution-reg-no-int-dist-exp2.pdf", height = 4, width = 4.5) 
 
 ### P-value distance
 
-pval_dist <- function(X) {
-        as.numeric(summary(lm(X[,2] ~ X[,1], data = X))$coefficients[,4][2])
-}
 
 
 dat <- NULL
@@ -1793,17 +1770,19 @@ ggplot()  +
   geom_segment(data = subset(dd3, len == 19), 
                aes(x= brg, xend = brg, y=0.02*yreg, yend = 0.2*yreg), 
                colour="darkorange", size=1) +
-  xlab("Binned Distance (p = q = 2)") + ylab("") + 
+  xlab("Regression Distance") + ylab("") + 
   geom_text(data = subset(dd3, len != 19), y = - 0.03*yreg, size = 2.5, 
             aes(x = brg, label = pos.1)) + 
   geom_text(data = subset(dd3, len ==19), y = 0.23*yreg, size = 3, 
             aes(x = brg, label = pos.1), colour="darkorange") + 
-  ylim(c(- 0.04*yreg, yreg + 0.1*yreg))
+  ylim(c(- 0.04*yreg, yreg + 0.1*yreg)) +
+  theme(plot.margin=unit(c(0,0,0,0), unit="line"))
 @
 % \end{subfigure}
+
 % \begin{subfigure}[t]{0.3\textwidth}
 %\includegraphics[width=\textwidth]{distribution-reg-no-int-dist-exp2.pdf}
-<<fig.height = 4, fig.width = 4.5, echo=FALSE, out.width='\\textwidth'>>=
+<<fig.height = 4.125, fig.width = 4.5, echo=FALSE, out.width='\\textwidth'>>=
 yregx <- max(density(dframe$drgx)$y)
 ggplot()  + 
   geom_density(data = dframe, aes(x = drgx), fill = "grey80", col = "grey80") +
@@ -1814,12 +1793,13 @@ ggplot()  +
   geom_segment(data = subset(dd3, len == 19), 
                aes(x= brgx, xend = brgx, y=0.02*yregx, yend = 0.2*yregx), 
                colour="darkorange", size=1) +
-  xlab("Binned Distance (p = q = 2)") + ylab("") + 
+  xlab("Regression Distance\n(no intercept)") + ylab("") + 
   geom_text(data = subset(dd3, len != 19), y = - 0.03*yregx, size = 2.5, 
             aes(x = brgx, label = pos.1)) + 
   geom_text(data = subset(dd3, len ==19), y = 0.23*yregx, size = 3, 
             aes(x = brgx, label = pos.1), colour="darkorange") + 
-  ylim(c(- 0.04*yregx, yregx + 0.1*yregx))
+  ylim(c(- 0.04*yregx, yregx + 0.1*yregx))+
+  theme(plot.margin=unit(c(0,0,0,0), unit="line"))
 @
 \end{subfigure}
 
@@ -1842,7 +1822,8 @@ ggplot()  +
             aes(x = b22, label = pos.1)) + 
   geom_text(data = subset(dd3, len ==19), y = 0.23*yb22, size = 3, 
             aes(x = b22, label = pos.1), colour="darkorange") + 
-  ylim(c(- 0.04*yb22, yb22 + 0.1*yb22))
+  ylim(c(- 0.04*yb22, yb22 + 0.1*yb22)) +
+  theme(plot.margin=unit(c(0,0,0,0), unit="line"))
 @
 \end{subfigure}
 \begin{subfigure}[t]{0.3\textwidth}
@@ -1863,11 +1844,38 @@ ggplot()  +
             aes(x = b28, label = pos.1)) + 
   geom_text(data = subset(dd3, len ==19), y = 0.23*yb28, size = 3, 
             aes(x = b28, label = pos.1), colour="darkorange") + 
-  ylim(c(- 0.04*yb28, yb28 + 0.1*yb28))
+  ylim(c(- 0.04*yb28, yb28 + 0.1*yb28)) +
+  theme(plot.margin=unit(c(0,0,0,0), unit="line"))
 @
 \end{subfigure}
 \begin{subfigure}[t]{0.3\textwidth}
-\includegraphics[width=\textwidth]{distribution-pval-exp2.pdf}
+%\includegraphics[width=\textwidth]{distribution-pval-exp2.pdf}
+<<fig.height = 4, fig.width = 4.5, echo=FALSE, out.width='\\textwidth'>>=
+pval_dist <- function(X) {
+  as.numeric(summary(lm(z~x, data=X))$coefficients[2,4])
+}
+
+pval <- lineup.dat %>% group_by(.sample) %>% do(data.frame(
+  pval=pval_dist(X=.)))
+pval$true <- pval$.sample == 10
+m <- 20
+
+
+ggplot() + 
+  geom_rect(aes(xmin=0, xmax=1, ymin=0, ymax=1), fill = "grey80", 
+            colour = "grey80", alpha=0.8) + 
+  xlab("p-value") + ylim(c(-0.03,1)) + xlim(c(0,1)) +
+  geom_segment(aes(x=pval, xend=pval), y=0.03, yend=0.1, 
+               data=subset(pval, !true)) + 
+  geom_segment(aes(x=pval, xend=pval), y=0.03, yend=0.2, 
+               data=subset(pval, true), colour="darkorange") +
+  geom_text(aes(x=pval, label=.sample), y=-0.03, size=2.5,
+            data=subset(pval, !true)) +
+  geom_text(aes(x=pval, label=.sample), y=0.23, size=3, colour="darkorange",
+            data=subset(pval, true)) +
+  theme(plot.margin=unit(c(0,0,0,0), unit="line"))
+  
+@
 \end{subfigure}
 
 	\vspace{-.1in}
