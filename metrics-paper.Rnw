@@ -1633,11 +1633,10 @@ ggplot(data = prop.diff.m) +
 \end{figure}
 %%\afterpage{\clearpage}
 
-Figure~\ref{turk2-mtime} shows the relationship between the median time taken to respond and $\delta$-difference for both the distances. It can be clearly seen that there is a strong negative association: as $\delta$-difference increases, the subjects take less time to respond. \hh{Similar to the previous example of section~\ref{sec:turk1} time to respond is lower for larger negative $\delta$-difference based on regression distance.}
+Figure~\ref{turk2-mtime} shows the relationship between the median time taken to respond and $\delta$-difference for both the distances. It can be clearly seen that there is a strong negative association: as $\delta$-difference increases, the subjects take less time to respond. \hh{Similar to the previous example of section~\ref{sec:turk1} time to respond peaks at a $\delta$-difference close to zero is lower for larger negative $\delta$-difference based on regression distance.}
 %In the case of the binned distance, the relationship is negative though the variability is higher for the above mentioned reasons.
 
-Although the regression based distance seems to efficiently identify the quality of the lineup, there is one lineup (marked by a solid triangle in Figure~\ref{turk2comp}) which had a negative difference although people identified the true plot with reasonable success.  Figure~\ref{turk2-exp} shows the lineup and the distributions of different distance metrics. 
-
+Although the regression based distance seems to efficiently identify the quality of the lineup, there is one lineup (marked by a solid triangle in Figure~\ref{turk2comp}) \hh{with} a negative $\delta$-difference which was nevertheless identified by observers reasonably successfully.  Figure~\ref{turk2-exp} shows the lineup and the corresponding distributions of distance metrics. 
 
 <<lp-exc-turk2-distr, dependson='lp-exc-turk2',echo=FALSE, cache=TRUE, results='hide'>>=
 ## From the lineup data
@@ -1710,54 +1709,34 @@ dd3 <- metrics.dat %>% group_by(pos.1) %>% summarize(
   len=n())
 @
 
-<<eval=FALSE, echo=FALSE, results='hide'>>=
-
-### P-value distance
-
-
-
-dat <- NULL
-for (i in 1:1000){
-	zz <- NULL
-	for(k in 1:dim(obs.dat)[1]){
-		zz[k] <- rnorm(1, mean = mean.null[k], sd = sd.null)
-	}
-	samp.dat <- data.frame(group = obs.dat$x, z = zz )
-	qplot(group, z, data = samp.dat) + geom_smooth(method = "lm", se = FALSE)
-	dat <- c(dat, pval_dist(samp.dat))
-}
-
-
-pval <- ddply(lineup.dat, .(.sample), summarize, p = pval_dist(data.frame(lineup.dat[lineup.dat$.sample == .sample,1], lineup.dat[lineup.dat$.sample == .sample,2])))
-
-pos <- 10
-m <- 20
-
-qplot(dat, geom = "density", fill = I("grey80"), colour = I("grey80"), 
-        xlab = "p-value", ylab = "") + geom_segment(aes(x = pval$p[pval$.sample != 
-        10], xend = pval$p[pval$.sample != pos], y = rep(0.01 * min(density(dat)$y), 
-        (m - 1)), yend = rep(0.1 * max(density(dat)$y), (m - 1))), size = 1, alpha = I(0.7)) + 
-        geom_segment(aes(x = pval$p[pval$.sample == 
-        10], xend = pval$p[pval$.sample == 10], y = 0.01 * min(density(dat)$y), yend = 0.2 * max(density(dat)$y)), 
-            colour = "darkorange", size = 1) + geom_text(data = pval, y = -0.03 * max(density(dat)$y), 
-        size = 2.5, aes(x = p, label = .sample)) + ylim(c(-0.04 * max(density(dat)$y), 
-        max(density(dat)$y) + 0.1))
-
-ggsave("distribution-pval-exp2.pdf", height = 4, width = 4.5) 
-@
 \begin{figure}[hbtp]
 \centering
 \begin{subfigure}[c]{0.6\textwidth}
+\caption{\small Lineup of scatterplots with overlaid regression lines. The numbers at the bottom right of each panel gives the number of times this plot was chosen in 66 evaluations.}
 %\includegraphics[width=\textwidth]{lineup-exp2-neg-diff-large-prop.pdf}
 <<lp-turk2-exc-lp, dependson='lp-turk2-exc', echo=FALSE, fig.width=5.5, fig.height=5.5, out.width='\\textwidth'>>=
+
+### Number of picks by observers
+res.exp2 <- read.csv("data/raw_data_turk2.csv")
+lpsub <- unique(subset(res.exp2, pic_name=="plot_turk2_100_350_12_3.png")[,c("response", "ip_address", "response_no")])
+dt <- as.data.frame(xtabs(~response_no, data=lpsub))
+names(dt) <- c(".sample", "picks")
+picks <- data.frame(.sample=1:20)
+picks <- merge(picks, dt, by=".sample", all.x=TRUE)
+picks$picks[is.na(picks$picks)] <- 0
 
 qplot(x, z, data = lineup.dat, alpha = I(0.15), xlab = "X1", ylab = "X2", 
       size=I(3)) +
   geom_smooth(method = "lm", se = FALSE, size = 1) + 
-  facet_wrap(~ .sample) + theme_lineup
+  facet_wrap(~ .sample) + theme_lineup +
+  geom_text(aes(label=picks), x=2.1, y=-30, colour="grey70", size=8, hjust=1,
+            data=picks)
+
 @
 \end{subfigure}
 \begin{subfigure}[c]{0.3\textwidth}
+\caption{Regression based distance}
+\vspace{-.1in}
 %\includegraphics[width=\textwidth]{distribution-reg-dist-exp2.pdf}
 <<fig.height = 4, fig.width = 4.5, echo=FALSE, out.width='\\textwidth'>>=
 yreg <- max(density(dframe$drg)$y)
@@ -1771,8 +1750,8 @@ ggplot()  +
                aes(x= brg, xend = brg, y=0.02*yreg, yend = 0.2*yreg), 
                colour="darkorange", size=1) +
   xlab("Regression Distance") + ylab("") + 
-  geom_text(data = subset(dd3, len != 19), y = - 0.03*yreg, size = 2.5, 
-            aes(x = brg, label = pos.1)) + 
+  geom_text(data = subset(dd3, len != 19), size = 2.5, 
+            aes(x = brg, label = pos.1, y = - 0.03*yreg)) + 
   geom_text(data = subset(dd3, len ==19), y = 0.23*yreg, size = 3, 
             aes(x = brg, label = pos.1), colour="darkorange") + 
   ylim(c(- 0.04*yreg, yreg + 0.1*yreg)) +
@@ -1782,6 +1761,8 @@ ggplot()  +
 
 % \begin{subfigure}[t]{0.3\textwidth}
 %\includegraphics[width=\textwidth]{distribution-reg-no-int-dist-exp2.pdf}
+\caption{Regression w/o intercept}
+\vspace{-.1in}
 <<fig.height = 4.125, fig.width = 4.5, echo=FALSE, out.width='\\textwidth'>>=
 yregx <- max(density(dframe$drgx)$y)
 ggplot()  + 
@@ -1794,8 +1775,8 @@ ggplot()  +
                aes(x= brgx, xend = brgx, y=0.02*yregx, yend = 0.2*yregx), 
                colour="darkorange", size=1) +
   xlab("Regression Distance\n(no intercept)") + ylab("") + 
-  geom_text(data = subset(dd3, len != 19), y = - 0.03*yregx, size = 2.5, 
-            aes(x = brgx, label = pos.1)) + 
+  geom_text(data = subset(dd3, len != 19), size = 2.5, 
+            aes(x = brgx, label = pos.1, y = - 0.04*yregx + (pos.1 %% 4)/400)) + 
   geom_text(data = subset(dd3, len ==19), y = 0.23*yregx, size = 3, 
             aes(x = brgx, label = pos.1), colour="darkorange") + 
   ylim(c(- 0.04*yregx, yregx + 0.1*yregx))+
@@ -1805,6 +1786,8 @@ ggplot()  +
 
 
 \begin{subfigure}[t]{0.3\textwidth}
+\caption{Binned (2,2) distance}
+\vspace{-.1in}
 %\includegraphics[width=\textwidth]{distribution-bin-dist-2-2-exp2.pdf}
 <<fig.height = 4, fig.width = 4.5, echo=FALSE, out.width='\\textwidth'>>=
 yb22 <- max(density(dframe$dbn22)$y)
@@ -1827,6 +1810,8 @@ ggplot()  +
 @
 \end{subfigure}
 \begin{subfigure}[t]{0.3\textwidth}
+\caption{Binned (8,2) distance}
+\vspace{-.1in}
 %\includegraphics[width=\textwidth]{distribution-bin-dist-8-2-exp2.pdf}
 <<fig.height = 4, fig.width = 4.5, echo=FALSE, out.width='\\textwidth'>>=
 yb28 <- max(density(dframe$dbn28)$y)
@@ -1849,6 +1834,8 @@ ggplot()  +
 @
 \end{subfigure}
 \begin{subfigure}[t]{0.3\textwidth}
+\caption{$p$-values}
+\vspace{-.1in}
 %\includegraphics[width=\textwidth]{distribution-pval-exp2.pdf}
 <<fig.height = 4, fig.width = 4.5, echo=FALSE, out.width='\\textwidth'>>=
 pval_dist <- function(X) {
@@ -1878,26 +1865,22 @@ ggplot() +
 @
 \end{subfigure}
 
-	\vspace{-.1in}
-\caption{Illustration of the behavior of different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics using this lineup is shown in the other plots ((b) - (e)): regression based distance in (b), binned distance with 2 bins on each axes in (c), binned distance with 8 and 2 bins in x and y axis respectively in (d) and regression distance based only on slope in (e). In (f), the distribution of the conventional $p$-values are plotted with $p$-values for the lineups marked on the distribution. The lineup corresponds to the point marked with a triangle in difference vs. detection rate plot in Figure~\ref{turk2comp}.}
+\caption{Illustration of the behavior of different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics using this lineup are shown in plots (b)--(e): regression based distances in (b) and (c), binned distance with 2 bins on each axes in (d), binned distance with 8 and 2 bins in x and y axis respectively in (e). In (f), the distribution of the conventional $p$-values are plotted with $p$-values for the lineups marked on the distribution. The lineup corresponds to the point marked with a triangle in difference vs. detection rate plot in Figure~\ref{turk2comp}.}
 \label{turk2-exp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 %\afterpage{\clearpage}
 
-The lineup in Figure~\ref{turk2-exp} is a difficult one as suggested by the distribution of the distance metrics based on regression. Although around 28\% of the people identified the true plot correctly, the conventional $p$-value for testing the slope equal to 0 is 0.085, which shows that the relationship is not significant. The binned distance with 2 bins on each axes also shows the same. However the binned distance using the optimal number of bins (8 on the x-axis and 2 on the y-axis) by the optimal number of bins selection method identifies the true plot as different from the others. 
+The lineup in Figure~\ref{turk2-exp} is a difficult one as suggested by the distribution of the distance metrics based on regression. 
+\hh{For the data plot (in panel \#10) the conventional $p$-value for testing the slope equal to zero is 0.085. However, the signal in the plot is strong enough, to make  around 28\% of all subjects pick this plot.}
 
-%\begin{figure}[htbp]
-%\centering
-%\includegraphics[width=.5\textwidth]{rel-pvalue.pdf}
-%%\includegraphics[width=.65\textwidth]{large-p-trim-bin.pdf}
-%\caption{Plot showing relative frequency versus $p$-value for the lineup in Figure~\ref{turk2-exp}. The red shows the true plot while the black ones are the null plots. It can be seen that as the p-value of the slope increases, the relative risk decreases. }
-%\label{rel-pval}
-%\end{figure}
-%
-%Figure~\ref{rel-pval} shows the relative frequency for each plot in the lineup versus the $p$-value. As the $p$-value increases, the relative frequency decreases. Hence there were few null plots which had signal stronger or of similar strength to the true plot and hence the responses were divided. The binned distance and distance based on the regression line does a good job considering this. 
+ The binned distance with 2 bins on each axes does not let the data plot stand out in any way, however, the binned distance using the optimal number of bins (8 on the x-axis and 2 on the y-axis) by the optimal number of bins selection method identifies the data plot as different from the others. 
 
+\hh{The number of picks lines up best with the difference measure based on the slope (regression without intercept). Plots \# 10, 12, 11, 9, and 7 all have a relatively steep slope, and are also the plots that were picked the most often.  }
 
+\hh{XXX something at the end about the graphical elements? How about this:}
+
+\hh{Again, a distance measure derived directly from one of the graphical elements in the plot leads to the best assessment of the choices made by human evaluators.}
 
 
 \subsection{Turk Experiment 7 -- Large $p$, Small $n$ Data}
