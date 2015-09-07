@@ -1393,7 +1393,7 @@ ggplot()  + geom_density(data = dframe, aes(x = dbn22),
 \label{turk1-exp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
-\afterpage{\clearpage}
+%\afterpage{\clearpage}
 
 %The lineup in Figure~\ref{turk1-exp} is a lineup of side-by-side boxplots.
 \hh{The observed data plot is Plot \#20, which has been picked most often by participants, but there are other plots that are being chosen quite frequently. Plot \#16 is the plot with the  largest boxplot distance. This is reflected by the large number of times this plot has been singled out by observers. 
@@ -1596,13 +1596,13 @@ Detection rate increases  on average with $\delta$-difference. As the $\gamma$-n
 \label{turk2comp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
-\afterpage{\clearpage}
+%\afterpage{\clearpage}
 
 Figure~\ref{turk2comp-1} shows a scatterplot of detection rate against $\delta$-difference. The vertical line represents difference equal to zero. It can be seen that as the difference increases, the detection rate increases. So the subjects do better in the easier lineups than the hard ones. The distance based on regression works well in capturing the complexity of the lineups. The difference is positive for lineups with large differences and negative for lineups with small difference. A few lineups have difference close to zero for which the detection rate is close to 50\%. The thick smooth line shows the fit of a logistic regression of detection rate in $\delta$-difference (AIC: \Sexpr{round(AIC(t2drg),1)}).
 
 But the binned distance fails terribly. Although the detection rate increases with difference, the detection rate is high for values with negative difference. This is a classic scenario where a graphical element affects the response. The presence of the overlaid regression line on almost transparent points of the scatterplot affected the response of the subjects. One other reason may be the use of the same number of bins (2 $\times$ 2) in this case for all the lineups. The relationship may improve if different number of bins can be used for different lineups.
 
-Figure~\ref{turk2comp} also shows the detection rate against the $\gamm$-number of extreme null plots. As the number increases,  detection rate decreases on average --- as there are more extreme null plots compared to the  plot, it becomes more difficult to identify the data plot. For a few lineups, almost all the subjects identify the observed plot although there is one more extreme null plot. Though from Figure~\ref{turk2comp}, it can be seen that the difference is marginal in most cases. 
+Figure~\ref{turk2comp} also shows the detection rate against the $\gamma$-number of extreme null plots. As the number increases,  detection rate decreases on average --- as there are more extreme null plots compared to the  plot, it becomes more difficult to identify the data plot. For a few lineups, almost all the subjects identify the observed plot although there is one more extreme null plot. Though from Figure~\ref{turk2comp}, it can be seen that the difference is marginal in most cases. 
 
 \begin{figure}[hbtp]
 \centering
@@ -1631,7 +1631,7 @@ ggplot(data = prop.diff.m) +
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \label{turk2-mtime}
 \end{figure}
-%\afterpage{\clearpage}
+%%\afterpage{\clearpage}
 
 Figure~\ref{turk2-mtime} shows the relationship between the median time taken to respond and $\delta$-difference for both the distances. It can be clearly seen that there is a strong negative association: as $\delta$-difference increases, the subjects take less time to respond. \hh{Similar to the previous example of section~\ref{sec:turk1} time to respond is lower for larger negative $\delta$-difference based on regression distance.}
 %In the case of the binned distance, the relationship is negative though the variability is higher for the above mentioned reasons.
@@ -1641,7 +1641,7 @@ Although the regression based distance seems to efficiently identify the quality
 \begin{figure}[hbtp]
 \centering
 \begin{subfigure}[c]{0.6\textwidth}
-\includegraphics[width=\textwidth]{lineup-exp2-neg-diff-large-prop.pdf}
+%\includegraphics[width=\textwidth]{lineup-exp2-neg-diff-large-prop.pdf}
 <<lp-turk2-exc, echo=FALSE, fig.width=5.5, fig.height=5.5, out.width='\\textwidth'>>=
 dat <- read.table("data/turk2/dat_turk2_100_350_12_3.txt", header = TRUE) #
 dat.m <- melt(dat, id = "X")
@@ -1656,18 +1656,143 @@ qplot(x, z, data = lineup.dat, alpha = I(0.2), xlab = "X1", ylab = "X2",
   facet_wrap(~ .sample) + theme_lineup
 @
 \end{subfigure}
+<<>>=
+## From the lineup data
+
+obs.dat <- lineup.dat[lineup.dat$.sample == 10, ]   
+
+#qplot(x, z, data = obs.dat, geom = "point") + geom_smooth(method = "lm", se = FALSE) 
+
+mod2 <- lm(z ~ 1, data = obs.dat)
+
+mean.null <- predict(mod2)
+
+sd.null <- summary(mod2)$sigma
+
+###=============================================================================
+### generation of distribution of distance metric
+###=============================================================================
+
+
+### using bin_dist with x.bin = 2, y.bin = 2
+
+dat.bin <- dat.bin.82 <- dat.reg <- dat.reg.no.int <-  NULL
+for (i in 1:1000){
+	zz <- NULL
+	for(i in 1:dim(obs.dat)[1]){
+		zz[i] <- rnorm(1, mean.null[i], sd.null)
+	}
+	samp.dat <- data.frame(group = obs.dat$x, z = zz )
+	dat1 <- sapply(1:18, function(k){
+		yy <- NULL
+	for(i in 1:dim(obs.dat)[1]){
+		yy[i] <- rnorm(1, mean.null[i], sd.null)
+		}
+		null.dat <- data.frame(group = obs.dat$x, z = yy)
+		b1 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 2)
+ 		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 8, Y.bin = 2)
+ 		r.int = reg_dist(samp.dat, null.dat)
+ 		r.no.int <- reg_no_int_dist(samp.dat, null.dat)
+ 		return(list(b1 = b1, b2 = b2, r.int = r.int, r.no.int = r.no.int))
+ 		})
+	 	dat1 <- matrix(unlist(dat1), nrow = 4 )
+ 		dat.bin <- c(dat.bin, mean(dat1[1,]))
+ 		dat.bin.82 <- c(dat.bin.82, mean(dat1[2,]))
+ 		dat.reg <- c(dat.reg, mean(dat1[3,]))
+ 		dat.reg.no.int <- c(dat.reg.no.int, mean(dat1[4,]))
+}
+
+df <- as.data.frame(t(dat1))
+names(df) <- c("Binned-2-2", "Binned-8-2", "Regression Dist", "Regression No Intercept")
+
+write.csv(df, "distr-turk2.csv", row.names = FALSE)
+
+
+#opt_diff(lineup.dat, var = c('x', 'z'), 2, 10, 2, 10, 19, plot = TRUE) 
+
+metrics.dat <- ddply(dat.pos, .(pos.1, pos.2), summarize, bin.dist = bdist_mod_indx(pos.1, pos.2, nbin.X = 2, nbin.Y = 2), bin.dist.82 = bdist_mod_indx(pos.1, pos.2, nbin.X = 8, nbin.Y = 2), reg.dist = reg_bin_indx(pos.1, pos.2), reg.dist.no.int = reg_no_int_indx(pos.1, pos.2))
+
+pos <- 10
+
+metrics.dat <- subset(metrics.dat, pos.1 != pos.2 & pos.2 != pos)
+
+dd3 <- ddply(metrics.dat, .(pos.1), summarize, bin.mean = mean(bin.dist), bin.mean.82 = mean(bin.dist.82), reg.mean = mean(reg.dist), reg.mean.no.int = mean(reg.dist.no.int), len = length(bin.dist))
+
+dat.bin <- as.data.frame(dat.bin)
+
+ggplot()  + geom_density(data = dat.bin, aes(x = dat.bin), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= bin.mean, xend = bin.mean, y=0.02*max(density(dat.bin$dat.bin)$y), yend = 0.2*max(density(dat.bin$dat.bin)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = bin.mean, xend = bin.mean, y = rep(0.02*max(density(dat.bin$dat.bin)$y),19), yend = rep(0.1*max(density(dat.bin$dat.bin)$y),19)), size=1, alpha = I(0.7)) + xlab("Binned Distance (p = q = 2)") + ylab("") + geom_text(data = dd3, y = - 0.03*max(density(dat.bin$dat.bin)$y), size = 2.5, aes(x = bin.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin$dat.bin)$y), max(density(dat.bin$dat.bin)$y) + 0.1*max(density(dat.bin$dat.bin)$y)))
+
+
+ggsave("distribution-bin-dist-2-2-exp2.pdf", height = 4, width = 4.5)   
+
+dat.bin.82 <- as.data.frame(dat.bin.82)
+
+ggplot()  + geom_density(data = dat.bin.82, aes(x = dat.bin.82), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= bin.mean.82, xend = bin.mean.82, y=0.02*max(density(dat.bin.82$dat.bin.82)$y), yend = 0.2*max(density(dat.bin.82$dat.bin.82)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = bin.mean.82, xend = bin.mean.82, y = rep(0.02*max(density(dat.bin.82$dat.bin.82)$y),19), yend = rep(0.1*max(density(dat.bin.82$dat.bin.82)$y),19)), size=1, alpha = I(0.7)) + xlab("Binned Distance (p = 8, q = 2)") + ylab("") + geom_text(data = dd3, y = - 0.03*max(density(dat.bin.82$dat.bin.82)$y), size = 2.5, aes(x = bin.mean.82, label = pos.1)) + ylim(c(- 0.04*max(density(dat.bin.82$dat.bin.82)$y), max(density(dat.bin.82$dat.bin.82)$y) + 0.1*max(density(dat.bin.82$dat.bin.82)$y)))
+        
+ggsave("distribution-bin-dist-8-2-exp2.pdf", height = 4, width = 4.5)         
+
+dat.reg <- as.data.frame(dat.reg)
+
+ggplot()  + geom_density(data = dat.reg, aes(x = dat.reg), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= reg.mean, xend = reg.mean, y=0.02*max(density(dat.reg$dat.reg)$y), yend = 0.2*max(density(dat.reg$dat.reg)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = reg.mean, xend = reg.mean, y = rep(0.02*max(density(dat.reg$dat.reg)$y),19), yend = rep(0.1*max(density(dat.reg$dat.reg)$y),19)), size=1, alpha = I(0.7)) + xlab("Regression Based Distance") + ylab("") + geom_text(data = dd3, y = - 0.03*max(density(dat.reg$dat.reg)$y), size = 2.5, aes(x = reg.mean, label = pos.1)) + ylim(c(- 0.04*max(density(dat.reg$dat.reg)$y), max(density(dat.reg$dat.reg)$y) + 0.1*max(density(dat.reg$dat.reg)$y)))
+
+ggsave("distribution-reg-dist-exp2.pdf", height = 4, width = 4.5)
+
+dat.reg.no.int <- as.data.frame(dat.reg.no.int)
+
+ggplot()  + geom_density(data = dat.reg.no.int, aes(x = dat.reg.no.int), fill = "grey80", col = "grey80" ) + geom_segment(data = subset(dd3, len == 19), aes(x= reg.mean.no.int, xend = reg.mean.no.int, y=0.02*max(density(dat.reg.no.int$dat.reg.no.int)$y), yend = 0.2*max(density(dat.reg.no.int$dat.reg.no.int)$y)), colour="darkorange", size=1)  + geom_segment(data = subset(dd3, len != 19), aes(x = reg.mean.no.int, xend = reg.mean.no.int, y = rep(0.02*max(density(dat.reg.no.int$dat.reg.no.int)$y),19), yend = rep(0.1*max(density(dat.reg.no.int$dat.reg.no.int)$y),19)), size=1, alpha = I(0.7)) + xlab("Regression Based Distance \n (only slope)") + ylab("") + geom_text(data = dd3, y = - 0.03*max(density(dat.reg.no.int$dat.reg.no.int)$y), size = 2.5, aes(x = reg.mean.no.int, label = pos.1)) + ylim(c(- 0.04*max(density(dat.reg.no.int$dat.reg.no.int)$y), max(density(dat.reg.no.int$dat.reg.no.int)$y) + 0.1*max(density(dat.reg.no.int$dat.reg.no.int)$y)))
+
+
+ggsave("distribution-reg-no-int-dist-exp2.pdf", height = 4, width = 4.5) 
+
+### P-value distance
+
+pval_dist <- function(X) {
+        as.numeric(summary(lm(X[,2] ~ X[,1], data = X))$coefficients[,4][2])
+}
+
+
+dat <- NULL
+for (i in 1:1000){
+	zz <- NULL
+	for(k in 1:dim(obs.dat)[1]){
+		zz[k] <- rnorm(1, mean = mean.null[k], sd = sd.null)
+	}
+	samp.dat <- data.frame(group = obs.dat$x, z = zz )
+	qplot(group, z, data = samp.dat) + geom_smooth(method = "lm", se = FALSE)
+	dat <- c(dat, pval_dist(samp.dat))
+}
+
+
+pval <- ddply(lineup.dat, .(.sample), summarize, p = pval_dist(data.frame(lineup.dat[lineup.dat$.sample == .sample,1], lineup.dat[lineup.dat$.sample == .sample,2])))
+
+pos <- 10
+m <- 20
+
+qplot(dat, geom = "density", fill = I("grey80"), colour = I("grey80"), 
+        xlab = "p-value", ylab = "") + geom_segment(aes(x = pval$p[pval$.sample != 
+        10], xend = pval$p[pval$.sample != pos], y = rep(0.01 * min(density(dat)$y), 
+        (m - 1)), yend = rep(0.1 * max(density(dat)$y), (m - 1))), size = 1, alpha = I(0.7)) + 
+        geom_segment(aes(x = pval$p[pval$.sample == 
+        10], xend = pval$p[pval$.sample == 10], y = 0.01 * min(density(dat)$y), yend = 0.2 * max(density(dat)$y)), 
+            colour = "darkorange", size = 1) + geom_text(data = pval, y = -0.03 * max(density(dat)$y), 
+        size = 2.5, aes(x = p, label = .sample)) + ylim(c(-0.04 * max(density(dat)$y), 
+        max(density(dat)$y) + 0.1))
+
+ggsave("distribution-pval-exp2.pdf", height = 4, width = 4.5) 
+@
+
 \begin{subfigure}[c]{0.3\textwidth}
 \includegraphics[width=\textwidth]{distribution-reg-dist-exp2.pdf}
 % \end{subfigure}
 % \begin{subfigure}[t]{0.3\textwidth}
-\includegraphics[width=\textwidth]{distribution-bin-dist-2-2-exp2.pdf}
+\includegraphics[width=\textwidth]{distribution-reg-no-int-dist-exp2.pdf}
 \end{subfigure}
 
 \begin{subfigure}[t]{0.3\textwidth}
-\includegraphics[width=\textwidth]{distribution-bin-dist-8-2-exp2.pdf}
+\includegraphics[width=\textwidth]{distribution-bin-dist-2-2-exp2.pdf}
 \end{subfigure}
 \begin{subfigure}[t]{0.3\textwidth}
-\includegraphics[width=\textwidth]{distribution-reg-no-int-dist-exp2.pdf}
+\includegraphics[width=\textwidth]{distribution-bin-dist-8-2-exp2.pdf}
 \end{subfigure}
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{distribution-pval-exp2.pdf}
@@ -1678,7 +1803,7 @@ qplot(x, z, data = lineup.dat, alpha = I(0.2), xlab = "X1", ylab = "X2",
 \label{turk2-exp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
-\afterpage{\clearpage}
+%\afterpage{\clearpage}
 
 The lineup in Figure~\ref{turk2-exp} is a difficult one as suggested by the distribution of the distance metrics based on regression. Although around 28\% of the people identified the true plot correctly, the conventional $p$-value for testing the slope equal to 0 is 0.085, which shows that the relationship is not significant. The binned distance with 2 bins on each axes also shows the same. However the binned distance using the optimal number of bins (8 on the x-axis and 2 on the y-axis) by the optimal number of bins selection method identifies the true plot as different from the others. 
 
@@ -1706,7 +1831,7 @@ The motivation behind this experiment is to study the effect of large dimensions
 \caption{An example lineup from Turk Experiment 7. Here two dimensional projections of the PDA index are plotted for a data with separation having $p = 20$ dimensions and $n = 30$ observations. The subjects were asked to identify the plot with the most separated colors. Can you identify the observed data plot?}
 \label{largep}
 \end{figure}
-\afterpage{\clearpage}
+%%\afterpage{\clearpage}
 
 The distances between the plots in this experiment were computed using the distance based on minimum separation and average separation of the clusters and also the binned distance. The number of bins used for the lineups with one dimensional projections is larger (10 in this case) but for the lineups with two dimensional projections, the number of bins used is 5. The proportion of correct response is plotted against $\delta_{\hbox{lineup}}$ and $\gamma_{\hbox{lineup}}$ for both the distances. Figure~\ref{lp-comp} shows the results.
 
@@ -1733,7 +1858,7 @@ The distances between the plots in this experiment were computed using the dista
 \label{lp-comp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
-\afterpage{\clearpage}
+%%\afterpage{\clearpage}
 
 In Figure~\ref{lp-comp}, the detection rate is plotted against the difference for distance based on minimum separation, average separation and the binned distance. The red vertical line shows difference equal to 0.  It can be seen that as the difference increases, the detection rate increases and both the distances do a good job in capturing the response of the subjects.  In (b) it can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, a large number of the subjects identify the observed plot although there is more extreme null plots. 
 
@@ -1753,7 +1878,7 @@ In Figure~\ref{lp-comp}, the detection rate is plotted against the difference fo
 \label{lp-mtime}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
-\afterpage{\clearpage}
+%\afterpage{\clearpage}
 
 Figure~\ref{lp-mtime} shows the relationship between the mean time taken to respond and the difference for the three different distances. It can be clearly seen that there is a strong negative association showing that as the difference increases, the subjects take lesser time to respond. Also the variability of the mean time is higher for smaller difference. In case of binned distance, the relationship is negative though the variability is higher for all differences.
 
@@ -1777,7 +1902,7 @@ Figure~\ref{lp-mtime} shows the relationship between the mean time taken to resp
 \label{lp-exp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
-\afterpage{\clearpage}
+%\afterpage{\clearpage}
 
 Figure~\ref{lp-exp} shows the lineup in a high dimension, low sample size setting. The number of dimensions used is 100 and two of the dimensions have some separation. Plot 20 shows the two-dimensional projections of the original data. The null plots are obtained by permuting the group variable and plotting the two dimensional projections obtained from a projection pursuit with PDA index (\cite{lee:2009}). Since the true plot has real separation, it is expected that the subjects would be able to identify the plot. The distance based on average separation yields a negative difference showing that the lineup is difficult, while the distance based on minimum separation yields a positive difference. The distance metrics identifies different characteristics in a plot. The average separation looks at the average of the distances of the points in a cluster to the points in other clusters. The presence of an outlier point in the opposite side of the other clusters affects this distance considerably. On the other hand, the minimum separation looks at the minimum of the distances. Hence it is not affected by the outlier point. 
 
