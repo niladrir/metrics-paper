@@ -2112,17 +2112,20 @@ qplot(X1, X2, colour=factor(cl), facets=~.sample, data=lpt7, size=I(3)) +
 \end{subfigure}\hfill
 
 \begin{subfigure}[t]{0.3\textwidth}
+\caption{Binned (6,4) Distance}
 \includegraphics[width=\textwidth]{distribution-bin-dist-6-4-lpexp.pdf}
 \end{subfigure}
 \begin{subfigure}[t]{0.3\textwidth}
+\caption{Minimum Separation}
 \includegraphics[width=\textwidth]{distribution-min-sep-dist-lpexp.pdf}
 \end{subfigure}
 \begin{subfigure}[t]{0.3\textwidth}
+\caption{Average Separation}
 \includegraphics[width=\textwidth]{distribution-ave-sep-dist-lpexp.pdf}
 \end{subfigure}
 
 	\vspace{-.1in}
-\caption{Illustration of the behavior of different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics are shown in the other plots:  binned distance with 6 and 4 bins in x and y axis respectively in (b), distance based on average separation in (c) and distance based on minimum separation in (d). }
+\caption{Illustration of the behavior of different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics are shown in the other plots:  binned distance with 6 and 4 bins in x and y axis respectively in (b), distance based on average separation in (c) and distance based on minimum separation in (d). \hh{XXX I'm not able to re-create the code for the distance densities. It seems that the code in metrics-papers.R is based on just 15 reps - I stopped the run after several hours. Is there a faster way for creating (approximate) null plots?}}
 \label{lp-exp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
