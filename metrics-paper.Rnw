@@ -2004,6 +2004,7 @@ prop.dist$shape <- ifelse(prop.dist$pic_name == "plot_large_p_small_n_30_100_0_2
 \begin{figure}[hbtp]
 \centering
 \begin{subfigure}[t]{0.7\textwidth}
+\caption{$\delta$-difference}
 %\includegraphics[width=\textwidth]{largep-prop-sep-bin.pdf}
 <<largep-delta, echo=FALSE, dependson='t7-distr', out.width='\\textwidth', fig.width=8.5, fig.height=3.75>>=
 dbn <- glm(cbind(correct,n-correct)~poly(diff.dbn,1), data=prop.dist, family=binomial())
@@ -2044,6 +2045,7 @@ ggplot(aes(x=value, y=prop), data=prop.diff.m) +
 @
 \end{subfigure}
 \begin{subfigure}[t]{0.7\textwidth}
+\caption{$\gamma$-number of extreme null plots}
 %\includegraphics[width=\textwidth]{largep-grtr-sep-bin.pdf}
 <<largep-gamma, echo=FALSE, dependson='t7-distr', out.width='\\textwidth', fig.width=8.5, fig.height=3.75>>=
 ### Facetted Plots
@@ -2098,6 +2100,7 @@ Figure~\ref{lp-mtime} shows the relationship between the mean time taken to resp
 \begin{figure}[hbtp]
 \centering
 \begin{subfigure}[t]{0.6\textwidth}
+\caption{Lineup of scatterplots of three groups. Which plot shows the best separation?}
 %\includegraphics[width=\textwidth]{lineup-large-p-small-n.pdf}
 <<lp-exc-t7, echo=FALSE, fig.width=6, fig.height=6, out.width='\\textwidth'>>=
 lpt7 <- read.table("data/turk7/dat_large_p_small_n_30_100_0_2_3.txt", header=TRUE)
