@@ -1909,12 +1909,115 @@ qplot(X1, X2, colour=factor(cl), facets=~.sample, data=lpt7, size=I(3)) +
 
 The distances between the plots in this experiment were computed using the distance based on minimum separation and average separation of the clusters and also the binned distance. The number of bins used for the lineups with one dimensional projections is larger (10 in this case) but for the lineups with two dimensional projections, the number of bins used is 5. The proportion of correct response is plotted against $\delta$\hh{-difference} and $\gamma$\hh{-number of extreme nulls} for both distances. Figure~\ref{lp-comp} shows the results.
 
+<<t7-distances, echo=FALSE, cache=TRUE,  results='hide'>>=
+files.txt <- dir("data/turk7","*.txt")
+files.txt <- files.txt[-grep("wasp", files.txt)]
+files.png <- gsub("txt", "png", gsub("dat", "plot", files.txt))
+
+metrics <- NULL
+for (k in 1:length(files.txt)){
+	dat <- read.table(sprintf("data/turk7/%s",files.txt[k], sep = ""), header = T)
+  metrics.dat <- data.frame(expand.grid(pos.1=1:20, pos.2=1:20))
+	
+  if(ncol(dat) == 4) {
+  	lineup.dat <- data.frame(x = dat$x, z = dat$cl, cl = dat$cl, 
+  	                         .sample = dat$.sample)
+	  for (i in 1:nrow(metrics.dat)) {
+	    .X <- subset(lineup.dat, .sample==metrics.dat$pos.1[i])[,1:3]
+	    .PX <- subset(lineup.dat, .sample==metrics.dat$pos.2[i])[,1:3]
+	    metrics.dat$dbn[i] <- bin_dist(.X, .PX, lineup.dat, X.bin=10, Y.bin=10)
+	    metrics.dat$dms[i] <- sep_dist(.X, .PX, clustering = TRUE, nclust = 2)
+	    metrics.dat$das[i] <- sep_dist(.X, .PX, clustering = TRUE, 
+	                                   nclust = 2, type="average.toother")
+  	  metrics.dat$pic_name[i] <- files.png[k]
+	   }
+	}
+	if(ncol(dat) == 6) {
+	  lineup.dat <- data.frame(x = dat$X1, z = dat$X2, cl = dat$cl, 
+	                           .sample = dat$.sample)
+	  for (i in 1:nrow(metrics.dat)) {
+	    .X <- subset(lineup.dat, .sample==metrics.dat$pos.1[i])[,1:3]
+	    .PX <- subset(lineup.dat, .sample==metrics.dat$pos.2[i])[,1:3]
+
+	    metrics.dat$dbn[i] <- bin_dist(.X, .PX, lineup.dat, X.bin=5, Y.bin=5)
+	    metrics.dat$dms[i] <- sep_dist(.X, .PX, clustering = TRUE, nclust = 3)
+	    metrics.dat$das[i] <- sep_dist(.X, .PX, clustering = TRUE, 
+	                                   nclust = 3, type="average.toother")
+	    metrics.dat$pic_name[i] <- files.png[k]
+	  }
+	  metrics <- rbind(metrics, metrics.dat)
+	}
+}
+
+#write.table(metrics, "largep-metrics.txt", row.names = F)
+@
+
+<<t7-distr, dependson='t7-distances', echo=FALSE, results='hide'>>=
+#qplot(X1, X2, data = dat, geom = "point", alpha = I(0.7), color = factor(cl)) + facet_wrap(~.sample) + scale_colour_discrete(name = "Group")
+
+res.exp.lp <- read.csv("data/raw_data_turk7.csv")
+
+res.exp.lp <- subset(res.exp.lp, pic_name %in% files.png, 
+                     select = c(pic_name, response, plot_location, time_taken))
+
+res.dat <- res.exp.lp %>% group_by(pic_name) %>% summarize(
+  prop = sum(response)/length(response), 
+  pos = mean(plot_location), 
+  m.time = mean(time_taken),
+  med.time = median(time_taken), 
+  correct = sum(response),
+  n=n())
+
+metrics.sub <- subset(metrics, pos.1 != pos.2)
+dat.merge <- merge(metrics.sub, res.dat, by = "pic_name")
+dat.merge <- subset(dat.merge, pos.2 != pos)
+
+dd <- dat.merge %>% group_by(pic_name, pos.1) %>%
+  summarize(
+    len = length(dbn), 
+    dbn = mean(dbn), 
+    dms = mean(dms), 
+    das = mean(das), 
+    prop = mean(prop), 
+    m.time = mean(m.time),
+    med.time = mean(med.time),
+    correct = mean(correct),
+    n = mean(n))
+
+prop.dist <- dd %>% group_by(pic_name) %>% summarize(
+  diff.dbn = dbn[len == 19] - max(dbn[len == 18]), 
+  grtr.dbn = sum(dbn[len == 18] > dbn[len == 19]), 
+  diff.dms = dms[len == 19] - max(dms[len == 18]), 
+  grtr.dms = sum(dms[len == 18] > dms[len == 19]), 
+  diff.das = das[len == 19] - max(das[len == 18]), 
+  grtr.das = sum(das[len == 18] > das[len == 19]), 
+  prop = mean(prop), m.time = mean(m.time), 
+  med.time = mean(med.time)
+)
+
+prop.dist$shape <- ifelse(prop.dist$pic_name == "plot_large_p_small_n_30_100_0_2_3.png", 1, 0)
+@
+
 
 \begin{figure}[hbtp]
 \centering
 \begin{subfigure}[t]{0.7\textwidth}
 \includegraphics[width=\textwidth]{largep-prop-sep-bin.pdf}
+<<largep-delta, dependson='t7-distr', out.width='\\textwidth', fig.width=8.5, fig.height=4.5>>=
+### Facetted Plots
+prop.diff <- subset(prop.dist, select = c(pic_name, diff.dms, diff.das, diff.dbn,  prop, m.time, med.time, shape))
+prop.diff.m <- melt(prop.diff, id.vars = c("pic_name", "prop", "m.time", "med.time", "shape"))
 
+levels(prop.diff.m$variable) <- c("Minimum Separation", "Average Separation","Binned Distance")
+
+ggplot(aes(x=value, y=prop), data=prop.diff.m) + 
+  geom_vline(xintercept = 0, col = "grey50") +
+  geom_point(aes(shape=factor(shape)), size=3) +
+  xlab(expression(paste(delta,"-Difference",sep=""))) + ylab("Detection Rate") +
+  geom_smooth(se=FALSE, method='loess') + 
+  facet_wrap( ~ variable, scales = "free_x") + 
+  theme(legend.position = "none")
+@
 \end{subfigure}
 \begin{subfigure}[t]{0.7\textwidth}
 \includegraphics[width=\textwidth]{largep-grtr-sep-bin.pdf}
