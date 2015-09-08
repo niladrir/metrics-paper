@@ -2061,14 +2061,6 @@ ggplot(aes(x=value, y=prop), data=prop.grtr.m) +
 @
 \end{subfigure}
 
-%\subfigure[]{
-%\includegraphics[scale=0.55]{largep-grtr-bin-prop-10-5.pdf}
-%\label{lpcomp_1}
-%}
-%\subfigure[]{
-%\includegraphics[scale=0.55]{largep-grtr-clus-prop.pdf}
-%\label{lpcomp_2}
-%}
 	\vspace{-.1in}
 \caption{Comparison of distance metrics for the scatterplot with clusters. Detection rate is plotted against (a) $\delta$-difference and (b) against $\gamma$-number of extreme nulls using distances based on minimum separation, average separation and binning. The vertical line represents the difference equal to zero when there is at least one null plot similar to the observed plot. Detection rate generally increases with $\delta$-difference. \hh{XXX} As the number of plots with distance greater than the observed increases, the detection rate decreases. The triangle represents a lineup with high detection rate and negative difference based on the average separation distance. This is examined in Figure~\ref{lp-exp}. }
 \label{lp-comp}
@@ -2076,21 +2068,26 @@ ggplot(aes(x=value, y=prop), data=prop.grtr.m) +
 \end{figure}
 %%\afterpage{\clearpage}
 
-In Figure~\ref{lp-comp}, the detection rate is plotted against the difference for distance based on minimum separation, average separation and the binned distance. The red vertical line shows difference equal to 0.  It can be seen that as the difference increases, the detection rate increases and both the distances do a good job in capturing the response of the subjects.  In (b) it can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, a large number of the subjects identify the observed plot although there is more extreme null plots. 
+In Figure~\ref{lp-comp}, the detection rate is plotted against the difference for distance based on minimum separation, average separation and the binned distance. The  vertical line shows a difference equal to zero.  It can be seen that as the difference increases, the detection rate increases and both the distances do a good job in capturing the response of the subjects.  In (b) it can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, a large number of the subjects identify the observed plot although there is more extreme null plots. 
 
 \begin{figure}[hbtp]
 \centering
 \includegraphics[width=0.7\textwidth]{largep-mtime-sep-bin.pdf}
-%\subfigure[]{
-%\includegraphics[scale=0.55]{largep-diff-clus-mtime.pdf}
-%\label{t1comp_1}
-%}
-%\subfigure[]{
-%\includegraphics[scale=0.55]{largep-diff-bin-mtime.pdf}
-%\label{t1bin_1}
-%}
+<<largep-mtime, echo=FALSE, dependson='t7-distr', out.width='\\textwidth', fig.width=8.5, fig.height=3.75>>=
+### Facetted Plots
+#qplot(value, m.time, data = prop.diff.m, geom = "point", size = I(3), xlab = "Difference", ylab = "Mean Time to Respond", shape = factor(shape)) + facet_wrap( ~ variable, scales = "free_x") + geom_vline(xintercept = 0, col = "red") + theme(legend.position = "none")
+
+ggplot(aes(x=value, y=med.time), data=prop.diff.m) + 
+  geom_vline(xintercept = 0, col = "grey50") +
+  geom_point(aes(shape=factor(shape)), size=3) +
+  xlab(expression(paste(delta,"-Difference",sep=""))) + ylab("Median time to respond (in seconds)") +
+  facet_wrap( ~ variable, scales = "free_x") + 
+  theme(legend.position = "none") + 
+  geom_smooth(se=FALSE, aes(group=variable), method='loess')
+@
+
 	\vspace{-.1in}
-\caption{Plot showing the mean time to respond by the subjects against the difference based on the minimum separation distance, average separation and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time decreases as the difference increases.  }
+\caption{\hh{XXX changed mean time to median time} Plot showing the mean time to respond by the subjects against the difference based on the minimum separation distance, average separation and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time decreases as the difference increases.  }
 \label{lp-mtime}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
