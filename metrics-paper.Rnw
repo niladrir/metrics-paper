@@ -302,7 +302,7 @@ between group A and B? \\
 2 &  Scatter plot & \begin{minipage}[c]{2cm}  \begin{center} \scalebox{0.3}{\includegraphics{stat_beta_k1.png}} \end{center} \end{minipage} & Of the scatter plots below which one shows data that has steepest slope? \\
   7 & Group separation & \begin{minipage}[c]{2cm} \begin{center}  \scalebox{0.4}{\includegraphics{stat_separation.pdf}} \end{center} \end{minipage} & Which of these plots has the most separation between the coloured groups?  \\
 \hline 
-\end{tabular} 
+\end{tabular}
 \label{tbl:visual_stat} 
 \end{table*} 
 
@@ -2044,7 +2044,7 @@ ggplot(aes(x=value, y=prop), data=prop.diff.m) +
 @
 \end{subfigure}
 \begin{subfigure}[t]{0.7\textwidth}
-\includegraphics[width=\textwidth]{largep-grtr-sep-bin.pdf}
+%\includegraphics[width=\textwidth]{largep-grtr-sep-bin.pdf}
 <<largep-gamma, echo=FALSE, dependson='t7-distr', out.width='\\textwidth', fig.width=8.5, fig.height=3.75>>=
 ### Facetted Plots
 prop.grtr <- subset(prop.dist, select = c(pic_name, grtr.dms, grtr.das, grtr.dbn,  prop, m.time, med.time, shape))
@@ -2784,6 +2784,7 @@ The choice of number of bins or bin sizes is investigated with different types o
 \begin{table*}[hbtp]
 \caption{Preferable number of bins for different types of observed data to calculate the binned distance.}
 \centering 
+\scalebox{0.8}{
 \begin{tabular}{p{1.5cm}l c  p{2cm} c cc l c p{4cm}} 
 \hline
  Type of Data & Observed Plot && Null Generating Mechanism & A typical null plot && & Difference && (x-bin, y-bin, Max; Min) \\ %[0.5ex] % inserts table %heading 
@@ -2808,7 +2809,7 @@ Nonlinear relationship & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.2
 % \hline
 %Presence of Outlier(s) & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data5.pdf}} \end{center} \end{minipage} && Simulation from a specific distribution &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot5.pdf}} \end{center} \end{minipage} && \hspace{0.8cm} small\\
 % \hline
-\end{tabular}
+\end{tabular}}
 \label{tbl:bin1}
 \end{table*}
 
@@ -2816,6 +2817,7 @@ Nonlinear relationship & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.2
 \begin{table*}[hbtp]
 \caption{Preferable number of bins for different types of observed data to calculate the binned distance.}
 \centering 
+\scalebox{0.8}{
 \begin{tabular}{p{1.5cm}l c  p{2cm} c cc l c p{4cm}} 
 \hline
  Type of Data & Observed Plot && Null Generating Mechanism & A typical null plot && & Difference && (x-bin, y-bin, Max; Min) \\ %[0.5ex] % inserts table %heading 
@@ -2842,7 +2844,7 @@ Contaminated data & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\i
 % \hline
 %Presence of Outlier(s) & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data5.pdf}} \end{center} \end{minipage} && Simulation from a specific distribution &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot5.pdf}} \end{center} \end{minipage} && \hspace{0.8cm} small\\
 % \hline
-\end{tabular}
+\end{tabular}}
 \label{tbl:bin2}
 \end{table*}
 
