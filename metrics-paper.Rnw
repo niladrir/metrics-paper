@@ -2098,7 +2098,15 @@ Figure~\ref{lp-mtime} shows the relationship between the mean time taken to resp
 \begin{figure}[hbtp]
 \centering
 \begin{subfigure}[t]{0.6\textwidth}
-\includegraphics[width=\textwidth]{lineup-large-p-small-n.pdf}
+%\includegraphics[width=\textwidth]{lineup-large-p-small-n.pdf}
+<<lp-exc-t7, echo=FALSE, fig.width=6, fig.height=6, out.width='\\textwidth'>>=
+lpt7 <- read.table("data/turk7/dat_large_p_small_n_30_100_0_2_3.txt", header=TRUE)
+
+qplot(X1, X2, colour=factor(cl), facets=~.sample, data=lpt7, size=I(3)) + 
+  theme_lineup +
+  theme(legend.position="none") 
+@
+
 \end{subfigure}\hfill
 
 \begin{subfigure}[t]{0.3\textwidth}
