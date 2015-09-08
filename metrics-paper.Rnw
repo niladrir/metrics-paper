@@ -1711,7 +1711,7 @@ dd3 <- metrics.dat %>% group_by(pos.1) %>% summarize(
 
 \begin{figure}[hbtp]
 \centering
-\begin{subfigure}[c]{0.6\textwidth}
+\begin{subfigure}[b]{0.6\textwidth}
 \caption{\small Lineup of scatterplots with overlaid regression lines. The numbers at the bottom right of each panel gives the number of times this plot was chosen in 66 evaluations.}
 %\includegraphics[width=\textwidth]{lineup-exp2-neg-diff-large-prop.pdf}
 <<lp-turk2-exc-lp, dependson='lp-turk2-exc', echo=FALSE, fig.width=5.5, fig.height=5.5, out.width='\\textwidth'>>=
@@ -1734,7 +1734,7 @@ qplot(x, z, data = lineup.dat, alpha = I(0.15), xlab = "X1", ylab = "X2",
 
 @
 \end{subfigure}
-\begin{subfigure}[c]{0.3\textwidth}
+\begin{subfigure}[b]{0.3\textwidth}
 \caption{Regression based distance}
 \vspace{-.1in}
 %\includegraphics[width=\textwidth]{distribution-reg-dist-exp2.pdf}
@@ -1885,26 +1885,38 @@ The lineup in Figure~\ref{turk2-exp} is a difficult one as suggested by the dist
 
 \subsection{Turk Experiment 7 -- Large $p$, Small $n$ Data}
 
-The motivation behind this experiment is to study the effect of large dimensions in a data with complete noise and some real separation. Data was simulated with different dimensions and fixed sample size. Data was divided into two or three groups. A projection pursuit with Penalized Discriminant Analysis Index was used and the one and two dimensional projections were obtained. The one or two dimensional projections were then plotted which resulted in the observed data plot. To generate the null data, the group variable in the data was permuted and the projection pursuit was applied. The subjects were shown these lineups and were asked to identify the plot with the most separated colored groups. Figure~\ref{largep} gives an example of such a lineup with two dimensional projections with 3 colored groups. 
+The motivation behind this experiment is to study the effect of \hh{high dimensionality} on separability in data. Scenarios with pure noise and some real separation in two or three groups were investigated. %Data was simulated with different dimensions and fixed sample size. Data was divided into two or three groups. 
+A projection pursuit with Penalized Discriminant Analysis Index \citep{lee:2009} was used to obtain one (for two groups) or two (for three groups) dimensional projections. 
+Depending on the number of groups, either a jittered dotplot or a scatterplot was used as test statistic in a lineup setting. %The one or two dimensional projections were then plotted which resulted in the observed data plot. 
+The null plots are obtained by permuting the group variable and plotting the two dimensional projections obtained from a projection pursuit with PDA index.
+The subjects were shown these lineups and were asked to identify the plot with the most separated colored groups. Figure~\ref{largep} gives an example of such a lineup of a  two dimensional projection with three colored groups. 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=.95\textwidth]{largep-example.pdf}
+%\includegraphics[width=.95\textwidth]{largep-example.pdf}
 %\includegraphics[width=.65\textwidth]{large-p-trim-bin.pdf}
-\caption{An example lineup from Turk Experiment 7. Here two dimensional projections of the PDA index are plotted for a data with separation having $p = 20$ dimensions and $n = 30$ observations. The subjects were asked to identify the plot with the most separated colors. Can you identify the observed data plot?}
+<<t7-lp, echo=FALSE, fig.width=6, fig.height=6, out.width='.8\\textwidth'>>=
+lpt7 <- read.table("data/turk7/dat_large_p_small_n_30_20_0_2_1.txt", header=TRUE)
+
+qplot(X1, X2, colour=factor(cl), facets=~.sample, data=lpt7, size=I(3)) + 
+  theme_lineup +
+  theme(legend.position="none") 
+@
+\caption{An example lineup from Turk Experiment 7. Here, two dimensional projections of the PDA index are plotted for $n = 30$ observations in 20 dimensional data with separation. The subjects were asked to identify the plot with the most separated colors. Can you identify the data plot?}
 \label{largep}
 \end{figure}
 %%\afterpage{\clearpage}
 
-The distances between the plots in this experiment were computed using the distance based on minimum separation and average separation of the clusters and also the binned distance. The number of bins used for the lineups with one dimensional projections is larger (10 in this case) but for the lineups with two dimensional projections, the number of bins used is 5. The proportion of correct response is plotted against $\delta_{\hbox{lineup}}$ and $\gamma_{\hbox{lineup}}$ for both the distances. Figure~\ref{lp-comp} shows the results.
+The distances between the plots in this experiment were computed using the distance based on minimum separation and average separation of the clusters and also the binned distance. The number of bins used for the lineups with one dimensional projections is larger (10 in this case) but for the lineups with two dimensional projections, the number of bins used is 5. The proportion of correct response is plotted against $\delta$\hh{-difference} and $\gamma$\hh{-number of extreme nulls} for both distances. Figure~\ref{lp-comp} shows the results.
 
 
 \begin{figure}[hbtp]
 \centering
-\begin{subfigure}[t]{0.49\textwidth}
+\begin{subfigure}[t]{0.7\textwidth}
 \includegraphics[width=\textwidth]{largep-prop-sep-bin.pdf}
+
 \end{subfigure}
-\begin{subfigure}[t]{0.49\textwidth}
+\begin{subfigure}[t]{0.7\textwidth}
 \includegraphics[width=\textwidth]{largep-grtr-sep-bin.pdf}
 \end{subfigure}
 
@@ -1927,7 +1939,7 @@ In Figure~\ref{lp-comp}, the detection rate is plotted against the difference fo
 
 \begin{figure}[hbtp]
 \centering
-\includegraphics[scale=0.75]{largep-mtime-sep-bin.pdf}
+\includegraphics[width=0.7\textwidth]{largep-mtime-sep-bin.pdf}
 %\subfigure[]{
 %\includegraphics[scale=0.55]{largep-diff-clus-mtime.pdf}
 %\label{t1comp_1}
@@ -1947,16 +1959,17 @@ Figure~\ref{lp-mtime} shows the relationship between the mean time taken to resp
 
 \begin{figure}[hbtp]
 \centering
-\begin{subfigure}[t]{0.49\textwidth}
+\begin{subfigure}[t]{0.6\textwidth}
 \includegraphics[width=\textwidth]{lineup-large-p-small-n.pdf}
-\end{subfigure}
-\begin{subfigure}[t]{0.49\textwidth}
+\end{subfigure}\hfill
+
+\begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{distribution-bin-dist-6-4-lpexp.pdf}
 \end{subfigure}
-\begin{subfigure}[t]{0.49\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{distribution-min-sep-dist-lpexp.pdf}
 \end{subfigure}
-\begin{subfigure}[t]{0.49\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{distribution-ave-sep-dist-lpexp.pdf}
 \end{subfigure}
 
@@ -1967,7 +1980,7 @@ Figure~\ref{lp-mtime} shows the relationship between the mean time taken to resp
 \end{figure}
 %\afterpage{\clearpage}
 
-Figure~\ref{lp-exp} shows the lineup in a high dimension, low sample size setting. The number of dimensions used is 100 and two of the dimensions have some separation. Plot 20 shows the two-dimensional projections of the original data. The null plots are obtained by permuting the group variable and plotting the two dimensional projections obtained from a projection pursuit with PDA index (\cite{lee:2009}). Since the true plot has real separation, it is expected that the subjects would be able to identify the plot. The distance based on average separation yields a negative difference showing that the lineup is difficult, while the distance based on minimum separation yields a positive difference. The distance metrics identifies different characteristics in a plot. The average separation looks at the average of the distances of the points in a cluster to the points in other clusters. The presence of an outlier point in the opposite side of the other clusters affects this distance considerably. On the other hand, the minimum separation looks at the minimum of the distances. Hence it is not affected by the outlier point. 
+Figure~\ref{lp-exp} shows the lineup in a high dimension, low sample size setting. The number of dimensions used is 100 and two of the dimensions have some separation. Plot 20 shows the two-dimensional projections of the original data.  Since the true plot has real separation, it is expected that the subjects would be able to identify the plot. The distance based on average separation yields a negative difference showing that the lineup is difficult, while the distance based on minimum separation yields a positive difference. The distance metrics identifies different characteristics in a plot. The average separation looks at the average of the distances of the points in a cluster to the points in other clusters. The presence of an outlier point in the opposite side of the other clusters affects this distance considerably. On the other hand, the minimum separation looks at the minimum of the distances. Hence it is not affected by the outlier point. 
 
 
 \section{Conclusion}
