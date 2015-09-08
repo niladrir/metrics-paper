@@ -1909,7 +1909,7 @@ qplot(X1, X2, colour=factor(cl), facets=~.sample, data=lpt7, size=I(3)) +
 
 The distances between the plots in this experiment were computed using the distance based on minimum separation and average separation of the clusters and also the binned distance. The number of bins used for the lineups with one dimensional projections is larger (10 in this case) but for the lineups with two dimensional projections, the number of bins used is 5. The proportion of correct response is plotted against $\delta$\hh{-difference} and $\gamma$\hh{-number of extreme nulls} for both distances. Figure~\ref{lp-comp} shows the results.
 
-<<t7-distances, echo=FALSE, cache=TRUE,  results='hide'>>=
+<<t7-distances, echo=FALSE, cache=TRUE,  results='hide', cache=TRUE>>=
 files.txt <- dir("data/turk7","*.txt")
 files.txt <- files.txt[-grep("wasp", files.txt)]
 files.png <- gsub("txt", "png", gsub("dat", "plot", files.txt))
@@ -2004,8 +2004,8 @@ prop.dist$shape <- ifelse(prop.dist$pic_name == "plot_large_p_small_n_30_100_0_2
 \begin{figure}[hbtp]
 \centering
 \begin{subfigure}[t]{0.7\textwidth}
-\includegraphics[width=\textwidth]{largep-prop-sep-bin.pdf}
-<<largep-delta, echo=FALSE, dependson='t7-distr', out.width='\\textwidth', fig.width=8.5, fig.height=4>>=
+%\includegraphics[width=\textwidth]{largep-prop-sep-bin.pdf}
+<<largep-delta, echo=FALSE, dependson='t7-distr', out.width='\\textwidth', fig.width=8.5, fig.height=3.75>>=
 dbn <- glm(cbind(correct,n-correct)~poly(diff.dbn,1), data=prop.dist, family=binomial())
 dms <- glm(cbind(correct,n-correct)~poly(diff.dms,2), data=prop.dist, family=binomial())
 das <- glm(cbind(correct,n-correct)~poly(diff.das,2), data=prop.dist, family=binomial())
@@ -2045,6 +2045,20 @@ ggplot(aes(x=value, y=prop), data=prop.diff.m) +
 \end{subfigure}
 \begin{subfigure}[t]{0.7\textwidth}
 \includegraphics[width=\textwidth]{largep-grtr-sep-bin.pdf}
+<<largep-gamma, echo=FALSE, dependson='t7-distr', out.width='\\textwidth', fig.width=8.5, fig.height=3.75>>=
+### Facetted Plots
+prop.grtr <- subset(prop.dist, select = c(pic_name, grtr.dms, grtr.das, grtr.dbn,  prop, m.time, med.time, shape))
+prop.grtr.m <- melt(prop.grtr, id.vars = c("pic_name", "prop", "m.time", "med.time", "shape"))
+
+levels(prop.grtr.m$variable) <- c("Minimum Separation", "Average Separation","Binned Distance")
+
+ggplot(aes(x=value, y=prop), data=prop.grtr.m) + 
+#  geom_vline(xintercept = 0, col = "grey50") +
+  geom_point(aes(shape=factor(shape)), size=3) +
+  xlab(expression(paste(gamma,"-number of extreme null plots",sep=""))) + ylab("Detection Rate") +
+  facet_wrap( ~ variable, scales = "free_x") + 
+  theme(legend.position = "none")
+@
 \end{subfigure}
 
 %\subfigure[]{
@@ -2056,7 +2070,7 @@ ggplot(aes(x=value, y=prop), data=prop.diff.m) +
 %\label{lpcomp_2}
 %}
 	\vspace{-.1in}
-\caption{Comparison of distance metrics for the scatterplot with clusters. Detection rate (a) and the number of plots greater than the observed (b) are plotted against the difference based on the minimum separation, average separation and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The detection rate increases with the difference. As the number of plots with distance greater than the observed increases, the detection rate decreases. The triangle represents a lineup with high detection rate and negative difference based on the average separation distance. This is examined in Figure~\ref{lp-exp}. }
+\caption{Comparison of distance metrics for the scatterplot with clusters. Detection rate is plotted against (a) $\delta$-difference and (b) against $\gamma$-number of extreme nulls using distances based on minimum separation, average separation and binning. The vertical line represents the difference equal to zero when there is at least one null plot similar to the observed plot. Detection rate generally increases with $\delta$-difference. \hh{XXX} As the number of plots with distance greater than the observed increases, the detection rate decreases. The triangle represents a lineup with high detection rate and negative difference based on the average separation distance. This is examined in Figure~\ref{lp-exp}. }
 \label{lp-comp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
