@@ -2072,8 +2072,8 @@ In Figure~\ref{lp-comp}, the detection rate is plotted against the difference fo
 
 \begin{figure}[hbtp]
 \centering
-\includegraphics[width=0.7\textwidth]{largep-mtime-sep-bin.pdf}
-<<largep-mtime, echo=FALSE, dependson='t7-distr', out.width='\\textwidth', fig.width=8.5, fig.height=3.75>>=
+%\includegraphics[width=0.7\textwidth]{largep-mtime-sep-bin.pdf}
+<<largep-mtime, echo=FALSE, dependson='t7-distr', out.width='0.7\\textwidth', fig.width=8.5, fig.height=3.75>>=
 ### Facetted Plots
 #qplot(value, m.time, data = prop.diff.m, geom = "point", size = I(3), xlab = "Difference", ylab = "Mean Time to Respond", shape = factor(shape)) + facet_wrap( ~ variable, scales = "free_x") + geom_vline(xintercept = 0, col = "red") + theme(legend.position = "none")
 
@@ -2715,7 +2715,7 @@ The reason of choice can provide a way of evaluating the performance of a distan
 
 \paragraph{Acknowledgement:}
 
-This work was funded by National Science Foundation grant DMS 1007697. All plots are done with the {\tt ggplot2} \citep{hadley:2009} package in R.
+This work was funded by National Science Foundation grant DMS 1007697. All studies were conducted with approval from the Institutional Review Board IRB 10-347. All plots are done with the {\tt ggplot2} \citep{hadley:2009} package in R.
 
 %\section{References}
 
