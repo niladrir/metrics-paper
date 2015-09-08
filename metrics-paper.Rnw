@@ -121,7 +121,6 @@ theme_lineup <- theme(axis.text = element_blank(),
                       axis.title = element_blank(),
                       axis.ticks = element_blank(),
                       plot.margin=unit(c(0,0,0,0), unit="cm"))
-metrics <- read.table("data/turk2-metrics.txt", header=TRUE)
 @
 
 \section{Introduction} 
@@ -150,7 +149,7 @@ lpu <- unique(lp[,c("id", "response", "ip_address", "response_no", "plot_locatio
 \centering
 % This is a lineup from plot_turk2_100_450_12_3.png
 <<lineup, dependson='setup', fig.width=6, fig.height=6, out.width='0.7\\textwidth', echo=FALSE>>=
-lps <- read.table("data/dat_turk2_100_450_12_3.txt", header=TRUE)
+lps <- read.table("data/turk2/dat_turk2_100_450_12_3.txt", header=TRUE)
 mlps <- melt(lps, id.var="X", measure.var=2:21)
 mlps$variable <- as.numeric(gsub("X", "", mlps$variable))
 
@@ -673,7 +672,7 @@ Figure~\ref{dist_1} shows the lineup plot for $m = 20$ for testing whether there
 %\includegraphics[width=\textwidth]{dist-example.pdf}
 <<lp-reg, echo=FALSE, fig.width=6, fig.height=6, out.width='\\textwidth'>>=
 # plot_turk2_100_75_5_3.png
-dat <- read.table("data/dat_turk2_100_25_5_1.txt", header = TRUE) #plot_turk2_100_350_12_3.png
+dat <- read.table("data/turk2/dat_turk2_100_25_5_1.txt", header = TRUE) #plot_turk2_100_350_12_3.png
 dat.m <- melt(dat, id = "X")
 dat.m$.sample <- substring(dat.m$variable, 2)
 lineup.dat <- data.frame(x = dat.m$X, z = dat.m$value, .sample = dat.m$.sample)
@@ -782,7 +781,7 @@ ggplot()  +
 %\includegraphics[width=\textwidth]{dist-example-2.pdf}
 <<lp-box, echo=FALSE, fig.width=6, fig.height=6, out.width='\\textwidth', fig.align='bottom'>>=
 # directly from metrics-paper.R
-dat <- read.table("data/dat_turk1_100_0_5_2.txt", header = T)  ## plot_turk1_100_8_12_2
+dat <- read.table("data/turk1/dat_turk1_100_0_5_2.txt", header = T)  ## plot_turk1_100_8_12_2
 
 ### The detection rate for the above lineup is 0.28. But the difference for both binned distance and regression based distance are large negative.
 
@@ -911,7 +910,7 @@ Figure~\ref{plottype} illustrates this idea.
 \begin{figure}[hbtp]
 \centering
 <<lp-data, echo=FALSE, results='hide'>>=
-dat <- read.table("data/dat_turk2_100_25_5_1.txt", header = TRUE) #plot_turk2_100_350_12_3.png
+dat <- read.table("data/turk2/dat_turk2_100_25_5_1.txt", header = TRUE) #plot_turk2_100_350_12_3.png
 dat.m <- melt(dat, id = "X")
 dat.m$.sample <- substring(dat.m$variable, 2)
 lineup.dat <- data.frame(x = dat.m$X, z = dat.m$value, .sample = dat.m$.sample)
