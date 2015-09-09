@@ -1156,7 +1156,8 @@ ggplot(data = prop.diff.m) +
 #  ylim(c(0, 1)) + 
   xlab(expression(paste(delta,"-Difference", sep="")))+ 
   ylab("Detection Rate") + 
-  geom_smooth(aes(x=value, y=prop), se = FALSE, method="loess") + 
+  geom_smooth(aes(x=value, y=prop), se = FALSE, method="loess", 
+              linetype=2, colour="steelblue") + 
   facet_wrap( ~ variable, scales = "free_x") + 
   theme(legend.position = "none") 
 @
@@ -1438,7 +1439,7 @@ ggplot(data = prop.diff.m) +
              size = 3) +
   xlab(expression(paste(delta,"-Difference", sep=""))) + 
   ylab("Median Time to Respond (in seconds)") + 
-  facet_wrap( ~ variable, scales = "free_x") + 
+  facet_wrap( ~ variable, scales = "free_x") +  ylim(c(0,80)) +
   geom_smooth(aes(x=value, y=m.time), se=FALSE, method="loess") +
   theme(legend.position = "none")
 @
@@ -1474,8 +1475,8 @@ Lineups were created for data plots exhibiting a linear relationship between the
 
 The distances between the plots in this experiment were computed using both the regression based distance  ($d_{RG}$) and the binned distances ($d_{BN}$) with a small number of bins. For each lineup the proportion of data identifications was calculated from participants' responsea and plotted against $\delta$ and $\gamma$.
 
-\hh{XXX}
-Figure~\ref{turk2comp} shows the results for the distance based on the regression line and the binned distance against $\delta$.
+%\hh{XXX}
+Figure~\ref{turk2comp} shows the \hh{detection rate of each lineup against $\delta$-differences (top) and $\gamma$-number of extreme nulls (b) based on regression and binned (2,2) distance. }
 
 \begin{figure}[hbtp]
 \begin{subfigure}[t]{\textwidth}
@@ -1551,7 +1552,8 @@ ggplot(data=prop.diff.m) +
   ylab("Detection Rate") + 
   scale_y_continuous(breaks=(0:4)/4) + 
   facet_wrap( ~ variable, scales = "free_x") + 
-  geom_smooth(aes(x=value, y=prop, group=variable), se = FALSE, method='loess') + 
+  geom_smooth(aes(x=value, y=prop, group=variable), se = FALSE, method='loess',
+              linetype=2, colour="steelblue") + 
   theme(legend.position = "none") + 
   geom_line(aes(value, pred, group=variable), colour="steelblue", size=1, 
             data=t2pred) +
@@ -1597,11 +1599,17 @@ Detection rate increases  on average with $\delta$-difference. As the $\gamma$-n
 \end{figure}
 %\afterpage{\clearpage}
 
-Figure~\ref{turk2comp-1} shows a scatterplot of detection rate against $\delta$-difference. The vertical line represents difference equal to zero. It can be seen that as the difference increases, the detection rate increases. So the subjects do better in the easier lineups than the hard ones. The distance based on regression works well in capturing the complexity of the lineups. The difference is positive for lineups with large differences and negative for lineups with small difference. A few lineups have difference close to zero for which the detection rate is close to 50\%. The thick smooth line shows the fit of a logistic regression of detection rate in $\delta$-difference (AIC: \Sexpr{round(AIC(t2drg),1)}).
+%Figure~\ref{turk2comp-1} shows a scatterplot of detection rate against $\delta$-difference. 
+The vertical line represents difference equal to zero. As $\delta$-difference increases,  average detection rate increases, i.e.\ subjects do better in  easier lineups than hard ones. The solid lines show fits of logistic regressions of detection rate in $\delta$-difference based on regression (AIC: \Sexpr{round(AIC(t2drg),1)}) and based on binned distance (AIC: \Sexpr{round(AIC(t2dbn),1)}). Both fits come reasonably close to the dashed lines of a non-parameteric loess smooth, indicating that they explain most of the relationship between $\delta$-difference and detection rate.
+The regression based distance works well in capturing the complexity of the lineups. %The difference is positive for lineups with large differences and negative for lineups with small difference. 
+A few lineups have a $\delta$-difference close to zero -- for those lineups detection rates of lineups flip from being close to zero to close to one within a very short interval. 
 
-But the binned distance fails terribly. Although the detection rate increases with difference, the detection rate is high for values with negative difference. This is a classic scenario where a graphical element affects the response. The presence of the overlaid regression line on almost transparent points of the scatterplot affected the response of the subjects. One other reason may be the use of the same number of bins (2 $\times$ 2) in this case for all the lineups. The relationship may improve if different number of bins can be used for different lineups.
+For binned distance the situation is quite different.  Although detection rate increases with difference, the detection rate is already quite high for lineups with negative differences. This is a classic scenario where the distance does not capture all the features on which observers base their choice: here, a graphical element --the line-- affects the response, and shifts detection rates horizontally. %The presence of the overlaid regression line on almost transparent points of the scatterplot affects the response of the subjects. 
+%Another reason may be the use of the same number of bins (2 $\times$ 2) in this case for all the lineups. The relationship may improve if different number of bins would be used for different lineups.
+While this makes an absolute comparison of distances across different types of plots impossible, we can still use binned distance as a relative measure to judge difficulty.
 
-Figure~\ref{turk2comp} also shows the detection rate against the $\gamma$-number of extreme null plots. As the number increases,  detection rate decreases on average --- as there are more extreme null plots compared to the  plot, it becomes more difficult to identify the data plot. For a few lineups, almost all the subjects identify the observed plot although there is one more extreme null plot. Though from Figure~\ref{turk2comp}, it can be seen that the difference is marginal in most cases. 
+
+Figure~\ref{turk2comp-2} shows  detection rate against the $\gamma$-number of extreme null plots. As the number of extreme plots increases,  detection rate decreases on average --- indicating that identifying the data plot from a lineup becomes harder when there are more extreme plots in the lineup. For a few lineups, almost all evaluations led to an identifcation of the data plot although there was one null plot with an extreme feature. From Figure~\ref{turk2comp-1}, we see that this difference is marginal in most cases, though. 
 
 \begin{figure}[hbtp]
 \centering
@@ -1620,7 +1628,7 @@ ggplot(data = prop.diff.m) +
   ylab("Median Time to Respond (in seconds)") +
   xlab(expression(paste(delta,"-Difference", sep=""))) +
   facet_wrap( ~ variable, scales = "free_x") + 
-  geom_vline(xintercept = 0, col = "grey50") + 
+  geom_vline(xintercept = 0, col = "grey50") +  ylim(c(0,42.5)) +
   geom_smooth(aes(value, m.time, group=variable), se=FALSE, method='loess') + 
   theme(legend.position = "none", plot.margin=unit(c(0,0,0,0), unit="line"))
 
@@ -2038,7 +2046,7 @@ ggplot(aes(x=value, y=prop), data=prop.diff.m) +
   geom_line(aes(difference, pred), data=dpred, colour="steelblue", size=1) +
   geom_point(aes(shape=factor(shape)), size=3) +
   xlab(expression(paste(delta,"-Difference",sep=""))) + ylab("Detection Rate") +
-  geom_smooth(se=FALSE, method='loess') + 
+  geom_smooth(se=FALSE, method='loess', linetype=2, colour="steelblue") + 
   facet_wrap( ~ variable, scales = "free_x") + 
   theme(legend.position = "none")
 @
@@ -2074,14 +2082,14 @@ In Figure~\ref{lp-comp}, the detection rate is plotted against the difference fo
 \begin{figure}[hbtp]
 \centering
 %\includegraphics[width=0.7\textwidth]{largep-mtime-sep-bin.pdf}
-<<largep-mtime, echo=FALSE, dependson='t7-distr', out.width='0.7\\textwidth', fig.width=8.5, fig.height=3.75>>=
+<<largep-mtime, echo=FALSE, dependson='t7-distr', out.width='0.7\\textwidth', fig.width=8.5, fig.height=3.5>>=
 ### Facetted Plots
 #qplot(value, m.time, data = prop.diff.m, geom = "point", size = I(3), xlab = "Difference", ylab = "Mean Time to Respond", shape = factor(shape)) + facet_wrap( ~ variable, scales = "free_x") + geom_vline(xintercept = 0, col = "red") + theme(legend.position = "none")
 
 ggplot(aes(x=value, y=med.time), data=prop.diff.m) + 
   geom_vline(xintercept = 0, col = "grey50") +
   geom_point(aes(shape=factor(shape)), size=3) +
-  xlab(expression(paste(delta,"-Difference",sep=""))) + ylab("Median time to respond (in seconds)") +
+  xlab(expression(paste(delta,"-Difference",sep=""))) + ylab("Median time to respond (in seconds)") + ylim(c(0,80)) +
   facet_wrap( ~ variable, scales = "free_x") + 
   theme(legend.position = "none") + 
   geom_smooth(se=FALSE, aes(group=variable), method='loess')
@@ -2098,15 +2106,25 @@ Figure~\ref{lp-mtime} shows the relationship between the mean time taken to resp
 
 \begin{figure}[hbtp]
 \centering
-\begin{subfigure}[t]{0.6\textwidth}
+\begin{subfigure}[t]{\textwidth}
+\centering
 \caption{Lineup of scatterplots of three groups. Which plot shows the best separation?}
 %\includegraphics[width=\textwidth]{lineup-large-p-small-n.pdf}
-<<lp-exc-t7, echo=FALSE, fig.width=6, fig.height=6, out.width='\\textwidth'>>=
+<<lp-exc-t7, echo=FALSE, fig.width=6, fig.height=6, out.width='0.6\\textwidth'>>=
 lpt7 <- read.table("data/turk7/dat_large_p_small_n_30_100_0_2_3.txt", header=TRUE)
+raw7 <- read.csv("data/raw_data_turk7.csv")
+lpsub <- subset(raw7, pic_name=="plot_large_p_small_n_30_100_0_2_3.png")
+dt <- data.frame(xtabs(~response_no, data=lpsub))
+names(dt) <- c(".sample", "picks")
+picks <- data.frame(.sample=1:20)
+picks <- merge(picks, dt, by=".sample")
+picks$picks[is.na(picks$picks)] <- 0
 
 qplot(X1, X2, colour=factor(cl), facets=~.sample, data=lpt7, size=I(3)) + 
   theme_lineup +
-  theme(legend.position="none") 
+  theme(legend.position="none") +
+  geom_text(aes(label=picks), x=2.4, y=-1.8, data=picks, colour="grey70", 
+            size=8, hjust=1)
 @
 
 \end{subfigure}\hfill
