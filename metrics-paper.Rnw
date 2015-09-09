@@ -1060,9 +1060,9 @@ We evaluated the performance of the distance metrics in each of the experiments 
 
 \subsection{Turk Experiment 1 -- Side by Side Boxplots}\label{sec:turk1}
 \hh{The question of interest in this study is to investigate the power of visual inference in the classical situation of assessing the significance of a co-variate $X$ in a linear model. For the first study, the assumption is that the covariate is discrete (with two levels), in the study Turk Experiment 2 (see section~\ref{sec:turk2}), we assume the covariate to be continuous. 
-The visual test statistic consists of side-by-side boxplots of the dependent variable against the two levels of covariate $X$. The data for the lineups comes from a model of the form $y_{i} + \mu + \beta_{x_i} + \varepsilon_{i}$ where $\mu$ is an overall average, $x_i \in {1, 2}$ with \beta_1 = -\beta_2$ is the effect for each of the two levels of $X$, and $\varepsilon_{i} \sim N(0, \sigma^2)$, independent for $i = 1, ..., n$.
+The visual test statistic consists of side-by-side boxplots of the dependent variable against the two levels of covariate $X$. The data for the lineups comes from a model of the form $y_{i} + \mu + \beta_{x_i} + \varepsilon_{i}$ where $\mu$ is an overall average, $x_i \in {1, 2}$ with $\beta_1 = -\beta_2$ is the effect for each of the two levels of $X$, and $\varepsilon_{i} \sim N(0, \sigma^2)$, independent for $i = 1, ..., n$.
 The null generating mechanism is then a simplified model without the covariate, i.e.\ $\beta_1 = \beta_2 = 0$. }
-Each of the subjects recruited through the MTurk service, was asked to evaluate ten lineups, and to identify in each the plot that exhibits the largest vertical difference between groups A and B. 
+Each of the subjects recruited through the MTurk service, was asked to evaluate ten lineups, and to identify in each one the plot that exhibits the largest vertical difference between groups A and B. 
 The type of lineup used in this experiment is shown in Figure~\ref{box-1}.
 
 
@@ -1077,7 +1077,9 @@ The type of lineup used in this experiment is shown in Figure~\ref{box-1}.
 % \label{turk1}
 % \end{figure}
 
-For each lineup the subjects' choice was noted and the proportion of data identifications was calculated. The distances between the plots in each lineup were computed using both the distance based on boxplots ($d_{BX}$) and the binned distance ($d_{BN}$). For each lineup the mean distance for the true plot and the null plots were calculated and $\delta$ and $\gamma$ are obtained. The proportion of data identification is plotted against each of the two statistics, shown in Figure~\ref{turk1comp}. Binned distance was calculated using 8 bins on both of the axes. %shows the detection rate against the difference for $d_{BX}$ and $d_{BN}$ and the number of null plots greater than the observed plot for the two distance measures. 
+\hh{For each lineup, the detection rate is calculated based on the number of evaluations and data identifications by subjects and related to its $\delta$-difference and $\gamma$-number of extreme null plots using both the distance based on boxplots ($d_{BX}$) and the binned distance ($d_{BN}$, using 8 bins in y direction and 2 in x).  }
+%\hh{XXX this needs some more work XXX}
+%For each lineup a subject's choice was noted and the proportion of data identifications was calculated. The distances between the plots in each lineup were computed using both the distance based on boxplots ($d_{BX}$) and the binned distance ($d_{BN}$). For each lineup the mean distance for the true plot and the null plots were calculated and $\delta$ and $\gamma$ are obtained. The proportion of data identification is plotted against each of the two statistics, shown in Figure~\ref{turk1comp}. Binned distance was calculated using 8 bins \hh{along the $y$ axis$ and 2 for $x$}. %shows the detection rate against the difference for $d_{BX}$ and $d_{BN}$ and the number of null plots greater than the observed plot for the two distance measures. 
 
 
 \begin{figure}[hbtp]
@@ -1195,19 +1197,19 @@ ggplot(data = grtr.diff.m) +
 @
 \end{subfigure}
 	\vspace{-.1in}
-\caption{Comparison of distance metrics for side-by-side boxplots. Detection Rate (a) and the number of plots greater than the observed (b) are plotted against the difference based on the boxplot and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The detection rate increases with the difference. As the number of plots with distance greater than the observed increases, the detection rate decreases.  The triangle represents a lineup which has a high detection rate but a negative $\delta$-difference. This particular lineup is examined in Figure~\ref{turk1-exp}. }
+\caption{Comparison of distance metrics for side-by-side boxplots. Detection Rate (a) and the number of plots greater than the observed (b) are plotted against the difference based on the boxplot and binned distance. The vertical line represents the difference equal to zero when there is at least one null plot similar to the observed plot. The detection rate increases with the difference. As the number of plots with distance greater than the observed increases, the detection rate decreases.  The triangle represents a lineup which has a high detection rate but a negative $\delta$-difference. This particular lineup is examined in Figure~\ref{turk1-exp}. }
 \label{turk1comp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
 %\newpage
-
-In Figure~\ref{turk1comp},  detection rate is plotted against $\delta$-difference. The  vertical line highlights a  difference of zero indicating that the mean distance of the true plot is equal to the maximum of the mean distance of the null plots i.e.\ the mean distance of the true plot is equal to at least one of the mean distance of the null plots. As the $\delta$-difference increases, detection rate generally increases. %So the subjects do better in the easier lineups than the hard ones. 
+\hh{These values are plotted in Figure~\ref{turk1comp}.}
+%In Figure~\ref{turk1comp},  detection rate is plotted against $\delta$-difference. The  vertical line highlights a  difference of zero indicating that the mean distance of the true plot is equal to the maximum of the mean distance of the null plots i.e.\ the mean distance of the true plot is equal to at least one of the mean distance of the null plots. 
+We see that as $\delta$-difference increases, detection rate generally increases. %So the subjects do better in the easier lineups than the hard ones. 
 \hh{The solid lines in Figure~\ref{fig:turkcomp-1} are fits  from  logistic regression models using a quadratic effect for distance.
 The fitted lines come very close to the non-parametric smooth shown by the dashed line. Qualitatively, both boxplot based distance and binned distance show very similar fits for detection rate. Based on the logistic regressions, boxplot distance is fitting detection rate a bit better (AIC: \Sexpr{round(AIC(dbx),1)}) than binned distance  (AIC: \Sexpr{round(AIC(dbn),1)}). }
 
- Figure~\ref{turk1comp} shows the relationship between detection rate and the $\gamma$-number of extreme null plots. As this number increases, it gets harder for subjects to identify the data plot. It is interesting to see that for some lineups subjects are able to  pick the data plot even if there are  one or two more extreme null plots. 
-
+Figure~\ref{turk1comp-2} shows the relationship between detection rate and the $\gamma$-number of extreme null plots. As this number increases, it gets harder for subjects to identify the data plot. It is interesting to see that for some lineups subjects are able to  pick the data plot even if there are  one or two more extreme null plots. 
 
 Though  distance based on  boxplots works better a bit better,  binned distance does a decent job in this case. According to the binned distance, there are a few lineups, in which  the data plot is identified in more than 60\% of all evaluations despite a negative $\delta$-difference (see also Figure~\ref{turk1comp}). It should be noted that the binned distance does not take any graphical elements of the plot (such as the box or whiskers) into account but calculates distance solely based on the data. So outliers may have an effect on the binned distance but might not affect the distance based on the boxplots. 
 
@@ -1471,7 +1473,7 @@ ggplot(data = prop.diff.m) +
 
 
 \newpage
-\subsection{Turk Experiment 2 -- Scatterplots with an Overlaid Regression Line}\label{sec:turk1}
+\subsection{Turk Experiment 2 -- Scatterplots with an Overlaid Regression Line}\label{sec:turk2}
 \hh{XXX We need a few more specific details: }
 The null hypothesis underlying the lineups for this study is that there is no relationship between two normal random variables. As a test statistic, a scatterplot with an overlaid regression line is used. 
 Lineups were created for data plots exhibiting a linear relationship between the two variables for a range of correlation values \citep{majumder:2011}. Figures~\ref{lineup-example} and~\ref{fig:distances} show examples of the type of  lineup used in the study.  Subjects recruited from MTurk  were shown a set of ten lineups each and asked to identify the plot with the steepest slope. 
