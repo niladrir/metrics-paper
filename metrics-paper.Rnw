@@ -1192,26 +1192,28 @@ ggplot(data = grtr.diff.m) +
 
 %\newpage
 
-In Figure~\ref{turk1comp},  detection rate is plotted against $\delta$-difference. The  vertical line highlights a  difference of 0 indicating that the mean distance of the true plot is equal to the maximum of the mean distance of the null plots i.e.\ the mean distance of the true plot is equal to at least one of the mean distance of the null plots. As the $\delta$-difference increases, detection rate generally increases. %So the subjects do better in the easier lineups than the hard ones. 
-\hh{The thick lines in Figure~\ref{fig:turkcomp-1} are fits  from  logistic regression models using a quadratic effect for distance.
-The fitted lines come very close to the non-parametric smooth shown by the thin line. Qualitatively, both boxplot based distance and binned distance show very similar fits for detection rate. Based on the logistic regressions, boxplot distance is fitting detection rate a bit better (AIC: \Sexpr{round(AIC(dbx),1)}) than binned distance  (AIC: \Sexpr{round(AIC(dbn),1)}). }
+In Figure~\ref{turk1comp},  detection rate is plotted against $\delta$-difference. The  vertical line highlights a  difference of zero indicating that the mean distance of the true plot is equal to the maximum of the mean distance of the null plots i.e.\ the mean distance of the true plot is equal to at least one of the mean distance of the null plots. As the $\delta$-difference increases, detection rate generally increases. %So the subjects do better in the easier lineups than the hard ones. 
+\hh{The solid lines in Figure~\ref{fig:turkcomp-1} are fits  from  logistic regression models using a quadratic effect for distance.
+The fitted lines come very close to the non-parametric smooth shown by the dashed line. Qualitatively, both boxplot based distance and binned distance show very similar fits for detection rate. Based on the logistic regressions, boxplot distance is fitting detection rate a bit better (AIC: \Sexpr{round(AIC(dbx),1)}) than binned distance  (AIC: \Sexpr{round(AIC(dbn),1)}). }
 
- Figure~\ref{turk1comp} also shows the relation between detection rate and the number of null plots larger than the true plot. As the number of plots that are more extreme than the data plot increases,  subjects find it more and more  difficult to pick the data plot. It is interesting to see that subjects are able to  pick the data plot even if there are  one or two more extreme null plots. 
+ Figure~\ref{turk1comp} shows the relationship between detection rate and the $\gamma$-number of extreme null plots. As this number increases, it gets harder for subjects to identify the data plot. It is interesting to see that for some lineups subjects are able to  pick the data plot even if there are  one or two more extreme null plots. 
 
 
-Though  distance based on  boxplots works better a bit better, the binned distance does a decent job in this case. According to the binned distance, there are a few lineups with a negative difference, in which nevertheless the data plot is identified in more than 60\% of all evaluations (see also Figure~\ref{turk1comp}). It should be noted that the binned distance does not take any graphical elements of the plot (such as the box or whiskers) into account but calculates distance solely based on the data. So outliers may have a huge effect on the binned distance but might not affect the distance based on the boxplots. 
-\hh{XXX the following sentence is a bit hard to swallow. XXX the case against one single distance needs to be built up more slowly. }
-Hence it is advisable to use a distance based on the graphical elements since that is exactly what the subjects look at in the lineup.
+Though  distance based on  boxplots works better a bit better,  binned distance does a decent job in this case. According to the binned distance, there are a few lineups, in which  the data plot is identified in more than 60\% of all evaluations despite a negative $\delta$-difference (see also Figure~\ref{turk1comp}). It should be noted that the binned distance does not take any graphical elements of the plot (such as the box or whiskers) into account but calculates distance solely based on the data. So outliers may have an effect on the binned distance but might not affect the distance based on the boxplots. 
 
-\hh{In order to investigate on what participants base their choice, we are going to have a closer look at a lineup. }
+\hh{If participants base their choice on graphical elements, binned distance might therefore not be able to adequately reflect this.}
+\hh{In order to investigate on what participants base their choice, we are going to have a closer look at an individual lineup. }
+%\hh{XXX the following sentence is a bit hard to swallow. XXX the case against one single distance needs to be built up more slowly. }
+%Hence it is advisable to use a distance based on the graphical elements since that is exactly what the subjects look at in the lineup.
+
 \hh{From Figure~\ref{turk1comp} we see that for some of the lineups the detection rate is higher than its $\delta$-difference would suggest.} One such lineup is marked using a triangle in Figure~\ref{turk1comp}. %It would be interesting to look into the lineup closely to identify what made the people pick the actual plot as different. 
-Figure~\ref{turk1-exp} shows the lineup and the distribution of the distance metrics for a closer look at what might observers lead to pick the data plot as different. \hh{The grey numbers at the bottom right of each of the plots in the lineup gives an overview of which plots participants picked in 168 evaluations of the lineup.} 
+Figure~\ref{turk1-exp} shows the lineup and the distribution of distance metrics for a closer look at what might observers lead to pick the data plot as different. \hh{The grey numbers at the bottom right of each of the plots in the lineup shows a summary of how often a plot was picked by a participant in 168 evaluations.} 
 
 \begin{figure}[hbtp]
 \centering
 \begin{subfigure}[t]{\textwidth}
 \centering
-\caption{\label{fig:turk1-exp-1}Lineup of side-by-side boxplots. The numbers at the bottom right are the number of times each of the plots was chosen by observers.}
+\caption{\label{fig:turk1-exp-1}Lineup of side-by-side boxplots. The numbers at the bottom right are the number of times each of the plots was chosen by an observer.}
 %\includegraphics[width=\textwidth]{lineup-high-prop-neg-diff.pdf}
 <<lp-exc, echo=FALSE, fig.width=6, fig.height=6, out.width='0.6\\textwidth'>>=
 dat <- read.table("data/turk1/dat_turk1_100_8_12_2.txt", header = T)  ## plot_turk1_100_8_12_2
@@ -1389,7 +1391,7 @@ ggplot()  + geom_density(data = dframe, aes(x = dbn22),
 \end{subfigure}
 
 	\vspace{-.1in}
-\caption{ Illustration of the behavior of the different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics based on this lineup is shown in the other plots: boxplot based distance in (b), binned distance with 2 and 8 bins on x and y axis in (c) and binned distance with 2 bins in both axes in (d). The lineup corresponds to the point marked with a triangle in difference vs. detection rate plot in Figure~\ref{turk1comp}. }
+\caption{ Illustration of the behavior of the three distance metrics. The lineup is shown in (a) and  distributions of the different  metrics based on this lineup is shown in the other plots: boxplot based distance in (b), binned distance with 2 and 8 bins on x and y axis in (c) and binned distance with 2 bins along both axes in (d). The lineup corresponds to the point marked with a triangle in difference vs. detection rate plot in Figure~\ref{turk1comp}. }
 \label{turk1-exp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -1401,7 +1403,7 @@ ggplot()  + geom_density(data = dframe, aes(x = dbn22),
 Maybe surprisingly, plots Plots \#19 and \#15, which have relatively large differences between the quartiles, are not being chosen by many participants. Instead, observers seem to focus on the difference in interquartile ranges (i.e.\ the height of the box in a  boxplot). Plots \#1, \#13 and \#16 exhibit a large interquartile difference and are being picked often by observers.}
 
 
-The time subjects  take to respond  is another measure that can be used to evaluate  difficulty of lineups. 
+The time subjects  take to respond to a lineup is another measure that can be used to evaluate their difficulty. 
 Due to the presence of some huge outliers, we decided to use the median of time taken for each lineup. These values are plotted against  $\delta$-difference for both distance measures as shown in Figure~\ref{turk1-mtime}.
 \hh{Both $\delta$-difference exhibit a similar pattern: the time to respond peaks at a $\delta$-difference of zero. This indicates, that the situation where two or more plots exhibits similarly extreme features is the most difficult for observers to judge. With negative $\delta$-differences at least one null plot is more extreme, and observers seem to be able to make their choice quickly (probably for the extreme null plot).}
 %It can be clearly seen that when $\delta$-difference is below 0, there is no real trend in the mean time and there is a huge variability, indicating that the time taken depends on the subjects.
