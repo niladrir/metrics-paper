@@ -129,13 +129,13 @@ Graphics are an important component of big data analysis, providing a mechanism 
 Human observers are then asked to  examine the lineup and to identify the most different plot. If observers identify the data plot, this is quantifiable evidence against the null hypothesis. 
 
 Figure~\ref{lineup-example} is an example of a lineup \hh{where a more focussed test is considered}. Suppose we have the following statistical model
-
+%
 $$Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \dots + \epsilon_i$$
-
+%
 \noindent and we are interested in testing the following hypothesis:
-
+%
 $$H_o : \beta_k = 0 \qquad \qquad \hbox{vs} \qquad \qquad H_A: \beta_k \ne 0$$
-
+%
 \noindent where $X_k$ is a continuous covariate. Assume, the data plot is a scatterplot of $Y$ against $X_k$ with a regression line overlaid. We can generate null plots from rendering simulating data from $N(X\hat{\beta}, \hat{\sigma}^2)$ and plotting using the same scatterplot method as the true data, where parameter estimates ($\hat{\beta}, \hat{\sigma}^2$) are obtained by fitting the null model to the true data. 
 The plot of the true data is randomly placed among a set of ($m$ - 1) null plots to produce a lineup of size $m$. Rather than to identify the most different plot, human subjects are asked to identify the plot with the steepest slope from the lineup of Figure~\ref{lineup-example}. If the human subjects can identify the plot of the true data, we reject the null hypothesis and conclude that there is a significant linear relationship between $Y$ and $X_k$. 
 <<turk2, echo=FALSE, results='hide'>>=
@@ -210,7 +210,7 @@ Effectively,  in visual inference the red line is compared  to only these finite
 
 %{\color{red}***Point 2: Use metrics to ensure that a range of comparisons is made available to observers}
 
-This can be partially solved by having a large number of observers, who each evaluate lineups constructed with different null plots. Having some idea of the type of coverage of the sampling distribution that is provided by the lineups would be useful ahead of engaging observers and evaluating the lineups. Could we say that lineup X is expected to be ``difficult'' but lineup Y is expected to be ``easy'' then it may help in determining an appropriate number of observers? A difficult lineup is one where the data plot is similar to the null plots, while the data plot in an easy lineup  has some feature that makes it very different from the null plots. Being able to compute a plot distance metric would be very helpful ahead of running a lineup protocol.
+This can be partially solved by having a large number of observers, who each evaluate lineups constructed with different null plots. Having some idea of the type of coverage of the sampling distribution that is provided by the lineups would be useful ahead of engaging observers and evaluating the lineups. Could we say that lineup X is expected to be ``difficult'' but lineup Y is expected to be ``easy''? \hh{This information might then} help in  \hh{planning other aspects of the experiment such as e.g.\ determining} an appropriate number of observers. \hh{Intuitively, } a difficult lineup is one where the data plot is similar to the null plots, while the data plot in an easy lineup  has some feature that makes it \hh{stand out} from the null plots. Being able to compute a distance metric \hh{based on features of the plot} would be very helpful ahead of running a lineup protocol.
 
 %Researchers needs to provide a range of comparisons to observers to judge. An efficient design of experiment would be to provide a range of lineup plots with varying difficulty to the human subjects to look at. So far the difficulty of a lineup can be evaluated based on the performance of the subjects. The performance of the subjects can be analyzed after the experiment. But as a researcher, it would be interesting to have an idea about the difficulty of the lineups even before the experiment is conducted so the subjects see a set of lineups with varying difficulty. Distance metrics can be of great help in this case. 
 
@@ -280,31 +280,6 @@ The article is organized as follows. Section~\ref{sec:null} discusses the null g
 %\item Selection of the number of bins
 %\end{enumerate}}
 
-\section{Experimental Data} \label{sec:expts}
-Various experiments employing the lineup protocol have been conducted 
-%There have been eleven experiments conducted
-using Amazon's Mechanical Turk~\citep{turk} (MTurk), with some used for evaluating the power of visual inference against that of classical tests \citep{majumder:2011}, \hh{some for comparison of different designs \citep{hofmann2012graphical, loy:2015}, or for targeted conclusions based on visual inference \citep{tengfei:2013}.}
-%and the others using the protocol for different purposes. 
-It is possible to try the tasks provided to Turkers \citep{majumder:2013}. For evaluating the distance metrics we used the data collected on experiments~1, 2, and~7. Table \ref{tbl:visual_stat} describes the experiments.
-
-%that are being used to evaluate the effects of observers' demographic factors on the inference. Table \ref{tbl:visual_stat} summarizes these experiments. Each of these experiments collected demographic details of the subjects. Experiments 5, 6 and 7 are used to study the learning trend of the observer. The design of experiment 9 incorporated components that allows position of the actual data plot in the lineup, and the sample of nulls, to be evaluated. Section~\ref{sec:factor_performance} discusses human factors that may affect the performance of the observer. Section~\ref{sec:exp_design} describes the methods used to assess the effects, and Section~\ref{sec:result_socio} describes the results.
-
-\begin{table*}[hbtp] 
-\centering 
-\caption{Overview of the three Turk experiments, from which data was included to investigate distance metrics and how subjects read the plots. } 
-\begin{tabular}{m{.8cm}m{3.25cm}m{2cm}m{.5\textwidth}} 
-\hline\hline 
- ID & Experiment & Test Statistic  & Lineup question \\ [0.5ex] % inserts table %heading 
-\hline 
-1  & Box plot & \begin{minipage}[c]{2cm} \begin{center}	\scalebox{0.12}{\includegraphics{stat_category1.pdf}} \end{center} \end{minipage} & Which set of box plots shows biggest vertical difference 
-between group A and B? \\
-2 &  Scatter plot & \begin{minipage}[c]{2cm}  \begin{center} \scalebox{0.3}{\includegraphics{stat_beta_k1.png}} \end{center} \end{minipage} & Of the scatter plots below which one shows data that has steepest slope? \\
-  7 & Group separation & \begin{minipage}[c]{2cm} \begin{center}  \scalebox{0.4}{\includegraphics{stat_separation.pdf}} \end{center} \end{minipage} & Which of these plots has the most separation between the coloured groups?  \\
-\hline 
-\end{tabular}
-\label{tbl:visual_stat} 
-\end{table*} 
-
 
 \section{Null Generating Mechanism} \label{sec:null}
 
@@ -320,8 +295,10 @@ where $\varepsilon \sim N(0, \sigma^2)$. The parameter estimates of $\beta_0$ an
 
 %Other null generating mechanisms might be utilized depending on the null hypothesis underlying a data plot. 
 
-\section{Distance Measures} \label{sec:meas}
+\section{Distance Measures for Lineups}
+\subsection{Distance Measures} \label{sec:meas}
 
+\hh{XXX Plan for this section: introduce distance measures. These are chosen such that for each of the studies we discuss later on we have one general distance for all of them and one distance metric that is tailored specifically to the situation of the study (which is still fairly general because it mostly depends on the plot type). }
 %\blue{The difference between a regular permutation test and a graphical test under the line-up protocol, is that we are comparing the true value of the test statistics (i.e. the plot of the original data) to a finite sample of the sample distribution. As Tukey suggested, `there is such a thing as a bad random sample' \citet{fernholz03}:
 %\begin{quotation}
 %There [in Tukey's Data Analysis class] I discovered that [...]  a random sample is indeed a ``batch of values" which ``fail to be utopian" most of the time.
@@ -543,10 +520,14 @@ d^2_{\hbox{AS}}(X, Y):= ||s_a(X) - s_g(Y)||^2 = \sum_{i = 1}^g ((s_a(X))_i - (s_
 \[
 d^2_{\hbox{CM}}(X, Y):= ||m(X) - m(Y)||^2 = \sum_{i=1}^g (m_i(X) - m_i(Y))^2
 \]
+\hh{XXX this distance is not used in the remainder of the paper. It could be shortened to a sentence here.}
+
 \end{enumerate}
 %\red{Now write the formula for the mean, since it is included below}
 
 \hh{XXX Why are there so many variations for the cluster distance? There are obvious variations for the other distances mentioned, too - it would be more consistent to just pick one distance and run with it.}
+
+\hh{XXX Minimum separation seems to perform a bit closer to what observers see. We could work this point out a bit more. }
 
 Figure~\ref{sep-dist} illustrates the difference between the different distance metrics separation. In practice, many possible metrics could be used to measure the separation, such as those readily available in the {\tt fpc} package  \citep{hennig:2010}.
 
@@ -631,7 +612,7 @@ How well each distance measure matches the observers' responses depends some on 
 
 
 
-\section{Distance Metric Distribution} \label{sec:distri}
+\subsection{Distance Metric Distribution} \label{sec:distri}
 
 For a given lineup of size $m$, the empirical distribution of distance metrics is obtained using the following algorithm:
 
@@ -901,7 +882,7 @@ ggplot()  +
 
 Figure~\ref{box-1} shows a lineup of size $m = 20$ for testing whether there exists a significant difference in the group medians between A and B. The 19 null plots are generated from a null model, consisting of draws from a normal distribution.  Figure~\ref{box-2} shows the empirical distribution of the distance based on the boxplots with the mean distance for the true plot (in orange) and the null plots (in black). It is hard to identify the true plot from the lineup. During the study, only 2 out of 26 observers picked the data plot, indicating little to no evidence of a deviation from the null hypothesis. This  is also evident from the boxplot based distance measure: the orange line corresponding to the true data is together with the mass of the black lines, one null plot exhibits a lot more signal than the true plot.
 
-\section{Effect of Plot Type and Question of Interest } \label{sec:plot_type}
+\subsection{Effect of Plot Type and Question of Interest } \label{sec:plot_type}
 
 Previous studies have suggested that the type of plot used in the lineup has an effect on the response of the subjects \citep{zhao:2012, hofmann2012graphical}. For example,  subjects find it easier to identify the true plot for a large sample data when a box plot is used in the lineup instead of a dot plot. Similarly, the use of aesthetics, such as colors or shapes, and graphical elements, such as a trend line, also influence an observer's decision \citep{vanderplas:2016}. In order to account for this, the distance metric has to be adjusted for the plot type and graphical elements. 
 %The distance metric should account for the additional information provided by the graphical elements in the lineup. The graphical elements, like the presence of a box or a regression line overlaid on a scatterplot may influence the response of the subject. 
@@ -969,7 +950,7 @@ A distance metric should also take into account the question of interest. But, i
 
 \hh{XXX it matters what kind of comparisons those distance measures are supposed to allow. Internally, when the same design is used, the measures are consistent - and alow for a relative comparison: an easier lineup will show a bigger positive distance between the true plot and the nulls than a more difficult one. The distance measure does not necessarily allow for an absolute assessment of difficulty. When the comparison is additionally supposed to distinguish between designs showing the same data, the distance measures definitely need to take the graphical elements used into account. }
 
-\section{Metric Evaluation} \label{sec:eval}
+\subsection{Metric Evaluation} \label{sec:eval}
 %
 For a lineup of size $m = 20$, the average distance of the true plot from all null plots is compared 18 average distances between the null plots. This comparison can sometimes complicate things. A logical solution is to calculate a single statistic for each lineup. Such a statistic should be based on the mean distance of the true plot and the maximum of the mean distances for the null plots. Hence we define, 
 \begin{enumerate}
@@ -1007,7 +988,7 @@ $\gamma(.)$ takes integer values between 0 and $(m - 1)$. The higher this value,
 
 \hh{XXX why don't you also use the distribution of the null distances that you created? That should give an empirical $p$-value for the data plot - it does not, however, take the dependency on the nulls into account.}
 
-\section{Comparison of the distance metrics}
+\subsection{Comparison of the distance metrics}
 
 
 The difference and detection rate can be divided as following:
@@ -1037,9 +1018,36 @@ A larger value of this ratio would indicate that the distance metric matches mor
 %\newpage
 
 
-\section{Results} \label{sec:results}
+\section{Description of Experimental Results and Analysis of Metrics} \label{sec:results}
 
 %{\color{blue} Description of the Turk Results and analysis.}
+
+%\section{Experimental Data} \label{sec:expts}
+Various experiments employing the lineup protocol have been conducted 
+%There have been eleven experiments conducted
+using Amazon's Mechanical Turk~\citep{turk} (MTurk), with some used for evaluating the power of visual inference against that of classical tests \citep{majumder:2011}, \hh{some for comparison of different designs \citep{hofmann2012graphical, loy:2015}, or for targeted conclusions based on visual inference \citep{tengfei:2013}.}
+%and the others using the protocol for different purposes. 
+It is possible to try the tasks provided to Turkers \citep{majumder:2013}. For evaluating the distance metrics we used the data collected on experiments~1, 2, and~7. Table \ref{tbl:visual_stat} describes the experiments.
+
+%that are being used to evaluate the effects of observers' demographic factors on the inference. Table \ref{tbl:visual_stat} summarizes these experiments. Each of these experiments collected demographic details of the subjects. Experiments 5, 6 and 7 are used to study the learning trend of the observer. The design of experiment 9 incorporated components that allows position of the actual data plot in the lineup, and the sample of nulls, to be evaluated. Section~\ref{sec:factor_performance} discusses human factors that may affect the performance of the observer. Section~\ref{sec:exp_design} describes the methods used to assess the effects, and Section~\ref{sec:result_socio} describes the results.
+
+\begin{table*}[hbtp] 
+\centering 
+\caption{Overview of the three Turk experiments, from which data was included to investigate distance metrics and how subjects read the plots. } 
+\begin{tabular}{m{.8cm}m{3.25cm}m{2cm}m{.5\textwidth}} 
+\hline\hline 
+ ID & Experiment & Test Statistic  & Lineup question \\ [0.5ex] % inserts table %heading 
+\hline 
+1  & Box plot & \begin{minipage}[c]{2cm} \begin{center}	\scalebox{0.12}{\includegraphics{stat_category1.pdf}} \end{center} \end{minipage} & Which set of box plots shows biggest vertical difference 
+between group A and B? \\
+2 &  Scatter plot & \begin{minipage}[c]{2cm}  \begin{center} \scalebox{0.3}{\includegraphics{stat_beta_k1.png}} \end{center} \end{minipage} & Of the scatter plots below which one shows data that has steepest slope? \\
+  7 & Group separation & \begin{minipage}[c]{2cm} \begin{center}  \scalebox{0.4}{\includegraphics{stat_separation.pdf}} \end{center} \end{minipage} & Which of these plots has the most separation between the coloured groups?  \\
+\hline 
+\end{tabular}
+\label{tbl:visual_stat} 
+\end{table*} 
+
+
 
 The performance of the distance metrics was evaluated by comparing  distances to observers' responses. A number of experiments were run using the MTurk service \citep{turk}. Subjects were recruited through this service and were shown a sequence of lineups. In each experiment, they were asked specific questions. Their responses were recorded along with other demographic informations. Details on the design of experiments can be found in \cite{majumder:2011} and \cite{roychowdhury:2013}. 
 
@@ -1462,7 +1470,7 @@ ggplot(data = prop.diff.m) +
 
 \newpage
 \subsection{Turk Experiment 2 -- Scatterplots with an Overlaid Regression Line}
-\hh{We need a few more specific details: }
+\hh{XXX We need a few more specific details: }
 The null hypothesis underlying the lineups for this study is that there is no relationship between two normal random variables. As a test statistic, a scatterplot with an overlaid regression line is used. 
 Lineups were created for data plots exhibiting a linear relationship between the two variables for a range of correlation values \citep{majumder:2011}. Figures~\ref{lineup-example} and~\ref{fig:distances} show examples of the type of  lineup used in the study.  Subjects recruited from MTurk  were shown a set of ten lineups each and asked to identify the plot with the steepest slope. 
 
@@ -1475,7 +1483,7 @@ Lineups were created for data plots exhibiting a linear relationship between the
 % \label{turk2}
 % \end{figure}
 
-The distances between the plots in this experiment were computed using both the regression based distance  ($d_{RG}$) and the binned distances ($d_{BN}$) with a small number of bins. For each lineup the proportion of data identifications was calculated from participants' responsea and plotted against $\delta$ and $\gamma$.
+The distances between the plots in this experiment were computed using both the regression based distance  ($d_{RG}$) and the binned distances ($d_{BN}$) with a small number of bins. For each lineup the proportion of data identifications was calculated from participants' responses and plotted against $\delta$ and $\gamma$.
 
 %\hh{XXX}
 Figure~\ref{turk2comp} shows the \hh{detection rate of each lineup against $\delta$-differences (top) and $\gamma$-number of extreme nulls (b) based on regression and binned (2,2) distance. }
@@ -1602,7 +1610,7 @@ Detection rate increases  on average with $\delta$-difference. As the $\gamma$-n
 %\afterpage{\clearpage}
 
 %Figure~\ref{turk2comp-1} shows a scatterplot of detection rate against $\delta$-difference. 
-The vertical line represents difference equal to zero. As $\delta$-difference increases,  average detection rate increases, i.e.\ subjects do better in  easier lineups than hard ones. The solid lines show fits of logistic regressions of detection rate in $\delta$-difference based on regression (AIC: \Sexpr{round(AIC(t2drg),1)}) and based on binned distance (AIC: \Sexpr{round(AIC(t2dbn),1)}). Both fits come reasonably close to the dashed lines of a non-parameteric loess smooth, indicating that they explain most of the relationship between $\delta$-difference and detection rate.
+The vertical line represents difference equal to zero. As $\delta$-difference increases,  average detection rate increases, i.e.\ subjects do better in  easier lineups than hard ones. The solid lines show fits of logistic regressions of detection rate in $\delta$-difference based on regression (AIC: \Sexpr{round(AIC(t2drg),1)}) and based on binned distance (AIC: \Sexpr{round(AIC(t2dbn),1)}). Both fits come reasonably close to the dashed lines of a non-parametric loess smooth, indicating that they explain most of the relationship between $\delta$-difference and detection rate.
 The regression based distance works well in capturing the complexity of the lineups. %The difference is positive for lineups with large differences and negative for lineups with small difference. 
 A few lineups have a $\delta$-difference close to zero -- for those lineups detection rates of lineups flip from being close to zero to close to one within a very short interval. 
 
@@ -1611,7 +1619,7 @@ For binned distance the situation is quite different.  Although detection rate i
 While this makes an absolute comparison of distances across different types of plots impossible, we can still use binned distance as a relative measure to judge difficulty.
 
 
-Figure~\ref{turk2comp-2} shows  detection rate against the $\gamma$-number of extreme null plots. As the number of extreme plots increases,  detection rate decreases on average --- indicating that identifying the data plot from a lineup becomes harder when there are more extreme plots in the lineup. For a few lineups, almost all evaluations led to an identifcation of the data plot although there was one null plot with an extreme feature. From Figure~\ref{turk2comp-1}, we see that this difference is marginal in most cases, though. 
+Figure~\ref{turk2comp-2} shows  detection rate against the $\gamma$-number of extreme null plots. As the number of extreme plots increases,  detection rate decreases on average --- indicating that identifying the data plot from a lineup becomes harder when there are more extreme plots in the lineup. For a few lineups, almost all evaluations led to an identification of the data plot although there was one null plot with an extreme feature. From Figure~\ref{turk2comp-1}, we see that this difference is marginal in most cases, though. 
 
 \begin{figure}[hbtp]
 \centering
@@ -1894,7 +1902,7 @@ The lineup in Figure~\ref{turk2-exp} is a difficult one as suggested by the dist
 
 \subsection{Turk Experiment 7 -- Large $p$, Small $n$ Data}
 
-The motivation behind this experiment is to study the effect of \hh{high dimensionality} on separability in data. Scenarios with pure noise and some real separation in two or three groups were investigated. %Data was simulated with different dimensions and fixed sample size. Data was divided into two or three groups. 
+The motivation behind this experiment is to study the effect of \hh{high dimensions} on separability in data. Scenarios with pure noise and some real separation in two or three groups were investigated. %Data was simulated with different dimensions and fixed sample size. Data was divided into two or three groups. 
 A projection pursuit with Penalized Discriminant Analysis Index \citep{lee:2009} was used to obtain one (for two groups) or two (for three groups) dimensional projections. 
 Depending on the number of groups, either a jittered dotplot or a scatterplot was used as test statistic in a lineup setting. %The one or two dimensional projections were then plotted which resulted in the observed data plot. 
 The null plots are obtained by permuting the group variable and plotting the two dimensional projections obtained from a projection pursuit with PDA index.
@@ -2748,7 +2756,7 @@ The reason of choice can provide a way of evaluating the performance of a distan
 
 \paragraph{Acknowledgement:}
 
-This work was funded by National Science Foundation grant DMS 1007697. All studies were conducted with approval from the Institutional Review Board IRB 10-347. All plots are done with the {\tt ggplot2} \citep{hadley:2009} package in R.
+ All plots are done with the {\tt ggplot2} \citep{hadley:2009} package in R.
 
 %\section{References}
 
