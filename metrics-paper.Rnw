@@ -1474,9 +1474,12 @@ ggplot(data = prop.diff.m) +
 
 \newpage
 \subsection{Turk Experiment 2 -- Scatterplots with an Overlaid Regression Line}\label{sec:turk2}
-\hh{XXX We need a few more specific details: }
-The null hypothesis underlying the lineups for this study is that there is no relationship between two normal random variables. As a test statistic, a scatterplot with an overlaid regression line is used. 
-Lineups were created for data plots exhibiting a linear relationship between the two variables for a range of correlation values \citep{majumder:2011}. Figures~\ref{lineup-example} and~\ref{fig:distances} show examples of the type of  lineup used in the study.  Subjects recruited from MTurk  were shown a set of ten lineups each and asked to identify the plot with the steepest slope. 
+\hh{The question of interest of experiment 2 is very similar to the one in experiment 1: again, the focus is to investigate the power of visual methods in the framework of normal models. In contrast to experiment 1, in experiment 1 we are interested in the significance of a continuous variable $X$. The test statistic therefore is a scatterplot of the dependent variable and $X$ overlaid by a regression line. As discussed in section 5.2 of \citet{majumder:2011}, $X$ is assumed to be standard normal, and dependent data $Y$ for various correlation settings are considered. Null data correspondingly is simulated from $N(X\beta, \sigma^2)$. } 
+Figures~\ref{lineup-example} and~\ref{fig:distances} show examples of the type of  lineup used in the study.  Subjects recruited from MTurk  were shown a set of ten lineups each and asked to identify the plot with the steepest slope. 
+
+
+%The null hypothesis underlying the lineups for this study is that there is no relationship between two normal random variables. As a test statistic, a scatterplot with an overlaid regression line is used. 
+%Lineups were created for data plots exhibiting a linear relationship between the two variables for a range of correlation values \citep{majumder:2011}. 
 
 
 % \begin{figure}[htbp]
@@ -1487,10 +1490,10 @@ Lineups were created for data plots exhibiting a linear relationship between the
 % \label{turk2}
 % \end{figure}
 
-The distances between the plots in this experiment were computed using both the regression based distance  ($d_{RG}$) and the binned distances ($d_{BN}$) with a small number of bins. For each lineup the proportion of data identifications was calculated from participants' responses and plotted against $\delta$ and $\gamma$.
+For each lineup in this experiment,  distances between the plots were computed using both  regression based distance  ($d_{RG}$) and  binned distances ($d_{BN}$) with a small number of bins. For each lineup the proportion of data identifications was calculated from participants' responses and plotted against $\delta$-difference and the $\gamma$-number of extreme null plots, as shown in Figure~\ref{turk2comp}.
 
 %\hh{XXX}
-Figure~\ref{turk2comp} shows the \hh{detection rate of each lineup against $\delta$-differences (top) and $\gamma$-number of extreme nulls (b) based on regression and binned (2,2) distance. }
+%Figure~\ref{turk2comp} shows the \hh{detection rate of each lineup against $\delta$-differences (top) and $\gamma$-number of extreme nulls (b) based on regression and binned (2,2) distance. }
 
 \begin{figure}[hbtp]
 \begin{subfigure}[t]{\textwidth}
@@ -1654,7 +1657,7 @@ ggplot(data = prop.diff.m) +
 \end{figure}
 %%\afterpage{\clearpage}
 
-Figure~\ref{turk2-mtime} shows the relationship between the median time taken to respond and $\delta$-difference for both the distances. It can be clearly seen that there is a strong negative association: as $\delta$-difference increases, the subjects take less time to respond. \hh{Similar to the previous example of section~\ref{sec:turk1} time to respond peaks at a $\delta$-difference close to zero is lower for larger negative $\delta$-difference based on regression distance.}
+Figure~\ref{turk2-mtime} shows the relationship between the median time taken to respond and $\delta$-difference for both the distances. It can be clearly seen that there is a strong negative association: as $\delta$-difference increases, the subjects take less time to respond. \hh{Similar to the previous example of section~\ref{sec:turk1} time to respond peaks at a $\delta$-difference close to zero.}
 %In the case of the binned distance, the relationship is negative though the variability is higher for the above mentioned reasons.
 
 Although the regression based distance seems to efficiently identify the quality of the lineup, there is one lineup (marked by a solid triangle in Figure~\ref{turk2comp}) \hh{with} a negative $\delta$-difference which was nevertheless identified by observers reasonably successfully.  Figure~\ref{turk2-exp} shows the lineup and the corresponding distributions of distance metrics. 
@@ -1895,12 +1898,9 @@ ggplot() +
 The lineup in Figure~\ref{turk2-exp} is a difficult one as suggested by the distribution of the distance metrics based on regression. 
 \hh{For the data plot (in panel \#10) the conventional $p$-value for testing the slope equal to zero is 0.085. However, the signal in the plot is strong enough, to make  around 28\% of all subjects pick this plot.}
 
- The binned distance with 2 bins on each axes does not let the data plot stand out in any way, however, the binned distance using the optimal number of bins (8 on the x-axis and 2 on the y-axis) by the optimal number of bins selection method identifies the data plot as different from the others. 
+The binned distance with 2 bins on each axes does not let the data plot stand out in any way, however, the binned distance using the optimal number of bins (8 on the x-axis and 2 on the y-axis) by the optimal number of bins selection method identifies the data plot as different from the others. 
 
 \hh{The number of picks lines up best with the difference measure based on the slope (regression without intercept). Plots \# 10, 12, 11, 9, and 7 all have a relatively steep slope, and are also the plots that were picked the most often.  }
-
-\hh{XXX something at the end about the graphical elements? How about this:}
-
 \hh{Again, a distance measure derived directly from one of the graphical elements in the plot leads to the best assessment of the choices made by human evaluators.}
 
 
