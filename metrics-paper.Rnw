@@ -63,7 +63,7 @@
 {
   \title{\bf Utilizing Distance Metrics on Lineups to Examine What People Read From Data Plots}
 \author{Niladri Roy Chowdhury\thanks{
-    The authors gratefully acknowledge funding from the National Science Foundation Grant \# DMS 1007697. All data collection has been conducted with approval from the Institutional Review Board IRB 10-347}\hspace{.2cm}\\
+    The authors gratefully acknowledge funding from the National Science Foundation Grant DMS \#1007697. All data collection has been conducted with approval from the Institutional Review Board IRB 10-347}\hspace{.2cm}\\
     Department of Statistics and Statistical Laboratory, Iowa State University\\
     and \\
     Dianne Cook\\
@@ -125,10 +125,37 @@ theme_lineup <- theme(axis.text = element_blank(),
 
 \section{Introduction} 
 Graphics are an important component of big data analysis, providing a mechanism for discovering unexpected patterns in data. Pioneering research by \citet{gelman:2004}, \citet{buja:2009} and \citet{majumder:2011} provide methods to quantify the significance of discoveries made from visualizations. %Although, there have been major advances in statistical graphics over the years, for example, systems like R \citep{R} provide high quality static graphics, and very recently some access to interactive graphics. But the problem remains that graphics are not widely considered to be a part of inferential statistics. 
-\citet{buja:2009} introduced two protocols which bridge the gulf between traditional statistical inference and exploratory data analysis. These are the Rorschach and the lineup protocols. \hh{The Rorschach protocol consists of a set of $m$ (usually, $m=20$) plots rendered from data that is consistent with a given null model.} That way, the Rorschach protocol helps to understand the extent of randomness \hh{in the null model}. The lineup protocol places a statistical plot firmly in the framework of hypothesis tests: a plot of the data is considered to be the test statistic. Unlike the simpler numeric test statistics in classical inference, plots as  test statistics are complex entities. In a lineup, the data plot is placed randomly among a  set of  null plots generated from a null model.
+\citet{buja:2009} introduced two protocols, the Rorschach and the lineup protocol, which bridge the gulf between traditional statistical inference and exploratory data analysis. \hh{The Rorschach protocol consists of a set of $m$ (usually, $m=20$) plots (called the {\it null plots}) rendered from data that is consistent with a given null model.} That way, the Rorschach protocol helps to understand the extent of randomness \hh{in the null model}. \hh{Under the lineup protocol, a plot of the observed data is placed randomly among a set of $m-1$ null plots.}
 Human observers are then asked to  examine the lineup and to identify the most different plot. If observers identify the data plot, this is quantifiable evidence against the null hypothesis. 
+The lineup protocol places a statistical plot firmly in the framework of hypothesis tests: a plot of the data is considered to be the test statistic, which is compared against the sampling distribution under the null hypothesis represented by the null plots. 
+Obviously, the null generating mechanism, i.e.\ the method of obtaining the data for null plots, is crucial for both the lineup and the Rorschach protocol. 
+The null hypothesis directly affects the choice of null generating method. 
+\hh{Null generating methods are typically based on (a) simulation, if the null hypothesis allows us to directly specify a parametric model, (b) sampling (in the case of large data sets) or (c) permutation of the original data \citep[see e.g.\ ][]{Good05}, which allow for a non-parametric testing approach that preserves marginal distributions in the data while ensuring independence in higher dimensions. }
 
-Figure~\ref{lineup-example} is an example of a lineup \hh{where a more focussed test is considered}. Suppose we have the following statistical model
+%In the experimental data that we analyzed the null generating methods used were permutation methods and direct simulation from a null model.
+
+The lineup protocol was formally tested in a head-to-head comparison with the equivalent conventional test in \citet{majumder:2011}. The experiment utilized human subjects from Amazon's Mechanical Turk \citep{turk} and used simulation to control conditions. The results suggest that  visual inference is comparable to conventional tests in a controlled conventional setting. This provides support for its appropriateness for testing in real exploratory situations where no conventional test exists. Interestingly, the power of a visual test increases with the number of observers engaged to evaluate lineups, and the pattern in results suggests that the power will provide results consistent with practical significance \citep{kirk:1996}.
+
+
+Figure~\ref{lineup-example} gives an example of one of the lineups used in a head-to-head comparison with classical testing (results are discussed in more detail in section~\ref{sec:turk2}). 
+\begin{figure}[hbtp]
+\centering
+% This is a lineup from plot_turk2_100_450_12_3.png
+<<lineup, dependson='setup', fig.width=6, fig.height=6, out.width='0.7\\textwidth', echo=FALSE>>=
+lps <- read.table("data/turk2/dat_turk2_100_450_12_3.txt", header=TRUE)
+mlps <- melt(lps, id.var="X", measure.var=2:21)
+mlps$variable <- as.numeric(gsub("X", "", mlps$variable))
+
+qplot(X, value, data=mlps, alpha=I(0.5), facets=~variable, size=I(2.5)) + 
+  geom_smooth(method="lm", se=FALSE, size=1.25, alpha=0.05) +
+  theme_lineup + theme(aspect.ratio=1)
+@
+%\centerline{\includegraphics[width=.8\textwidth]{lineup-protocol-example.pdf}}
+\caption{Lineup plot of size $m = 20$ of scatterplots with overlaid regression line. This tests $H_o: \beta_k = 0$, where covariate $X_k$ is continuous. One of the plots in the lineup is the plot of the true data. The other plots are null plots generated by simulating data from a null model that assumes that the null hypothesis is true. Can you identify the plot with the steepest slope? }
+\label{lineup-example}
+\end{figure}
+%
+Suppose we have the following statistical model
 %
 $$Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \dots + \epsilon_i$$
 %
@@ -145,43 +172,8 @@ lpu <- unique(lp[,c("id", "response", "ip_address", "response_no", "plot_locatio
 @
 \hh{For the example of this lineup \Sexpr{sum(lpu$response)} out of \Sexpr{nrow(lpu)} observers correctly identify plot~\#2 as the data plot, providing very strong evidence of a linear relationship.}
 
-\begin{figure}[htbp]
-\centering
-% This is a lineup from plot_turk2_100_450_12_3.png
-<<lineup, dependson='setup', fig.width=6, fig.height=6, out.width='0.7\\textwidth', echo=FALSE>>=
-lps <- read.table("data/turk2/dat_turk2_100_450_12_3.txt", header=TRUE)
-mlps <- melt(lps, id.var="X", measure.var=2:21)
-mlps$variable <- as.numeric(gsub("X", "", mlps$variable))
-
-qplot(X, value, data=mlps, alpha=I(0.5), facets=~variable, size=I(2.5)) + 
-  geom_smooth(method="lm", se=FALSE, size=1.25, alpha=0.05) +
-  theme_lineup + theme(aspect.ratio=1)
-@
-%\centerline{\includegraphics[width=.8\textwidth]{lineup-protocol-example.pdf}}
-\caption{Lineup plot of size $m = 20$ of scatterplots with overlaid regression line. This tests $H_o: \beta_k = 0$, where covariate $X_k$ is continuous. One of the plots in the lineup is the plot of the true data. The other plots are null plots generated by simulating data from a null model that assumes that the null hypothesis is true. Can you identify the plot with the steepest slope? }
-\label{lineup-example}
-\end{figure}
-
-The lineup protocol was formally tested in a head-to-head comparison with the equivalent conventional test in \citet{majumder:2011}. The experiment utilized human subjects from Amazon's Mechanical Turk \citep{turk} and used simulation to control conditions. The results suggest that  visual inference is comparable to conventional tests in a controlled conventional setting. This provides support for its appropriateness for testing in real exploratory situations where no conventional test exists. Interestingly, the power of a visual test increases with the number of observers engaged to evaluate lineups, and the pattern in results suggests that the power will provide results consistent with practical significance \citep{kirk:1996}.
-
-%But there may be one issue when using the lineup protocol. In traditional hypothesis testing, the true value of the test statistic is compared with all possible values of its null distribution. If the statistic is extreme on this scale, there is evidence to disbelieve the null hypothesis. With the lineup protocol, for a data plot to be considered to be extreme, a human judge must pick it as different from the other plots in the lineup. 
-
-%\begin{figure}[htp]
-%\centerline{\includegraphics[width=0.5\textwidth]{diagram.pdf}}
-%\caption{Decision regions  for classical inference for $H_0: \mu=\mu_0$ vs $H_a:\mu>\mu_0$.}
-%\label{classical}
-%\end{figure}
-%
-%\begin{figure}[hbtp]
-%%\begin{figurehere}
-%   \centering
-%       \includegraphics[width=0.5\textwidth]{visual-inference-plot-1.pdf}
-%      \caption{Sampling distribution of the test statistic with the true value and the values for the null plots corresponding to the lineup in Figure~\ref{lineup}.}
-%      \label{visual-plot}
-%%	\vspace{-.1in}
-%\end{figure}
-
-\begin{figure}[htbp]
+In traditional hypothesis testing, the sampling distribution of a test statistic is functional and continuous. In the lineup protocol, although conceptually we may have an infinite collection of plots from the null distribution, in practice, we can only evaluate against a finite number of null plots. A human judge has a physical limit on the number of plots they can peruse. This poses one of the issues with using the lineup protocol.  Figure~\ref{compare} illustrates the difference. In traditional inference, the black curve represents the sampling distribution for the $t$-distribution under the null hypothesis, and the shaded red area shows the rejection region. 
+\begin{figure}[hbtp]
 \centering
 \begin{subfigure}[t]{0.49\textwidth}
   \caption{Classical Inference}
@@ -196,11 +188,8 @@ The lineup protocol was formally tested in a head-to-head comparison with the eq
 \end{figure}
 
 
-%{\color{red}***  Point 1: Finite comparison vs infinite comparison, measuring how different data plot is from null plots}
-
-In traditional hypothesis testing, the sampling distribution of a test statistic is functional and continuous. In the lineup protocol, although conceptually we may have an infinite collection of plots from the null distribution, in practice, we can only evaluate against a finite number of null plots. A human judge has a physical limit on the number of plots they can peruse. This poses one of the issues with using the lineup protocol.  Figure~\ref{compare} illustrates the difference. In traditional inference, the black curve represents the sampling distribution for the $t$-distribution under the null hypothesis, and the shaded red area shows the rejection region. In visual inference, let us consider that the black curve gives the sampling distribution although the sampling distribution is essentially a distribution of null plots. 
-\hh{While the test statistic is not numeric, we can calculate the value of the statistic from the data underlying the true plot. These values are shown using the red bar (data plot) and the blue bars (null plots) in Figure~\ref{compare}.}
-%\hh{XXX why although? I'm afraid I don't understand, where the next sentence is trying to go.} Although the test statistic is not numeric, the true data plot which is the test statistic is represented using red bar and the null plots that are drawn from the null distribution are the blue bars. % for the plots in the lineup shown in Figure~\ref{lineup}. 
+\hh{Plots are used as test statistics in visual inference, which are, unlike their traditional counterparts, not simple numbers but more complex entities. We can, however, calculate the value of the test statistic based on the data underlying the true plot, as well as the corresponding value for each of the null plots.}
+These values are shown using the red bar (data plot) and the blue bars (null plots) in Figure~\ref{compare}.
 Effectively,  in visual inference the red line is compared  to only these finite number of blue lines  to make a decision, unlike classical inference where we look at the rejection region (Figure~\ref{compare}) to make decisions. Even though the data plot might be extreme, it is possible by randomly selecting from the null distribution, to obtain a null plot that is more extreme, as Tukey suggested \citep{fernholz03}:
 
 \begin{quotation}
@@ -210,7 +199,7 @@ Effectively,  in visual inference the red line is compared  to only these finite
 
 %{\color{red}***Point 2: Use metrics to ensure that a range of comparisons is made available to observers}
 
-This can be partially solved by having a large number of observers, who each evaluate lineups constructed with different null plots. Having some idea of the type of coverage of the sampling distribution that is provided by the lineups would be useful ahead of engaging observers and evaluating the lineups. Could we say that lineup X is expected to be ``difficult'' but lineup Y is expected to be ``easy''? \hh{This information might then} help in  \hh{planning other aspects of the experiment such as e.g.\ determining} an appropriate number of observers. \hh{Intuitively, } a difficult lineup is one where the data plot is similar to the null plots, while the data plot in an easy lineup  has some feature that makes it \hh{stand out} from the null plots. Being able to compute a distance metric \hh{based on features of the plot} would be very helpful ahead of running a lineup protocol.
+This can be partially solved by having a large number of observers, who each evaluate lineups constructed using different null plots. Having some idea of the type of coverage of the sampling distribution that is provided by the lineups would be useful ahead of engaging observers and evaluating the lineups. Could we say that lineup X is expected to be ``difficult'' but lineup Y is expected to be ``easy''? \hh{This information might then} help in  \hh{planning other aspects of the experiment such as e.g.\ determining} an appropriate number of observers. \hh{Intuitively, } a difficult lineup is one where the data plot is similar to the null plots, while the data plot in an easy lineup  has some feature that makes it \hh{stand out} from the null plots. Being able to compute a distance metric \hh{based on features of the plot} would be very helpful ahead of running a lineup protocol.
 
 %Researchers needs to provide a range of comparisons to observers to judge. An efficient design of experiment would be to provide a range of lineup plots with varying difficulty to the human subjects to look at. So far the difficulty of a lineup can be evaluated based on the performance of the subjects. The performance of the subjects can be analyzed after the experiment. But as a researcher, it would be interesting to have an idea about the difficulty of the lineups even before the experiment is conducted so the subjects see a set of lineups with varying difficulty. Distance metrics can be of great help in this case. 
 
@@ -283,19 +272,19 @@ The article is organized as follows. Section~\ref{sec:null} discusses the null g
 %\end{enumerate}}
 
 
-\section{Null Generating Mechanism} \label{sec:null}
-
-\hh{XXX at the moment this section is not fitting in properly: it is too long and detailed to go into the intro, but it does not contain novel work to allow to go at a later point. I would suggest to extract a small paragraph on the importance of the null generating mechanism for the intro and  a detailed discussion of the null generating mechanism used at the beginning of each subsection in the experiments. XXX}
-
-The lineup protocol embeds the true data plot among a set of null plots. The method of obtaining the data for these null plots is called the null generating mechanism. %These null plots are obtained from the null distribution in a method consistent with the null hypothesis. 
-The null hypothesis directly affects the choice of null generating method. In the experimental data that we analyzed the null generating methods used were:
-\begin{enumerate}
-\item {\bf Permutation:} Because of its versatility, this is a commonly used apporach. Permutation is used to break the association between two or more variables, and thus is appropriate when the null hypothesis is that there is no association. Consider two variables $X_1$ and $X_2$. Either $X_1$ or $X_2$ is permuted while keeping the other variable fixed. Any association between $X_1$ and $X_2$ is broken in the process altering the joint distribution between the variables, whereas the marginals of $X_1$ and $X_2$ remains the same. The method works in situations where one or both the variables are continuous or categorical. Let us consider a case where we have one categorical variable, say, Group and a continuous variable. Let us assume that the variable Group has two levels (say, A and B) and we want to test whether there is any significant difference between the two groups, i.e.\ $H_o: \mu_A = \mu_B$. To generate the null data, the values of the variable Group are permuted keeping the continuous variable fixed. If there is a difference between the two groups, this difference is broken by the permutation, and any difference observed in the permuted data is consistent with random variation.
-\item {\bf Simulation under a null model:} Sometimes there is a model underlying the problem being studied. In this situation simulating from the model will be the null generating mechanism.  The parameter estimates are obtained from  fitting  the model to the true data. Data is then generated using the parameter estimates. Let us assume that we are interested in testing whether there is any significant linear relationship between two continuous variables $X_1$ and $X_2$. Hence, we test for $H_o : \beta_1 = 0$ versus $H_a: \beta_1 \ne 0$. Under the null hypothesis, we fit the following model to the data:
-$$Y = \beta_0 + \varepsilon$$
-where $\varepsilon \sim N(0, \sigma^2)$. The parameter estimates of $\beta_0$ and $\sigma^2$ are obtained and null data is generated from $N(\widehat{\beta_0}, \widehat{\sigma}^2)$. 
-%\item \red{*** Not used by us, so exclude for now} Simulation from a specific distribution:  When the null hypothesis is that the data comes from a specific distribution, this distribution can be used to simulate new samples that generate the null plots. The parameters for the null distribution are obtained from the estimates calculated using the data. For example, suppose we want to test whether data comes from a Normal distribution, $H_o:$ data $\sim$ Normal vs. $H_A:$ data $\nsim$ Normal, then the null data are generated from the Normal distribution with mean and standard deviation equal to the estimated mean and standard deviation from the data. 
-\end{enumerate} 
+% \section{Null Generating Mechanism} \label{sec:null}
+% 
+% \hh{XXX at the moment this section is not fitting in properly: it is too long and detailed to go into the intro, but it does not contain novel work to allow to go at a later point. I would suggest to extract a small paragraph on the importance of the null generating mechanism for the intro and  a detailed discussion of the null generating mechanism used at the beginning of each subsection in the experiments. XXX}
+% 
+% The lineup protocol embeds the true data plot among a set of null plots. The method of obtaining the data for these null plots is called the null generating mechanism. %These null plots are obtained from the null distribution in a method consistent with the null hypothesis. 
+% The null hypothesis directly affects the choice of null generating method. In the experimental data that we analyzed the null generating methods used were:
+% \begin{enumerate}
+% \item {\bf Permutation:} Because of its versatility, this is a commonly used apporach. Permutation is used to break the association between two or more variables, and thus is appropriate when the null hypothesis is that there is no association. Consider two variables $X_1$ and $X_2$. Either $X_1$ or $X_2$ is permuted while keeping the other variable fixed. Any association between $X_1$ and $X_2$ is broken in the process altering the joint distribution between the variables, whereas the marginals of $X_1$ and $X_2$ remains the same. The method works in situations where one or both the variables are continuous or categorical. Let us consider a case where we have one categorical variable, say, Group and a continuous variable. Let us assume that the variable Group has two levels (say, A and B) and we want to test whether there is any significant difference between the two groups, i.e.\ $H_o: \mu_A = \mu_B$. To generate the null data, the values of the variable Group are permuted keeping the continuous variable fixed. If there is a difference between the two groups, this difference is broken by the permutation, and any difference observed in the permuted data is consistent with random variation.
+% \item {\bf Simulation under a null model:} Sometimes there is a model underlying the problem being studied. In this situation simulating from the model will be the null generating mechanism.  The parameter estimates are obtained from  fitting  the model to the true data. Data is then generated using the parameter estimates. Let us assume that we are interested in testing whether there is any significant linear relationship between two continuous variables $X_1$ and $X_2$. Hence, we test for $H_o : \beta_1 = 0$ versus $H_a: \beta_1 \ne 0$. Under the null hypothesis, we fit the following model to the data:
+% $$Y = \beta_0 + \varepsilon$$
+% where $\varepsilon \sim N(0, \sigma^2)$. The parameter estimates of $\beta_0$ and $\sigma^2$ are obtained and null data is generated from $N(\widehat{\beta_0}, \widehat{\sigma}^2)$. 
+% %\item \red{*** Not used by us, so exclude for now} Simulation from a specific distribution:  When the null hypothesis is that the data comes from a specific distribution, this distribution can be used to simulate new samples that generate the null plots. The parameters for the null distribution are obtained from the estimates calculated using the data. For example, suppose we want to test whether data comes from a Normal distribution, $H_o:$ data $\sim$ Normal vs. $H_A:$ data $\nsim$ Normal, then the null data are generated from the Normal distribution with mean and standard deviation equal to the estimated mean and standard deviation from the data. 
+% \end{enumerate} 
 
 %Other null generating mechanisms might be utilized depending on the null hypothesis underlying a data plot. 
 
@@ -1022,7 +1011,7 @@ A larger value of this ratio would indicate that the distance metric matches mor
 %\newpage
 
 
-\section{Description of Experimental Results and Analysis of Metrics} \label{sec:results}
+\section{Experimental Results and Analysis of Metrics} \label{sec:results}
 
 %{\color{blue} Description of the Turk Results and analysis.}
 
@@ -1176,7 +1165,7 @@ ggplot(data = prop.diff.m) +
 \end{subfigure}
 \begin{subfigure}[t]{\textwidth}
 \centering
-\caption{\label{fig:turkcomp-2}\hh{Scatterplots of detection rate versus $\gamma$-number of extreme nulls}}
+\caption{\label{fig:turk1comp-2}\hh{Scatterplots of detection rate versus $\gamma$-number of extreme nulls}}
 %\includegraphics[width=0.7\textwidth]{turk1-grtr-box-bin.pdf}
 <<gamma-turk1, echo=FALSE, dependson='dist-box-bin',fig.width=8.5, fig.height=4.5, out.width='0.7\\textwidth', warning=FALSE>>=
 grtr.diff <- subset(prop.dist, select = c(pic_name, grtr.box, grtr.bin, prop, special))
@@ -1474,7 +1463,7 @@ ggplot(data = prop.diff.m) +
 
 \newpage
 \subsection{Turk Experiment 2 -- Scatterplots with an Overlaid Regression Line}\label{sec:turk2}
-\hh{The question of interest of experiment 2 is very similar to the one in experiment 1: again, the focus is to investigate the power of visual methods in the framework of normal models. In contrast to experiment 1, in experiment 1 we are interested in the significance of a continuous variable $X$. The test statistic therefore is a scatterplot of the dependent variable and $X$ overlaid by a regression line. As discussed in section 5.2 of \citet{majumder:2011}, $X$ is assumed to be standard normal, and dependent data $Y$ is also simulated from a normal distribution for various correlation settings. Null data correspondingly is simulated from $N(X\widehat{\beta}, \widehat{\sigma}^2)$. } 
+\hh{The question of interest of experiment 2 is very similar to the one in experiment 1: again, the focus is to investigate the power of visual methods in the framework of normal models. In contrast to experiment 1, in experiment 1 we are interested in the significance of a continuous variable $X$. The test statistic therefore is a scatterplot of the dependent variable and $X$ overlaid by a regression line. As mentioned in the introduction and further discussed in section 5.2 of \citet{majumder:2011}, $X$ is assumed to be standard normal, and dependent data $Y$ is also simulated from a normal distribution for various correlation settings. Null data correspondingly is simulated from $N(X\widehat{\beta}, \widehat{\sigma}^2)$. } 
 Figures~\ref{lineup-example} and~\ref{fig:distances} show examples of the type of  lineup used in the study.  Subjects recruited from MTurk  were shown a set of ten lineups each and asked to identify the plot with the steepest slope. 
 
 
