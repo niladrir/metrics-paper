@@ -1474,7 +1474,7 @@ ggplot(data = prop.diff.m) +
 
 \newpage
 \subsection{Turk Experiment 2 -- Scatterplots with an Overlaid Regression Line}\label{sec:turk2}
-\hh{The question of interest of experiment 2 is very similar to the one in experiment 1: again, the focus is to investigate the power of visual methods in the framework of normal models. In contrast to experiment 1, in experiment 1 we are interested in the significance of a continuous variable $X$. The test statistic therefore is a scatterplot of the dependent variable and $X$ overlaid by a regression line. As discussed in section 5.2 of \citet{majumder:2011}, $X$ is assumed to be standard normal, and dependent data $Y$ for various correlation settings are considered. Null data correspondingly is simulated from $N(X\beta, \sigma^2)$. } 
+\hh{The question of interest of experiment 2 is very similar to the one in experiment 1: again, the focus is to investigate the power of visual methods in the framework of normal models. In contrast to experiment 1, in experiment 1 we are interested in the significance of a continuous variable $X$. The test statistic therefore is a scatterplot of the dependent variable and $X$ overlaid by a regression line. As discussed in section 5.2 of \citet{majumder:2011}, $X$ is assumed to be standard normal, and dependent data $Y$ is also simulated from a normal distribution for various correlation settings. Null data correspondingly is simulated from $N(X\widehat{\beta}, \widehat{\sigma}^2)$. } 
 Figures~\ref{lineup-example} and~\ref{fig:distances} show examples of the type of  lineup used in the study.  Subjects recruited from MTurk  were shown a set of ten lineups each and asked to identify the plot with the steepest slope. 
 
 
