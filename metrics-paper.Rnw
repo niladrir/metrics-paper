@@ -1176,7 +1176,7 @@ ggplot(data = prop.diff.m) +
 \end{subfigure}
 \begin{subfigure}[t]{\textwidth}
 \centering
-\caption{\hh{Scatterplots of detection rate versus $\gamma$-number of extreme nulls}}
+\caption{\label{fig:turkcomp-2}\hh{Scatterplots of detection rate versus $\gamma$-number of extreme nulls}}
 %\includegraphics[width=0.7\textwidth]{turk1-grtr-box-bin.pdf}
 <<gamma-turk1, echo=FALSE, dependson='dist-box-bin',fig.width=8.5, fig.height=4.5, out.width='0.7\\textwidth', warning=FALSE>>=
 grtr.diff <- subset(prop.dist, select = c(pic_name, grtr.box, grtr.bin, prop, special))
@@ -1209,7 +1209,7 @@ We see that as $\delta$-difference increases, detection rate generally increases
 \hh{The solid lines in Figure~\ref{fig:turkcomp-1} are fits  from  logistic regression models using a quadratic effect for distance.
 The fitted lines come very close to the non-parametric smooth shown by the dashed line. Qualitatively, both boxplot based distance and binned distance show very similar fits for detection rate. Based on the logistic regressions, boxplot distance is fitting detection rate a bit better (AIC: \Sexpr{round(AIC(dbx),1)}) than binned distance  (AIC: \Sexpr{round(AIC(dbn),1)}). }
 
-Figure~\ref{turk1comp-2} shows the relationship between detection rate and the $\gamma$-number of extreme null plots. As this number increases, it gets harder for subjects to identify the data plot. It is interesting to see that for some lineups subjects are able to  pick the data plot even if there are  one or two more extreme null plots. 
+Figure~\ref{fig:turk1comp-2} shows the relationship between detection rate and the $\gamma$-number of extreme null plots. As this number increases, it gets harder for subjects to identify the data plot. It is interesting to see that for some lineups subjects are able to  pick the data plot even if there are  one or two more extreme null plots. 
 
 Though  distance based on  boxplots works better a bit better,  binned distance does a decent job in this case. According to the binned distance, there are a few lineups, in which  the data plot is identified in more than 60\% of all evaluations despite a negative $\delta$-difference (see also Figure~\ref{turk1comp}). It should be noted that the binned distance does not take any graphical elements of the plot (such as the box or whiskers) into account but calculates distance solely based on the data. So outliers may have an effect on the binned distance but might not affect the distance based on the boxplots. 
 
@@ -1617,9 +1617,9 @@ Detection rate increases  on average with $\delta$-difference. As the $\gamma$-n
 %\afterpage{\clearpage}
 
 %Figure~\ref{turk2comp-1} shows a scatterplot of detection rate against $\delta$-difference. 
-The vertical line represents difference equal to zero. As $\delta$-difference increases,  average detection rate increases, i.e.\ subjects do better in  easier lineups than hard ones. The solid lines show fits of logistic regressions of detection rate in $\delta$-difference based on regression (AIC: \Sexpr{round(AIC(t2drg),1)}) and based on binned distance (AIC: \Sexpr{round(AIC(t2dbn),1)}). Both fits come reasonably close to the dashed lines of a non-parametric loess smooth, indicating that they explain most of the relationship between $\delta$-difference and detection rate.
+ As $\delta$-difference increases,  average detection rate increases, i.e.\ subjects do better in  easier lineups than hard ones. The solid lines show fits of logistic regressions of detection rate in $\delta$-difference based on regression (AIC: \Sexpr{round(AIC(t2drg),1)}) and based on binned distance (AIC: \Sexpr{round(AIC(t2dbn),1)}). Both fits come reasonably close to the dashed lines of a non-parametric loess smooth, indicating that they explain most of the relationship between $\delta$-difference and detection rate.
 The regression based distance works well in capturing the complexity of the lineups. %The difference is positive for lineups with large differences and negative for lineups with small difference. 
-A few lineups have a $\delta$-difference close to zero -- for those lineups detection rates of lineups flip from being close to zero to close to one within a very short interval. 
+A few lineups have a $\delta$-difference close to zero, marked by the vertical line -- for those lineups detection rates of lineups flip from being close to zero to close to one within a very short interval. 
 
 For binned distance the situation is quite different.  Although detection rate increases with difference, the detection rate is already quite high for lineups with negative differences. This is a classic scenario where the distance does not capture all the features on which observers base their choice: here, a graphical element --the line-- affects the response, and shifts detection rates horizontally. %The presence of the overlaid regression line on almost transparent points of the scatterplot affects the response of the subjects. 
 %Another reason may be the use of the same number of bins (2 $\times$ 2) in this case for all the lineups. The relationship may improve if different number of bins would be used for different lineups.
@@ -1916,7 +1916,7 @@ The subjects were shown these lineups and were asked to identify the plot with t
 \centering
 %\includegraphics[width=.95\textwidth]{largep-example.pdf}
 %\includegraphics[width=.65\textwidth]{large-p-trim-bin.pdf}
-<<t7-lp, echo=FALSE, fig.width=6, fig.height=6, out.width='.8\\textwidth'>>=
+<<t7-lp, echo=FALSE, fig.width=6, fig.height=6, out.width='.7\\textwidth'>>=
 lpt7 <- read.table("data/turk7/dat_large_p_small_n_30_20_0_2_1.txt", header=TRUE)
 
 qplot(X1, X2, colour=factor(cl), facets=~.sample, data=lpt7, size=I(3)) + 
@@ -2024,11 +2024,12 @@ prop.dist$shape <- ifelse(prop.dist$pic_name == "plot_large_p_small_n_30_100_0_2
 
 \begin{figure}[hbtp]
 \centering
-\begin{subfigure}[t]{0.7\textwidth}
+\begin{subfigure}[t]{\textwidth}
 \caption{$\delta$-difference}
+\centering
 %\includegraphics[width=\textwidth]{largep-prop-sep-bin.pdf}
-<<largep-delta, echo=FALSE, dependson='t7-distr', out.width='\\textwidth', fig.width=8.5, fig.height=3.75>>=
-dbn <- glm(cbind(correct,n-correct)~poly(diff.dbn,1), data=prop.dist, family=binomial())
+<<largep-delta, echo=FALSE, dependson='t7-distr', out.width='0.9\\textwidth', fig.width=9.5, fig.height=3.5>>=
+dbn <- glm(cbind(correct,n-correct)~poly(diff.dbn,2), data=prop.dist, family=binomial())
 dms <- glm(cbind(correct,n-correct)~poly(diff.dms,2), data=prop.dist, family=binomial())
 das <- glm(cbind(correct,n-correct)~poly(diff.das,2), data=prop.dist, family=binomial())
 
@@ -2065,10 +2066,11 @@ ggplot(aes(x=value, y=prop), data=prop.diff.m) +
   theme(legend.position = "none")
 @
 \end{subfigure}
-\begin{subfigure}[t]{0.7\textwidth}
+\begin{subfigure}[t]{\textwidth}
 \caption{$\gamma$-number of extreme null plots}
+\centering
 %\includegraphics[width=\textwidth]{largep-grtr-sep-bin.pdf}
-<<largep-gamma, echo=FALSE, dependson='t7-distr', out.width='\\textwidth', fig.width=8.5, fig.height=3.75>>=
+<<largep-gamma, echo=FALSE, dependson='t7-distr', out.width='0.9\\textwidth', fig.width=9.5, fig.height=3.5>>=
 ### Facetted Plots
 prop.grtr <- subset(prop.dist, select = c(pic_name, grtr.dms, grtr.das, grtr.dbn,  prop, m.time, med.time, shape))
 prop.grtr.m <- melt(prop.grtr, id.vars = c("pic_name", "prop", "m.time", "med.time", "shape"))
@@ -2085,13 +2087,15 @@ ggplot(aes(x=value, y=prop), data=prop.grtr.m) +
 \end{subfigure}
 
 	\vspace{-.1in}
-\caption{Comparison of distance metrics for the scatterplot with clusters. Detection rate is plotted against (a) $\delta$-difference and (b) against $\gamma$-number of extreme nulls using distances based on minimum separation, average separation and binning. The vertical line represents the difference equal to zero when there is at least one null plot similar to the observed plot. Detection rate generally increases with $\delta$-difference. \hh{XXX} As the number of plots with distance greater than the observed increases, the detection rate decreases. The triangle represents a lineup with high detection rate and negative difference based on the average separation distance. This is examined in Figure~\ref{lp-exp}. }
+\caption{Comparison of distance metrics for the scatterplot with clusters. Detection rate is plotted against (a) $\delta$-difference and (b) against $\gamma$-number of extreme nulls using distances based on minimum separation, average separation and binning. The vertical line represents the difference equal to zero when there is at least one null plot similar to the observed plot. Detection rate generally increases with $\delta$-difference. As the $\gamma$-number of extreme null plots increases, detection rate decreases. The triangle represents a lineup with high detection rate and negative difference based on the average separation distance. This is examined in Figure~\ref{lp-exp}. }
 \label{lp-comp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 %%\afterpage{\clearpage}
 
-In Figure~\ref{lp-comp}, the detection rate is plotted against the difference for distance based on minimum separation, average separation and the binned distance. The  vertical line shows a difference equal to zero.  It can be seen that as the difference increases, the detection rate increases and both the distances do a good job in capturing the response of the subjects.  In (b) it can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, a large number of the subjects identify the observed plot although there is more extreme null plots. 
+In Figure~\ref{lp-comp}, the detection rate is plotted against the difference for distance based on minimum separation, average separation and the binned distance. The  vertical line shows a difference equal to zero.  It can be seen that as the difference increases, the detection rate increases and \hh{all} distances do a reasonably good job in capturing the response of the subjects, with average separation being a bit ahead in terms of AIC (AIC: \Sexpr{round(AIC(das), 1)}) compared to minimal separation  (AIC: \Sexpr{round(AIC(dms), 1)}) and binned distance (AIC: \Sexpr{round(AIC(dbn), 1)}).
+
+In (b) it can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, a large number of the subjects identify the observed plot although there is more extreme null plots. 
 
 \begin{figure}[hbtp]
 \centering
@@ -2110,13 +2114,14 @@ ggplot(aes(x=value, y=med.time), data=prop.diff.m) +
 @
 
 	\vspace{-.1in}
-\caption{\hh{XXX changed mean time to median time} Plot showing the mean time to respond by the subjects against the difference based on the minimum separation distance, average separation and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The mean time decreases as the difference increases.  }
+\caption{Plot showing the \hh{median} time to respond by the subjects against the difference based on the minimum separation distance, average separation and binned distance. The vertical line represents the difference equal to 0 when there is at least one null plot similar to the observed plot. The \hh{median} time decreases as the difference increases.  }
 \label{lp-mtime}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 %\afterpage{\clearpage}
 
-Figure~\ref{lp-mtime} shows the relationship between the mean time taken to respond and the difference for the three different distances. It can be clearly seen that there is a strong negative association showing that as the difference increases, the subjects take lesser time to respond. Also the variability of the mean time is higher for smaller difference. In case of binned distance, the relationship is negative though the variability is higher for all differences.
+Figure~\ref{lp-mtime} shows the relationship between the median time observers take to respond  and $\delta$-difference for the three different distances. It can be clearly seen that there is a strong negative association; as the difference increases,  subjects take less time to respond. %Also the variability of the mean time is higher for smaller difference. In case of binned distance, the relationship is negative though the variability is higher for all differences.
+For both average separation and binned distance we see a peak in response time, i.e.\ for large negative $\delta$-difference the median time to respond decreases again.
 
 \begin{figure}[hbtp]
 \centering
@@ -2131,7 +2136,7 @@ lpsub <- subset(raw7, pic_name=="plot_large_p_small_n_30_100_0_2_3.png")
 dt <- data.frame(xtabs(~response_no, data=lpsub))
 names(dt) <- c(".sample", "picks")
 picks <- data.frame(.sample=1:20)
-picks <- merge(picks, dt, by=".sample")
+picks <- merge(picks, dt, by=".sample", all.x=TRUE)
 picks$picks[is.na(picks$picks)] <- 0
 
 qplot(X1, X2, colour=factor(cl), facets=~.sample, data=lpt7, size=I(3)) + 
@@ -2163,11 +2168,11 @@ qplot(X1, X2, colour=factor(cl), facets=~.sample, data=lpt7, size=I(3)) +
 \end{figure}
 %\afterpage{\clearpage}
 
-Figure~\ref{lp-exp} shows the lineup in a high dimension, low sample size setting. The number of dimensions used is 100 and two of the dimensions have some separation. Plot 20 shows the two-dimensional projections of the original data.  Since the true plot has real separation, it is expected that the subjects would be able to identify the plot. The distance based on average separation yields a negative difference showing that the lineup is difficult, while the distance based on minimum separation yields a positive difference. The distance metrics identifies different characteristics in a plot. The average separation looks at the average of the distances of the points in a cluster to the points in other clusters. The presence of an outlier point in the opposite side of the other clusters affects this distance considerably. On the other hand, the minimum separation looks at the minimum of the distances. Hence it is not affected by the outlier point. 
+Figure~\ref{lp-exp} shows the lineup in a high dimension, low sample size setting. The number of dimensions used is 100 and two of the dimensions have some separation. Plot \#20 shows the two-dimensional projections of the original data. \hh{This plot is, indeed, chosen in 13 out of 19 evaluations. }  As the true plot does have real separation, it is to be expected that  subjects would be able to identify the plot. The distance based on average separation yields a negative difference showing that the lineup is difficult, while the distance based on minimum separation yields a positive difference. The distance metrics identify different characteristics in a plot. The average separation looks at the average of the distances of the points in a cluster to the points in other clusters. The presence of an outlier point in one of the clusters affects this distance considerably. On the other hand,  minimum separation only considers the minimal distances, and is therefore much less likely affected by an outlying point. 
 
 
 \section{Conclusion}
-
+\hh{XXX the conclusion needs to pull things together more XXX.}
 Distance metrics are compared to the response of human subjects on lineups. They are comparable to a certain extent except in certain situations where they disagree. There seems to be various reasons behind the disagreement. When people look at a lineup, they may identify a plot as different from the others due to various reasons. But the distance metrics are constructed such that it takes into specific properties of the plot. 
 
 Distance metrics can be used to measure the quality of a lineup before showing the lineups to human subjects. Hence the distance metrics allows us to provide a range of lineups to the human subjects to evaluate.
