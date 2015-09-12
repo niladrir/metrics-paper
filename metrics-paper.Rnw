@@ -279,24 +279,12 @@ Below is a summary of distance metrics used. For all of these distance measures,
 \item {\bf Binned Distance (BN):}
 %\red{write out mathematically, include all definitions - i.e. C(X,Y) needs to be defined - have a look at the grammar of graphics}
 Let $X_1$ and $X_2$ be two continuous variables. Let $X_1$ be divided into $p$ bins and $X_2$ divided into $q$ bins. % $(i,j)$-th cell represents the $j$-th bin of $X_2$ corresponding to the $i$-th bin of $X_1$. 
- Let $C(X_1,X_2)$ be defined as a $p \times q$ matrix \hh{consisting of the binned frequency of the joint distribution of $X_1$ and $X_2$, i.e.\ the $(i,j)$-th element of the matrix represents the cell count of the number of points falling in this cell.}
+ We define the cell count matrix $C(X_1,X_2)$  as a $p \times q$ matrix \hh{consisting of the binned frequency of the joint distribution of $X_1$ and $X_2$, i.e.\ let the $(i,j)$-th element of the matrix be the cell count of the number of points in interval $i$ of $X_1$ and interval $j$ of $X_2$.}
  %. Each $(i,j)$-th element of the matrix represents the number of points falling in the $(i,j)$-th cell, where $i = 1, \dots, p$ , $j = 1, \dots, q$.
 The BN distance is defined as
 \begin{eqnarray}\nonumber
 d_{\hbox{BN}}^2 (X, Y) &:=& ||C_X(X_1, X_2) - C_Y(X_1,X_2)||^2 \\ &=& \sum_{i=1}^p \sum_{j=1}^q (C_X(X_{1i},X_{2j}) - C_Y(X_{1i},X_{2j}))^2.\label{eq:BNdist}
 \end{eqnarray}
-
-%\begin{figure}[hbt]
-%%\begin{figurehere}
-%   \centering
-%       \includegraphics[width=2.3in]{dat-example-1.pdf}
-%         \includegraphics[width = 2.3in]{bin-example-1.pdf}
-%            \includegraphics[width=2.3in]{dat-example-2.pdf}
-%         \includegraphics[width = 2.3in]{bin-example-2.pdf}
-%%	\vspace{-.2in}
-%       \caption{Scatterplot of 50 points in $X_1$ and $X_2$ with a strong positive association. The colored tiles show binned frequencies.}
-%       \label{fig:test_category}
-%\end{figure}
 
 \begin{figure*}[hbtp]
 \centering
@@ -315,40 +303,17 @@ d_{\hbox{BN}}^2 (X, Y) &:=& ||C_X(X_1, X_2) - C_Y(X_1,X_2)||^2 \\ &=& \sum_{i=1}
 \end{subfigure}
 \label{first-example}
 	\vspace{-.1in}
-       \caption{Illustration of binned distance, for data with strong association (a), and the same data where variable $X_1$ has been permuted (b). The scatterplot of the data is shown (left) along with the binned view of the data (center) and the number of points in each cell (right). Binned distance is the euclidean distance of these counts. The binned distance between these plots is 6.4807. }
+       \caption{Illustration of binned distance for data with a strong positive association (a), and the same data where variable $X_1$ has been permuted (b). The scatterplot of the data is shown (left) along with a binned view of the data (center) and the cell count matrix $C$ (right). Binned distance is the Euclidean distance of these counts. The binned distance between these plots is 6.4807. }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure*}
 
 %\red{careful: $C(X,[P]Y)$ is not the same as $C_{i,P(j)}$. $C_{i,j}$ is the count for points falling into cell $i,j$ - it's not enough to permute the grid counts, we need to get the grid counts of the permuted variable. Introduce $C$ as a function of $X$ and $Y$ ....}
 
-% To calculate this distance, we form a $p \times q$ grid between the two continuous variable and count the number of points falling to each grid. Then we permute one continuous variable keeping the other variable unchanged and repeat the above procedure. The euclidean distance between the counts for the original and permuted data gives an measure of the binned distance. Binned distance takes into account both the variables but only one of the variables is permuted. Binned distance considers only the count for each respective bin and puts no weight on the counts of the neighboring bin.
 
-%\item Weighted Bin Distance: Using the same setup of the binned distance, the weighted bin distance is defined as 
-%\begin{eqnarray*}
-%d_{\hbox{wbin}}^2(X, Y) &:=&||W_X(X_1,X_2) - W_Y(X_1,X_2))||^2 \\ &=& \sum_{i=1}^n (W_X(X_{1i},X_{2i}) - W_Y(X_{1i},X_{2i}))^2 , 
-%\end{eqnarray*}
-%where $W(X_{1i},X_{2i})$ denotes the joint (empirical) density of $X_1$, $X_2$ at location $(X_{1i}, X_{2i})$. See Figure~\ref{fig:test_category} for a comparison of weighted and unweighted binned distance at the example of 20  points.
-%%The weighted bin distance is an improvement to the bin distance where a weight is provided to the counts of the neighboring bins. The weight is done by doing a kernel density estimation of the different bins.
-%
-%%\green{I wrote something down here but I am not sure if this works.}
-%
-%
-%\item Hausdorff distance: Let $x \in X$ and $y \in Y$ be two sets of points. The Hausdorff distance between $X$ and $Y$ is defined as
-% \[
-%d_{\hbox{hausdorff}}(X, Y)  = max (h(X, Y), h(Y, X))
-%\]
-%where 
-%\begin{eqnarray*}
-%h(X, Y) &:=& \max_{x \in X} \min_{y \in Y} ||x - y|| \\ & = & \max_{x \in X} \min_{y \in Y} \sqrt{\sum_{i=1}^n (x_i - y_i)^2}
-%\end{eqnarray*}
-%
-%This measure is computationally intensive.
-%
-%\end{itemize}
 
-This distance can be calculated for univariate continuous data, bivariate data with two categorical variables, or data with one continuous and one categorical variable. For a categorical variable, we choose the number of bins  equal to the number of categories.
+This distance can be calculated for univariate continuous data, bivariate data with two categorical variables, or data with one continuous and one categorical variable. For a categorical variable, we choose the number of bins  to be equal to the number of categories.
 
-Binned distance is highly susceptible to small differences in values and depends on the number of bins as well as the anchor position. It is necessary to find the optimal number of bins in each direction. For our purposes `optimal' was defined as the number of bins that produced the most detectable difference to the observed data plot. The distance was measured between the observed data plot, and the closest null, and compared with the biggest distance between any pair of null plots. Details of these choices on various different data sets can be found in the Appendix.
+Binned distance is highly susceptible to small differences in values and depends on the number of bins as well as the anchor position. It is necessary to find the optimal number of bins in each direction. For our purposes `optimal' was defined as the number of bins that produced the largest detectable difference between observed data plot  and null plots, compared to the biggest difference between any pair of null plots. Details of these choices on various different data sets can be found in the Appendix.
 
 Several variations to this distance are possible, such as a change to using kernel density estimates, a change from $L_2$ to $L_p$ based distance, or using transformations on the counts. 
 \hh{XXX should the next sentence go into the discussion/conclusions?}
@@ -360,13 +325,6 @@ Hausdorff distance \citep{huttenlocher:1993} was investigated as a generic dista
 %\blue{The remaining distance measures are different from the ones above, in that they are used to directly draw inference on a linear association between variables $X$ and $Y$, whereas the other ones were not specifically tailored to this purpose.}
 %The remaining distance measures are different from the ones above, in that they are used for specific plot types and cannot be used for any type of data. The following distance measures uses the graphical element to calculate the distances.
 
-%\begin{itemize}
-% Univariate distance is NOT USED in your examples
-%\item Distance for univariate data: Let $X$ be a continuous variable. Then the distance metric is given by
-%\[
-%d^2_{\hbox{uni}}(X, Y) := ||m(X) - m(Y)||^2 = \sum_{i=1}^4 ((m(X))_i - (m(Y))_i)^2
-%\]
-%where $m(.)$ is a vector of the mean, the standard deviation, the skewness and the kurtosis of the variable. This distance metric works for univariate distributions using only the graphical elements in the plot.
 
 
 \item {\bf Distance based on boxplots (BX):} 
