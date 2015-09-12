@@ -268,9 +268,9 @@ Hausdorff distance \citep{huttenlocher:1993} has been successfully used for comp
 
 Alternatively, interpoint distance metrics might be adapted to measure distances between plots. For example, when the purpose is to show differences between groups in a single plot, like side-by-side boxplots, a distance metric that focuses on group separation calculated on each data set might be useful. Bhattacharyya distance \citep{bhattacharyya:1946} is widely used in image processing, for feature extraction. This distance, together with various other measures to calculate distances between groups is implemented in the R package {\tt fpc} \citep{hennig:2010}. % contains many different ways to calculate distances between groups. 
 
-\hh{In the analyses of the experimental data of this paper, we used a dual approach: one distance that we employed for all examples is a relatively simple distance based on binned frequencies, which works fairly well in most circumstances.}
+In the analyses of the experimental data of this paper, we used a dual approach: one distance that we employed for all examples is a relatively simple distance based on binned frequencies, which works fairly well in most circumstances.
 %Ultimately, a very simple binned distance was used in the analyses of the MTurk data, which worked fairly well in most circumstances. 
-However, it was clear immediately that plot design, and the question asked, has a large impact on how a plot is read, and specific distance metrics designed for specific plot types and tasks are needed. \hh{In order to more closely reflect observers' choices in each experiment, we used at least one more distance tailored for each of these special situations.}
+However, it was clear immediately that plot design, and the question asked, has a large impact on how a plot is read, and specific distance metrics designed for specific plot types and tasks are needed. In order to more closely reflect observers' choices in each experiment, we used at least one more distance tailored for each of these special situations.
 Below is a summary of distance metrics used. For all of these distance measures, let $X$ denote the true dataset with one or two variables. Let $Y$ denote the null dataset obtained by using an appropriate null generating mechanism.
 
 
@@ -279,7 +279,7 @@ Below is a summary of distance metrics used. For all of these distance measures,
 \item {\bf Binned Distance (BN):}
 %\red{write out mathematically, include all definitions - i.e. C(X,Y) needs to be defined - have a look at the grammar of graphics}
 Let $X_1$ and $X_2$ be two continuous variables. Let $X_1$ be divided into $p$ bins and $X_2$ divided into $q$ bins. % $(i,j)$-th cell represents the $j$-th bin of $X_2$ corresponding to the $i$-th bin of $X_1$. 
- We define the cell count matrix $C(X_1,X_2)$  as a $p \times q$ matrix \hh{consisting of the binned frequency of the joint distribution of $X_1$ and $X_2$, i.e.\ let the $(i,j)$-th element of the matrix be the cell count of the number of points in interval $i$ of $X_1$ and interval $j$ of $X_2$.}
+ We define the cell count matrix $C(X_1,X_2)$  as a $p \times q$ matrix consisting of the binned frequency of the joint distribution of $X_1$ and $X_2$, i.e.\ let the $(i,j)$-th element of the matrix be the cell count of the number of points in interval $i$ of $X_1$ and interval $j$ of $X_2$.
  %. Each $(i,j)$-th element of the matrix represents the number of points falling in the $(i,j)$-th cell, where $i = 1, \dots, p$ , $j = 1, \dots, q$.
 The BN distance is defined as
 \begin{eqnarray}\nonumber
@@ -315,14 +315,14 @@ This distance can be calculated for univariate continuous data, bivariate data w
 
 Binned distance is highly susceptible to small differences in values and depends on the number of bins as well as the anchor point (bottom left corner of cell $C_{11}$). It is necessary to find the optimal number of bins in each direction. For our purposes `optimal' was defined as the number of bins that produced the largest detectable difference between observed data plot  and null plots, compared to the biggest difference between any pair of null plots. Details of these choices on various different data sets can be found in the Appendix.
 
-Several variations to this distance are possible, such as a change to using kernel density estimates, a change from $L_2$ to $L_p$ based distance, or using transformations on the counts. \hh{All of these changes will affect distances, and might lead to qualitatively different conclusions.}
-\hh{We investigated another generic distance, the }
+Several variations to this distance are possible, such as a change to using kernel density estimates, a change from $L_2$ to $L_p$ based distance, or using transformations on the counts. All of these changes will affect distances, and might lead to qualitatively different conclusions.
+We investigated another generic distance, the 
 Hausdorff distance \citep{huttenlocher:1993}, but the binned distance is computationally much faster to calculate and performed as well as the Hausdorff as a rough, generic measure of similarity of plots.
 
 
 \item {\bf Distance based on boxplots (BX):} 
 Let $X_1$ be a categorical variable with $J$ groups  and $X_2$ be a continuous variable. 
-\hh{For each of the levels in $X_1$ find the corresponding $X_2$ values, and calculate first quartile, median and the third quartile. Identify the minimum and maximum value of each of these statistics across all $J$ groups.}
+For each of the levels in $X_1$ find the corresponding $X_2$ values, and calculate first quartile, median and the third quartile. Identify the minimum and maximum value of each of these statistics across all $J$ groups.
 Define $d_q(.)$ as a three dimensional vector giving the absolute maximal difference of the first quartile, median and the third quartile of $X_2$ between the groups in $X_1$. 
 
 Then the distance metric is given by
