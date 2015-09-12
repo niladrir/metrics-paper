@@ -266,64 +266,15 @@ The problem could be tackled by considering the data as a reference distribution
 
 Hausdorff distance \citep{huttenlocher:1993} has been successfully used for comparing images. It effectively matches points between sets and computes the distances between the matched points. When permutation is the null generating mechanism, Hamming distance \citep{hamming:1950} can be used to calculate how different the permutations are, by measuring the minimum number of substitutions it takes to get from one permutation to another. 
 
-Alternatively, interpoint distance metrics might be adapted to measure distances between plots. For example, when the purpose is differences between groups in a single plot, like side-by-side boxplots, a distance metric that focuses on group separation calculated on each data set might be useful. Bhattacharyya distance \citep{bhattacharyya:1946} is widely used in image processing, for feature extraction. The R package {\tt fpc} \citep{hennig:2010} contains many different ways to calculate distances between groups. 
+Alternatively, interpoint distance metrics might be adapted to measure distances between plots. For example, when the purpose is to show differences between groups in a single plot, like side-by-side boxplots, a distance metric that focuses on group separation calculated on each data set might be useful. Bhattacharyya distance \citep{bhattacharyya:1946} is widely used in image processing, for feature extraction. This distance, together with various other measures to calculate distances between groups is implemented in the R package {\tt fpc} \citep{hennig:2010}. % contains many different ways to calculate distances between groups. 
 
-Ultimately, a very simple binned distance was used in the analyses of the MTurk data, which worked fairly well in most circumstances. However, it was clear immediately that plot design, and the question asked, has a large impact on how a plot is read, and specific distance metrics designed for specific plot types and tasks are needed. Below is a summary of distance metrics used. For all of these distance measures, let $X$ denote the true dataset with one or two variables. Let $Y$ denote the null dataset obtained by using an appropriate null generating mechanism.
+\hh{In the analyses of the experimental data of this paper, we used a dual approach: one distance that we employed for all examples is a relatively simple distance based on binned frequencies, which works fairly well in most circumstances.}
+%Ultimately, a very simple binned distance was used in the analyses of the MTurk data, which worked fairly well in most circumstances. 
+However, it was clear immediately that plot design, and the question asked, has a large impact on how a plot is read, and specific distance metrics designed for specific plot types and tasks are needed. \hh{In order to more closely reflect observers' choices in each experiment, we used at least one more distance tailored for each of these special situations.}
+Below is a summary of distance metrics used. For all of these distance measures, let $X$ denote the true dataset with one or two variables. Let $Y$ denote the null dataset obtained by using an appropriate null generating mechanism.
 
-%Bhattacharyya distance \citep{bhattacharyya:1946} is used to compare two samples, . It has a wide use in image processing, feature extraction and selection and phone clustering. Mahalanobis distance \citep{mahalanobis:1936} is a special case in the sense that the same sets of variances and covariances are used. Similar interpoint distances are widely used in cluster analysis and classification techniques. On the other hand, Hamming distance  \citep{hamming:1950} measures the number of positions at which the corresponding symbols are different in two variables of equal length. This can be used to measure the distance between two datasets where only one variable is permuted and the other is constant.
 
-
-%Some of the distance metrics are generic and uses the raw data to calculate the distances. They do not consider any graphical element in the plot which may somehow affect the decision of the subjects in identifying the true plot. A regression line overlaid on a scatterplot may affect the decision of a plot. Same can be done when a boxplot is used to represent the data instead of a dot plot. The distance metrics should take into account the presence of these graphical elements. Distance metrics like distance based on regression line, distance based on boxplots are designed to address this issue. \\
-
-%\blue{For all of the distance measures below, let $P$ be a permutation mapping  the set $\{1, 2, ..., n\}$ onto itself. Let further $[P]$ denote the $n \times n$ matrix associated to permutation $P$.
-%}
 \begin{enumerate}
-
-%\item Hamming Distance: The hamming distance $H$ of $P$ is defined as 
-%\[
-%H(P) := \sum_{i=1}^n I_{P(i) \neq i},  \text{ where } I_{x} = \left \{ 
-%\begin{array}{ll}
-%1 & \text{if } x \text{ is true},\\
-%0 & \text{otherwise},
-%\end{array} \right.
-%\]
-%i.e. $H(P)$ is a count of the number of fix elements of the function.
-
-
-%\blue{
-%The hamming distance $H$ of $P$ is defined as 
-%\[
-%H(P) := \sum_{i=1}^n I_{P(i) \neq i},  \text{ where } I_{x} = \left \{ 
-%\begin{array}{ll}
-%1 & \text{if } x \text{ is true},\\
-%0 & \text{otherwise},
-%\end{array} \right.
-%\]
-%i.e. $H(P)$ is a count of the number of fix elements of the function.
-% }
-
-%Hamming distance between two equal length strings is the number of positions at which the corresponding symbols are different. 
-
-%This distance matrix measures the distance between the permutation matrix and the identity and does not depend on the actual values of the variables $X$ and $Y$. 
-
-
-%\blue{let $X$ be a continuous variable. The Euclidean Distance under permutation is then defined as 
-%%\red{we need a good short-cut for this distance}
-%\[
-%d^2_P(X) := || X - [P]X||^2 = \sum_{i=1}^n (X_i - X_{P(i)})^2.
-%\]
-%}
-
-%\item Euclidean Distance: 
-%Let $X$ be a continuous variable. The Euclidean Distance under permutation is then defined as 
-%%\red{we need a good short-cut for this distance}
-%\[
-%d^2_P(X) := || X - [P]X||^2 = \sum_{i=1}^n (X_i - X_{P(i)})^2.
-%\]
-
-
-
-%Euclidean Distance between two equal length strings measure the distance between the permuted values of one variable and the original continuous variable while the other variable, either continuous or categorical, remains unaltered. This distance matrix takes into  account the actual values of the variable that is permuted and does not depend on the values of the other variable. 
 
 \item {\bf Binned Distance (BN):}
 %\red{write out mathematically, include all definitions - i.e. C(X,Y) needs to be defined - have a look at the grammar of graphics}
