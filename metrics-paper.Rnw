@@ -313,9 +313,9 @@ d_{\hbox{BN}}^2 (X, Y) &:=& ||C_X(X_1, X_2) - C_Y(X_1,X_2)||^2 \\ &=& \sum_{i=1}
 
 This distance can be calculated for univariate continuous data, bivariate data with two categorical variables, or data with one continuous and one categorical variable. For a categorical variable, we choose the number of bins  to be equal to the number of categories.
 
-Binned distance is highly susceptible to small differences in values and depends on the number of bins as well as the anchor position. It is necessary to find the optimal number of bins in each direction. For our purposes `optimal' was defined as the number of bins that produced the largest detectable difference between observed data plot  and null plots, compared to the biggest difference between any pair of null plots. Details of these choices on various different data sets can be found in the Appendix.
+Binned distance is highly susceptible to small differences in values and depends on the number of bins as well as the anchor point (bottom left corner of cell $C_{11}$). It is necessary to find the optimal number of bins in each direction. For our purposes `optimal' was defined as the number of bins that produced the largest detectable difference between observed data plot  and null plots, compared to the biggest difference between any pair of null plots. Details of these choices on various different data sets can be found in the Appendix.
 
-Several variations to this distance are possible, such as a change to using kernel density estimates, a change from $L_2$ to $L_p$ based distance, or using transformations on the counts. 
+Several variations to this distance are possible, such as a change to using kernel density estimates, a change from $L_2$ to $L_p$ based distance, or using transformations on the counts. \hh{All of these changes will affect distances, and might lead to qualitatively different conclusions.}
 \hh{XXX should the next sentence go into the discussion/conclusions?}
 
 Hausdorff distance \citep{huttenlocher:1993} was investigated as a generic distance metric as well, but the binned distance was faster to calculate and performed as well as the Hausdorff as a rough, generic measure of similarity of plots.
