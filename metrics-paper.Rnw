@@ -316,20 +316,13 @@ This distance can be calculated for univariate continuous data, bivariate data w
 Binned distance is highly susceptible to small differences in values and depends on the number of bins as well as the anchor point (bottom left corner of cell $C_{11}$). It is necessary to find the optimal number of bins in each direction. For our purposes `optimal' was defined as the number of bins that produced the largest detectable difference between observed data plot  and null plots, compared to the biggest difference between any pair of null plots. Details of these choices on various different data sets can be found in the Appendix.
 
 Several variations to this distance are possible, such as a change to using kernel density estimates, a change from $L_2$ to $L_p$ based distance, or using transformations on the counts. \hh{All of these changes will affect distances, and might lead to qualitatively different conclusions.}
-\hh{XXX should the next sentence go into the discussion/conclusions?}
-
-Hausdorff distance \citep{huttenlocher:1993} was investigated as a generic distance metric as well, but the binned distance was faster to calculate and performed as well as the Hausdorff as a rough, generic measure of similarity of plots.
-
-%The remaining distance measures are different from the ones above, in that they are used to directly draw inference on a linear association between variables $X$ and $Y$, whereas the other ones were not specifically tailored to this purpose.
-
-%\blue{The remaining distance measures are different from the ones above, in that they are used to directly draw inference on a linear association between variables $X$ and $Y$, whereas the other ones were not specifically tailored to this purpose.}
-%The remaining distance measures are different from the ones above, in that they are used for specific plot types and cannot be used for any type of data. The following distance measures uses the graphical element to calculate the distances.
-
+\hh{We investigated another generic distance, the }
+Hausdorff distance \citep{huttenlocher:1993}, but the binned distance is computationally much faster to calculate and performed as well as the Hausdorff as a rough, generic measure of similarity of plots.
 
 
 \item {\bf Distance based on boxplots (BX):} 
-Let $X_1$ be a categorical variable representing $J$ groups in the data and $X_2$ be a continuous variable. 
-
+Let $X_1$ be a categorical variable with $J$ groups  and $X_2$ be a continuous variable. 
+\hh{For each of the levels in $X_1$ find the corresponding $X_2$ values, and calculate first quartile, median and the third quartile. Identify the minimum and maximum value of each of these statistics across all $J$ groups.}
 Define $d_q(.)$ as a three dimensional vector giving the absolute maximal difference of the first quartile, median and the third quartile of $X_2$ between the groups in $X_1$. 
 
 Then the distance metric is given by
@@ -339,8 +332,8 @@ d^2_{\hbox{BX}}(X, Y) := || d_q(X) - d_q(Y)||^2 \\=
 \end{equation}
 
 This distance measure works specifically for boxplots and is based on only their graphical elements. 
-This distance is based on the assumption that %after the boxplots have already been constructed, the 
-subjects only consider the difference in the boxes to make the distinction. Variations on this might include adding whiskers' values, (number of) outliers, or including higher-order letter values \citep{tukey:1977, lvplot}. 
+It is based on the assumption that %after the boxplots have already been constructed, the 
+subjects only consider the difference in the boxes to make the distinction. Variations on this might include adding whiskers' values, the number or values of outliers, or including higher-order letter values \citep{tukey:1977, lvplot} for more exact tail specifications. 
 
 \item {\bf Distance based on the regression line (RG):}
 Let $X_1$ and $X_2$ be two continuous variables. $X_1$ and $X_2$ are plotted in a scatterplot and assume that the scatterplot is binned vertically into $b$ bins. \hh{XXX in the package, the binning is horizontal. }
@@ -350,16 +343,13 @@ In each vertical bin, a linear regression model is fitted and the regression coe
 d^2_{\hbox{RG}}(X, Y) := \hbox{tr} (B(X) - B(Y))' (B(X) - B(Y))  \\
 = \sum_{i=1}^b ((b_0(X))_i - (b_0(Y))_i)^2 + \sum_{i=1}^b ((b_1(X))_i - (b_1(Y))_i)^2\label{eq:drg}
 \end{eqnarray}
-\hh{XXX intercept and slope could be on very different scales.  On what kind of examples did you try this distance out? 
-XXX I think we should try to scale X and Y to the same scale first. }
+\hh{XXX intercept and slope could be on very different scales. In a scatterplot we usually aim for an aspect ratio of 1, so a deviation in X is perceived to be about the same as a deviation in Y (even though we could read the axis, people usually don't). This could be helped with by scaling X and Y first. XXX }
 
 where $b_0$ and $b_1$ denote the vector of the intercept and slope respectively while $b$ is the number of bins. $B(.)$ is a $b \times 2$ matrix of the regression coefficients where each row represent the  intercept and the slope obtained from each bin. The number of bins have a significant effect on the distance measure. It can be seen that it works best for smaller number of bins like 1 or 2. 
-With larger number of bins (i.e. smaller bin sizes), the regression coefficients are affected by the skewness of the data. Variations might include using slope alone, or absolute value of slope. \hh{XXX are regression coefficients really affected by skewness or is it sparseness? What is the sample size of the examples that you tried?}
+With larger number of bins (i.e. smaller bin sizes), the regression coefficients are affected by the skewness of the data. Variations might include using slope alone, or absolute value of slope. \hh{XXX I don't think that regression coefficients are really affected by skewness -- I'd think they get more variable because of sparseness in the data. What is the sample size of the examples that you tried? XXX}
 
-\item {\bf Distance based on separation between multiple groups (MS, AS, WL):}
-\hh{XXX is the distance WL or CM? }
-Let $X_1$ and $X_2$ be two continuous variable. Let $X_3$ be a categorical variable providing the groups associated with each variable. $X_1$ and $X_2$ are plotted in a scatterplot colored by the group variable $X_3$. The separation can be described in a number of different ways. Two versions are used in this paper. \hh{XXX two versions or three? } %Let us define, 
-
+\item {\bf Distance based on separation between multiple groups (MS, AS, CM):}
+Let $X_1$ and $X_2$ be two continuous variable. Let $X_3$ be a categorical variable providing the groups associated with each variable. $X_1$ and $X_2$ are plotted in a scatterplot colored by the group variable $X_3$. The separation can be described in a number of different ways:
 \begin{enumerate}
 \item[(i)] {\bf Minimum separation:} let  $s_{m}(.)$ be a vector of the minimum distance of a point in the cluster to a point in any of the other $g-1$ clusters. 
 The distance metric based on minimal separation is then defined as
@@ -377,18 +367,12 @@ d^2_{\hbox{AS}}(X, Y):= ||s_a(X) - s_g(Y)||^2 = \sum_{i = 1}^g ((s_a(X))_i - (s_
 d^2_{\hbox{CM}}(X, Y):= ||m(X) - m(Y)||^2 = \sum_{i=1}^g (m_i(X) - m_i(Y))^2
 \]
 \hh{XXX this distance is not used in the remainder of the paper. It could be shortened to a sentence here.}
-
 \end{enumerate}
-%\red{Now write the formula for the mean, since it is included below}
+Both average separation and mean separation are considered in this paper. 
 
 \hh{XXX Why are there so many variations for the cluster distance? There are obvious variations for the other distances mentioned, too - it would be more consistent to just pick one distance and run with it.}
 
-\hh{XXX Minimum separation seems to perform a bit closer to what observers see. We could work this point out a bit more. }
-
 Figure~\ref{sep-dist} illustrates the difference between the different distance metrics separation. In practice, many possible metrics could be used to measure the separation, such as those readily available in the {\tt fpc} package  \citep{hennig:2010}.
-
-%Here the two methods are applied on two dimensional projections of a dataset with 60 dimensions and 30 observations with three classes. The same is done on the projections of the same dataset with permuted classes. The average separation calculates the euclidean distance between each point in one cluster to all the points in the other two clusters. For example, for the original data, the distance between the points in the green cluster and the other two clusters are calculated and then the average of these distances represent the average distance for the green cluster. Similarly, the average distances for the other two clusters are calculated. The minimum distance also calculates the euclidean distance between each point in one cluster to all the points in the other two clusters. But instead of taking the average, it looks at the minimum distance. For the original data, the minimum distance between any point in the green cluster and the other two clusters is the distance between the point and a point in the red cluster. 
-
 \end{enumerate}
 
 \begin{figure}[hbtp]
@@ -412,7 +396,7 @@ Figure~\ref{sep-dist} illustrates the difference between the different distance 
 \end{figure}
 
 
-How well each distance measure matches the observers' responses depends some on the question of interest. But, in general, this should not be a problem because the question which is typically asked is ``Which plot among these is different?''. In the MTurk experiments, more focused questions were asked because the purpose was very specific, to compare visual inference with classical inference.
+How well each distance measure matches the observers' responses depends  on the question of interest. But, in general, this should not be a problem because the question which is typically asked is ``Which plot among these is different?''. In the MTurk experiments, more focused questions were asked because the purpose was very specific, to compare visual inference with classical inference.
 
 \hh{XXX still open questions after the first read-through: how are these distance metrics chosen, how well do they work in general situations? At the moment the distances seem like they are tailored for very specific examples in very specific designs.}
 
