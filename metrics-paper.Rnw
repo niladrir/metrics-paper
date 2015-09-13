@@ -734,15 +734,14 @@ qplot(x, z, data=lineup.dat, alpha=I(0.2), facets=~.sample, size=I(2.5)) +
 \end{figure}
 
 Figure~\ref{sca:type_1} shows a lineup of scatterplots with 100 points between two variables $X_1$ and $X_2$. Figure~\ref{sca:type_2}, on the other hand, gives a lineup of the same scatterplots with the regression line overlaid. The overlaid regression lines are likely to help observers in identifying the panel with the steepest slope.
-%Showing Figure~\ref{type_1}, if the subjects are asked to identify the plot which has the steepest slope, then the subjects probably will face some difficulty in identifying the true plot. But in Figure~\ref{type_2}, the regression line overlaid makes it easier for the subjects to identify the true plot. 
-A different distance metric should be used in each case to correctly measure the quality of the lineup.
-\hh{XXX the goal this needs to be stated more clearly. I am not quite sure at this point of why we are trying to get the distance measures to reflect the choice so closely. I think this is getting into fighting wind mills - we can't win this one. }
+%Showing Figure~\ref{type_1}, if the subjects are asked to identify the plot which has the steepest slope, then the subjects probably will face some difficulty in identifying the true plot. But in Figure~\ref{type_2}, the regression line overlaid makes it easier for the subjects to identify the true plot.
+\hh{The choice of distance metric depends on what kind of comparisons those distance measures are supposed to allow. Internally, when the same design is used, all measures are consistent -- and allow for a relative comparison: an easier lineup will show a bigger positive distance between the true plot and the nulls than a more difficult one. The distance measure does not necessarily allow for an absolute assessment of difficulty. }
+\hh{If a distance metric is additionally supposed to assist in planning an experiment where different types of plots are considered or different graphical elements on the same type of plot, the distance metric has to be able to take these differences into account. }
+%A different distance metric should be used in each case to correctly measure the quality of the lineup.
 
 The question posed to observers plays an important role in the decision they make. A minor change in the question can change the response of the subject. For example,  if  subjects are asked to identify the plot  from on of the lineups in Figure~\ref{fig:sca}, in which there is the strongest positive relationship between the variables, plot \#2 exhibits the strongest signal.  If the question asks for the plot with the largest slope, plot \#7 should be the obvious pick. 
-\hh{XXX again, why do we try to reflect a plot in a single number, when we know that we can't?}
+%\hh{XXX again, why do we try to reflect a plot in a single number, when we know that we can't?}
 A distance metric should also take into account the question of interest. But, in general, the question of interest is which plot among these is different.
-
-\hh{XXX it matters what kind of comparisons those distance measures are supposed to allow. Internally, when the same design is used, the measures are consistent - and alow for a relative comparison: an easier lineup will show a bigger positive distance between the true plot and the nulls than a more difficult one. The distance measure does not necessarily allow for an absolute assessment of difficulty. When the comparison is additionally supposed to distinguish between designs showing the same data, the distance measures definitely need to take the graphical elements used into account. }
 
 \subsection{Metric Evaluation} \label{sec:eval}
 %
