@@ -346,8 +346,8 @@ d^2_{RG}(X, Y) := \hbox{tr} (B(X) - B(Y))' (B(X) - B(Y))  \\
 \end{eqnarray}
 where $b_0$ and $b_1$ denote the vector of the intercept and slope respectively while $b$ is the number of bins. $B(.)$ is a $b \times 2$ matrix of the regression coefficients where each row represent the  intercept and the slope obtained from each bin. The number of bins have a significant effect on the distance measure. It can be seen that it works best for smaller number of bins like 1 or 2. 
 With larger number of bins (i.e.\ smaller bin sizes), the regression coefficients are affected by the skewness of the data. Variations might include using slope alone, or absolute value of slope. \hh{XXX I don't think that regression coefficients are really affected by skewness -- I'd think they get more variable because of sparseness in the data. What is the sample size of the examples that you tried? XXX}
-\hh{Note, that we assume that  $X_1$ and $X_2$ are on the same scale. This does not change the regression or the significance of its parameters, but it does matter for the distance measure. By assuming variables on the same scale, we implicitly expect that the scatterplot has an aspect ratio of 1, which is typically the case in a lineup. This way, a deviation along the x axis is perceived to be about the same as a deviation along the y axis. 
-}
+Note that we assume that  $X_1$ and $X_2$ are on the same scale. This does not change the regression or the significance of its parameters, but it does matter for the distance measure. By assuming variables on the same scale, we implicitly expect that the scatterplot has an aspect ratio of 1, which is typically the case in a lineup. This way, a deviation along the x axis is perceived to be about the same as a deviation along the y axis. 
+
 \item {\bf Distance based on separation between multiple groups (MS, AS, CM):}
 Let $X_1$ and $X_2$ be two continuous variable. Let $X_3$ be a categorical variable providing the groups associated with each variable. $X_1$ and $X_2$ are plotted in a scatterplot colored by the group variable $X_3$. The separation can be described in a number of different ways:
 \begin{enumerate}
@@ -1896,16 +1896,16 @@ ggplot(aes(x=value, y=prop), data=prop.grtr.m) +
 \end{figure}
 %%\afterpage{\clearpage}
 
-In Figure~\ref{lp-comp}, the detection rate is plotted against the difference for distance based on minimum separation, average separation and the binned distance. The  vertical line shows a difference equal to zero.  It can be seen that as the difference increases, the detection rate increases and \hh{all} distances do a reasonably good job in capturing the response of the subjects, with average separation being a bit ahead in terms of AIC (AIC: 349.6) %\Sexpr{round(AIC(das), 1)}) 
-compared to minimal separation  (AIC: 422.8) %\Sexpr{round(AIC(dms), 1)}) 
-and binned distance (AIC: 550.2). % \Sexpr{round(AIC(dbn), 1)}).
+In Figure~\ref{lp-comp}, the detection rate is plotted against the difference for distance based on minimum separation, average separation and the binned distance. The  vertical line shows a difference equal to zero.  It can be seen that as the difference increases, the detection rate increases and \hh{all} distances do a reasonably good job in capturing the response of the subjects, with average separation being a bit ahead in terms of AIC (AIC: \Sexpr{round(AIC(das), 1)}) 
+compared to minimal separation  (AIC: \Sexpr{round(AIC(dms), 1)}) 
+and binned distance (AIC: \Sexpr{round(AIC(dbn), 1)}).
 
 In (b) it can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, a large number of the subjects identify the observed plot although there is more extreme null plots. 
 
 \begin{figure}[hbtp]
 \centering
 %\includegraphics[width=0.7\textwidth]{largep-mtime-sep-bin.pdf}
-<<largep-mtime, echo=FALSE, dependson='t7-distr', out.width='0.7\\textwidth', fig.width=8.5, fig.height=3.5>>=
+<<largep-mtime, echo=FALSE, dependson='t7-distr', out.width='0.85\\textwidth', fig.width=8.5, fig.height=3.5>>=
 ### Facetted Plots
 #qplot(value, m.time, data = prop.diff.m, geom = "point", size = I(3), xlab = "Difference", ylab = "Mean Time to Respond", shape = factor(shape)) + facet_wrap( ~ variable, scales = "free_x") + geom_vline(xintercept = 0, col = "red") + theme(legend.position = "none")
 
