@@ -741,11 +741,11 @@ Figure~\ref{sca:type_1} shows a lineup of scatterplots with 100 points between t
 
 The question posed to observers plays an important role in the decision they make. A minor change in the question can change the response of the subject. For example,  if  subjects are asked to identify the plot  from on of the lineups in Figure~\ref{fig:sca}, in which there is the strongest positive relationship between the variables, plot \#2 exhibits the strongest signal.  If the question asks for the plot with the largest slope, plot \#7 should be the obvious pick. 
 %\hh{XXX again, why do we try to reflect a plot in a single number, when we know that we can't?}
-A distance metric should also take into account the question of interest. But, in general, the question of interest is which plot among these is different.
+A distance metric should also take into account the question of interest. But, in general, the question of interest is which plot in the lineup is the most different.
 
 \subsection{Metric Evaluation} \label{sec:eval}
 %
-For a lineup of size $m = 20$, the average distance of the true plot from all null plots is compared 18 average distances between the null plots. This comparison can sometimes complicate things. A logical solution is to calculate a single statistic for each lineup. Such a statistic should be based on the mean distance of the true plot and the maximum of the mean distances for the null plots. Hence we define, 
+For a lineup of size $m = 20$, the average distance of the true plot from all null plots is compared to 18 average distances between the null plots. This high dimensionality of the comparison can sometimes complicate things. A logical solution is to derive a single statistic for each lineup. Such a statistic should take both the mean distance of the true plot into account as well as the maximum of the mean distances for the null plots. Hence we define, 
 \begin{enumerate}
 \item {\bf $\delta$-Difference:} let $\bar{d}_.$ be the average difference of plot $.$ to all of the (other) null plots. We define the difference between the mean distance for the true plot and the maximum of the mean distances for the null plots as a measure of lineup difficulty, more specifically, 
 \begin{equation}\label{eq:delta}
@@ -756,9 +756,8 @@ defines the lineup difference for lineup $\ell$.
  A positive difference  indicates that the mean distance of the true plot is larger than the maximum of the mean distances of the null plots. Hence the true plot is more extreme compared to the set of null plots in the lineup. A larger difference should make a data plot identification easier. 
  Similarly, a negative difference indicates that there is at least one null plot which is more extreme compared to the true plot based on the distance metric.
  
-The issue with this statistic is that $\delta$ indicates an ``easy" or ``difficult" lineup only on the basis of whether it is positive or negative, although it may be really close to 0.
-\hh{XXX why should we base the decision on difficulty on the sign only? Shouldn't the absolute value of the difference also be taken into account?}
-
+%The issue with this statistic is that $\delta$ indicates an ``easy" or ``difficult" lineup only on the basis of whether it is positive or negative, although it may be really close to 0.
+%\hh{XXX why should we base the decision on difficulty on the sign only? Shouldn't the absolute value of the difference also be taken into account?}
 
 
 However, this statistic does not imply how many null plots are more extreme than the true plot. So we define,
