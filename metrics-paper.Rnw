@@ -2551,6 +2551,15 @@ The reason of choice can provide a way of evaluating the performance of a distan
  All plots are done with the {\tt ggplot2} \citep{hadley:2009} package in R.
 
 %\section{References}
+\begin{center}
+{\large\bf SUPPLEMENTARY MATERIAL}
+\end{center}
+
+\begin{description}
+
+\item[R-package nullabor:] R-package {\tt nullabor} containing code to create lineups and calculate the distance measures described in the article.  (available from dicook/github)
+
+\end{description}
 
 \bibliographystyle{asa}
 \bibliography{references}
