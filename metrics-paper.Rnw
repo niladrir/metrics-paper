@@ -370,8 +370,6 @@ d^2_{CM}(X, Y):= ||m(X) - m(Y)||^2 = \sum_{i=1}^g (m_i(X) - m_i(Y))^2
 \end{enumerate}
 Both average separation and mean separation are considered in this paper. 
 
-\hh{XXX Why are there so many variations for the cluster distance? There are obvious variations for the other distances mentioned, too - it would be more consistent to just pick one distance and run with it.}
-
 Figure~\ref{sep-dist} illustrates the difference between the different distance metrics separation. In practice, many possible metrics could be used to measure the separation, such as those readily available in the {\tt fpc} package  \citep{hennig:2010}.
 \end{enumerate}
 
@@ -1465,10 +1463,18 @@ Figure~\ref{turk2-mtime} shows the relationship between the median time taken to
 
 Although the regression based distance seems to efficiently identify the quality of the lineup, there is one lineup (marked by a solid triangle in Figure~\ref{turk2comp}) \hh{with} a negative $\delta$-difference which was nevertheless identified by observers reasonably successfully.  Figure~\ref{turk2-exp} shows the lineup and the corresponding distributions of distance metrics. 
 
+<<lp-turk2-exc, echo=FALSE, results='hide'>>=
+dat <- read.table("data/turk2/dat_turk2_100_350_12_3.txt", header = TRUE) #
+dat.m <- melt(dat, id = "X")
+dat.m$.sample <- substring(dat.m$variable, 2)
+lineup.dat <- data.frame(x = dat.m$X, z = dat.m$value, .sample = dat.m$.sample)
+
+lineup.dat$.sample <- as.numeric(as.character(lineup.dat$.sample))
+@
+
 <<lp-exc-turk2-distr, dependson='lp-exc-turk2',echo=FALSE, cache=TRUE, results='hide'>>=
 ## From the lineup data
 obs.dat <- lineup.dat[lineup.dat$.sample == 10, ]   
-names(obs.dat)[1:2] <- c("x", "z")
 # mod2 <- lm(z ~ 1, data = obs.dat)
 mean.null <- mean(obs.dat$z)
 sd.null <- 12 #  sd(obs.dat$z)
@@ -1504,14 +1510,7 @@ dframe <- data.frame(t(replicate(1000, {
 #write.csv(df, "distr-turk2.csv", row.names = FALSE)
 @
 
-<<lp-turk2-exc, echo=FALSE, results='hide'>>=
-dat <- read.table("data/turk2/dat_turk2_100_350_12_3.txt", header = TRUE) #
-dat.m <- melt(dat, id = "X")
-dat.m$.sample <- substring(dat.m$variable, 2)
-lineup.dat <- data.frame(x = dat.m$X, z = dat.m$value, .sample = dat.m$.sample)
 
-lineup.dat$.sample <- as.numeric(as.character(lineup.dat$.sample))
-@
 <<lp-exc-turk2-metrics, dependson='lp-exc-turk2', echo=FALSE, cache=TRUE, results='hide'>>=
 metrics.dat <- data.frame(expand.grid(pos.1=1:20, pos.2=1:20))
 
