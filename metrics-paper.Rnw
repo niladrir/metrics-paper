@@ -399,11 +399,11 @@ But, in general, this should not be a problem because the question which is typi
 
 \hh{XXX wouldn't a more tailored question be easier to match with a tailored distance? }
 
-\hh{XXX lead into the next section}
+Generally we would expect that different distance measures are not directly comparable to each other -- in order to get an idea of their relative size, we need to find their empirical distribution. This is discussed next.
 
 \subsection{Distance Metric Distribution} \label{sec:distri}
 
-For a given lineup of size $m$, the empirical distribution of distance metrics is obtained using the following algorithm:
+For a given lineup of size $m$, the empirical distribution of distance metrics is obtained obtained by calculating the distances between the null plots among themselves. One null data is generated from the true data set using the null generating mechanism. Assuming this null data to be the ``true'' data set, a number of null data sets are obtained from this null data and the distances between these datasets are calculated. One single distance value is obtained by averaging all these distances. This process is repeated a large number of times, say, $N$ where $N$ is a large number of the order $10^3$ or $10^4$. Finally $N$ mean distances or average distances are obtained which gives the empirical distribution of the distance. More specifically, we use the following algorithm:
 
 \begin{enumerate} \itemsep 0in
 \item Calculate the distance between the true data and all the null datasets and take the average of these distances. 
@@ -411,27 +411,16 @@ For a given lineup of size $m$, the empirical distribution of distance metrics i
 \item For each of the ($m$ - 1) null datasets, calculate the distance between the null data and all the other ($m$ - 2) null datasets and obtain the average distance. Hence, we obtain ($m$ - 1) distances, one corresponding to each  null plot.
 
 \item Generate a lineup of size $m$ using the null generating mechanism. 
-Single out one of these nulls as the `data' plot, and calculate the distances as described in steps (1) and (2). Repeat this procedure $B$ times (where $B$ is large, usually on the order of 1,000 or 10,000).
+Single out one of these nulls as the `data' plot, and calculate the distances as described in steps (1) and (2). Repeat this procedure $N$ times (where $N$ is large, usually on the order of $10^3$ or $10^4$).
 
-\item Plot these $B$ distances to obtain the empirical distribution of the distance metric. Plot the distances for the true plot and the null plots to show the distances for the lineup under consideration. 
+\item The $N$ distance values then represent the empirical distribution of the distance metric and are used for making comparisons
 \end{enumerate}
 
-% \hh{XXX the paragraph below sounds like a re-do of the above algorithm, except that I just named the number of reps $B$. }
-% The empirical distribution of the distance measures is obtained by calculating the distances between the null plots among themselves. One null data is generated from the true data set using the null generating mechanism. Assuming this null data to be the ``true'' data set, a number of null data sets are obtained from this null data and the distances between these datasets are calculated. One single distance value is obtained by averaging all these distances. This process is repeated a large number of times, say, $N$ where $N$ is a large number of the order $10^3$ or $10^4$. Finally $N$ mean distances or average distances are obtained which gives the empirical distribution of the distance. 
+The observed test statistic is  compared to the empirical distribution, as shown in Figure~\ref{compare}. 
+The distance measures for the true dataset and the null datasets are plotted on the empirical distribution. If the distance measure of the true plot is larger than any of the null plots, the lineup would be regarded as``easy''. Otherwise, we consider it to be a ``difficult'' lineup. 
 
-%The empirical distribution of the distance works as the $t$-distribution in the classical setting. In the classical setting, the test statistics follows a $t$-distribution under the null hypothesis. 
-%Unlike the $t$-distribution in classical hypothesis tests, the empirical distribution in visual inference is generally skewed.
-
-The observed test statistic is  compared to this distribution, as shown in Figure~\ref{compare}. 
-%In visual inference, the mean distances of the null plots gives the empirical distribution. The mean distance of the true plot from the null plots in the lineup acts as the observed test statistic. 
-
-%The mean distance between the true plot and the null plots in a lineup of size $m = 20$ is calculated by averaging over the distances between the true plot and each of the  $(m - 1)$ null plots. The mean distances for the $(m - 1)$ null plots in the lineup are calculated by taking the mean of the distances of the particular null plot and the other $(m - 2)$ null plots.
-
-The distance measures for the true dataset and the null datasets are plotted on the empirical distribution. If the distance measure of the true plot is larger than any of the null plots, the lineup would be regarded as``easy''. Otherwise, it is a ``difficult'' lineup. 
-
-The empirical distribution of the distance based on regression is shown in Figure~\ref{fig:distances}. To generate this distribution, $B = 1000$ simulation runs were done. 
-
-Figure~\ref{dist_1} shows the lineup plot for $m = 20$ for testing whether there exists a significant linear relationship between $X_1$ and $X_2$. The 19 null plots are generated by fitting the null model and generating from the null model. Figure~\ref{dist_2} shows the general empirical distribution of distance measures based on the null model. For the particular lineup on the left, mean distances  are shown by overlaid line segments for the true plot (in orange) and the null plots (in black). The true plot is easily identifiable from the lineup (Figure~\ref{dist_1}, \hh{40 out of 45 observers identified the data}). This is backed by the regression based distance measure seen in Figure~\ref{dist_2}, as the orange line is on the extreme right tail compared to the black lines. 
+The empirical distribution of the distance based on regression is shown in Figure~\ref{fig:distances} using $N = 1000$ simulation runs. 
+Figure~\ref{dist_1} shows the lineup plot for $m = 20$ for testing whether there exists a significant linear relationship between $X_1$ and $X_2$. The 19 null plots are generated by fitting the null model and generating from the null model. Figure~\ref{dist_2} shows the general empirical distribution of distance measures based on the null model. For the particular lineup on the left, mean distances  are shown by overlaid line segments for the true plot (in orange) and the null plots (in black). The true plot is easily identifiable from the lineup (Figure~\ref{dist_1}, in the experiment 40 out of 45 observers identified the data). This is backed by the regression based distance measure seen in Figure~\ref{dist_2}, as the orange line is on the extreme right tail compared to the black lines. 
 
 \begin{figure}[hbtp]
 \centering
@@ -459,7 +448,7 @@ qplot(x, z, data=lineup.dat, alpha=I(0.2), facets=~.sample, size=I(2.5)) +
 @
 \end{subfigure}
 \begin{subfigure}[b]{0.44\textwidth}
-\caption{\label{dist_2}Regression based distance metrics: unscaled at the top, scaled at the bottom. \hh{XXX my suggestion would be to switch to the scaled regression based distance instead of the unscaled one.} \hh{XXX I did the switch; the distribution below is the only one, that is unscaled now}}
+\caption{\label{dist_2}Regression based distance metrics: unscaled at the top, scaled at the bottom. \hh{XXX my suggestion would be to switch to the scaled regression based distance instead of the unscaled one.} \hh{XXX I did the switch; the top density is  now the only one in the paper, that is unscaled -- this makes most of the regression based distance with the slope only superfluous.}}
 %\includegraphics[width=\textwidth]{dist-metric.pdf}
 <<turk2-distr, dependson='lp-reg', echo=FALSE, cache=TRUE>>=
 obs.dat <- lineup.dat[lineup.dat$.sample == 7, ]   
@@ -556,7 +545,7 @@ ggplot()  +
 \label{dist}
 	\vspace{-.1in}
 \caption{
-\label{fig:distances}Illustration of the behavior of a distance metric with a lineup plot in (a) and the distribution of regression based distance metric in (b). A lineup of size $m$ = 20 is shown (left) for testing whether there exists a significant linear relationship between $X_1$ and $X_2$. The 19 null plots are obtained by simulating from the null model.  The empirical distribution of the distance metric is shown (right). The distances for the true plot and the null plots are shown in orange and black respectively.  }
+\label{fig:distances}Illustration of the behavior of a distance metric with a lineup plot in (a) and the distribution of regression based distance metric in (b). A lineup of size $m$ = 20 is shown (left) for testing whether there exists a significant linear relationship between $X_1$ and $X_2$. The 19 null plots are obtained by simulating from the null model.  The empirical distribution of the distance metric is shown on the right and overlaid by vertical line segments for the true plot and the null plots (in orange and black, respectively).  }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
@@ -681,11 +670,11 @@ ggplot()  +
 @
 \end{subfigure}
 	\vspace{-.3in}
-\caption{\label{fig:boxes}Illustration of the behavior of a distance metric with a lineup plot in (a) and the distribution of boxplot based distance metric in (b). A lineup of size $m$ = 20 is shown (left) for testing whether there exists a significant linear relationship between $X_1$ and $X_2$. The 19 null plots are obtained by simulating from the null model.  The empirical distribution of the distance metric is shown (right). The distances for the true plot and the null plots are shown in orange and black respectively.}
+\caption{\label{fig:boxes} Illustration of the behavior of a distance metric for a more `difficult' lineup. The lineup is shown in (a), the density plot on the right shows the boxplot based distance metric. The question of interest is again whether there exists a significant linear relationship between $X_1$ and $X_2$. The orange line for the distance of the true plot is among the lines of the nulls, indicating that the boxes in the true plot show a difference that is similar to some of the null plots. }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
-Figure~\ref{box-1} shows a lineup of size $m = 20$ for testing whether there exists a significant difference in the group medians between A and B. The 19 null plots are generated from a null model, consisting of draws from a normal distribution.  Figure~\ref{box-2} shows the empirical distribution of the distance based on the boxplots with the mean distance for the true plot (in orange) and the null plots (in black). It is hard to identify the true plot from the lineup. During the study, only 2 out of 26 observers picked the data plot, indicating little to no evidence of a deviation from the null hypothesis. This  is also evident from the boxplot based distance measure: the orange line corresponding to the true data is together with the mass of the black lines, one null plot exhibits a lot more signal than the true plot.
+Figure~\ref{box-1} shows a lineup of size $m = 20$ for testing whether there exists a significant difference in the group medians between A and B. The 19 null plots are generated from a null model, consisting of draws from a normal distribution.  Figure~\ref{box-2} shows the empirical distribution of the distance based on the boxplots with the mean distance for the true plot (in orange) and the null plots (in black). It is hard to identify the true plot from the lineup. During the study, only 2 out of 26 observers picked the data plot, indicating little to no evidence of a deviation from the null hypothesis. This  is also evident from the boxplot based distance measure: the orange line corresponding to the true data is mixed in with the mass of the black lines, one null plot exhibits a lot more signal than the true plot.
 
 \subsection{Effect of Plot Type and Question of Interest } \label{sec:plot_type}
 
