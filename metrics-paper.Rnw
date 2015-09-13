@@ -1343,9 +1343,9 @@ prop.dist <- dd %>% group_by(pic_name) %>%
 prop.dist$special <- ifelse(prop.dist$pic_name == "plot_turk2_100_350_12_3.png", 1, 0)
 
 t2dbn <- glm(cbind(correct, n-correct)~poly(diff.bin,2), data=prop.dist, family=binomial())
-t2drg <- glm(cbind(correct, n-correct)~diff.reg, data=prop.dist, family=binomial())
+t2drg <- glm(cbind(correct, n-correct)~poly(diff.reg,2), data=prop.dist, family=binomial())
 
-predrg <- data.frame(diff.reg=seq(-20,40, by=1))
+predrg <- data.frame(diff.reg=seq(-0.1,0.2, by=.01))
 predrg$pred <- predict(t2drg, newdata=predrg, type="response")
 names(predrg)[1] <- "value"
 predrg$variable <- "Regression Based Distance"
