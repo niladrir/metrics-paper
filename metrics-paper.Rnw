@@ -1537,8 +1537,10 @@ dd3 <- metrics.dat %>% group_by(pos.1) %>% summarize(
 
 \begin{figure}[hbtp]
 \centering
-\begin{subfigure}[b]{0.6\textwidth}
+\begin{subfigure}[b]{\textwidth}
 \caption{\small Lineup of scatterplots with overlaid regression lines. The numbers at the bottom right of each panel gives the number of times this plot was chosen in 66 evaluations.}
+\centering
+\begin{subfigure}[b]{0.6\textwidth}
 %\includegraphics[width=\textwidth]{lineup-exp2-neg-diff-large-prop.pdf}
 <<lp-turk2-exc-lp, dependson='lp-turk2-exc', echo=FALSE, fig.width=5.5, fig.height=5.5, out.width='\\textwidth'>>=
 
@@ -1560,6 +1562,7 @@ qplot(x, z, data = lineup.dat, alpha = I(0.15), xlab = "X1", ylab = "X2",
 
 @
 \end{subfigure}
+%\hfill%\vfill
 \begin{subfigure}[b]{0.3\textwidth}
 \caption{Regression based distance}
 \vspace{-.1in}
@@ -1583,34 +1586,10 @@ ggplot()  +
   ylim(c(- 0.04*yreg, yreg + 0.1*yreg)) +
   theme(plot.margin=unit(c(0,0,0,0), unit="line"))
 @
-% \end{subfigure}
-
-% \begin{subfigure}[t]{0.3\textwidth}
-%\includegraphics[width=\textwidth]{distribution-reg-no-int-dist-exp2.pdf}
-\caption{Regression w/o intercept}
-\vspace{-.1in}
-<<fig.height = 4.125, fig.width = 4.5, echo=FALSE, out.width='\\textwidth'>>=
-yregx <- max(density(dframe$drgx)$y)
-ggplot()  + 
-  geom_density(data = dframe, aes(x = drgx), fill = "grey80", col = "grey80") +
-  geom_segment(data = subset(dd3, len != 19), 
-               aes(x = brgx, xend = brgx, y = rep(0.02*yregx,19), 
-                   yend = rep(0.1*yregx,19)), 
-               size=1, alpha = I(0.7)) +
-  geom_segment(data = subset(dd3, len == 19), 
-               aes(x= brgx, xend = brgx, y=0.02*yregx, yend = 0.2*yregx), 
-               colour="darkorange", size=1) +
-  xlab("Regression Distance\n(no intercept)") + ylab("") + 
-  geom_text(data = subset(dd3, len != 19), size = 2.5, 
-            aes(x = brgx, label = pos.1, y = - 0.04*yregx + (pos.1 %% 4)/400)) + 
-  geom_text(data = subset(dd3, len ==19), y = 0.23*yregx, size = 3, 
-            aes(x = brgx, label = pos.1), colour="darkorange") + 
-  ylim(c(- 0.04*yregx, yregx + 0.1*yregx))+
-  theme(plot.margin=unit(c(0,0,0,0), unit="line"))
-@
+\end{subfigure}
 \end{subfigure}
 
-
+\vspace{-.3in}
 \begin{subfigure}[t]{0.3\textwidth}
 \caption{Binned (2,2) distance}
 \vspace{-.1in}
@@ -1691,7 +1670,7 @@ ggplot() +
 @
 \end{subfigure}
 
-\caption{Illustration of the behavior of different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics using this lineup are shown in plots (b)--(e): regression based distances in (b) and (c), binned distance with 2 bins on each axes in (d), binned distance with 8 and 2 bins in x and y axis respectively in (e). In (f), the distribution of the conventional $p$-values are plotted with $p$-values for the lineups marked on the distribution. The lineup corresponds to the point marked with a triangle in difference vs. detection rate plot in Figure~\ref{turk2comp}.}
+\caption{Illustration of the behavior of different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics using this lineup are shown in plots (b)--(d): regression based distances in (b), binned distance with 2 bins on each axes in (c), and binned distance with 8 and 2 bins in x and y axis (d). In (e), the distribution of the conventional $p$-values are plotted with $p$-values for the lineups marked on the distribution. The lineup corresponds to the point marked with a triangle in difference vs. detection rate plot in Figure~\ref{turk2comp}.}
 \label{turk2-exp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
