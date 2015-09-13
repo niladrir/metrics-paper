@@ -269,7 +269,7 @@ Alternatively, interpoint distance metrics might be adapted to measure distances
 
 In the analyses of the experimental data of this paper, we used a dual approach: one distance that we employed for all examples is a relatively simple distance based on binned frequencies, which works fairly well in most circumstances.
 %Ultimately, a very simple binned distance was used in the analyses of the MTurk data, which worked fairly well in most circumstances. 
-However, it was clear immediately that plot design, and the question asked, has a large impact on how a plot is read, and specific distance metrics designed for specific plot types and tasks are needed. In order to more closely reflect observers' choices in each experiment, we used at least one more distance tailored for each of these special situations.
+However, it was clear immediately that plot design, and the question asked, has a large impact on how a plot is read, and specific distance metrics designed for specific plot types and tasks are needed. In order to more closely reflect observers' choices in each experiment, we used at least one more distance tailored to each of these special situations.
 Below is a summary of distance metrics used. For all of these distance measures, let $X$ denote the true dataset with one or two variables. Let $Y$ denote the null dataset obtained by using an appropriate null generating mechanism.
 
 
@@ -282,7 +282,7 @@ Let $X_1$ and $X_2$ be two continuous variables. Let $X_1$ be divided into $p$ b
  %. Each $(i,j)$-th element of the matrix represents the number of points falling in the $(i,j)$-th cell, where $i = 1, \dots, p$ , $j = 1, \dots, q$.
 The BN distance is defined as
 \begin{eqnarray}\nonumber
-d_{\hbox{BN}}^2 (X, Y) &:=& ||C_X(X_1, X_2) - C_Y(X_1,X_2)||^2 \\ &=& \sum_{i=1}^p \sum_{j=1}^q (C_X(X_{1i},X_{2j}) - C_Y(X_{1i},X_{2j}))^2.\label{eq:BNdist}
+d_{BN}^2 (X, Y) &:=& ||C_X(X_1, X_2) - C_Y(X_1,X_2)||^2 \\ &=& \sum_{i=1}^p \sum_{j=1}^q (C_X(X_{1i},X_{2j}) - C_Y(X_{1i},X_{2j}))^2.\label{eq:BNdist}
 \end{eqnarray}
 
 \begin{figure*}[hbtp]
@@ -326,7 +326,7 @@ Define $d_q(.)$ as a three dimensional vector giving the absolute maximal differ
 
 Then the distance metric is given by
  \begin{equation}\nonumber
-d^2_{\hbox{BX}}(X, Y) := || d_q(X) - d_q(Y)||^2 \\=
+d^2_{BX}(X, Y) := || d_q(X) - d_q(Y)||^2 \\=
 \sum_{i=1}^3 \left( d_q(X)_i - d_q(Y)_i\right)^2. \label{eq:BXdist}
 \end{equation}
 
@@ -335,35 +335,36 @@ It is based on the assumption that %after the boxplots have already been constru
 subjects only consider the difference in the boxes to make the distinction. Variations on this might include adding whiskers' values, the number or values of outliers, or including higher-order letter values \citep{tukey:1977, lvplot} for more exact tail specifications. 
 
 \item {\bf Distance based on the regression line (RG):}
-Let $X_1$ and $X_2$ be two continuous variables. $X_1$ and $X_2$ are plotted in a scatterplot and assume that the scatterplot is binned vertically into $b$ bins. \hh{XXX in the package, the binning is horizontal. }
+Let $X_1$ and $X_2$ be two continuous variables. $X_1$ and $X_2$ are plotted in a scatterplot and assume that the scatterplot is binned vertically into $b$ bins.
+
+\hh{XXX in the package, the binning is horizontal. }
 \hh{XXX how are these bins motivated? what kind of example do you have in mind? }
 In each vertical bin, a linear regression model is fitted and the regression coefficients. i.e.\ intercept and slope are estimated. The distance metric based on the regression coefficients is given as
  \begin{eqnarray}\nonumber
-d^2_{\hbox{RG}}(X, Y) := \hbox{tr} (B(X) - B(Y))' (B(X) - B(Y))  \\
+d^2_{RG}(X, Y) := \hbox{tr} (B(X) - B(Y))' (B(X) - B(Y))  \\
 = \sum_{i=1}^b ((b_0(X))_i - (b_0(Y))_i)^2 + \sum_{i=1}^b ((b_1(X))_i - (b_1(Y))_i)^2\label{eq:drg}
 \end{eqnarray}
-\hh{XXX intercept and slope could be on very different scales. In a scatterplot we usually aim for an aspect ratio of 1, so a deviation in X is perceived to be about the same as a deviation in Y (even though we could read the axis, people usually don't). This could be helped with by scaling X and Y first. XXX }
-
 where $b_0$ and $b_1$ denote the vector of the intercept and slope respectively while $b$ is the number of bins. $B(.)$ is a $b \times 2$ matrix of the regression coefficients where each row represent the  intercept and the slope obtained from each bin. The number of bins have a significant effect on the distance measure. It can be seen that it works best for smaller number of bins like 1 or 2. 
-With larger number of bins (i.e. smaller bin sizes), the regression coefficients are affected by the skewness of the data. Variations might include using slope alone, or absolute value of slope. \hh{XXX I don't think that regression coefficients are really affected by skewness -- I'd think they get more variable because of sparseness in the data. What is the sample size of the examples that you tried? XXX}
-
+With larger number of bins (i.e.\ smaller bin sizes), the regression coefficients are affected by the skewness of the data. Variations might include using slope alone, or absolute value of slope. \hh{XXX I don't think that regression coefficients are really affected by skewness -- I'd think they get more variable because of sparseness in the data. What is the sample size of the examples that you tried? XXX}
+\hh{Note, that we assume that  $X_1$ and $X_2$ are on the same scale. This does not change the regression or the significance of its parameters, but it does matter for the distance measure. By assuming variables on the same scale, we implicitly expect that the scatterplot has an aspect ratio of 1, which is typically the case in a lineup. This way, a deviation along the x axis is perceived to be about the same as a deviation along the y axis. 
+}
 \item {\bf Distance based on separation between multiple groups (MS, AS, CM):}
 Let $X_1$ and $X_2$ be two continuous variable. Let $X_3$ be a categorical variable providing the groups associated with each variable. $X_1$ and $X_2$ are plotted in a scatterplot colored by the group variable $X_3$. The separation can be described in a number of different ways:
 \begin{enumerate}
 \item[(i)] {\bf Minimum separation:} let  $s_{m}(.)$ be a vector of the minimum distance of a point in the cluster to a point in any of the other $g-1$ clusters. 
 The distance metric based on minimal separation is then defined as
 \[
-d^2_{\hbox{MS}}(X, Y):= ||s_m(X) - s_m(Y)||^2 = \sum_{i = 1}^g ((s_m(X))_i - (s_m(Y))_i)^2
+d^2_{MS}(X, Y):= ||s_m(X) - s_m(Y)||^2 = \sum_{i = 1}^g ((s_m(X))_i - (s_m(Y))_i)^2
 \]
 
 \item[(ii)] {\bf Average point separation:} let $s_{a}(.)$ be a vector of cluster wise average distances of all the points in the cluster to all points in all other $g-1$ clusters. The distance metric based on average separation is defined as
 \[
-d^2_{\hbox{AS}}(X, Y):= ||s_a(X) - s_g(Y)||^2 = \sum_{i = 1}^g ((s_a(X))_i - (s_a(Y))_i)^2
+d^2_{AS}(X, Y):= ||s_a(X) - s_g(Y)||^2 = \sum_{i = 1}^g ((s_a(X))_i - (s_a(Y))_i)^2
 \]
 
 \item[(iii)] {\bf Cluster mean separation:} let $m_i(.) = \left(\bar{X_1}^i, \bar{X_2}^i\right)$ be the mean of the $i$-th cluster, $i = 1, 2, \dots, g$. The distance metric based on the cluster means is given by
 \[
-d^2_{\hbox{CM}}(X, Y):= ||m(X) - m(Y)||^2 = \sum_{i=1}^g (m_i(X) - m_i(Y))^2
+d^2_{CM}(X, Y):= ||m(X) - m(Y)||^2 = \sum_{i=1}^g (m_i(X) - m_i(Y))^2
 \]
 \hh{XXX this distance is not used in the remainder of the paper. It could be shortened to a sentence here.}
 \end{enumerate}
@@ -395,61 +396,12 @@ Figure~\ref{sep-dist} illustrates the difference between the different distance 
 \end{figure}
 
 
-How well each distance measure matches the observers' responses depends  on the question of interest. But, in general, this should not be a problem because the question which is typically asked is ``Which plot among these is different?''. In the MTurk experiments, more focused questions were asked because the purpose was very specific, to compare visual inference with classical inference.
+How well each distance measure matches the observers' responses depends  on the question of interest.  
+But, in general, this should not be a problem because the question which is typically asked is ``Which plot among these is different?''. In the MTurk experiments, more focused questions were asked because the purpose was very specific, to compare visual inference with classical inference.
 
-\hh{XXX still open questions after the first read-through: how are these distance metrics chosen, how well do they work in general situations? At the moment the distances seem like they are tailored for very specific examples in very specific designs.}
+\hh{XXX wouldn't a more tailored question be easier to match with a tailored distance? }
 
-%\item $t$ statistic: In this paper we used the test statistic of a t-test based on the correlation coefficient $r$ where $$t =\frac{r \sqrt{n - 2}}{\sqrt{1 - r^2}}$$ where $n$ is the number of observations in $X$ or $Y$. This is the only measure that makes a distributional assumption that the ($X$,$Y$) follows approximately a bivariate Normal distribution. Hence the $t$-statistic follows a t distribution with ($n$ - 2) degrees of freedom.
-%%\red{use either upper case or lower case $T$, not both. }
-%%The first one was used when one variable is continuous and the other is categorical while the other is used when both the variables are continuous.  
-%
-%%\item Wilcoxon Rank Sum Test statistic: This is a nonparametric test statistic for assessing whether one of the two samples of independent observations tend to have larger values than the other. This is also used when one variable is continuous and the other is categorical.  
-%
-%\item Spearman's rank correlation $\rho$ : $\rho$ is a nonparametric alternative to the correlation coefficient with Kendall's $\tau$. $X$ and $Y$ are converted into the ranks $x$ and $y$. Assuming there are no ties in the data, the differences $d_i=x_i - y_i$ between the ranks of each observation between the two variables are calculated and $\rho$ is given as $$\rho = 1 - \frac{6\sum_{i=1}^n d_i^2}{n(n^2 - 1)}$$ The Spearman's rank correlation is a better measure of correlation than the Pearson's rank correlation if the data contains some outliers. Kendall's $\tau$ is computationally intensive
-%% - the naive implementation is $O(n^2)$, but it can be reduced to $O(n \log n)$, which is equivalent to sorting.}
-%%takes huge time \red{could you be more specific - is it $O(n^2)$? - I think it can be brought down to $O(n \log n)$} \green{I think I used 2 for loops. So it should be $O(n^2)$. But I am not sure if it can be brought down to $O(n \log n)$}to calculate for an averaged size sample. 
-%So in this paper we considered $\rho$ as the only nonparametric measure.
-%%\red{which one of the statistics do you refer to?} 
-%%\red{give a mathematical definition of $\rho$}
-%$\rho$ uses both the variables. 
-%
-%
-%\item Euclidean Distance of permutations: The Euclidean distance of permutations $P$ is 
-%\[
-%d^2_P(X) = \sum_{i=1}^n ( i - P(i))^2.
-%\]
-%where $i = \{1, 2, ..., n\}$
-%
-%
-%\item Canberra Distance: Using exactly the same setup as the binned distance , the canberra distance under permutation is defined as
-%%\begin{eqnarray*}
-%\[
-%c^2_P(X)  = \left \{ 
-%\begin{array}{ll}
-%\sum_{i=1}^p \sum_{j=1}^q \frac{ |C_{X_i,Y_j} - C_{X_i,P(Y)_j}|}{ C_{X_i,Y_j} + C_{X_i,P(Y)_j}} & \text{if } C_{X_i,Y_j} + C_{X_i,P(Y)_j} > 0,\\
-%0 & \text{otherwise},
-%\end{array} \right.
-%\]
-%Like the binned distance, the canberra distance is also effected by the number of bins used. Here again we use the usual convention as the binned distance. Canberra distance is an improvement to the binned distance as it puts less weight on the bins which has a large number of points than the bins with fewer points. Visually it is difficult to differentiate between a single point and a number of points having the exact coordinates. Canberra distance has the same drawbacks as the binned distance. So we defined the weighted canberra distance which is a similar measure as the weighted bin distance.
-%
-%\item Weighted Canberra Distance:  Using the same setup of the weighted bin distance, the weighted canberra distance under permutation is defined as 
-%%\begin{eqnarray*}
-%\[
-%wc_P^2(X) = \left \{ 
-%\begin{array}{ll}
-%\sum_{i=1}^p \sum_{j=1}^q \frac{ |W_{X_i,Y_j} - W_{X_i,P(Y)_j}|}{ W_{X_i,Y_j} + W_{X_i,P(Y)_j}} & \text{if } W_{X_i,Y_j} + W_{X_i,P(Y)_j} > 0,\\
-%0 & \text{otherwise},
-%\end{array} \right.
-%\] 
-%%\end{eqnarray*}
-%where like the weighted bin distance, $W_{X_i,Y_i}$ denotes the joint (empirical) density of $X$, $Y$ at location $(X_i, Y_i)$. 
-%
-%\item Correlation between $Y$ and $[P]Y$: Let $Y$ be a continuous variable.The correlation between the $Y$ and $[P]Y$ is defined as
-%\[
-%r_P(X) = \frac{ \sum_{i=1}^n (Y_i - \bar{Y_i})(Y_{P(i)} - \bar{Y}_{P(i)})}{\sqrt{\sum_{i=1}^n (Y_i - \bar{Y_i})^2}\sqrt{\sum_{i=1}^n (Y_{P(i)}- \bar{Y}_{P(i)})^2}}.
-%\]
-
-
+\hh{XXX lead into the next section}
 
 \subsection{Distance Metric Distribution} \label{sec:distri}
 
@@ -460,12 +412,10 @@ For a given lineup of size $m$, the empirical distribution of distance metrics i
 
 \item For each of the ($m$ - 1) null datasets, calculate the distance between the null data and all the other ($m$ - 2) null datasets and obtain the average distance. Hence, we obtain ($m$ - 1) distances, one corresponding to each  null plot.
 
-% \item Generate a null dataset from the true dataset by the null generating mechanism. Consider this null dataset as ``true'' dataset. From this ``true'' dataset, generate ($m$ - 2) null datasets and calculate the average distance between the ``true'' data and the null datasets. Hence obtain a distance corresponding to this ``true'' dataset. 
+\item Generate a lineup of size $m$ using the null generating mechanism. 
+Single out one of these nulls as the `data' plot, and calculate the distances as described in steps (1) and (2). Repeat this procedure $B$ times (where $B$ is large, usually on the order of 1,000 or 10,000).
 
-\item \hh{Generate a lineup of size $m$ using the null generating mechanism. 
-Single out one of these nulls as the `data' plot, and calculate the distances as described in steps (1) and (2).  } Repeat this procedure $B$ times (where $B$ is large, usually on the order of 1,000 or 10,000).
-
-\item Plot these $B$ distances to obtain the empirical distribution of the distance metric. Plot the distances for the true plot and the null plots to show the distances for the lineup \hh{under consideration}. 
+\item Plot these $B$ distances to obtain the empirical distribution of the distance metric. Plot the distances for the true plot and the null plots to show the distances for the lineup under consideration. 
 \end{enumerate}
 
 % \hh{XXX the paragraph below sounds like a re-do of the above algorithm, except that I just named the number of reps $B$. }
@@ -511,7 +461,7 @@ qplot(x, z, data=lineup.dat, alpha=I(0.2), facets=~.sample, size=I(2.5)) +
 @
 \end{subfigure}
 \begin{subfigure}[b]{0.44\textwidth}
-\caption{\label{dist_2}Regression based distance metric.}
+\caption{\label{dist_2}Regression based distance metrics: unscaled at the top, scaled at the bottom. \hh{XXX my suggestion would be to switch to the scaled regression based distance instead of the unscaled one.} \hh{XXX I did the switch; the distribution below is the only one, that is unscaled now}}
 %\includegraphics[width=\textwidth]{dist-metric.pdf}
 <<turk2-distr, dependson='lp-reg', echo=FALSE, cache=TRUE>>=
 obs.dat <- lineup.dat[lineup.dat$.sample == 7, ]   
@@ -532,8 +482,8 @@ dframe <- data.frame(t(replicate(1000, {
 		
 # 		b1 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 2)
 #  		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 8, Y.bin = 2)
- 		r.int = reg_dist(samp.dat, null.dat)
- 		r.no.int <- reg_dist(samp.dat, null.dat, intercept=FALSE)
+ 		r.int = reg_dist(samp.dat, null.dat,  scale=FALSE)
+ 		r.no.int <- reg_dist(samp.dat, null.dat, scale=TRUE)
  		return(c(reg.dist=r.int, reg.no.int.dist=r.no.int))
  		})))
 	 	
@@ -551,8 +501,8 @@ for (i in 1:nrow(metrics.dat)) {
   P <- subset(lineup.dat, .sample == metrics.dat$pos.1[i])[,1:2]
   PX <- subset(lineup.dat, .sample == metrics.dat$pos.2[i])[,1:2]
     
-  metrics.dat$reg.dist[i] <- reg_dist(P, PX)
-  metrics.dat$reg.dist[i] <- reg_dist(P, PX, intercept=FALSE)
+  metrics.dat$reg.dist[i] <- reg_dist(P, PX, scale=FALSE)
+  metrics.dat$reg.no.int.dist[i] <- reg_dist(P, PX, scale=TRUE)
 }
 
 pos <- 7
@@ -561,7 +511,7 @@ metrics.dat <- subset(metrics.dat, pos.1 != pos.2 & pos.2 != pos)
 
 dd3 <- metrics.dat %>% group_by(pos.1) %>% summarize(
   reg.mean = mean(reg.dist),
-  reg.no.int.mean = mean(reg.no.int.dist),
+  reg.no.int.mean =  mean(reg.no.int.dist),
   len=n())
 
 @
@@ -585,6 +535,24 @@ ggplot()  +
             colour="darkorange", aes(x = reg.mean, label = pos.1)) +
   ylim(c(- 0.04*ymax, ymax + 0.1*ymax)) 
  # theme(plot.margin=unit(c(0,0,0,0), unit="line"))
+
+ymax <- max(density(dframe$reg.no.int.dist)$y)
+ggplot()  + 
+  geom_density(data = dframe, aes(x = reg.no.int.dist), 
+               fill = "grey80", col = "grey80" ) + 
+  geom_segment(data = subset(dd3, len != 19), 
+               aes(x = reg.no.int.mean, xend = reg.no.int.mean, 
+                   y = rep(0.005*ymax,19), yend = rep(0.1*ymax,19)), 
+               size=1, alpha = I(0.7)) + 
+  geom_segment(data = subset(dd3, len == 19), 
+               aes(x= reg.no.int.mean, xend = reg.no.int.mean, 
+                   y=0.005*ymax, yend = 0.2*ymax), colour="darkorange", size=1)  +
+  xlab("") + ylab("") + 
+  geom_text(data = subset(dd3, len != 19), y = - 0.03*ymax, size = 2.5, 
+            aes(x = reg.no.int.mean, label = pos.1)) +
+   geom_text(data = subset(dd3, len == 19), y = 0.25*ymax, size = 3, 
+            colour="darkorange", aes(x = reg.no.int.mean, label = pos.1)) +
+  ylim(c(- 0.04*ymax, ymax + 0.1*ymax)) 
 @
 \end{subfigure}
 \label{dist}
@@ -1500,7 +1468,7 @@ Although the regression based distance seems to efficiently identify the quality
 <<lp-exc-turk2-distr, dependson='lp-exc-turk2',echo=FALSE, cache=TRUE, results='hide'>>=
 ## From the lineup data
 obs.dat <- lineup.dat[lineup.dat$.sample == 10, ]   
-
+names(obs.dat)[1:2] <- c("x", "z")
 # mod2 <- lm(z ~ 1, data = obs.dat)
 mean.null <- mean(obs.dat$z)
 sd.null <- 12 #  sd(obs.dat$z)
@@ -1767,7 +1735,7 @@ The distances between the plots in this experiment were computed using the dista
 
 <<t7-distances, echo=FALSE, cache=TRUE,  results='hide', cache=TRUE>>=
 files.txt <- dir("data/turk7","*.txt")
-files.txt <- files.txt[-grep("wasp", files.txt)]
+#files.txt <- files.txt[-grep("wasp", files.txt)]
 files.png <- gsub("txt", "png", gsub("dat", "plot", files.txt))
 
 metrics <- NULL
@@ -1928,7 +1896,9 @@ ggplot(aes(x=value, y=prop), data=prop.grtr.m) +
 \end{figure}
 %%\afterpage{\clearpage}
 
-In Figure~\ref{lp-comp}, the detection rate is plotted against the difference for distance based on minimum separation, average separation and the binned distance. The  vertical line shows a difference equal to zero.  It can be seen that as the difference increases, the detection rate increases and \hh{all} distances do a reasonably good job in capturing the response of the subjects, with average separation being a bit ahead in terms of AIC (AIC: \Sexpr{round(AIC(das), 1)}) compared to minimal separation  (AIC: \Sexpr{round(AIC(dms), 1)}) and binned distance (AIC: \Sexpr{round(AIC(dbn), 1)}).
+In Figure~\ref{lp-comp}, the detection rate is plotted against the difference for distance based on minimum separation, average separation and the binned distance. The  vertical line shows a difference equal to zero.  It can be seen that as the difference increases, the detection rate increases and \hh{all} distances do a reasonably good job in capturing the response of the subjects, with average separation being a bit ahead in terms of AIC (AIC: 349.6) %\Sexpr{round(AIC(das), 1)}) 
+compared to minimal separation  (AIC: 422.8) %\Sexpr{round(AIC(dms), 1)}) 
+and binned distance (AIC: 550.2). % \Sexpr{round(AIC(dbn), 1)}).
 
 In (b) it can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, a large number of the subjects identify the observed plot although there is more extreme null plots. 
 
