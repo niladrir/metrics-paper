@@ -811,6 +811,7 @@ using the MTurk service~\citep{turk}. A complete list and access to each experim
 Some experiments are used for evaluating the power of visual inference against that of classical tests \citep{majumder:2011}, some for comparison of different designs \citep{hofmann2012graphical, loy:2015}, or for targeted conclusions based on visual inference in situations where traditional tests do not perform well \citep{tengfei:2013}. In each study, subjects were recruited through the MTurk service and were shown a set of lineups.
 %and the others using the protocol for different purposes. 
  For evaluating the distance metrics we used the data collected on experiments~1, 2, and~7 described in Table~\ref{tbl:visual_stat}.
+\hh{XXX the 7 looks really unmotivated to a reader who is not intimately informed about our experiments. Do we need the numbers? Couldn't we switch to Exp I, Exp II and Exp III ? }
 
 %that are being used to evaluate the effects of observers' demographic factors on the inference. Table \ref{tbl:visual_stat} summarizes these experiments. Each of these experiments collected demographic details of the subjects. Experiments 5, 6 and 7 are used to study the learning trend of the observer. The design of experiment 9 incorporated components that allows position of the actual data plot in the lineup, and the sample of nulls, to be evaluated. Section~\ref{sec:factor_performance} discusses human factors that may affect the performance of the observer. Section~\ref{sec:exp_design} describes the methods used to assess the effects, and Section~\ref{sec:result_socio} describes the results.
 
@@ -1247,25 +1248,10 @@ ggplot(data = prop.diff.m) +
 \newpage
 \subsection{Turk Experiment 2 -- Scatterplots with an Overlaid Regression Line}\label{sec:turk2}
 The question of interest of experiment 2 is very similar to the one in experiment 1: again, the focus is to investigate the power of visual methods in the framework of normal models. In contrast to experiment 1, in experiment 1 we are interested in the significance of a continuous variable $X$. The test statistic therefore is a scatterplot of the dependent variable and $X$ overlaid by a regression line. As mentioned in the introduction and further discussed in section 5.2 of \citet{majumder:2011}, $X$ is assumed to be standard normal, and dependent data $Y$ is also simulated from a normal distribution for various correlation settings. Null data correspondingly is simulated from $N(X\widehat{\beta}, \widehat{\sigma}^2)$.  
-Figures~\ref{lineup-example} and~\ref{fig:distances} show examples of the type of  lineup used in the study.  Subjects recruited from MTurk  were shown a set of ten lineups each and asked to identify the plot with the steepest slope. 
+Figures~\ref{lineup-example} and~\ref{fig:distances} show examples of the type of  lineup used in the study.  Subjects recruited from MTurk  were shown a set of ten lineups each and asked to identify the plot with the steepest slope in each. 
 
-
-%The null hypothesis underlying the lineups for this study is that there is no relationship between two normal random variables. As a test statistic, a scatterplot with an overlaid regression line is used. 
-%Lineups were created for data plots exhibiting a linear relationship between the two variables for a range of correlation values \citep{majumder:2011}. 
-
-
-% \begin{figure}[htbp]
-% \centering
-% \includegraphics[width=.95\textwidth]{turk2-example.pdf}
-% %\includegraphics[width=.65\textwidth]{large-p-trim-bin.pdf}
-% \caption{An example lineup from Turk Experiment 2. In this lineup, one of the plots is the observed plot and the other 19 plots are the null plots generated assuming that the null hypothesis $H_o : \beta = 0$ is true. Subjects were asked to identify the plot with the steepest slope. Can you identify the observed plot ?}
-% \label{turk2}
-% \end{figure}
-
+\hh{XXX paragraph below could be a bit tightened}
 For each lineup in this experiment,  distances between the plots were computed using both  regression based distance  ($d_{RG}$) and  binned distances ($d_{BN}$) with a small number of bins. For each lineup the proportion of data identifications was calculated from participants' responses and plotted against $\delta$-difference and the $\gamma$-number of extreme null plots, as shown in Figure~\ref{turk2comp}.
-
-%\hh{XXX}
-%Figure~\ref{turk2comp} shows the \hh{detection rate of each lineup against $\delta$-differences (top) and $\gamma$-number of extreme nulls (b) based on regression and binned (2,2) distance. }
 
 \begin{figure}[hbtp]
 \begin{subfigure}[t]{\textwidth}
@@ -1652,7 +1638,7 @@ For the data plot (in panel \#10) the conventional $p$-value for testing the slo
 
 The binned distance with 2 bins on each axes does not let the data plot stand out in any way, however, the binned distance using the optimal number of bins (8 on the x-axis and 2 on the y-axis) by the optimal number of bins selection method identifies the data plot as different from the others. 
 
-The number of picks lines up best with the difference measure based on the slope (regression without intercept). Plots \# 10, 12, 11, 9, and 7 all have a relatively steep slope, and are also the plots that were picked the most often.  
+The number of picks lines up best with the difference measure based on the slope (regression without intercept). Plots \#10, 12, 11, 9, and 7 all have a relatively steep slope, and are also the plots that were picked the most often.  
 Again, a distance measure derived directly from one of the graphical elements in the plot leads to the best assessment of the choices made by human evaluators.
 
 
@@ -2539,10 +2525,10 @@ The reason of choice can provide a way of evaluating the performance of a distan
 
 \subsection*{Selection of the Number of Bins} \label{sec:nbin}
 
-Binned distance works for any type of data and for any null generating mechanism. It is based on the raw data but does not take into account the graphical elements in the plot. Binned distance can be used in situations where no distance measure is known for the particular plot type and hence it can be regarded as universal. But the choice of number of bins or the bin size highly affects the distance. An unfortunated choice may lead to hard to interpret or conflicting results. Hence the choice of the number of bins is important.
+Binned distance works for any type of data and for any null generating mechanism. It is based on the raw data but does not take into account the graphical elements in the plot. Binned distance can be used in situations where no distance measure is known for the particular plot type and hence it can be regarded as universal. But the  the number of bin  highly affect the distance. An unfortunate choice may lead to hard to interpret or conflicting results. %Hence the choice of the number of bins is important.
 
-We investigate the choice of the number of bins using different types of data.
- Different null generating mechanisms are also used for the same data type. Null datasets are obtained for a true data using a null generating mechanism and hence a lineup is constructed. Mean binned distance is calculated between the true data and the null datasets and also among the null datasets. The number of bins for the binned distance are varied from 2 to 10 on both $x$ and $y$ direction and the $\delta$-difference is determined for each combination. Table \ref{tbl:bin1} and Table \ref{tbl:bin2} shows the type of data, the observed plot, the null generating mechanism, a typical null plot, the $\delta$-difference and also the maximum value of $\delta_{\hbox{lineup}}$, the $x$-bin and $y$-bin for which the maximum was obtained. The minimum $\delta_{\hbox{lineup}}$ is also reported to get an idea of the range of values.
+We investigate the choice of the number of bins using different types of data
+and  different null generating mechanisms. Null datasets are obtained for a true data set using a null generating mechanism and hence a lineup is constructed. As described in section~{sec:dists} mean binned distances are calculated between the true data and the null datasets and also among the null datasets. The number of bins for the binned distance are varied from 2 to 10 on both $x$ and $y$ direction and $\delta$-difference is determined for each combination. Tables~\ref{tbl:bin1} and~\ref{tbl:bin2} show the type of data, the observed plot, the null generating mechanism (NGM), a typical null plot, $\delta$-difference and the maximally observed value of $\delta$, together with the corresponding number of bins in $x$ and $y$ direction. Similarly, the minimal $\delta$ value and its parameters are collected to get an idea of the range of values.
 
 %\begin{figure*}[hbtp]
 %\centering
@@ -2596,21 +2582,21 @@ We investigate the choice of the number of bins using different types of data.
 \caption{Preferable number of bins for different types of observed data to calculate the binned distance.}
 \centering 
 \scalebox{0.8}{
-\begin{tabular}{p{1.5cm}l c  p{2cm} c cc l c p{4cm}} 
+\begin{tabular}{p{1.75cm}l c  p{2cm} c cc l c p{4cm}} 
 \hline
- Type of Data & Observed Plot && Null Generating Mechanism & A typical null plot && & Difference && (x-bin, y-bin, Max; Min) \\ %[0.5ex] % inserts table %heading 
+ Data & Observed Plot && NGM & Typical Null && & Difference && \begin{minipage}[c]{4cm}{\begin{center} (x-bin, y-bin)\\   Min, Max } \end{center}\end{minipage} \\ %[0.5ex] % inserts table %heading 
 %\hline
 % Linear association & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data1.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot1.pdf}} \end{center} \end{minipage} &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot1.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} small\\
  \hline
- Linear association & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-1.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-null-1.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-nbin-1.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} (2, 2, 5.7 ; - 2.5)\\
+\begin{minipage}[c]{1.75cm}{Linear association}\end{minipage} & \begin{minipage}[c]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-1.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[c]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-null-1.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[c]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-nbin-1.pdf}} \end{center} \end{minipage} &&   \begin{minipage}[c]{4cm}{\begin{center} (2,2)\\  -2.5, 5.7 \end{center}}\end{minipage}     \\ \hline
+%
+\begin{minipage}[c]{1.75cm}{Nonlinear relationship}\end{minipage} & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-2.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-null-2.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-nbin-2.pdf}} \end{center} \end{minipage} &&    \begin{minipage}[c]{4cm}{\begin{center} (2,10)\\  0.0, 6.2 \end{center}}\end{minipage}  \\
  \hline
-Nonlinear relationship & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-2.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-null-2.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-nbin-2.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} (2, 10, 6.2 ; - 0.0)\\
+\begin{minipage}[c]{1.75cm}{Linear with outliers}\end{minipage} & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-3.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-null-3.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-nbin-3.pdf}} \end{center} \end{minipage} &&   \begin{minipage}[c]{4cm}{\begin{center} (2,6)\\  -0.4, 16.7 \end{center}}\end{minipage} \\
  \hline
- Linear relation with outliers & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-3.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-null-3.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-nbin-3.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} (2, 6, 16.7 ; - 0.4)\\
+\begin{minipage}[c]{1.75cm}{Same $x$ with one outlier}\end{minipage} & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-4.pdf}} \end{center} \end{minipage} && \begin{minipage}[c]{2cm}{ Simulation from  Poi(9)}\end{minipage} &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-null-4.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-nbin-4.pdf}} \end{center} \end{minipage} &&    \begin{minipage}[c]{4cm}{\begin{center} (10, 3)\\  -0.1, 34.3 \end{center}}\end{minipage} \\
  \hline
- Same values with one outlier & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-4.pdf}} \end{center} \end{minipage} && Simulation from a \emph{Poi(9)} distribution &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-null-4.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{anscombe-nbin-4.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm}(10, 3, 34.3 ; - 0.1)\\
- \hline
-    Clusters & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{data1.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{null1.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot1.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} (3, 2, 27.6 ; - 5.7)\\
+    Clusters & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{data1.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{null1.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot1.pdf}} \end{center} \end{minipage} &&     \begin{minipage}[c]{4cm}{\begin{center} (3,2)\\  -5.7, 37.6 \end{center}}\end{minipage} \\
  \hline
 %Clusters & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data2.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot2.pdf}} \end{center} \end{minipage} && \hspace{0.8cm} small\\
 % \hline
@@ -2629,24 +2615,28 @@ Nonlinear relationship & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.2
 \caption{Preferable number of bins for different types of observed data to calculate the binned distance.}
 \centering 
 \scalebox{0.8}{
-\begin{tabular}{p{1.5cm}l c  p{2cm} c cc l c p{4cm}} 
+\begin{tabular}{p{1.75cm}l c  p{2cm} c cc l c p{4cm}} 
 \hline
- Type of Data & Observed Plot && Null Generating Mechanism & A typical null plot && & Difference && (x-bin, y-bin, Max; Min) \\ %[0.5ex] % inserts table %heading 
+ Data & Observed Plot && NGM & Typical Null  && & Difference && \begin{minipage}[c]{4cm}{\begin{center} (x-bin, y-bin)\\   Min, Max \end{center}}\end{minipage} \\ %[0.5ex] % inserts table %heading 
  \hline
-Categorical & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{data2.pdf}} \end{center} \end{minipage} && Simulation from a Normal distribution &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{null2.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot2.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} (3, 3, 30.7; 6.2) \\
- \hline
-Nonlinear relation with outliers & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{data3.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{null3.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot3.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} (4, 10, 3.9; -3.4) \\
- \hline
-Linear relationship with outlier  & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{data5.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{null5.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot5.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} (3, 10, 0.3; -7.1) \\
- \hline
- Residual Plot & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{data4.pdf}} \end{center} \end{minipage} && Simulation from the null model &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{null4.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot4.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} (3, 7, 17.8; -4.5)\\
- \hline
- Residual Plot & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{data6.pdf}} \end{center} \end{minipage} && Simulation from the null model &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{null6.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot6.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} (2, 5, 4.8; -4.4)\\
- \hline
-Spiral data & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{data7.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{null7.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot7.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} (5, 7, 23.6; -11.9)\\
- \hline
-Contaminated data & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{data8.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{null8.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot8.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} (5, 3, 8.1; -2.5)\\
- \hline
+Categorical & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{data2.pdf}} \end{center} \end{minipage} && 
+\begin{minipage}[c]{1.75cm}{Simulation from $N(\mu, \sigma^2)$}\end{minipage} &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{null2.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot2.pdf}} \end{center} \end{minipage} &&    \begin{minipage}[c]{4cm}{\begin{center} (3,3)\\  6.2, 30.7 \end{center}}\end{minipage} \\ \hline
+%
+\begin{minipage}[c]{1.75cm}{Nonlinear with outliers}\end{minipage}  & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{data3.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{null3.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot3.pdf}} \end{center} \end{minipage} &&    \begin{minipage}[c]{4cm}{\begin{center} (4, 10)\\  -3.4, 3.9 \end{center}}\end{minipage} \\ \hline
+%
+\begin{minipage}[c]{1.75cm}{Nonlinear with outliers}\end{minipage}  & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{data5.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{null5.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot5.pdf}} \end{center} \end{minipage} &&           \begin{minipage}[c]{4cm}{\begin{center} (3,10)\\  -7.1, 0.3 \end{center}}\end{minipage} \\ \hline
+%
+ Residual  & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{data4.pdf}} \end{center} \end{minipage} && \begin{minipage}[c]{1.75cm}{Simulation from null model}\end{minipage} &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{null4.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot4.pdf}} \end{center} \end{minipage} && 
+ \begin{minipage}[c]{4cm}{\begin{center} (3,7)\\  -4.5, 17.8 \end{center}}\end{minipage} \\ \hline
+%
+ Residual  & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{data6.pdf}} \end{center} \end{minipage} && \begin{minipage}[c]{1.75cm}{Simulation from null model}\end{minipage}  &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{null6.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot6.pdf}} \end{center} \end{minipage} && 
+ \begin{minipage}[c]{4cm}{\begin{center} (2,5)\\  -4.4, 4.8 \end{center}}\end{minipage} \\ \hline
+%
+Spiral  & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{data7.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{null7.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot7.pdf}} \end{center} \end{minipage} && 
+ \begin{minipage}[c]{4cm}{\begin{center} (5,7)\\  -11.9, 23.6 \end{center}}\end{minipage} \\ \hline
+%
+Contaminated  & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{data8.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{null8.pdf}} \end{center} \end{minipage} &&&  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot8.pdf}} \end{center} \end{minipage} &&  
+ \begin{minipage}[c]{4cm}{\begin{center} (5,3)\\  -2.5, 8.1  \end{center}}\end{minipage} \\ \hline
 %Clusters & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data2.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot2.pdf}} \end{center} \end{minipage} && \hspace{0.8cm} small\\
 % \hline
 % Discrete vs. Continuous & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data3.pdf}} \end{center} \end{minipage} && Simulation from a specific distribution &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot3.pdf}} \end{center} \end{minipage} && \hspace{0.8cm} small\\
@@ -2659,11 +2649,12 @@ Contaminated data & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\i
 \label{tbl:bin2}
 \end{table*}
 
-The rationale behind selecting different types of data is to investigate how the optimal number of bins or bin sizes varies with different types of data. The different null generating mechanisms are also selected for the same reason. In Table \ref{tbl:bin1} the first four observed data plots corresponds to the datasets described by Francis Anscombe \citep{anscombe:1972} but with large number of data points. Although the datasets have the same pattern, the datasets do not follow the properties of Anscombe's quartet. The fifth dataset is a data with 3 distinct clusters. In Table \ref{tbl:bin2}, the first dataset shows a categorical data. The second and the third data are non-linear and linear association with the presence of outliers. The fourth and fifth datasets are the residual plots with curved pattern and non-constant variance pattern. The sixth data is a spiral data while the seventh one is a data with contamination. 
+The rationale behind selecting different types of data is to investigate how the optimal number of bins or bin sizes varies with different types of data. The different null generating mechanisms are also selected for the same reason. In Table~\ref{tbl:bin1} the first four observed data plots corresponds to the datasets described by Francis Anscombe \citep{anscombe:1972} but with larger number of data points. Although the datasets have the same pattern, the datasets do not follow the properties of Anscombe's quartet. \hh{XXX in what respect do they not follow the Anscombe properties?}
+The fifth dataset is a data set with 3 distinct clusters. In Table~\ref{tbl:bin2}, the first dataset shows a categorical dataset. The second and the third data are non-linear and linear association with the presence of outliers \hh{XXX is the third dataset really linear? It looks like it is non linear with outliers, too}. The fourth and fifth datasets are residual plots with a curved pattern and non-constant variance pattern. The sixth data is a spiral data while the seventh one is a data with contamination. 
 
-The differences, $\delta_{\hbox{lineup}}$, are represented in a tile plot where each tile gives the difference for each combination. The dark blue shows higher values while the white shows lower values. It can be seen that the plots look different for the different datasets. Hence the optimal number of bins varies from data to data. No specific pattern is evident in the plot. But overall it can be seen that for strong linear relationship, small number of bins should be preferred over large number of bins. Also when outlier is present in the data, larger number of bins is preferred at least in one axis.
+The $\delta$-differences are represented in a tile plot where each tile gives the difference for each combination. Darker hues correspond to larger differences values. It can be seen that these tile plots look different for the different datasets. Hence the optimal number of bins varies from data to data. No specific pattern is evident in the plot. But overall it can be seen that for strong linear relationships, small number of bins should be preferred over large number of bins. Also when outliers are present in the data, larger number of bins are preferred on at least one of the axes.
 
-It is important to mention at this point that Table \ref{tbl:bin1} and Table \ref{tbl:bin2} is not meant to provide any guidelines for the selection of number of bins. The Tables only show that the binned distance is highly affected by the number of bins and the type of data. It is advisable to find the optimal number of bins for a given data before using the binned distance.
+It is important to mention at this point that Tables~\ref{tbl:bin1} and~\ref{tbl:bin2} is not meant to provide any guidelines for the selection of number of bins. The Tables only show that binned distance is highly affected by the number of bins and the type of data. It is advisable to find the optimal number of bins for a given dataset before using binned distance.
 
 
 \end{document}
