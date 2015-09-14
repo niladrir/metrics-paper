@@ -345,7 +345,8 @@ d^2_{RG}(X, Y) := \hbox{tr} (B(X) - B(Y))' (B(X) - B(Y))  \\
 = \sum_{i=1}^b ((b_0(X))_i - (b_0(Y))_i)^2 + \sum_{i=1}^b ((b_1(X))_i - (b_1(Y))_i)^2\label{eq:drg}
 \end{eqnarray}
 where $b_0$ and $b_1$ denote the vector of the intercept and slope respectively while $b$ is the number of bins. $B(.)$ is a $b \times 2$ matrix of the regression coefficients where each row represent the  intercept and the slope obtained from each bin. The number of bins have a significant effect on the distance measure. It can be seen that it works best for smaller number of bins like 1 or 2. 
-With larger number of bins (i.e.\ smaller bin sizes), the regression coefficients are affected by the skewness of the data. Variations might include using slope alone, or absolute value of slope. \hh{XXX I don't think that regression coefficients are really affected by skewness -- I'd think they get more variable because of sparseness in the data. What is the sample size of the examples that you tried? XXX}
+With larger number of bins (i.e.\ smaller bin sizes), the regression coefficients are affected by the variability in the data and the signal to noise ratio in the data becomes too low for a reliable detection. %skewness of the data. \hh{XXX I don't think that regression coefficients are really affected by skewness -- I'd think they get more variable because of sparseness in the data. What is the sample size of the examples that you tried? XXX} 
+Variations might include using slope alone, or absolute value of slope. 
 Note that we assume that  $X_1$ and $X_2$ are on the same scale. This does not change the regression or the significance of its parameters, but it does matter for the distance measure. By assuming variables on the same scale, we implicitly expect that the scatterplot has an aspect ratio of 1, which is typically the case in a lineup. This way, a deviation along the x axis is perceived to be about the same as a deviation along the y axis. 
 
 \item {\bf Distance based on separation between multiple groups (MS, AS, CM):}
@@ -394,10 +395,10 @@ Figure~\ref{sep-dist} illustrates the difference between the different distance 
 \end{figure}
 
 
-How well each distance measure matches the observers' responses depends  on the question of interest.  
-But, in general, this should not be a problem because the question which is typically asked is ``Which plot among these is different?''. In the MTurk experiments, more focused questions were asked because the purpose was very specific, to compare visual inference with classical inference.
-
-\hh{XXX wouldn't a more tailored question be easier to match with a tailored distance? }
+% How well each distance measure matches the observers' responses depends  on the question of interest.  
+% But, in general, this should not be a problem because the question which is typically asked is ``Which plot among these is different?''. In the MTurk experiments, more focused questions were asked because the purpose was very specific, to compare visual inference with classical inference.
+% 
+% \hh{XXX wouldn't a more tailored question be easier to match with a tailored distance? }
 
 Generally we would expect that different distance measures are not directly comparable to each other -- in order to get an idea of their relative size, we need to find their empirical distribution. This is discussed next.
 
@@ -766,7 +767,7 @@ where $\mathds{1}(.)$ is a zero/one indicator function.
 $\gamma(.)$ takes integer values between 0 and $(m - 1)$. The higher this value, the more null plots are more extreme than the true plot making it harder to identify it from the lineup.
 \end{enumerate}
 
-\hh{XXX why don't you also use the distribution of the null distances that you created? That should give an empirical $p$-value for the data plot - it does not, however, take the dependency on the nulls into account.}
+\hh{XXX I think there needs to be a bit of discussion, of why $\delta$-difference is used rather than a comparison of the empirical $p$-values. $p$-values would be comparable across different distance metrics, and it would be logical to use them, as we just identified the distribution of the whole thing.}
 
 In order to assess how well a distance metric reflects observers' choices, we relate distance metric to the rate at which the data plot in each lineup is being identified. In an ideal scenario, a detection rate of 0.05 corresponds to a $\delta$-difference of zero. With an increase in $\delta$-difference we would expect a simultaneous increase in detection rate. For the evaluation of metrics in the next section, we will fit a logistic regression of detection rate in $\delta$-difference. 
 
@@ -810,8 +811,8 @@ using the MTurk service~\citep{turk}. A complete list and access to each experim
 
 Some experiments are used for evaluating the power of visual inference against that of classical tests \citep{majumder:2011}, some for comparison of different designs \citep{hofmann2012graphical, loy:2015}, or for targeted conclusions based on visual inference in situations where traditional tests do not perform well \citep{tengfei:2013}. In each study, subjects were recruited through the MTurk service and were shown a set of lineups.
 %and the others using the protocol for different purposes. 
- For evaluating the distance metrics we used the data collected on experiments~1, 2, and~7 described in Table~\ref{tbl:visual_stat}.
-\hh{XXX the 7 looks really unmotivated to a reader who is not intimately informed about our experiments. Do we need the numbers? Couldn't we switch to Exp I, Exp II and Exp III ? }
+ For evaluating the distance metrics we used the data collected on three experiments described in Table~\ref{tbl:visual_stat}.
+%\hh{XXX the 7 looks really unmotivated to a reader who is not intimately informed about our experiments. Do we need the numbers? Couldn't we switch to Exp I, Exp II and Exp III ? }
 
 %that are being used to evaluate the effects of observers' demographic factors on the inference. Table \ref{tbl:visual_stat} summarizes these experiments. Each of these experiments collected demographic details of the subjects. Experiments 5, 6 and 7 are used to study the learning trend of the observer. The design of experiment 9 incorporated components that allows position of the actual data plot in the lineup, and the sample of nulls, to be evaluated. Section~\ref{sec:factor_performance} discusses human factors that may affect the performance of the observer. Section~\ref{sec:exp_design} describes the methods used to assess the effects, and Section~\ref{sec:result_socio} describes the results.
 
@@ -822,10 +823,10 @@ Some experiments are used for evaluating the power of visual inference against t
 \hline\hline 
  ID & Experiment & Test Statistic  & Lineup question \\ [0.5ex] % inserts table %heading 
 \hline 
-1  & Box plot & \begin{minipage}[c]{2cm} \begin{center}	\scalebox{0.12}{\includegraphics{stat_category1.pdf}} \end{center} \end{minipage} & Which set of box plots shows biggest vertical difference 
+I  & Box plot & \begin{minipage}[c]{2cm} \begin{center}	\scalebox{0.12}{\includegraphics{stat_category1.pdf}} \end{center} \end{minipage} & Which set of box plots shows biggest vertical difference 
 between group A and B? \citep[see also][]{majumder:2011} \\
-2 &  Scatter plot & \begin{minipage}[c]{2cm}  \begin{center} \scalebox{0.3}{\includegraphics{stat_beta_k1.png}} \end{center} \end{minipage} & Of the scatter plots below which one shows data that has steepest slope? \citep[see also][]{majumder:2011}\\
-  7 & Group separation & \begin{minipage}[c]{2cm} \begin{center}  \scalebox{0.4}{\includegraphics{stat_separation.pdf}} \end{center} \end{minipage} & Which of these plots has the most separation between the coloured groups?  \citep[see also][]{roychowdhury:2013}\\
+II &  Scatter plot & \begin{minipage}[c]{2cm}  \begin{center} \scalebox{0.3}{\includegraphics{stat_beta_k1.png}} \end{center} \end{minipage} & Of the scatter plots below which one shows data that has steepest slope? \citep[see also][]{majumder:2011}\\
+III & Group separation & \begin{minipage}[c]{2cm} \begin{center}  \scalebox{0.4}{\includegraphics{stat_separation.pdf}} \end{center} \end{minipage} & Which of these plots has the most separation between the coloured groups?  \citep[see also][]{roychowdhury:2013}\\
 \hline 
 \end{tabular}
 \label{tbl:visual_stat} 
@@ -835,8 +836,8 @@ We evaluated the performance of the distance metrics in each of the experiments 
 
 %A number of experiments were run using the MTurk service \citep{turk}. Subjects were recruited through this service and were shown a sequence of lineups. In each experiment, they were asked specific questions. Their responses were recorded along with other demographic informations. Details on the design of experiments can be found in \cite{majumder:2011} and \cite{roychowdhury:2013}. 
 
-\subsection{Turk Experiment 1 -- Side by Side Boxplots}\label{sec:turk1}
-The question of interest in this study is to investigate the power of visual inference in the classical situation of assessing the significance of a co-variate $X$ in a linear model. For the first study, the assumption is that the covariate is discrete (with two levels), in the study Turk Experiment 2 (see section~\ref{sec:turk2}), we assume the covariate to be continuous. 
+\subsection{Experiment I -- Side by Side Boxplots}\label{sec:turk1}
+The question of interest in this study is to investigate the power of visual inference in the classical situation of assessing the significance of a co-variate $X$ in a linear model. For the first study, the assumption is that the covariate is discrete (with two levels), while in  Experiment II (see section~\ref{sec:turk2}) we assume the covariate to be continuous. 
 The visual test statistic consists of side-by-side boxplots of the dependent variable against the two levels of covariate $X$. The data for the lineups comes from a model of the form $y_{i} + \mu + \beta_{x_i} + \varepsilon_{i}$ where $\mu$ is an overall average, $x_i \in {1, 2}$ with $\beta_1 = -\beta_2$ is the effect for each of the two levels of $X$, and $\varepsilon_{i} \sim N(0, \sigma^2)$, independent for $i = 1, ..., n$.
 The null generating mechanism is then a simplified model without the covariate, i.e.\ $\beta_1 = \beta_2 = 0$. 
 Each of the subjects recruited through the MTurk service, was asked to evaluate ten lineups, and to identify in each one the plot that exhibits the largest vertical difference between groups A and B. 
@@ -1246,8 +1247,8 @@ ggplot(data = prop.diff.m) +
 
 
 \newpage
-\subsection{Turk Experiment 2 -- Scatterplots with an Overlaid Regression Line}\label{sec:turk2}
-The question of interest of experiment 2 is very similar to the one in experiment 1: again, the focus is to investigate the power of visual methods in the framework of normal models. In contrast to experiment 1, in experiment 1 we are interested in the significance of a continuous variable $X$. The test statistic therefore is a scatterplot of the dependent variable and $X$ overlaid by a regression line. As mentioned in the introduction and further discussed in section 5.2 of \citet{majumder:2011}, $X$ is assumed to be standard normal, and dependent data $Y$ is also simulated from a normal distribution for various correlation settings. Null data correspondingly is simulated from $N(X\widehat{\beta}, \widehat{\sigma}^2)$.  
+\subsection{Experiment II -- Scatterplots with an Overlaid Regression Line}\label{sec:turk2}
+The question of interest of experiment II is very similar to the one in experiment I: again, the focus is to investigate the power of visual methods in the framework of normal models. In contrast to experiment I, we are interested in the significance of a continuous variable $X$. The test statistic therefore is a scatterplot of the dependent variable and $X$ overlaid by a regression line. As mentioned in the introduction and further discussed in section 5.2 of \citet{majumder:2011}, $X$ is assumed to be standard normal, and dependent data $Y$ is also simulated from a normal distribution for various correlation settings. Null data correspondingly is simulated from $N(X\widehat{\beta}, \widehat{\sigma}^2)$.  
 Figures~\ref{lineup-example} and~\ref{fig:distances} show examples of the type of  lineup used in the study.  Subjects recruited from MTurk  were shown a set of ten lineups each and asked to identify the plot with the steepest slope in each. 
 
 \hh{XXX paragraph below could be a bit tightened}
@@ -1642,7 +1643,7 @@ The number of picks lines up best with the difference measure based on the slope
 Again, a distance measure derived directly from one of the graphical elements in the plot leads to the best assessment of the choices made by human evaluators.
 
 
-\subsection{Turk Experiment 7 -- Large $p$, Small $n$ Data}
+\subsection{Experiment III -- Large $p$, Small $n$ Data}
 
 The motivation behind this experiment is to study the effect of high dimensions on separability in data. Scenarios with pure noise and some real separation in two or three groups were investigated. %Data was simulated with different dimensions and fixed sample size. Data was divided into two or three groups. 
 A projection pursuit with Penalized Discriminant Analysis Index \citep{lee:2009} was used to obtain one (for two groups) or two (for three groups) dimensional projections. 
@@ -1661,7 +1662,7 @@ qplot(X1, X2, colour=factor(cl), facets=~.sample, data=lpt7, size=I(3)) +
   theme_lineup +
   theme(legend.position="none") 
 @
-\caption{An example lineup from Turk Experiment 7. Here, two dimensional projections of the PDA index are plotted for $n = 30$ observations in 20 dimensional data with separation. The subjects were asked to identify the plot with the most separated colors. Can you identify the data plot?}
+\caption{An example lineup from Experiment III. Here, two dimensional projections of the PDA index are plotted for $n = 30$ observations in 20 dimensional data with separation. The subjects were asked to identify the plot with the most separated colors. Can you identify the data plot?}
 \label{largep}
 \end{figure}
 %%\afterpage{\clearpage}
