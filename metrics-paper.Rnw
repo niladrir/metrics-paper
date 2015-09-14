@@ -1249,9 +1249,8 @@ ggplot(data = prop.diff.m) +
 \newpage
 \subsection{Experiment II -- Scatterplots with an Overlaid Regression Line}\label{sec:turk2}
 The question of interest of experiment II is very similar to the one in experiment I: again, the focus is to investigate the power of visual methods in the framework of normal models. In contrast to experiment I, we are interested in the significance of a continuous variable $X$. The test statistic therefore is a scatterplot of the dependent variable and $X$ overlaid by a regression line. As mentioned in the introduction and further discussed in section 5.2 of \citet{majumder:2011}, $X$ is assumed to be standard normal, and dependent data $Y$ is also simulated from a normal distribution for various correlation settings. Null data correspondingly is simulated from $N(X\widehat{\beta}, \widehat{\sigma}^2)$.  
-Figures~\ref{lineup-example} and~\ref{fig:distances} show examples of the type of  lineup used in the study.  Subjects recruited from MTurk  were shown a set of ten lineups each and asked to identify the plot with the steepest slope in each. 
+Figures~\ref{lineup-example} and~\ref{fig:distances} show examples of the type of  lineup used in the study.  Subjects recruited from MTurk  were shown a set of ten lineups  and asked to identify the plot with the steepest slope in each. 
 
-\hh{XXX paragraph below could be a bit tightened}
 For each lineup in this experiment,  distances between the plots were computed using both  regression based distance  ($d_{RG}$) and  binned distances ($d_{BN}$) with a small number of bins. For each lineup the proportion of data identifications was calculated from participants' responses and plotted against $\delta$-difference and the $\gamma$-number of extreme null plots, as shown in Figure~\ref{turk2comp}.
 
 \begin{figure}[hbtp]
@@ -1913,14 +1912,16 @@ Figure~\ref{lp-exp} shows the lineup in a high dimension, low sample size settin
 
 
 \section{Conclusion}
-\hh{XXX the conclusion needs to pull things together more XXX.}
-Distance metrics are compared to the response of human subjects on lineups. They are comparable to a certain extent except in certain situations where they disagree. There seems to be various reasons behind the disagreement. When people look at a lineup, they may identify a plot as different from the others due to various reasons. But the distance metrics are constructed such that it takes into specific properties of the plot. 
+Distance metrics are compared to the response of human subjects on lineups. While there is a fairly strong amount of agreement in most situations,  in some situations  they disagree. There does not seem to be one single reason behind this disagreement. Observers might identify a plot as different from the others in a lineup because of multiple features. However, distance metrics are constructed such that they take one specific property of a plot into account.
 
-Distance metrics can be used to measure the quality of a lineup before showing the lineups to human subjects. Hence the distance metrics allows us to provide a range of lineups to the human subjects to evaluate.
+Distance metrics can be used to automatically and objectively assess the difficulty of a lineup before showing the lineups to human subjects. Hence, they  allow us to provide lineups within a range of difficulty to  human subjects to evaluate.
 
-In classical inference, the test statistic under null hypothesis follows a certain distribution. Similarly the null plots in visual inference can also be assumed to be random samples from a sampling distribution. Though theoretically this is true, practically it is impossible to investigate such a distribution. The distribution of the distance metrics approximates such a sampling distribution for a given distance metric. The value of the distance metric for the actual plot can be compared to all the other plots using such a distribution.
+In classical inference, the test statistic follows a certain distribution under the null hypothesis. Similarly, null plots in visual inference can be viewed as random samples from the null distribution. Though theoretically this is true, practically it is impossible to exhaustively investigate such a distribution. The distribution of the distance metrics approximates one dimension of the null distribution for a given distance metric. The value of the distance metric for the actual plot can be compared to all the other plots using such a distribution.
 
-The reason of choice can provide a way of evaluating the performance of a distance metric. For example, for a lineup of scatterplots with regression line overlaid, if the choice of reason for majority is steepest slope, the regression based distance may work better than the binned distance. Similarly if the reason of choice is presence of outliers, the binned distance with large number of bins on both axes may be the best distance metric. This can be a probable future work.
+The reason of choice can provide a way of evaluating the performance of a distance metric. For example,  if the reason of choice for  a majority of observers is the steepest slope, for a lineup of scatterplots with regression line overlaid, the regression based distance may work better than the binned distance. Similarly, if the reason of choice is the presence of outliers, the binned distance with large number of bins on both axes may be the best distance metric to reflect detection rates. 
+
+\hh{What we see in each of the experiments is that the general approach of the binned distance, while mostly performing decently, is out-done by a  distance that is more tailored to the question of interest or takes the graphical elements into account. This is only to be expected. What the lineup protocol opens up to us is an approach that delivers us some objective insight into what people respond to in a plot and which graphical elements they consider when viewing a plot.   }
+%This can be a probable future work.
 
 %The lineup protocol places a statistical plot in the hypothesis testing framework. The null plots in the lineup has an instrumental effect on the response of the subjects since there are only a finite number of null plots which the subjects compare the observed data plot to. A `bad' set of null plots makes it difficult to identify the observed data plot. The quality of the lineup is measured by describing plots numerically using a set of distance metrics. 
 
@@ -2524,7 +2525,7 @@ The reason of choice can provide a way of evaluating the performance of a distan
 
 \section*{Appendix}
 
-\subsection*{Selection of the Number of Bins} \label{sec:nbin}
+\subsection*{Effect of the Number of Bins on Distance} \label{sec:nbin}
 
 Binned distance works for any type of data and for any null generating mechanism. It is based on the raw data but does not take into account the graphical elements in the plot. Binned distance can be used in situations where no distance measure is known for the particular plot type and hence it can be regarded as universal. But the  the number of bin  highly affect the distance. An unfortunate choice may lead to hard to interpret or conflicting results. %Hence the choice of the number of bins is important.
 
