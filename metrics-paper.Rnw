@@ -2586,7 +2586,7 @@ and  different null generating mechanisms. Null datasets are obtained for a true
 \scalebox{0.8}{
 \begin{tabular}{p{1.75cm}l c  p{2cm} c cc l c p{4cm}} 
 \hline
- Data & Observed Plot && NGM & Typical Null && & Difference && \begin{minipage}[c]{4cm}{\begin{center} (x-bin, y-bin)\\   Min, Max } \end{center}\end{minipage} \\ %[0.5ex] % inserts table %heading 
+ Data & Observed Plot && NGM & Typical Null && & Difference && \begin{minipage}[c]{4cm}{\begin{center} (x-bin, y-bin)\\   Min, Max  \end{center}}\end{minipage} \\ %[0.5ex] % inserts table %heading 
 %\hline
 % Linear association & \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-data1.pdf}} \end{center} \end{minipage} && Permutation &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot1.pdf}} \end{center} \end{minipage} &  \begin{minipage}[h]{1.5cm} \begin{center} \scalebox{0.25}{\includegraphics{bin-select-plot1.pdf}} \end{center} \end{minipage} &&           \hspace{0.8cm} small\\
  \hline
