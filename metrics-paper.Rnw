@@ -2514,7 +2514,7 @@ What we see in each of the experiments is that the general approach of the binne
 
 \begin{description}
 
-\item[R-package nullabor:] R-package {\tt nullabor} containing code to create lineups and calculate the distance measures described in the article.  (available from dicook/github)
+\item[R-package nullabor:] R-package {\tt nullabor} containing code to create lineups and calculate the distance measures described in the article.  Available on CRAN \citep{CRAN}, with development versions at \url{https://github.com/dicook/nullabor}.
 
 \end{description}
 
