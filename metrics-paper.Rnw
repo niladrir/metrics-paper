@@ -334,8 +334,8 @@ It is based on the assumption that %after the boxplots have already been constru
 subjects only consider the difference in the boxes to make the distinction. Variations on this might include adding whiskers' values, the number or values of outliers, or including higher-order letter values \citep{tukey:1977, lvplot} for more exact tail specifications. 
 
 \item {\bf Distance based on the regression line (RG):}
-Many times, to examine association between two variables a regression line is overplotted on the points of a scatterplot. This distance was developed to help assess if the observer is paying attention to the line or the spread of points. Let $X_1$ and $X_2$ be two continuous variables. $X_1$ and $X_2$ are plotted in a scatterplot and assume that the scatterplot is binned horizontally into $b$ bins.
-
+Many times, to examine association between two variables a regression line is overplotted on the points of a scatterplot. This distance was developed to help assess if the observer is paying attention to the line or the spread of points. Let $X_1$ and $X_2$ be two continuous variables plotted in a scatterplot. We assume that the scatterplot is binned horizontally into $b$ bins
+\hh{to allow for a description of a piece-wise linear relationship between the variables.}
 %\hh{XXX in the package, the binning is horizontal. }
 %\hh{XXX how are these bins motivated? what kind of example do you have in mind? }
 In each vertical slice, a linear regression model is fitted and the regression coefficients. i.e.\ intercept and slope are estimated. The distance metric based on the regression coefficients is given as
@@ -404,7 +404,7 @@ Generally we would expect that different distance measures are not directly comp
 
 \subsection{Distance Metric Distribution} \label{sec:distri}
 
-For a given lineup of size $m$, the empirical distribution of distance metrics is obtained obtained by calculating the distances between the null plots among themselves. One null data is generated using the null generating mechanism, and labelled to be the ``true'' data set, then a number of null data sets are obtained and the distances between these datasets are calculated. One single distance value is obtained by averaging all these distances. This process is repeated a large number of times, say, $N$ between $1000-10000$. Finally $N$ mean distances or average distances are obtained which gives the empirical distribution of the distance. For comparing data plot with nulls using the empirical distribution of the distance metric, we use the following algorithm:
+For a given lineup of size $m$, the empirical distribution of distance metrics is obtained by calculating the distances between the null plots among themselves. One null data is generated using the null generating mechanism, and labelled to be the ``true'' data set, then a number of null data sets are generated and the distances between these datasets are calculated. Averaging all these distances yields one single distance value. This process is repeated a large number of times, say, $N$ between 1,000 to 10,000. Finally $N$ mean or average distances are obtained which gives the empirical distribution of the distance. For comparing data plot with nulls using the empirical distribution of the distance metric, we use the following algorithm:
 
 \begin{enumerate} \itemsep 0in
 \item Calculate the distance between the true data and all the null datasets and take the average of these distances. 
@@ -412,7 +412,7 @@ For a given lineup of size $m$, the empirical distribution of distance metrics i
 \item For each of the ($m$ - 1) null datasets, calculate the distance between the null data and all the other ($m$ - 2) null datasets and obtain the average distance. Hence, we obtain ($m$ - 1) distances, one corresponding to each  null plot.
 
 \item Generate a lineup of size $m$ using the null generating mechanism. 
-Single out one of these nulls as the `data' plot, and calculate the distances as described in steps (1) and (2). Repeat this procedure $N$ times (where $N$ is large, usually on the order of $10^3$ or $10^4$).
+Single out one of these nulls as the `data' plot, and calculate the distances as described in steps (1) and (2). Repeat this procedure $N$ times.
 
 \item The $N$ distance values then represent the empirical distribution of the distance metric and are used for making comparisons
 \end{enumerate}
@@ -769,11 +769,11 @@ where $\mathds{1}(.)$ is a zero/one indicator function.
 $\gamma(.)$ takes integer values between 0 and $(m - 1)$. Higher values indicate more null plots being more extreme than the true plot, making it harder to identify it from the lineup.
 \end{enumerate}
 
-Another choice for comparing lineups is to calculate an empirical $p$-value from the empirical distribution of the distance metric. This would enable comparison of all the metrics for any lineups. It is time-consuming to calculate for a large number of lineups.
-
-\hh{XXX I think there needs to be a bit of discussion, of why $\delta$-difference is used rather than a comparison of the empirical $p$-values. $p$-values would be comparable across different distance metrics, and it would be logical to use them, as we just identified the distribution of the whole thing.}
+Another choice for comparing lineups would be to use empirical $p$-values from the empirical distribution of the distance metric. While this would enable a comparison of all the metrics for any lineups, this approach is computationally extremely expensive, in particular, because we are generally interested in the extreme values of the empirical distribution, which needs a very large number of simulation runs $N$ for a reliable estimation.
 
 \dc{XXX Do you think that we need to re-do all of the comparisons using this as well? It could take a long time to calculate for all of the lineups in the experiments. Would have to be done off-line and values read in for making the plots.}
+
+\hh{I don't think that we need the $p$-values - it just needed some discussion at this point.}
 
 In order to assess how well a distance metric reflects observers' choices, we relate distance metric to the rate at which the data plot in each lineup is being identified. In an ideal scenario, a detection rate of 0.05 corresponds to a $\delta$-difference of zero. With an increase in $\delta$-difference we would expect a simultaneous increase in detection rate. For the evaluation of metrics in the next section, we will fit a logistic regression of detection rate in $\delta$-difference. 
 
