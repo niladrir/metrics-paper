@@ -61,10 +61,10 @@
 
 \if0\blind
 {
-  \title{\bf Utilizing Distance Metrics on Lineups to Examine What People Read From Data Plots}
+  \title{\bf Distance Metrics to Examine What People Read From Data Plots}
 \author{Niladri Roy Chowdhury\thanks{
-    The authors gratefully acknowledge funding from the National Science Foundation Grant DMS \#1007697. All data collection has been conducted with approval from the Institutional Review Board IRB 10-347}\hspace{.2cm}\\
-    Department of Statistics and Statistical Laboratory, Iowa State University\\
+    The authors gratefully acknowledge funding from the National Science Foundation Grant DMS \#1007697. All data collection has been conducted with approval from the Institutional Review Board IRB 10-347.}\hspace{.2cm}\\
+    Novartis, Cambridge MA\\
     and \\
     Dianne Cook\\
     Department of Econometrics and Business Statistics, Monash University \\
@@ -73,7 +73,7 @@
     Department of Statistics and Statistical Laboratory, Iowa State University\\
     and\\
     Mahbubul Majumder\\ 
-    Department of Mathematics, University of Nebraska Omaha\\}
+    Department of Mathematics, University of Nebraska--Omaha\\}
   \maketitle
 } \fi
 
@@ -83,14 +83,14 @@
   \bigskip
   \bigskip
   \begin{center}
-    {\LARGE\bf Utilizing Distance Metrics on Lineups to Examine What People Read From Data Plots}
+    {\LARGE\bf Distance Metrics to Examine What People Read From Data Plots}
 \end{center}
   \medskip
 } \fi
 
 \bigskip
 \begin{abstract}
-Graphics play a crucial role in statistical analysis and data mining. This paper describes metrics developed to assist in the use of lineups for making inferential statements. Lineups embed the plot of the data, also called the {\it data} or {\it true plot}, among a set of null plots, and engage a human observer to select the plot that is most different from the others. We can then quantify the significance of a graphical finding based on the number of times the data plot is selected in all evaluation.  Metrics are calculated in association with lineups, to measure the quality of the lineup, and help to understand what people see in the data plots.  The null plots represent a finite sample from a null distribution, and the selected sample potentially affects the ease or difficulty of a lineup. Distance metrics are designed to describe how different the true data plot is from the null plots, and how different the null plots are from each other. The distribution of the distance metrics is studied to learn how well a distance matches with what people detect in the plots, the effect of null generating mechanism and plot choices for particular tasks.  The analysis was conducted on data  collected through Amazon Turk on studies using the lineup protocol for studying an array of data analysis tasks.
+Graphics play a crucial role in statistical analysis and data mining. Being able to quantify structure in data that is visible in plots, and how people read the structure from plots is an ongoing challenge. This paper describes metrics developed to assist with this, and utilizes them to evaluate how people select plots from lineups used for visual inference. Lineups embed the plot of the data among a set of null plots, and engage a human observer determine whether the data plot is different from the nulls. The data plot is treated like a test statistic, and protocol acts like a comparison with the sampling distribution of the nulls.  Metrics are calculated in association with lineups to help understand what people see in the data plots, and assess the quality of a lineup, because the null plots represent a finite sample from a null distribution, and this finiteness may affect how observers read the lineups. The distance metrics are designed to describe how different the data plot is from the null plots, and the null plots from each other. Analysis of the distance metrics was conducted on data collected through a large number of Amazon Turk studies that have used the lineup protocol for studying an array of data analysis tasks.
 \end{abstract}
 
 \noindent%
@@ -255,8 +255,8 @@ Section~\ref{sec:results} presents a comparison of the distance measures to the 
 
 %Other null generating mechanisms might be utilized depending on the null hypothesis underlying a data plot. 
 
-\section{Distances between plots in Lineups}\label{sec:dists}
-\subsection{Defining Distance Measures} \label{sec:meas}
+\section{Measuring Lineups}\label{sec:dists}
+\subsection{Distance Measures} \label{sec:meas}
 By calculating the ``distance'' between plots we may be able to determine if a lineup should be easy -- if the actual data plot is detectably different from the null plots -- and also to better understand what aspect of the plot people use to make their choice. It is not an easy task to measure the difference between plots. Here we examine several possibilities. 
 
 The problem could be tackled by considering the data as a reference distribution, and compare all of the null sets with this reference. Comparing data with a reference probability distribution or comparing two datasets are common statistical tasks. For example, the Kolmogorov-Smirnov test \citep{stephens:1974} sorts values in two samples, computes the empirical distribution function of each and compares these two, to determine if the two samples are likely to have come from the same distribution.  The Anderson-Darling \citep{stephens:1974} and Shapiro-Wilk \citep{shapiro:1965} tests compare datasets with normal probability distributions. These measure differences between univariate distributions which limits their applicability to distances between plots, generally. 
@@ -361,15 +361,16 @@ d^2_{MS}(X, Y):= ||s_m(X) - s_m(Y)||^2 = \sum_{i = 1}^g ((s_m(X))_i - (s_m(Y))_i
 d^2_{AS}(X, Y):= ||s_a(X) - s_g(Y)||^2 = \sum_{i = 1}^g ((s_a(X))_i - (s_a(Y))_i)^2
 \]
 
-\item[(iii)] {\bf Cluster mean separation:} let $m_i(.) = \left(\bar{X_1}^i, \bar{X_2}^i\right)$ be the mean of the $i$-th cluster, $i = 1, 2, \dots, g$. The distance metric based on the cluster means is given by
-\[
-d^2_{CM}(X, Y):= ||m(X) - m(Y)||^2 = \sum_{i=1}^g (m_i(X) - m_i(Y))^2
-\]
-\hh{XXX this distance is not used in the remainder of the paper. It could be shortened to a sentence here.}
+%\item[(iii)] {\bf Cluster mean separation:} let $m_i(.) = \left(\bar{X_1}^i, \bar{X_2}^i\right)$ be the mean of the $i$-th cluster, $i = 1, 2, \dots, g$. The distance metric based on the cluster means is given by
+%\[
+%d^2_{CM}(X, Y):= ||m(X) - m(Y)||^2 = \sum_{i=1}^g (m_i(X) - m_i(Y))^2
+%\]
+%\hh{XXX this distance is not used in the remainder of the paper. It could be shortened to a sentence here.}
 \end{enumerate}
-Both average separation and mean separation are considered in this paper. 
+%Both average separation and mean separation are considered in this paper. 
 
-Figure~\ref{sep-dist} illustrates the difference between the different distance metrics separation. In practice, many possible metrics could be used to measure the separation, such as those readily available in the {\tt fpc} package  \citep{hennig:2010}.
+We also examined the distance between the means for each cluster (CM) as another alternative, which would more closely match Fisher's linear discriminant. As we might expect, this did not match how observers read the separation. In practice, many possible metrics could be used to measure the separation, such as those readily available in the {\tt fpc} package  \citep{hennig:2010}.
+Figure~\ref{sep-dist} illustrates the different distance metrics for cluster separation. 
 \end{enumerate}
 
 \begin{figure}[hbtp]
@@ -387,7 +388,7 @@ Figure~\ref{sep-dist} illustrates the difference between the different distance 
 \includegraphics[width=\textwidth]{mean-sep-example.pdf}
 \end{subfigure}
 	\vspace{-.1in}
-\caption{Illustration of three different distance metrics based on separation. Two dimensional projections are plotted with 3 groups. Minimum Separation (in (a)) calculates the minimum distance between points of each cluster from the other clusters. Average separation (in (b)) calculates the average distance of each point  in a cluster to the other clusters. In (c), the cluster mean distance calculates the distance between the means of each cluster. }
+\caption{Illustration of three different distance metrics for cluster separation. Minimum Separation (a) calculates the minimum distance between points of each cluster from the other clusters. Average separation (b) calculates the average distance of each point in a cluster to the other clusters. Cluster mean distance (c) sums the distances between the means of each cluster. }
 \label{sep-dist}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -402,7 +403,7 @@ Generally we would expect that different distance measures are not directly comp
 
 \subsection{Distance Metric Distribution} \label{sec:distri}
 
-For a given lineup of size $m$, the empirical distribution of distance metrics is obtained obtained by calculating the distances between the null plots among themselves. One null data is generated from the true data set using the null generating mechanism. Assuming this null data to be the ``true'' data set, a number of null data sets are obtained from this null data and the distances between these datasets are calculated. One single distance value is obtained by averaging all these distances. This process is repeated a large number of times, say, $N$ where $N$ is a large number of the order $10^3$ or $10^4$. Finally $N$ mean distances or average distances are obtained which gives the empirical distribution of the distance. More specifically, we use the following algorithm:
+For a given lineup of size $m$, the empirical distribution of distance metrics is obtained obtained by calculating the distances between the null plots among themselves. One null data is generated using the null generating mechanism, and labelled to be the ``true'' data set, then a number of null data sets are obtained and the distances between these datasets are calculated. One single distance value is obtained by averaging all these distances. This process is repeated a large number of times, say, $N$ between $1000-10000$. Finally $N$ mean distances or average distances are obtained which gives the empirical distribution of the distance. For comparing data plot with nulls using the empirical distribution of the distance metric, we use the following algorithm:
 
 \begin{enumerate} \itemsep 0in
 \item Calculate the distance between the true data and all the null datasets and take the average of these distances. 
@@ -415,8 +416,7 @@ Single out one of these nulls as the `data' plot, and calculate the distances as
 \item The $N$ distance values then represent the empirical distribution of the distance metric and are used for making comparisons
 \end{enumerate}
 
-The observed test statistic is  compared to the empirical distribution, as shown in Figure~\ref{compare}. 
-The distance measures for the true dataset and the null datasets are plotted on the empirical distribution. If the distance measure of the true plot is larger than any of the null plots, the lineup would be regarded as``easy''. Otherwise, we consider it to be a ``difficult'' lineup. 
+The observed test statistic is  compared to the empirical distribution, as shown in Figure~\ref{compare}. The distance measures for the true dataset and the null datasets are plotted on the empirical distribution. If the distance measure of the true plot is larger than any of the null plots, the lineup might be regarded as ``easy''. Otherwise, we consider it to be a ``difficult'' lineup. For easy lineups, we would expect that most observers could detect the true data plot amongst the decoys, but that far fewer observers to be able to do so with a difficult lineup. This gives us a way to compare the actual results from the Turk human subject studies with what we might expect given the distance metric assessment.
 
 The empirical distribution of the distance based on regression is shown in Figure~\ref{fig:distances} using $N = 1000$ simulation runs. 
 Figure~\ref{dist_1} shows the lineup plot for $m = 20$ for testing whether there exists a significant linear relationship between $X_1$ and $X_2$. The 19 null plots are generated by fitting the null model and generating from the null model. Figure~\ref{dist_2} shows the general empirical distribution of distance measures based on the null model. For the particular lineup on the left, mean distances  are shown by overlaid line segments for the true plot (in orange) and the null plots (in black). The true plot is easily identifiable from the lineup (Figure~\ref{dist_1}, in the experiment 40 out of 45 observers identified the data). This is backed by the regression based distance measure seen in Figure~\ref{dist_2}, as the orange line is on the extreme right tail compared to the black lines. 
@@ -447,7 +447,9 @@ qplot(x, z, data=lineup.dat, alpha=I(0.2), facets=~.sample, size=I(2.5)) +
 @
 \end{subfigure}
 \begin{subfigure}[b]{0.44\textwidth}
-\caption{\label{dist_2}Regression based distance metrics: unscaled at the top, scaled at the bottom. \hh{XXX my suggestion would be to switch to the scaled regression based distance instead of the unscaled one.} \hh{XXX I did the switch; the top density is  now the only one in the paper, that is unscaled -- this makes most of the regression based distance with the slope only superfluous.}}
+\caption{\label{dist_2}Regression based distance metrics.
+%: unscaled at the top, scaled at the bottom. \hh{XXX my suggestion would be to switch to the scaled regression based distance instead of the unscaled one.} \hh{XXX I did the switch; the top density is  now the only one in the paper, that is unscaled -- this makes most of the regression based distance with the slope only superfluous.}
+}
 %\includegraphics[width=\textwidth]{dist-metric.pdf}
 <<turk2-distr, dependson='lp-reg', echo=FALSE, cache=TRUE>>=
 obs.dat <- lineup.dat[lineup.dat$.sample == 7, ]   
@@ -468,9 +470,10 @@ dframe <- data.frame(t(replicate(1000, {
 		
 # 		b1 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 2, Y.bin = 2)
 #  		b2 = bin_dist(samp.dat, null.dat, lineup.dat = lineup.dat, X.bin = 8, Y.bin = 2)
- 		r.int = reg_dist(samp.dat, null.dat,  scale=FALSE)
+ 		r.int <- reg_dist(samp.dat, null.dat,  scale=FALSE)
  		r.no.int <- reg_dist(samp.dat, null.dat, scale=TRUE)
  		return(c(reg.dist=r.int, reg.no.int.dist=r.no.int))
+# 		return(c(reg.no.int.dist=r.no.int))
  		})))
 	 	
  		colSums(dat1)/18
@@ -503,23 +506,23 @@ dd3 <- metrics.dat %>% group_by(pos.1) %>% summarize(
 @
 
 <<dens-reg-dist, dependson='turk2-lp', echo=FALSE, fig.width=4.5, fig.height=4, out.width='\\textwidth'>>=
-ymax <- max(density(dframe$reg.dist)$y)
-ggplot()  + 
-  geom_density(data = dframe, aes(x = reg.dist), 
-               fill = "grey80", col = "grey80" ) + 
-  geom_segment(data = subset(dd3, len != 19), 
-               aes(x = reg.mean, xend = reg.mean, 
-                   y = rep(0.005*ymax,19), yend = rep(0.1*ymax,19)), 
-               size=1, alpha = I(0.7)) + 
-  geom_segment(data = subset(dd3, len == 19), 
-               aes(x= reg.mean, xend = reg.mean, 
-                   y=0.005*ymax, yend = 0.2*ymax), colour="darkorange", size=1)  +
-  xlab("") + ylab("") + 
-  geom_text(data = subset(dd3, len != 19), y = - 0.03*ymax, size = 2.5, 
-            aes(x = reg.mean, label = pos.1)) +
-   geom_text(data = subset(dd3, len == 19), y = 0.25*ymax, size = 3, 
-            colour="darkorange", aes(x = reg.mean, label = pos.1)) +
-  ylim(c(- 0.04*ymax, ymax + 0.1*ymax)) 
+#ymax <- max(density(dframe$reg.dist)$y)
+#ggplot()  + 
+#  geom_density(data = dframe, aes(x = reg.dist), 
+#               fill = "grey80", col = "grey80" ) + 
+#  geom_segment(data = subset(dd3, len != 19), 
+#               aes(x = reg.mean, xend = reg.mean, 
+#                   y = rep(0.005*ymax,19), yend = rep(0.1*ymax,19)), 
+#               size=1, alpha = I(0.7)) + 
+#  geom_segment(data = subset(dd3, len == 19), 
+#               aes(x= reg.mean, xend = reg.mean, 
+#                   y=0.005*ymax, yend = 0.2*ymax), colour="darkorange", size=1)  +
+#  xlab("") + ylab("") + 
+#  geom_text(data = subset(dd3, len != 19), y = - 0.03*ymax, size = 2.5, 
+#            aes(x = reg.mean, label = pos.1)) +
+#   geom_text(data = subset(dd3, len == 19), y = 0.25*ymax, size = 3, 
+#            colour="darkorange", aes(x = reg.mean, label = pos.1)) +
+#  ylim(c(- 0.04*ymax, ymax + 0.1*ymax)) 
  # theme(plot.margin=unit(c(0,0,0,0), unit="line"))
 
 ymax <- max(density(dframe$reg.no.int.dist)$y)
