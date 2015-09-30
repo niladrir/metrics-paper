@@ -24,6 +24,7 @@
 
 \newcommand{\blue}[1]{{\color{blue} #1}}
 \newcommand{\hh}[1]{{\color{magenta} #1}}
+\newcommand{\dc}[1]{{\color{orange} #1}}
 \newcommand{\green}[1]{{\color{cyan} #1}}
 
 
@@ -672,15 +673,15 @@ ggplot()  +
 @
 \end{subfigure}
 	\vspace{-.3in}
-\caption{\label{fig:boxes} Illustration of the behavior of a distance metric for a more `difficult' lineup. The lineup is shown in (a), the density plot on the right shows the boxplot based distance metric. The question of interest is again whether there exists a significant linear relationship between $X_1$ and $X_2$. The orange line for the distance of the true plot is among the lines of the nulls, indicating that the boxes in the true plot show a difference that is similar to some of the null plots. }
+\caption{\label{fig:boxes} Illustration of the behavior of a distance metric for a more `difficult' lineup. The lineup is shown in (a), the density plot on the right shows the boxplot based distance metric. Of interest is whether there exists a significant shift between the two groups. The orange line (boxplot distance of the true plot) is among the black lines of the nulls, indicating that the boxes in the true plot show no more difference than a null plot from other null plots. }
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
-Figure~\ref{box-1} shows a lineup of size $m = 20$ for testing whether there exists a significant difference in the group medians between A and B. The 19 null plots are generated from a null model, consisting of draws from a normal distribution.  Figure~\ref{box-2} shows the empirical distribution of the distance based on the boxplots with the mean distance for the true plot (in orange) and the null plots (in black). It is hard to identify the true plot from the lineup. During the study, only 2 out of 26 observers picked the data plot, indicating little to no evidence of a deviation from the null hypothesis. This  is also evident from the boxplot based distance measure: the orange line corresponding to the true data is mixed in with the mass of the black lines, one null plot exhibits a lot more signal than the true plot.
+Figure~\ref{box-1} shows a lineup of size $m = 20$ for testing whether there exists a significant difference in the group medians between A and B. The 19 null plots are generated from a null model, consisting of draws from a normal distribution.  Figure~\ref{box-2} shows the empirical distribution of the distance based on the boxplots with the mean distance for the true plot (in orange) and the null plots (in black). It is hard to identify the true plot from the lineup. During the study, only 2 out of 26 observers picked the data plot, indicating little to no evidence of a deviation from the null hypothesis. This  is also evident from the boxplot based distance measure: the orange line corresponding to the true data is mixed in with the mass of the black lines, with one null plot (16) exhibiting a lot more signal than the true plot.
 
-\subsection{Effect of Plot Type and Question of Interest } \label{sec:plot_type}
+\subsection{Effect of Plot Type and Question of Interest} \label{sec:plot_type}
 
-Previous studies have suggested that the type of plot used in the lineup has an effect on the response of the subjects \citep{zhao:2012, hofmann2012graphical}. For example,  subjects find it easier to identify the true plot for a large sample data when a box plot is used in the lineup instead of a dot plot. Similarly, the use of aesthetics, such as colors or shapes, and graphical elements, such as a trend line, also influence an observer's decision \citep{vanderplas:2016}. In order to account for this, the distance metric has to be adjusted for the plot type and graphical elements. 
+Previous studies have suggested that the type of plot used in the lineup affects the response of the subjects \citep{hofmann2012graphical, zhao:2012}. For example, subjects more often identify the true plot for large data with side-by-side box plots than dot plots. Similarly, the use of aesthetics, such as colors or shapes, and graphical elements, such as a trend line, also influence an observer's decision \citep{vanderplas:2016}. In order to account for this, the distance metric has to be adjusted for the plot type and graphical elements. 
 %The distance metric should account for the additional information provided by the graphical elements in the lineup. The graphical elements, like the presence of a box or a regression line overlaid on a scatterplot may influence the response of the subject. 
 Figure~\ref{plottype} illustrates this idea. 
 
@@ -730,7 +731,7 @@ qplot(x, z, data=lineup.dat, alpha=I(0.2), facets=~.sample, size=I(2.5)) +
 \end{subfigure}
 \hfill
 	\vspace{-.1in}
-\caption{\label{fig:sca}Comparison of two lineups: scatterplots in (a) and scatterplots with a regression line overlaid in (b). The raw data is same for the lineups. The human subjects are shown the lineups and asked to identify the plot with the steepest slope. The presence of the regression line directs the decision of observers.  }
+\caption{\label{fig:sca}Comparison of two lineups: scatterplots in (a) and scatterplots with a regression line overlaid in (b). The raw data is same for the lineups. The human subjects are shown the lineups and asked to identify the plot with the steepest slope. The presence of the regression line directs the decision of observers.}
 \label{plottype}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -741,9 +742,9 @@ The choice of distance metric depends on what kind of comparisons those distance
 If a distance metric is additionally supposed to assist in planning an experiment where different types of plots are considered or different graphical elements on the same type of plot, the distance metric has to be able to take these differences into account. 
 %A different distance metric should be used in each case to correctly measure the quality of the lineup.
 
-The question posed to observers plays an important role in the decision they make. A minor change in the question can change the response of the subject. For example,  if  subjects are asked to identify the plot  from on of the lineups in Figure~\ref{fig:sca}, in which there is the strongest positive relationship between the variables, plot \#2 exhibits the strongest signal.  If the question asks for the plot with the largest slope, plot \#7 should be the obvious pick. 
+The question posed to observers plays an important role in the decision they make. A minor change in the question can change the response of the subject. For example, if subjects are asked to identify a plot from one in the lineups in Figure~\ref{fig:sca}, in which there is the strongest positive relationship between the variables, plot 2 exhibits the strongest signal.  If the question asks, instead, for the plot with the largest slope, plot 7 would be the obvious pick. 
 %\hh{XXX again, why do we try to reflect a plot in a single number, when we know that we can't?}
-A distance metric should also take into account the question of interest. But, in general, the question of interest is which plot in the lineup is the most different.
+A distance metric should also take into account the question of interest, and the metrics that we have described in the previous section do this for the MTurk studies done to date where quite specific questions were used. In practice, the question of interest very broad to enable detection of any type of significant structure in a plot, and is generically, "which plot in the lineup is the most different from the others", in which case the binned distance should be optimal.
 
 \subsection{Metric Evaluation} \label{sec:eval}
 %
@@ -751,24 +752,28 @@ For a lineup of size $m = 20$, the average distance of the true plot from all nu
 \begin{enumerate}
 \item {\bf $\delta$-Difference:} let $\bar{d}_.$ be the average difference of plot $.$ to all of the (other) null plots. We define the difference between the mean distance for the true plot and the maximum of the mean distances for the null plots as a measure of lineup difficulty, more specifically, 
 \begin{equation}\label{eq:delta}
-\delta(\ell) = \bar{d}_{\text{data}} - \max_j \left(\bar{d}_{\text{null}_j}\right)
+\delta(\ell) = \bar{d}_{\text{true}} - \max_j \left(\bar{d}_{\text{null}_j}\right)
 \end{equation}
 for $j = 1, \dots, (m  - 1)$ 
 defines the lineup difference for lineup $\ell$.
- A positive difference  indicates that the mean distance of the true plot is larger than the maximum of the mean distances of the null plots. Hence the true plot is more extreme compared to the set of null plots in the lineup. A larger difference should make a data plot identification easier. 
+ A positive difference  indicates that the mean distance of the true plot is larger than the maximum of the mean distances of the null plots. Hence the true plot is more extreme compared to the set of null plots in the lineup. A larger difference should make data plot identification easier. 
  Similarly, a negative difference indicates that there is at least one null plot which is more extreme compared to the true plot based on the distance metric.
 
 However, this statistic does not imply how many null plots are more extreme than the true plot. So we define,
 \item {\bf $\gamma$-Number of Extreme Nulls:}  the number of null plots which have larger mean distances than the mean distance of the true plot is noted. Mathematically, for lineup $\ell$, we define the $\gamma$-number as
 \begin{equation}\label{eq:nullcount}
-\gamma(\ell) = \sum_{j = 1}^{m - 1} \mathds{1}\left(\bar{d}_{\text{null}_j} > \bar{d}_{\text{data}}\right),
+\gamma(\ell) = \sum_{j = 1}^{m - 1} \mathds{1}\left(\bar{d}_{\text{null}_j} > \bar{d}_{\text{true}}\right),
 \end{equation}
 where $\mathds{1}(.)$ is a zero/one indicator function.
 
-$\gamma(.)$ takes integer values between 0 and $(m - 1)$. The higher this value, the more null plots are more extreme than the true plot making it harder to identify it from the lineup.
+$\gamma(.)$ takes integer values between 0 and $(m - 1)$. Higher values indicate more null plots being more extreme than the true plot, making it harder to identify it from the lineup.
 \end{enumerate}
 
+Another choice for comparing lineups is to calculate an empirical $p$-value from the empirical distribution of the distance metric. This would enable comparison of all the metrics for any lineups. It is time-consuming to calculate for a large number of lineups.
+
 \hh{XXX I think there needs to be a bit of discussion, of why $\delta$-difference is used rather than a comparison of the empirical $p$-values. $p$-values would be comparable across different distance metrics, and it would be logical to use them, as we just identified the distribution of the whole thing.}
+
+\dc{XXX Do you think that we need to re-do all of the comparisons using this as well? It could take a long time to calculate for all of the lineups in the experiments. Would have to be done off-line and values read in for making the plots.}
 
 In order to assess how well a distance metric reflects observers' choices, we relate distance metric to the rate at which the data plot in each lineup is being identified. In an ideal scenario, a detection rate of 0.05 corresponds to a $\delta$-difference of zero. With an increase in $\delta$-difference we would expect a simultaneous increase in detection rate. For the evaluation of metrics in the next section, we will fit a logistic regression of detection rate in $\delta$-difference. 
 
@@ -825,23 +830,23 @@ Some experiments are used for evaluating the power of visual inference against t
  ID & Experiment & Test Statistic  & Lineup question \\ [0.5ex] % inserts table %heading 
 \hline 
 I  & Box plot & \begin{minipage}[c]{2cm} \begin{center}	\scalebox{0.12}{\includegraphics{stat_category1.pdf}} \end{center} \end{minipage} & Which set of box plots shows biggest vertical difference 
-between group A and B? \citep[see also][]{majumder:2011} \\
-II &  Scatter plot & \begin{minipage}[c]{2cm}  \begin{center} \scalebox{0.3}{\includegraphics{stat_beta_k1.png}} \end{center} \end{minipage} & Of the scatter plots below which one shows data that has steepest slope? \citep[see also][]{majumder:2011}\\
-III & Group separation & \begin{minipage}[c]{2cm} \begin{center}  \scalebox{0.4}{\includegraphics{stat_separation.pdf}} \end{center} \end{minipage} & Which of these plots has the most separation between the coloured groups?  \citep[see also][]{roychowdhury:2013}\\
+between group A and B? \citep{majumder:2011} \\
+II &  Scatter plot & \begin{minipage}[c]{2cm}  \begin{center} \scalebox{0.3}{\includegraphics{stat_beta_k1.png}} \end{center} \end{minipage} & Of the scatter plots below which one shows data that has steepest slope? \citep{majumder:2011}\\
+III & Group separation & \begin{minipage}[c]{2cm} \begin{center}  \scalebox{0.4}{\includegraphics{stat_separation.pdf}} \end{center} \end{minipage} & Which of these plots has the most separation between the coloured groups?  \citep{roychowdhury:2013}\\
 \hline 
 \end{tabular}
 \label{tbl:visual_stat} 
 \end{table*} 
 
-We evaluated the performance of the distance metrics in each of the experiments by comparing  distances to responses from observers. 
+We evaluated the performance of the distance metrics in each of the experiments by comparing  the distances to the responses from observers. 
 
 %A number of experiments were run using the MTurk service \citep{turk}. Subjects were recruited through this service and were shown a sequence of lineups. In each experiment, they were asked specific questions. Their responses were recorded along with other demographic informations. Details on the design of experiments can be found in \cite{majumder:2011} and \cite{roychowdhury:2013}. 
 
 \subsection{Experiment I -- Side by Side Boxplots}\label{sec:turk1}
-The question of interest in this study is to investigate the power of visual inference in the classical situation of assessing the significance of a co-variate $X$ in a linear model. For the first study, the assumption is that the covariate is discrete (with two levels), while in  Experiment II (see section~\ref{sec:turk2}) we assume the covariate to be continuous. 
+This study was designed to investigate the power of visual inference in the classical situation of assessing the significance of a co-variate $X$ in a linear model. For the first study, the assumption is that the covariate is discrete (with two levels), while in  Experiment II (see section~\ref{sec:turk2}) we assume the covariate to be continuous. 
 The visual test statistic consists of side-by-side boxplots of the dependent variable against the two levels of covariate $X$. The data for the lineups comes from a model of the form $y_{i} + \mu + \beta_{x_i} + \varepsilon_{i}$ where $\mu$ is an overall average, $x_i \in {1, 2}$ with $\beta_1 = -\beta_2$ is the effect for each of the two levels of $X$, and $\varepsilon_{i} \sim N(0, \sigma^2)$, independent for $i = 1, ..., n$.
 The null generating mechanism is then a simplified model without the covariate, i.e.\ $\beta_1 = \beta_2 = 0$. 
-Each of the subjects recruited through the MTurk service, was asked to evaluate ten lineups, and to identify in each one the plot that exhibits the largest vertical difference between groups A and B. 
+Each of the subjects, recruited through the MTurk service, was asked to evaluate ten lineups, and to identify, in each one, the plot that exhibits the largest vertical difference between groups A and B. 
 The type of lineup used in this experiment is shown in Figure~\ref{box-1}.
 
 
