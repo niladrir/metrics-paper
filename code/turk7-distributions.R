@@ -9,8 +9,7 @@ library(dplyr)
 
 ##################
 # file of all separation indices for all of the turk7 lineups (is re-calculated in the Rnw). 
-metrics <- read.table("arxiv submission/largep-metrics.txt", header=TRUE)
-
+metrics <- read.table("data/largep-metrics.txt", header=TRUE)
 
 
 
@@ -81,7 +80,7 @@ null_dists <- function(lineup) {
       if (i != j) {
         Xi <- subset(lineup, .samples == i)
         Xj <- subset(lineup, .samples == j)
-        dbn = c(dbn, bin_dist(Xi, Xj, lineup.dat = lineup, X.bin = 5, Y.bin = 5))
+        dbn = c(dbn, bin_dist(Xi, Xj, lineup.dat = lineup, X.bin = 6, Y.bin = 4))
         dms = c(dms, sep_dist(Xi, Xj, clustering = TRUE, nclust = 3))
         das = c(das, sep_dist(Xi, Xj, clustering = TRUE, 
                        nclust = 3, type="average.toother"))
@@ -93,7 +92,7 @@ null_dists <- function(lineup) {
     dat.dms <- c(dat.dms, mean(dms))
     dat.das <- c(dat.das, mean(das))
   }
-  data.frame(pos1, pos2, dbn = dat.dbn, dms = dat.dms, das = dat.das)
+  data.frame(dbn = mean(dat.dbn), dms = mean(dat.dms), das = mean(dat.das))
 }
 
 setwd("nulls-turk7")
@@ -102,32 +101,16 @@ dists <-  list.files(pattern=".csv$") %>%
   lapply(null_dists) %>% ldply(function(x) x)
 setwd("..")
 
+
+
 ####
 # densities
 
 qplot(data = dists, dbn, geom = "density", fill = I("grey80"), colour = I("grey80"), 
-      xlab = "Binned (5,5) density", ylab = "")                                                                                                                     max(density(dat.b)$y) + 0.1))
+      xlab = "Binned (6,4) density", ylab = "")  
 
 ggsave("bin-dist-largep-6-4-new-1.pdf", height = 5, width = 5.5)        
 
 ### Sep dist
 
-dat$cl <- as.numeric(dat$cl)
-ddd <- distmet(dat, var = c("X1", "X2", "cl"), 'sep_dist', null_permute("cl"), pos = 1, dist.arg = list(clustering = TRUE, nclust = 3))  
-
-
-pos <- 1; m = 20
-
-qplot(dat.s, geom = "density", fill = I("grey80"), colour = I("grey80"), 
-      xlab = "Permutation distribution", ylab = "") + geom_segment(aes(x = ddd$lineup$mean.dist[ddd$lineup$plotno != 
-                                                                                                  pos], xend = ddd$lineup$mean.dist[ddd$lineup$plotno != pos], y = rep(0.01 * min(density(dat.s)$y), 
-                                                                                                                                                                       (m - 1)), yend = rep(0.05 * max(density(dat.s)$y), (m - 1))), size = 1, alpha = I(0.7)) + 
-  geom_segment(aes(x = ddd$lineup$mean.dist[ddd$lineup$plotno == pos], xend = ddd$lineup$mean.dist[ddd$lineup$plotno == 
-                                                                                                     pos], y = 0.01 * min(density(dat.s)$y), yend = 0.1 * max(density(dat.s)$y)), 
-               colour = "darkorange", size = 1) + geom_text(data = ddd$lineup, y = -0.03 * max(density(dat.s)$y), 
-                                                            size = 2.5, aes(x = mean.dist, label = plotno)) + ylim(c(-0.04 * max(density(dat.s)$y), 
-                                                                                                                     max(density(dat.s)$y) + 0.1))
-
-
-ggsave("sep-dist-largep-new-1.pdf", height = 5, width = 5.5)  
 

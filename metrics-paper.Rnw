@@ -1714,7 +1714,7 @@ for (k in 1:length(files.txt)){
 	metrics <- rbind(metrics, metrics.dat)
 }
 
-#write.table(metrics, "largep-metrics.txt", row.names = F)
+#write.table(metrics, "data/largep-metrics.txt", row.names = F)
 @
 
 <<t7-distr, dependson='t7-distances', echo=FALSE, results='hide'>>=
