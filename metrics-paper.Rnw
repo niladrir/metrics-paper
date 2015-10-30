@@ -1795,6 +1795,7 @@ names(dpred3)[1] <- "difference"
 dpred3$variable <- "Average Separation"
 # 
 dpred <- rbind(dpred1, dpred2, dpred3)
+dpred$variable <- factor(dpred$variable, levels = c("Minimum Separation", "Average Separation","Binned Distance"))
 
 
 ### Facetted Plots
@@ -1803,16 +1804,15 @@ prop.diff <- data.frame(prop.diff)
 prop.diff.m <- melt(prop.diff, measure.vars = c("diff.dms", "diff.das", "diff.dbn"))
 
 levels(prop.diff.m$variable) <- c("Minimum Separation", "Average Separation","Binned Distance")
-prop.diff.m$variable <- factor(prop.diff.m$variable, levels = c("Minimum Separation", "Average Separation","Binned Distance"))
 
 
 ggplot(aes(x=value, y=prop), data=prop.diff.m) + 
+  facet_wrap( ~ variable, scales = "free_x") + 
   geom_vline(xintercept = 0, col = "grey50") +
   geom_line(aes(difference, pred), data=dpred, colour="steelblue", size=1) +
   geom_point(aes(shape=factor(shape)), size=3) +
   xlab(expression(paste(delta,"-Difference",sep=""))) + ylab("Detection Rate") +
   geom_smooth(se=FALSE, method='loess', linetype=2, colour="steelblue") + 
-  facet_wrap( ~ variable, scales = "free_x") + 
   theme(legend.position = "none")
 @
 \end{subfigure}
