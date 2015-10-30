@@ -72,16 +72,18 @@ for (i in 10:99) {
 
 null_dists <- function(lineup) {
   m <- max(lineup$.samples)
-  dat.dbn <- dat.dms <- dat.das <- NULL
+  dat.dbn <- dat.dms <- dat.das <- dat.dmin <- dat.ddunn <- NULL
   pos1 <- pos2 <- NULL
   for (i in 1:19) {
-    dbn <- dms <- das <- NULL
+    dbn <- dms <- das <- ddunn <- dmin <- NULL
     for (j in 1:19) {
       if (i != j) {
         Xi <- subset(lineup, .samples == i)
         Xj <- subset(lineup, .samples == j)
         dbn = c(dbn, bin_dist(Xi, Xj, lineup.dat = lineup, X.bin = 5, Y.bin = 5))
-        dms = c(dms, sep_dist(Xi, Xj, clustering = TRUE, nclust = 3))
+        dmin = c(dmin, sep_dist(Xi, Xj, clustering = TRUE, type = "min.separation"))
+        dms = c(dms, sep_dist(Xi, Xj, clustering = TRUE))
+        ddunn = c(ddunn, sep_dist(Xi, Xj, clustering = TRUE, type = "dunn"))
         das = c(das, sep_dist(Xi, Xj, clustering = TRUE, 
                        nclust = 3, type="average.toother"))
       }
@@ -91,11 +93,13 @@ null_dists <- function(lineup) {
     dat.dbn <- c(dat.dbn, mean(dbn))
     dat.dms <- c(dat.dms, mean(dms))
     dat.das <- c(dat.das, mean(das))
+    dat.dmin <- c(dat.dmin, mean(dmin))
+    dat.ddunn <- c(dat.ddunn, mean(ddunn))
   }
 #  data.frame(dbn = mean(dat.dbn), dms = mean(dat.dms), das = mean(dat.das))
   pick <- sample(1:19, 1)
 #  data.frame(dbn = dat.dbn[pick], dms = dat.dms[pick], das = dat.das[pick])
-  data.frame(dbn = dat.dbn, dms = dat.dms, das = dat.das)
+  data.frame(dbn = dat.dbn, dms = dat.dms, das = dat.das, ddunn = dat.ddunn, dmin = dat.dmin)
 }
 
 setwd("nulls-turk7-2")
@@ -112,6 +116,8 @@ dd3 <- submetrics %>% group_by(pos.1) %>% summarize(
   dbn.mean = mean(dbn),
   das.mean =  mean(das),
   dms.mean = mean(das),
+  dmin.mean = mean(dmin),
+  ddunn.mean = mean(ddunn),
   len=n())
 
 #### plots
@@ -206,3 +212,48 @@ ggplot() +
             aes(x = dms.mean, label = pos.1)) +
   geom_text(data = subset(dd3, len == 19), y = 0.25*ymax, size = 3, 
             colour="darkorange", aes(x = dms.mean, label = pos.1)) 
+
+#####################
+# minimal sep
+
+ymax <- max(density(dists$dmin)$y)
+
+ggplot() + 
+  geom_density(data = dists, aes(x = dmin), 
+               fill = "grey80", col = "grey80" ) +
+  xlab("Minimum separation density") + ylab("")  +
+  geom_segment(data = subset(dd3, len != 19), 
+               aes(x = dmin.mean, xend = dmin.mean, 
+                   y = rep(0.005*ymax,19), yend = rep(0.1*ymax,19)), 
+               size=1, alpha = I(0.7)) + 
+  geom_segment(data = subset(dd3, len == 19), 
+               aes(x = dmin.mean, xend = dmin.mean, 
+                   y = 0.005*ymax, yend = 0.2*ymax), 
+               size=1, alpha = I(0.7), colour="darkorange") +
+  geom_text(data = subset(dd3, len != 19), y = - 0.03*ymax, size = 2.5, 
+            aes(x = dmin.mean, label = pos.1)) +
+  geom_text(data = subset(dd3, len == 19), y = 0.25*ymax, size = 3, 
+            colour="darkorange", aes(x = dmin.mean, label = pos.1)) 
+
+
+##### 
+# Dunn
+
+ymax <- max(density(dists$ddunn)$y)
+
+ggplot() + 
+  geom_density(data = dists, aes(x = ddunn), 
+               fill = "grey80", col = "grey80" ) +
+  xlab("Dunn density") + ylab("")  +
+  geom_segment(data = subset(dd3, len != 19), 
+               aes(x = ddunn.mean, xend = ddunn.mean, 
+                   y = rep(0.005*ymax,19), yend = rep(0.1*ymax,19)), 
+               size=1, alpha = I(0.7)) + 
+  geom_segment(data = subset(dd3, len == 19), 
+               aes(x = ddunn.mean, xend = ddunn.mean, 
+                   y = 0.005*ymax, yend = 0.2*ymax), 
+               size=1, alpha = I(0.7), colour="darkorange") +
+  geom_text(data = subset(dd3, len != 19), y = - 0.03*ymax, size = 2.5, 
+            aes(x = ddunn.mean, label = pos.1)) +
+  geom_text(data = subset(dd3, len == 19), y = 0.25*ymax, size = 3, 
+            colour="darkorange", aes(x = ddunn.mean, label = pos.1)) 

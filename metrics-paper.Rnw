@@ -1695,6 +1695,10 @@ for (k in 1:length(files.txt)){
 	    metrics.dat$dms[i] <- sep_dist(.X, .PX, clustering = TRUE, nclust = 2)
 	    metrics.dat$das[i] <- sep_dist(.X, .PX, clustering = TRUE, 
 	                                   nclust = 2, type="average.toother")
+	    metrics.dat$dmin[i] <- sep_dist(.X, .PX, clustering = TRUE, 
+	                                   nclust = 2, type="min.separation")
+	    metrics.dat$ddunn[i] <- sep_dist(.X, .PX, clustering = TRUE, 
+	                                   nclust = 2, type="dunn")
   	  metrics.dat$pic_name[i] <- files.png[k]
 	   }
 	}
@@ -1709,6 +1713,10 @@ for (k in 1:length(files.txt)){
 	    metrics.dat$dms[i] <- sep_dist(.X, .PX, clustering = TRUE, nclust = 3)
 	    metrics.dat$das[i] <- sep_dist(.X, .PX, clustering = TRUE, 
 	                                   nclust = 3, type="average.toother")
+	    metrics.dat$dmin[i] <- sep_dist(.X, .PX, clustering = TRUE, 
+	                                   nclust = 3, type="min.separation")
+	    metrics.dat$ddunn[i] <- sep_dist(.X, .PX, clustering = TRUE, 
+	                                   nclust = 3, type="dunn")
 	    metrics.dat$pic_name[i] <- files.png[k]
 	  }
 	}
@@ -1742,7 +1750,7 @@ dd <- dat.merge %>% group_by(pic_name, pos.1) %>%
   summarize(
     len = length(dbn), 
     dbn = mean(dbn), 
-    dms = mean(dms), 
+    dms = mean(dmin), 
     das = mean(das), 
     prop = mean(prop), 
     m.time = mean(m.time),
@@ -1779,7 +1787,7 @@ dms <- glm(cbind(correct,n-correct)~poly(diff.dms,2), data=prop.dist, family=bin
 das <- glm(cbind(correct,n-correct)~poly(diff.das,2), data=prop.dist, family=binomial())
 
 dpred1 <- data.frame(diff.dbn=seq(-8.8, 8.3, by=0.1))
-dpred2 <- data.frame(diff.dms=seq(-1, 2, length=100))
+dpred2 <- data.frame(diff.dms=seq(-0.75, 1.25, length=100))
 dpred3 <- data.frame(diff.das=seq(-1, 1, length=100))
 dpred1$pred <- predict(dbn, type="response", newdata=dpred1)
 dpred2$pred <- predict(dms, type="response", newdata=dpred2)
