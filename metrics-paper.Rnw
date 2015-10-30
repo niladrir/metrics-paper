@@ -335,9 +335,7 @@ subjects only consider the difference in the boxes to make the distinction. Vari
 
 \item {\bf Distance based on the regression line (RG):}
 Many times, to examine association between two variables a regression line is overplotted on the points of a scatterplot. This distance was developed to help assess if the observer is paying attention to the line or the spread of points. Let $X_1$ and $X_2$ be two continuous variables plotted in a scatterplot. We assume that the scatterplot is binned horizontally into $b$ bins
-\hh{to allow for a description of a piece-wise linear relationship between the variables.}
-%\hh{XXX in the package, the binning is horizontal. }
-%\hh{XXX how are these bins motivated? what kind of example do you have in mind? }
+to allow for a description of a piece-wise linear relationship between the variables.
 In each vertical slice, a linear regression model is fitted and the regression coefficients. i.e.\ intercept and slope are estimated. The distance metric based on the regression coefficients is given as
  \begin{eqnarray}\nonumber
 d^2_{RG}(X, Y) := \hbox{tr} (B(X) - B(Y))' (B(X) - B(Y))  \\
@@ -771,9 +769,9 @@ $\gamma(.)$ takes integer values between 0 and $(m - 1)$. Higher values indicate
 
 Another choice for comparing lineups would be to use empirical $p$-values from the empirical distribution of the distance metric. While this would enable a comparison of all the metrics for any lineups, this approach is computationally extremely expensive, in particular, because we are generally interested in the extreme values of the empirical distribution, which needs a very large number of simulation runs $N$ for a reliable estimation.
 
-\dc{XXX Do you think that we need to re-do all of the comparisons using this as well? It could take a long time to calculate for all of the lineups in the experiments. Would have to be done off-line and values read in for making the plots.}
-
-\hh{I don't think that we need the $p$-values - it just needed some discussion at this point.}
+% \dc{XXX Do you think that we need to re-do all of the comparisons using this as well? It could take a long time to calculate for all of the lineups in the experiments. Would have to be done off-line and values read in for making the plots.}
+% 
+% \hh{I don't think that we need the $p$-values - it just needed some discussion at this point.}
 
 In order to assess how well a distance metric reflects observers' choices, we relate distance metric to the rate at which the data plot in each lineup is being identified. In an ideal scenario, a detection rate of 0.05 corresponds to a $\delta$-difference of zero. With an increase in $\delta$-difference we would expect a simultaneous increase in detection rate. For the evaluation of metrics in the next section, we will fit a logistic regression of detection rate in $\delta$-difference. 
 
