@@ -939,6 +939,7 @@ dpred2$variable <- "Boxplot Based Distance"
 dpred <- rbind(dpred1, dpred2)
 
 prop.diff <- subset(prop.dist, select = c(pic_name, diff.box, diff.bin, prop, m.time, m2.time, special))
+prop.diff <- data.frame(prop.diff)
 prop.diff.m <- melt(prop.diff, id = c("pic_name", "prop", "special", "m.time", "m2.time"))
 
 levels(prop.diff.m$variable) <- c("Boxplot Based Distance", "Binned Distance")
@@ -964,6 +965,7 @@ ggplot(data = prop.diff.m) +
 %\includegraphics[width=0.7\textwidth]{turk1-grtr-box-bin.pdf}
 <<gamma-turk1, echo=FALSE, dependson='dist-box-bin',fig.width=8.5, fig.height=4.5, out.width='0.7\\textwidth', warning=FALSE>>=
 grtr.diff <- subset(prop.dist, select = c(pic_name, grtr.box, grtr.bin, prop, special))
+grtr.diff <- data.frame(grtr.diff)
 grtr.diff.m <- melt(grtr.diff, id = c("pic_name", "prop", "special"))
 
 levels(grtr.diff.m$variable) <- c("Boxplot Based Distance", "Binned Distance")
@@ -1321,7 +1323,7 @@ t2pred <- rbind(predbn, predrg)
 ### Facetted Plots
 
 prop.diff <- subset(prop.dist, select = c(pic_name, diff.reg, diff.bin, prop, m.time, special))
-
+prop.diff <- data.frame(prop.diff)
 prop.diff.m <- melt(prop.diff, id = c("pic_name", "prop", "special", "m.time"))
 
 levels(prop.diff.m$variable) <- c("Regression Based Distance", "Binned Distance")
@@ -1349,6 +1351,7 @@ ggplot(data=prop.diff.m) +
 <<gamma-turk2, dependson='delta-turk2', echo=FALSE, fig.width=8.5, fig.height=4.5, out.width='0.7\\textwidth'>>=
 
 grtr.diff <- subset(prop.dist, select = c(pic_name, grtr.reg, grtr.bin, prop, special))
+grtr.diff <- data.frame(grtr.diff)
 grtr.diff.m <- melt(grtr.diff, id = c("pic_name", "prop", "special"))
 
 levels(grtr.diff.m$variable) <- c("Regression Based Distance", "Binned Distance")
@@ -1796,9 +1799,12 @@ dpred <- rbind(dpred1, dpred2, dpred3)
 
 ### Facetted Plots
 prop.diff <- subset(prop.dist, select = c(pic_name, diff.dms, diff.das, diff.dbn,  prop, m.time, med.time, shape))
-prop.diff.m <- melt(prop.diff, id.vars = c("pic_name", "prop", "m.time", "med.time", "shape"))
+prop.diff <- data.frame(prop.diff)
+prop.diff.m <- melt(prop.diff, measure.vars = c("diff.dms", "diff.das", "diff.dbn"))
 
 levels(prop.diff.m$variable) <- c("Minimum Separation", "Average Separation","Binned Distance")
+prop.diff.m$variable <- factor(prop.diff.m$variable, levels = c("Minimum Separation", "Average Separation","Binned Distance"))
+
 
 ggplot(aes(x=value, y=prop), data=prop.diff.m) + 
   geom_vline(xintercept = 0, col = "grey50") +
@@ -1817,9 +1823,11 @@ ggplot(aes(x=value, y=prop), data=prop.diff.m) +
 <<largep-gamma, echo=FALSE, dependson='t7-distr', out.width='0.9\\textwidth', fig.width=9.5, fig.height=3.5>>=
 ### Facetted Plots
 prop.grtr <- subset(prop.dist, select = c(pic_name, grtr.dms, grtr.das, grtr.dbn,  prop, m.time, med.time, shape))
-prop.grtr.m <- melt(prop.grtr, id.vars = c("pic_name", "prop", "m.time", "med.time", "shape"))
+
+prop.grtr.m <- melt(data.frame(prop.grtr), id.vars = c("pic_name", "prop", "m.time", "med.time", "shape"))
 
 levels(prop.grtr.m$variable) <- c("Minimum Separation", "Average Separation","Binned Distance")
+prop.grtr.m$variable <- factor(prop.grtr.m$variable, levels = c("Minimum Separation", "Average Separation","Binned Distance"))
 
 ggplot(aes(x=value, y=prop), data=prop.grtr.m) + 
 #  geom_vline(xintercept = 0, col = "grey50") +
