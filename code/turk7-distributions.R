@@ -107,7 +107,7 @@ dists <-  list.files(pattern=".csv$") %>%
   lapply(read.csv, stringsAsFactors = FALSE) %>%
   lapply(null_dists) %>% ldply(function(x) x)
 setwd("..")
-
+write.csv("data/reference-distances-turk7-100-30.csv", row.names=FALSE)
 
 pos <- 20
 submetrics <- subset(metrics, pic_name == "plot_large_p_small_n_30_100_0_2_3.png")
