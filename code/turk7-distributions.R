@@ -60,7 +60,7 @@ generate_nulls_2d<-function(n=30, p, noise=1, m=19){
 }
 
 n <- 30; p <- 100
-for (i in 6:9) {
+for (i in 0:9) {
   nulli <- generate_nulls_2d(p = 100, n = 30, m =19)
   write.csv(nulli, file=sprintf("nulls-turk7-2/null-0%d.csv", i), row.names=FALSE)
 }
@@ -102,12 +102,12 @@ null_dists <- function(lineup) {
   data.frame(dbn = dat.dbn, dms = dat.dms, das = dat.das, ddunn = dat.ddunn, dmin = dat.dmin)
 }
 
-setwd("nulls-turk7-2")
+setwd("nulls-turk7-100-30")
 dists <-  list.files(pattern=".csv$") %>% 
   lapply(read.csv, stringsAsFactors = FALSE) %>%
   lapply(null_dists) %>% ldply(function(x) x)
 setwd("..")
-write.csv("data/reference-distances-turk7-100-30.csv", row.names=FALSE)
+write.csv(dists, "data/reference-distances-turk7-100-30.csv", row.names=FALSE)
 
 pos <- 20
 submetrics <- subset(metrics, pic_name == "plot_large_p_small_n_30_100_0_2_3.png")

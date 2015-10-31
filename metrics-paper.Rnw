@@ -1895,7 +1895,7 @@ ggplot(aes(x=value, y=med.time), data=prop.diff.m) +
 Figure~\ref{lp-mtime} shows the relationship between the median time observers take to respond  and $\delta$-difference for the three different distances. It can be clearly seen that there is a strong negative association; as the difference increases,  subjects take less time to respond. %Also the variability of the mean time is higher for smaller difference. In case of binned distance, the relationship is negative though the variability is higher for all differences.
 For both average separation and binned distance we see a peak in response time, i.e.\ for large negative $\delta$-difference the median time to respond decreases again.
 
-<<dist-prep-t7, dependson='t7-distances', echo=FALSE>>=
+<<dist-prep-t7, dependson='t7-distances', cache=FALSE, echo=FALSE>>=
 dists <- read.csv("data/reference-distances-turk7-100-30.csv")
 pos <- 20
 submetrics <- subset(metrics, pic_name == "plot_large_p_small_n_30_100_0_2_3.png")
@@ -1937,7 +1937,7 @@ qplot(X1, X2, colour=factor(cl), facets=~.sample, data=lpt7, size=I(3)) +
 
 \begin{subfigure}[t]{0.3\textwidth}
 \caption{Binned (5,5) Distance}
-\includegraphics[width=\textwidth]{distribution-bin-dist-6-4-lpexp.pdf}
+%\includegraphics[width=\textwidth]{distribution-bin-dist-6-4-lpexp.pdf}
 <<bin55, echo=FALSE, dependson='dist-prep-t7', out.width = '\\textwidth', fig.width=4.5, fig.height=4>>=
 ymax <- max(density(dists$dbn)$y)
 
@@ -1961,7 +1961,7 @@ ggplot() +
 \end{subfigure}
 \begin{subfigure}[t]{0.3\textwidth}
 \caption{Minimum Separation}
-\includegraphics[width=\textwidth]{distribution-min-sep-dist-lpexp.pdf}
+%\includegraphics[width=\textwidth]{distribution-min-sep-dist-lpexp.pdf}
 <<min_sep, echo=FALSE, dependson='dist-prep-t7', out.width = '\\textwidth', fig.width=4.5, fig.height=4>>=
 ymax <- max(density(dists$dmin)$y)
 
@@ -1985,7 +1985,7 @@ ggplot() +
 \end{subfigure}
 \begin{subfigure}[t]{0.3\textwidth}
 \caption{Average Separation}
-\includegraphics[width=\textwidth]{distribution-ave-sep-dist-lpexp.pdf}
+%\includegraphics[width=\textwidth]{distribution-ave-sep-dist-lpexp.pdf}
 <<avg_sep, echo=FALSE, dependson='dist-prep-t7', out.width = '\\textwidth', fig.width=4.5, fig.height=4>>=
 ymax <- max(density(dists$das)$y)
 
@@ -2009,13 +2009,13 @@ ggplot() +
 \end{subfigure}
 
 	\vspace{-.1in}
-\caption{Illustration of the behavior of different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics are shown in the other plots:  binned distance with 6 and 4 bins in x and y axis respectively in (b), distance based on average separation in (c) and distance based on minimum separation in (d). \hh{XXXX re-created the distances, yay!}}
+\caption{Illustration of the behavior of different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics are shown in the other plots:  binned distance with 6 and 4 bins in x and y axis respectively in (b), distance based on \hh{minimum} separation in (c) and distance based on \hh{average} separation in (d). \hh{The reference distributions are based on 100 null sets of 19 nulls each, yielding 1,800 distances.}}
 \label{lp-exp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 %\afterpage{\clearpage}
 
-Figure~\ref{lp-exp} shows the lineup in a high dimension, low sample size setting. The number of dimensions used is 100 and two of the dimensions have some separation. Plot \#20 shows the two-dimensional projections of the original data. This plot is, indeed, chosen in 13 out of 19 evaluations.  As the true plot does have real separation, it is to be expected that  subjects would be able to identify the plot. The distance based on average separation yields a negative difference showing that the lineup is difficult, while the distance based on minimum separation yields a positive difference. The distance metrics identify different characteristics in a plot. The average separation looks at the average of the distances of the points in a cluster to the points in other clusters. The presence of an outlier point in one of the clusters affects this distance considerably. On the other hand,  minimum separation only considers the minimal distances, and is therefore much less likely affected by an outlying point. 
+Figure~\ref{lp-exp} shows the lineup in a high dimension, low sample size setting. The number of dimensions used is 100 and two of the dimensions have some separation. Plot \#20 shows the two-dimensional projections of the original data. This plot is, indeed, chosen in 13 out of 19 evaluations.  As the true plot does have real separation, it is to be expected that  subjects would be able to identify the plot. The distance based on average separation yields a negative difference showing that the lineup is difficult, while the distance based on minimum separation yields a positive difference. The distance metrics identify different characteristics in a plot. The average separation looks at the average of the distances of the points in a cluster to the points in other clusters. The presence of an outlier point in one of the clusters affects this distance considerably. On the other hand,  minimum separation only considers the minimal distances, and is therefore much less likely affected by an outlying point. \hh{While the binned distance shows plot \#20 as the one with the largest distance, this should be taken with care, because binned distance is, unlike the other two distances, not rotation invariant. In the case of plot \#20 the large distance merely indicates the difference in the arrangement of the clusters rather than their separation.}
 
 
 \section{Conclusion}
