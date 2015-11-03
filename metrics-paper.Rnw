@@ -346,20 +346,36 @@ With larger number of bins (i.e.\ smaller bin sizes), the regression coefficient
 Variations might include using slope alone, or absolute value of slope. 
 Note that we assume that  $X_1$ and $X_2$ are on the same scale. This does not change the regression or the significance of its parameters, but it does matter for the distance measure. By assuming variables on the same scale, we implicitly expect that the scatterplot has an aspect ratio of 1, which is typically the case in a lineup. This way, a deviation along the x axis is perceived to be about the same as a deviation along the y axis. 
 
-\item {\bf Distance based on separation between multiple groups (MS, AS, CM):}
+\item {\bf Distance based on separation between multiple groups (MS, AS, DS, CM):}
 Let $X_1$ and $X_2$ be two continuous variable. Let $X_3$ be a categorical variable providing the groups associated with each variable. $X_1$ and $X_2$ are plotted in a scatterplot colored by the group variable $X_3$. The separation can be described in a number of different ways:
 \begin{enumerate}
-\item[(i)] {\bf Minimum separation:} let  $s_{m}(.)$ be a vector of the minimum distance of a point in the cluster to a point in any of the other $g-1$ clusters. 
+% \item[(i)] {\bf Minimum separation:} let  $s_{m}(.)$ be a vector of the minimum distance of a point in the cluster to a point in any of the other $g-1$ clusters. 
+% The distance metric based on minimal separation is then defined as
+% \[
+% d^2_{MS}(X, Y):= ||s_m(X) - s_m(Y)||^2 = \sum_{i = 1}^g ((s_m(X))_i - (s_m(Y))_i)^2
+% \]
+
+\item[(i)] {\bf Minimum separation:} let  $s_{m}(.)$ be %a vector of 
+the minimum distance \hh{between any two points in different clusters.}
 The distance metric based on minimal separation is then defined as
 \[
-d^2_{MS}(X, Y):= ||s_m(X) - s_m(Y)||^2 = \sum_{i = 1}^g ((s_m(X))_i - (s_m(Y))_i)^2
+d^2_{MS}(X, Y):= \left(s_m(X) - s_m(Y)\right)^2.
 \]
+\hh{XXX $s_m$ is not a vector, it is a number. }
 
-\item[(ii)] {\bf Average point separation:} let $s_{a}(.)$ be a vector of cluster wise average distances of all the points in the cluster to all points in all other $g-1$ clusters. The distance metric based on average separation is defined as
+
+\item[(ii)] {\bf Average point separation:} let $s_{a}(.)$ be a vector of cluster wise average distances of all the points in a cluster to all points in any of the other $g-1$ clusters. The distance metric based on average separation is defined as
 \[
-d^2_{AS}(X, Y):= ||s_a(X) - s_g(Y)||^2 = \sum_{i = 1}^g ((s_a(X))_i - (s_a(Y))_i)^2
+d^2_{AS}(X, Y):= ||s_a(X) - s_a(Y)||^2 = \sum_{i = 1}^g ((s_a(X))_i - (s_a(Y))_i)^2.
 \]
 
+\item[(iii)] \hh{{\bf Dunn separation:} the Dunn index \citep{dunn:1973, halkidi:2001} $s_d(.)$ is defined as the ratio of the minimal separation between clusters and maximal diameter of any of the clusters. 
+The distance metric based on the Dunn index is defined as 
+\[
+d^2_{DS} (X, Y):= \left(s_d(X) - s_d(Y)\right)^2.
+\]
+}
+\hh{The Dunn index is a member of the Dunn index family, defined as ratios of measures of cluster separation and cluster extent. This makes an analysis of variance approach to clustering, such as Ward's method part of this family as well. Minimal separation between clusters and maximal diameter of a cluster are two very concrete measures. This way, the Dunn index stays close to a visual assessment of the clustering from a cognitive perspective.}
 %\item[(iii)] {\bf Cluster mean separation:} let $m_i(.) = \left(\bar{X_1}^i, \bar{X_2}^i\right)$ be the mean of the $i$-th cluster, $i = 1, 2, \dots, g$. The distance metric based on the cluster means is given by
 %\[
 %d^2_{CM}(X, Y):= ||m(X) - m(Y)||^2 = \sum_{i=1}^g (m_i(X) - m_i(Y))^2
@@ -382,10 +398,17 @@ Figure~\ref{sep-dist} illustrates the different distance metrics for cluster sep
 \caption{Average Separation\label{type_2_avesep}}
 \includegraphics[width=\textwidth]{ave-sep-example.pdf}
 \end{subfigure}
+
 \begin{subfigure}[t]{0.3\textwidth}
 \caption{Cluster Mean Separation\label{type_2_clsep}}
 \includegraphics[width=\textwidth]{mean-sep-example.pdf}
 \end{subfigure}
+\begin{subfigure}[t]{0.3\textwidth}
+\caption{Dunn Index\label{type_2_dunn}}
+need to figure out the chart
+%\includegraphics[width=\textwidth]{mean-sep-example.pdf}
+\end{subfigure}
+
 	\vspace{-.1in}
 \caption{Illustration of three different distance metrics for cluster separation. Minimum Separation (a) calculates the minimum distance between points of each cluster from the other clusters. Average separation (b) calculates the average distance of each point in a cluster to the other clusters. Cluster mean distance (c) sums the distances between the means of each cluster. }
 \label{sep-dist}
@@ -1811,16 +1834,16 @@ dpred3$variable <- "Average Separation"
 names(dpred4)[1] <- "difference"
 dpred4$variable <- "Dunn Distance (Min Sep/Max Spread)"
 # 
-dpred <- rbind(dpred1, dpred2, dpred3) #, dpred4)
-dpred$variable <- factor(dpred$variable, levels = c("Minimum Separation", "Average Separation","Binned Distance")) #, "Dunn Distance (Min Sep/Max Spread)"))
+dpred <- rbind(dpred1, dpred2, dpred3, dpred4)
+dpred$variable <- factor(dpred$variable, levels = c("Minimum Separation", "Average Separation","Binned Distance", "Dunn Distance (Min Sep/Max Spread)"))
 
 
 ### Facetted Plots
 prop.diff <- subset(prop.dist, select = c(pic_name, diff.dmin, diff.das, diff.dbn, diff.ddunn, prop, m.time, med.time, shape))
 prop.diff <- data.frame(prop.diff)
-prop.diff.m <- melt(prop.diff, measure.vars = c("diff.dmin", "diff.das", "diff.dbn")) #, "diff.ddunn"))
+prop.diff.m <- melt(prop.diff, measure.vars = c("diff.dmin", "diff.das", "diff.dbn", "diff.ddunn"))
 
-levels(prop.diff.m$variable) <- c("Minimum Separation", "Average Separation","Binned Distance") #, "Dunn Distance (Min Sep/Max Spread)")
+levels(prop.diff.m$variable) <- c("Minimum Separation", "Average Separation","Binned Distance", "Dunn Distance (Min Sep/Max Spread)")
 
 
 ggplot(aes(x=value, y=prop), data=prop.diff.m) + 
@@ -1839,13 +1862,13 @@ ggplot(aes(x=value, y=prop), data=prop.diff.m) +
 %\includegraphics[width=\textwidth]{largep-grtr-sep-bin.pdf}
 <<largep-gamma, echo=FALSE, dependson='t7-distr', out.width='0.9\\textwidth', fig.width=9.5, fig.height=3.5>>=
 ### Facetted Plots
-prop.grtr <- subset(prop.dist, select = c(pic_name, grtr.dmin, grtr.das, grtr.dbn,  prop, #grtr.ddunn, 
+prop.grtr <- subset(prop.dist, select = c(pic_name, grtr.dmin, grtr.das, grtr.dbn,  prop, grtr.ddunn, 
 m.time, med.time, shape))
 
 prop.grtr.m <- melt(data.frame(prop.grtr), id.vars = c("pic_name", "prop", "m.time", "med.time", "shape"))
 
-levels(prop.grtr.m$variable) <- c("Minimum Separation", "Average Separation","Binned Distance") #, "Dunn Distance (Min Sep/Max Spread)")
-prop.grtr.m$variable <- factor(prop.grtr.m$variable, levels = c("Minimum Separation", "Average Separation","Binned Distance")) #, "Dunn Distance (Min Sep/Max Spread)"))
+levels(prop.grtr.m$variable) <- c("Minimum Separation", "Average Separation","Binned Distance", "Dunn Distance (Min Sep/Max Spread)")
+prop.grtr.m$variable <- factor(prop.grtr.m$variable, levels = c("Minimum Separation", "Average Separation","Binned Distance", "Dunn Distance (Min Sep/Max Spread)"))
 
 ggplot(aes(x=value, y=prop), data=prop.grtr.m) + 
 #  geom_vline(xintercept = 0, col = "grey50") +

@@ -80,6 +80,7 @@ null_dists <- function(lineup) {
       if (i != j) {
         Xi <- subset(lineup, .samples == i)
         Xj <- subset(lineup, .samples == j)
+        browser()
         dbn = c(dbn, bin_dist(Xi, Xj, lineup.dat = lineup, X.bin = 5, Y.bin = 5))
         dmin = c(dmin, sep_dist(Xi, Xj, clustering = TRUE, type = "min.separation"))
         dms = c(dms, sep_dist(Xi, Xj, clustering = TRUE))
