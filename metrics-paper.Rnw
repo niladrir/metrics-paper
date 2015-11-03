@@ -389,27 +389,83 @@ Figure~\ref{sep-dist} illustrates the different distance metrics for cluster sep
 \end{enumerate}
 
 \begin{figure}[hbtp]
+<<data-prep-ex, echo=FALSE>>=
+dat <- read.table("data/turk7/dat_large_p_small_n_30_40_0_2_3.txt", header = T)
+five <- subset(dat, .sample == 5)
+library(fpc)
+cstats <- cluster.stats(dist(five[,1:2]), clustering = five$cl)
+@
 \centering
-\begin{subfigure}[t]{0.195\textwidth}
-\caption{\label{type1_minsep} Minimum Separation}
-\includegraphics[width=\textwidth]{min-sep-example.pdf}
+\begin{subfigure}[t]{0.24\textwidth}
+\caption{\label{type1_minsep} \scalebox{0.8}{Minimum Separation}}
+%\includegraphics[width=\textwidth]{min-sep-example.pdf}
+<<min_sep_ex, dependson='data-prep-ex', echo = FALSE, fig.width = 4, fig.height = 4, out.width = '\\textwidth'>>=
+first <- five[which(five$cl == 3 & five$X2 < 1),]
+second <- five[which(five$cl == 2 & five$X1 < 0.75),]
+qplot(X1, X2, data=five, colour=factor(cl), size=I(3)) + 
+  theme(legend.position = "none", aspect.ratio = 1) +
+  geom_segment(x=first$X1, y=first$X2, xend=second$X1, yend=second$X2, colour="black")
+@
 \end{subfigure}
-\begin{subfigure}[t]{0.195\textwidth}
-\caption{Average Separation\label{type_2_avesep}}
-\includegraphics[width=\textwidth]{ave-sep-example.pdf}
+\begin{subfigure}[t]{0.24\textwidth}
+\caption{\scalebox{0.8}{Average Separation}\label{type_2_avesep}}
+%\includegraphics[width=\textwidth]{ave-sep-example.pdf}
+<<ave_sep_ex, dependson='data-prep-ex', echo = FALSE, fig.width = 4, fig.height = 4, out.width = '\\textwidth'>>=
+library(reshape2)
+five <- five[order(five$cl),]
+five$id <- rep(1:10, 3)
+lines <- data.frame(dcast(five, id ~ cl, value.var = "X1"),
+                    dcast(five, id ~ cl, value.var = "X2")[,-1])
+names(lines) <- c("id", paste0("X1",1:3), paste0("X2", 1:3))
+
+qplot(X1, X2, data=five, colour=factor(cl), size=I(3)) + 
+  theme(legend.position = "none", aspect.ratio = 1) + 
+  geom_segment(aes(x=X11, y=X21, xend=X12, yend=X22), data=lines, colour="black", alpha= I(0.5)) + 
+  geom_segment(aes(x=X13, y=X23, xend=X12, yend=X22), data=lines, colour="black", alpha=0.5) + geom_segment(aes(x=X13, y=X23, xend=X11, yend=X21), data=lines, colour="black", alpha=0.5)
+@
 \end{subfigure}
-\begin{subfigure}[t]{0.195\textwidth}
-\caption{Cluster Mean Separation\label{type_2_clsep}}
-\includegraphics[width=\textwidth]{mean-sep-example.pdf}
-\end{subfigure}
-\begin{subfigure}[t]{0.195\textwidth}
-\caption{Dunn Index\label{type_2_dunn}}
-need to figure out the chart
+\begin{subfigure}[t]{0.24\textwidth}
+\caption{\scalebox{0.8}{Cluster Mean Sep.}\label{type_2_clsep}}
 %\includegraphics[width=\textwidth]{mean-sep-example.pdf}
+<<cm_sep_ex, dependson='data-prep-ex', echo = FALSE, fig.width = 4, fig.height = 4, out.width = '\\textwidth'>>=
+means <- five %>% group_by(cl) %>% summarize(x = mean(X1), y = mean(X2))
+lines <- data.frame(means, xend=means$x[c(2,3,1)], yend=means$y[c(2,3,1)])
+qplot(X1, X2, data=five, colour=factor(cl), size=I(3)) + 
+  theme(legend.position = "none", aspect.ratio = 1) + 
+  geom_point(aes(x=x, y=y), shape=10, data=means, size = 5, colour="black") +
+  geom_segment(aes(x=x, y=y, xend=xend, yend=yend), data=lines, colour="black")
+@
+\end{subfigure}
+\begin{subfigure}[t]{0.24\textwidth}
+\caption{\scalebox{0.8}{Dunn Index}\label{type_2_dunn}}
+\vfill
+%\includegraphics[width=\textwidth]{mean-sep-example.pdf}
+<<di_sep_ex, dependson='data-prep-ex', echo = FALSE, fig.width = 4, fig.height = 4, out.width = '\\textwidth'>>=
+first <- five[which(five$cl == 3 & five$X2 < 1),]
+second <- five[which(five$cl == 2 & five$X1 < 0.75),]
+
+pairs <- data.frame(expand.grid(i=1:10, j=1:10))
+pairs <- subset(pairs, i < j)
+
+pdata <- five %>% group_by(cl) %>% do(with(., data.frame(
+  cluster = cl[1],
+  dist = (X1[pairs$i] - X1[pairs$j])^2 + (X2[pairs$i] - X2[pairs$j])^2,
+  x = X1[pairs$i],
+  y = X2[pairs$i],
+  xend = X1[pairs$j],
+  yend = X2[pairs$j]
+)))
+maxSpread <- pdata[which.max(pdata$dist),]
+
+qplot(X1, X2, data=five, colour=factor(cl), size=I(3)) + 
+  theme(legend.position = "none", aspect.ratio = 1) +
+  geom_segment(x=first$X1, y=first$X2, xend=second$X1, yend=second$X2, colour="black") +
+  geom_segment(data=maxSpread, aes(x=x, y=y, xend=xend, yend=yend), colour="black")
+@
 \end{subfigure}
 
 	\vspace{-.1in}
-\caption{Illustration of three different distance metrics for cluster separation. Minimum Separation (a) calculates the minimum distance between points of each cluster from the other clusters. Average separation (b) calculates the average distance of each point in a cluster to the other clusters. Cluster mean distance (c) sums the distances between the means of each cluster. }
+\caption{Illustration of \hh{four} different distance metrics for cluster separation. Minimum Separation (a) calculates the minimum distance between points of each cluster from the other clusters. Average separation (b) calculates the average distance of each point in a cluster to the other clusters. Cluster mean distance (c) sums the distances between the means of each cluster. \hh{The Dunn index (d) is based on a comparison of minimal separation between clusters (as shown in  (a)) and maximal cluster diameter.}}
 \label{sep-dist}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
