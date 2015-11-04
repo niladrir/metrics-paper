@@ -1233,51 +1233,52 @@ ggsave("lineup-large-p-small-n.pdf", height = 5, width = 5.5)
 #### New Lineup
 
 generate_plot_2d<-function(n=30,p, noise=1, m=20){
-	x<-matrix(rnorm(p*n),ncol=p)
-	if(noise==0){
-x[1:10,(p-1)]<-x[1:10,(p-1)]+3
-x[11:20,(p-1)]<-x[11:20,(p-1)]-3
-x[21:30,p]<-x[21:30,p]+sqrt(27)
-}
-colnames(x)<-paste("X",1:(p),sep="")
-x<-scale(x)
-x<-data.frame(x, cl=factor(c(rep(1,n/3),rep(2,n/3),rep(3,n/3))))
-d=2
-
-optima <- save_history(x[,-(p+1)], tour_path=guided_tour(index_f=pda_pp(cl=x[,(p+1)], lambda=0.2), max.tries=1000), max_bases=100, rescale=F)
-nbases<-dim(optima)[3]
-optima.global<-unclass(optima)[,,nbases]
-
-projdata.true<-data.frame(as.matrix(x[,-(p+1)])%*%optima.global, cl=x[,(p+1)], nbases=rep(nbases,n))
-
-projdata.samples<-NULL
-flag <- 0
- while(flag < 19) {
- x[,(p+1)]<-sample(x[,(p+1)])
- optima <- save_history(x[,-(p+1)], guided_tour(index_f=pda_pp(cl=x[,(p+1)], lambda=0.2),max.tries=100), max_bases=100, rescale=F)
- nbases<-dim(optima)[3]
- optima.global<-unclass(optima)[,,nbases]
- projdata<-data.frame(as.matrix(x[,-(p+1)])%*%optima.global, cl=x[,(p+1)], nbases=rep(nbases,30))
- lamb<-summary(manova(cbind(X1, X2)~cl, data=projdata), test="Wilks")[[4]][3]
- if(lamb < 0.001){
- projdata.samples<-rbind(projdata.samples, projdata)
- flag <- flag + 1
- }else
- {  
- 	projdata <- NULL
- 	projdata.samples <- rbind(projdata.samples, projdata)
- 	flag = flag
- 	}
- cat(flag, lamb, "\n") 
-}
-projdata.samples$.n <- rep(1:19, each = 30)
-#pos<-sample(m,1)
-lineup.data<-lineup(true=projdata.true, samples=projdata.samples,pos=1)
-return(lineup.data)
+  x<-matrix(rnorm(p*n),ncol=p)
+  if(noise==0){
+    x[1:10,(p-1)]<-x[1:10,(p-1)]+3
+    x[11:20,(p-1)]<-x[11:20,(p-1)]-3
+    x[21:30,p]<-x[21:30,p]+sqrt(27)
+  }
+  colnames(x)<-paste("X",1:(p),sep="")
+  x<-scale(x)
+  x<-data.frame(x, cl=factor(c(rep(1,n/3),rep(2,n/3),rep(3,n/3))))
+  d=2
+  
+  optima <- save_history(x[,-(p+1)], tour_path=guided_tour(index_f=pda_pp(cl=x[,(p+1)], lambda=0.2), max.tries=1000), max_bases=100, rescale=F)
+  nbases<-dim(optima)[3]
+  optima.global<-unclass(optima)[,,nbases]
+  
+  projdata.true<-data.frame(as.matrix(x[,-(p+1)])%*%optima.global, cl=x[,(p+1)], nbases=rep(nbases,n))
+  
+  projdata.samples<-NULL
+  flag <- 0
+  while(flag < 19) {
+    x[,(p+1)]<-sample(x[,(p+1)])
+    optima <- save_history(x[,-(p+1)], guided_tour(index_f=pda_pp(cl=x[,(p+1)], lambda=0.2),max.tries=100), max_bases=100, rescale=F)
+    nbases<-dim(optima)[3]
+    optima.global<-unclass(optima)[,,nbases]
+    projdata<-data.frame(as.matrix(x[,-(p+1)])%*%optima.global, cl=x[,(p+1)], nbases=rep(nbases,30))
+    lamb<-summary(manova(cbind(X1, X2)~cl, data=projdata), test="Wilks")[[4]][3]
+    if(lamb < 0.001){
+      projdata.samples<-rbind(projdata.samples, projdata)
+      flag <- flag + 1
+    }else
+    {  
+      projdata <- NULL
+      projdata.samples <- rbind(projdata.samples, projdata)
+      flag = flag
+    }
+    cat(flag, lamb, "\n") 
+  }
+  projdata.samples$.n <- rep(1:19, each = 30)
+  #pos<-sample(m,1)
+  lineup.data<-lineup(true=projdata.true, samples=projdata.samples,pos=1)
+  return(lineup.data)
 }
 
 dat <- generate_plot_2d(p = 80, noise = 0)
-qplot(X1, X2, data=dat, colour=cl) + facet_wrap(~ .sample) + scale_colour_discrete(name="Group") + scale_y_continuous("X2") + scale_x_continuous("X1")
+qplot(X1, X2, data=dat, colour=cl) + facet_wrap(~ .sample) + 
+  scale_colour_discrete(name="Group") + scale_y_continuous("X2") + scale_x_continuous("X1")
 
 ggsave("largep-lineup-new-1.pdf", height = 5, width = 5.5)
 
