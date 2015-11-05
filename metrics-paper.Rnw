@@ -2725,7 +2725,7 @@ What we see in each of the experiments is that the general approach of the binne
 
 \paragraph{Acknowledgement:}
 
- All plots are done with the {\tt ggplot2} \citep{hadley:2009} package in R.
+ All plots are done with the {\tt ggplot2} \citep{hadley:2009} package in R. The document is written in {\tt knitr} \citep{xie:2015}.
 
 %\section{References}
 \begin{center}
