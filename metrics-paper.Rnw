@@ -402,9 +402,12 @@ cstats <- cluster.stats(dist(five[,1:2]), clustering = five$cl)
 <<min_sep_ex, dependson='data-prep-ex', echo = FALSE, fig.width = 4, fig.height = 4, out.width = '\\textwidth'>>=
 first <- five[which(five$cl == 3 & five$X2 < 1),]
 second <- five[which(five$cl == 2 & five$X1 < 0.75),]
+third <- five[which(five$cl == 1 & five$X1 > -0.75 & five$X2 > -1.1),]
+fourth <- five[which(five$cl == 2 & five$X1 < 0.8 & five$X2 < (-0.3)),]
 qplot(X1, X2, data=five, colour=factor(cl), size=I(3)) + 
   theme(legend.position = "none", aspect.ratio = 1) +
-  geom_segment(x=first$X1, y=first$X2, xend=second$X1, yend=second$X2, colour="black")
+  geom_segment(x=first$X1, y=first$X2, xend=second$X1, yend=second$X2, colour="black") +
+  geom_segment(x=third$X1, y=third$X2, xend=fourth$X1, yend=fourth$X2, colour="black")
 @
 \end{subfigure}
 \begin{subfigure}[t]{0.24\textwidth}
