@@ -349,19 +349,19 @@ Note that we assume that  $X_1$ and $X_2$ are on the same scale. This does not c
 \item {\bf Distance based on separation between multiple groups (MS, AS, DS, CM):}
 Let $X_1$ and $X_2$ be two continuous variable. Let $X_3$ be a categorical variable providing the groups associated with each variable. $X_1$ and $X_2$ are plotted in a scatterplot colored by the group variable $X_3$. The separation can be described in a number of different ways:
 \begin{enumerate}
-% \item[(i)] {\bf Minimum separation:} let  $s_{m}(.)$ be a vector of the minimum distance of a point in the cluster to a point in any of the other $g-1$ clusters. 
-% The distance metric based on minimal separation is then defined as
-% \[
-% d^2_{MS}(X, Y):= ||s_m(X) - s_m(Y)||^2 = \sum_{i = 1}^g ((s_m(X))_i - (s_m(Y))_i)^2
-% \]
+ \item[(i)] {\bf Minimum separation:} let  $s_{m}(.)$ be a vector of the minimum distance of a point in the cluster to a point in any of the other $g-1$ clusters. 
+ The distance metric based on minimal separation is an average of these intercluster minima, defined as
+ \[
+ d^2_{MS}(X, Y):= ||s_m(X) - s_m(Y)||^2 = \sum_{i = 1}^g ((s_m(X))_i - (s_m(Y))_i)^2.
+ \]
 
-\item[(i)] {\bf Minimum separation:} let  $s_{m}(.)$ be %a vector of 
-the minimum distance \hh{between any two points in different clusters.}
-The distance metric based on minimal separation is then defined as
-\[
-d^2_{MS}(X, Y):= \left(s_m(X) - s_m(Y)\right)^2.
-\]
-\hh{XXX $s_m$ is not a vector, it is a number. }
+%\item[(i)] {\bf Minimum separation:} let  $s_{m}(.)$ be %a vector of 
+%the minimum distance \hh{between any two points in different clusters.}
+%The distance metric based on minimal separation is then defined as
+%\[
+%d^2_{MS}(X, Y):= \left(s_m(X) - s_m(Y)\right)^2.
+%\]
+%\hh{XXX $s_m$ is not a vector, it is a number. }
 
 
 \item[(ii)] {\bf Average point separation:} let $s_{a}(.)$ be a vector of cluster wise average distances of all the points in a cluster to all points in any of the other $g-1$ clusters. The distance metric based on average separation is defined as
@@ -369,13 +369,13 @@ d^2_{MS}(X, Y):= \left(s_m(X) - s_m(Y)\right)^2.
 d^2_{AS}(X, Y):= ||s_a(X) - s_a(Y)||^2 = \sum_{i = 1}^g ((s_a(X))_i - (s_a(Y))_i)^2.
 \]
 
-\item[(iii)] \hh{{\bf Dunn separation:} the Dunn index \citep{dunn:1973, halkidi:2001} $s_d(.)$ is defined as the ratio of the minimal separation between clusters and maximal diameter of any of the clusters. 
+\item[(iii)] {\bf Dunn separation:} the Dunn index \citep{dunn:1973, halkidi:2001} $s_d(.)$ is defined as the ratio of the minimal separation between clusters and maximal diameter of any of the clusters. 
 The distance metric based on the Dunn index is defined as 
 \[
 d^2_{DS} (X, Y):= \left(s_d(X) - s_d(Y)\right)^2.
 \]
-}
-\hh{The Dunn index is a member of the Dunn index family, defined as ratios of measures of cluster separation and cluster extent. This makes an analysis of variance approach to clustering, such as Ward's method part of this family as well. Minimal separation between clusters and maximal diameter of a cluster are two very concrete measures. This way, the Dunn index stays close to a visual assessment of the clustering from a cognitive perspective. However, because it is based on two extreme statistics, the  Dunn index is highly susceptible to outliers. }
+
+The Dunn index is a member of the Dunn index family, defined as ratios of measures of cluster separation and cluster extent. This makes an analysis of variance approach to clustering, such as Ward's method part of this family as well. Minimal separation between clusters and maximal diameter of a cluster are two very concrete measures. This way, the Dunn index stays close to a visual assessment of the clustering from a cognitive perspective. However, because it is based on two extreme statistics, the  Dunn index is highly susceptible to outliers. 
 %\item[(iii)] {\bf Cluster mean separation:} let $m_i(.) = \left(\bar{X_1}^i, \bar{X_2}^i\right)$ be the mean of the $i$-th cluster, $i = 1, 2, \dots, g$. The distance metric based on the cluster means is given by
 %\[
 %d^2_{CM}(X, Y):= ||m(X) - m(Y)||^2 = \sum_{i=1}^g (m_i(X) - m_i(Y))^2
@@ -465,7 +465,7 @@ qplot(X1, X2, data=five, colour=factor(cl), size=I(3)) +
 \end{subfigure}
 
 	\vspace{-.1in}
-\caption{Illustration of \hh{four} different distance metrics for cluster separation. Minimum Separation (a) calculates the minimum distance between points of each cluster from the other clusters. Average separation (b) calculates the average distance of each point in a cluster to the other clusters. Cluster mean distance (c) sums the distances between the means of each cluster. \hh{The Dunn index (d) is based on a comparison of minimal separation between clusters (as shown in  (a)) and maximal cluster diameter.}}
+\caption{Illustration of four different distance metrics for cluster separation. Minimum Separation (a) calculates the minimum distance between points of each cluster from the other clusters. Average separation (b) calculates the average distance of each point in a cluster to the other clusters. Cluster mean distance (c) sums the distances between the means of each cluster. The Dunn index (d) is based on a comparison of minimal separation between clusters (as shown in  (a)) and maximal cluster diameter.}
 \label{sep-dist}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -1867,16 +1867,17 @@ prop.dist$shape <- ifelse(prop.dist$pic_name == "plot_large_p_small_n_30_100_0_2
 %\includegraphics[width=\textwidth]{largep-prop-sep-bin.pdf}
 <<largep-delta, echo=FALSE, dependson='t7-distr', out.width='\\textwidth', fig.width=12.5, fig.height=3.5>>=
 dbn <- glm(cbind(correct,n-correct)~poly(diff.dbn,2), data=prop.dist, family=binomial())
+dms <- glm(cbind(correct,n-correct)~poly(diff.dms,2), data=prop.dist, family=binomial())
 dmin <- glm(cbind(correct,n-correct)~poly(diff.dmin,2), data=prop.dist, family=binomial())
 das <- glm(cbind(correct,n-correct)~poly(diff.das,2), data=prop.dist, family=binomial())
 ddunn <- glm(cbind(correct,n-correct)~poly(diff.ddunn,2), data=prop.dist, family=binomial())
 
 dpred1 <- data.frame(diff.dbn=seq(-8.8, 8.3, by=0.1))
-dpred2 <- data.frame(diff.dmin=seq(-0.75, 1.25, length=100))
+dpred2 <- data.frame(diff.dms=seq(-0.75, 1.25, length=100))
 dpred3 <- data.frame(diff.das=seq(-1, 1, length=100))
 dpred4 <- data.frame(diff.ddunn=seq(-2.75, 3, length=100))
 dpred1$pred <- predict(dbn, type="response", newdata=dpred1)
-dpred2$pred <- predict(dmin, type="response", newdata=dpred2)
+dpred2$pred <- predict(dms, type="response", newdata=dpred2)
 dpred3$pred <- predict(das, type="response", newdata=dpred3)
 dpred4$pred <- predict(ddunn, type="response", newdata=dpred4)
 
@@ -1894,9 +1895,10 @@ dpred$variable <- factor(dpred$variable, levels = c("Minimum Separation", "Avera
 
 
 ### Facetted Plots
-prop.diff <- subset(prop.dist, select = c(pic_name, diff.dmin, diff.das, diff.dbn, diff.ddunn, prop, m.time, med.time, shape))
+prop.diff <- subset(prop.dist, select = c(pic_name, diff.dms, diff.das, diff.dbn, diff.ddunn, prop, m.time, med.time, shape))
 prop.diff <- data.frame(prop.diff)
-prop.diff.m <- melt(prop.diff, measure.vars = c("diff.dmin", "diff.das", "diff.dbn", "diff.ddunn"))
+#prop.diff.m <- melt(prop.diff, measure.vars = c("diff.dmin", "diff.das", "diff.dbn", "diff.ddunn"))
+prop.diff.m <- melt(prop.diff, id.vars=c("pic_name", "prop", "m.time", "med.time", "shape"), measure.vars = c("diff.dms", "diff.das", "diff.dbn", "diff.ddunn"))
 
 levels(prop.diff.m$variable) <- c("Minimum Separation", "Average Separation","Binned Distance", "Dunn Distance (Min Sep/Max Spread)")
 
@@ -1917,8 +1919,8 @@ ggplot(aes(x=value, y=prop), data=prop.diff.m) +
 %\includegraphics[width=\textwidth]{largep-grtr-sep-bin.pdf}
 <<largep-gamma, echo=FALSE, dependson='t7-distr', out.width='\\textwidth', fig.width=12.5, fig.height=3.5>>=
 ### Facetted Plots
-prop.grtr <- subset(prop.dist, select = c(pic_name, grtr.dmin, grtr.das, grtr.dbn,  prop, grtr.ddunn, 
-m.time, med.time, shape))
+#prop.grtr <- subset(prop.dist, select = c(pic_name, grtr.dmin, grtr.das, grtr.dbn,  prop, grtr.ddunn, m.time, med.time, shape))
+prop.grtr <- subset(prop.dist, select = c(pic_name, grtr.dms, grtr.das, grtr.dbn,  prop, grtr.ddunn, m.time, med.time, shape))
 
 prop.grtr.m <- melt(data.frame(prop.grtr), id.vars = c("pic_name", "prop", "m.time", "med.time", "shape"))
 
@@ -1935,15 +1937,15 @@ ggplot(aes(x=value, y=prop), data=prop.grtr.m) +
 \end{subfigure}
 
 	\vspace{-.1in}
-\caption{Comparison of distance metrics for the scatterplot with clusters. Detection rate is plotted against (a) $\delta$-difference and (b) against $\gamma$-number of extreme nulls using distances based on minimum separation, average separation and binning. The vertical line represents the difference equal to zero when there is at least one null plot similar to the observed plot. Detection rate generally increases with $\delta$-difference. As the $\gamma$-number of extreme null plots increases, detection rate decreases. The triangle represents a lineup with high detection rate and negative difference based on the average separation distance. This is examined in Figure~\ref{lp-exp}. }
+\caption{Comparison of distance metrics for the scatterplot with clusters. Detection rate is plotted against (a) $\delta$-difference and (b) against $\gamma$-number of extreme nulls, using distances based on minimum separation, average separation, binned and Dunn's distance. The vertical line represents the difference equal to zero when there is at least one null plot similar to the observed plot. Solid blue line represents the fitted logistic regression model and the dashed blue line shows a loess smoother.  Detection rate generally increases with $\delta$-difference. As the $\gamma$-number of extreme null plots increases, detection rate decreases. The triangle represents a lineup with high detection rate and negative difference based on the average separation distance. This is examined in Figure~\ref{lp-exp}. }
 \label{lp-comp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 %%\afterpage{\clearpage}
 
-In Figure~\ref{lp-comp}, the detection rate is plotted against the difference for distance based on minimum separation, average separation and the binned distance. The  vertical line shows a difference equal to zero.  It can be seen that as the difference increases, the detection rate increases and all distances do a reasonably good job in capturing the response of the subjects, with average separation being a bit ahead in terms of AIC (AIC: \Sexpr{round(AIC(das), 1)}) 
-compared to minimal separation  (AIC: \Sexpr{round(AIC(dmin), 1)}) 
-and binned distance (AIC: \Sexpr{round(AIC(dbn), 1)}). \hh{While motivated from cognitive principles, Dunn separation comes in at a  surprising(?) last place (AIC: \Sexpr{round(AIC(ddunn), 1)}).  }
+In Figure~\ref{lp-comp}, the detection rate is plotted against the difference for distance based on minimum separation, average separation and the binned distance. The  vertical line shows a difference equal to zero.  It can be seen that as the difference increases, the detection rate increases and all distances do a reasonably good job in capturing the response of the subjects. In terms of the logistic regression fit to the data, average separation is a bit ahead according to AIC (AIC: \Sexpr{round(AIC(das), 1)}) 
+compared to minimal separation  (AIC: \Sexpr{round(AIC(dms), 1)}) 
+and binned distance (AIC: \Sexpr{round(AIC(dbn), 1)}). Dunn separation, motivated from cognitive perception, comes in at a surprising(?) last place (AIC: \Sexpr{round(AIC(ddunn), 1)}).
 
 In (b) it can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, a large number of the subjects identify the observed plot although there is more extreme null plots. 
 
@@ -1981,7 +1983,7 @@ submetrics <- subset(submetrics, pos.1 != pos.2 & pos.2 != pos)
 dd3 <- submetrics %>% group_by(pos.1) %>% summarize(
   dbn.mean = mean(dbn),
   das.mean =  mean(das),
-  dms.mean = mean(das),
+  dms.mean = mean(dms),
   dmin.mean = mean(dmin),
   ddunn.mean = mean(ddunn),
   len=n())
@@ -2048,24 +2050,25 @@ ggplot() +
 \caption{Minimum Separation}
 %\includegraphics[width=\textwidth]{distribution-min-sep-dist-lpexp.pdf}
 <<min_sep, echo=FALSE, dependson='dist-prep-t7', out.width = '\\textwidth', fig.width=4.5, fig.height=4>>=
-ymax <- max(density(dists$dmin)$y)
+#ymax <- max(density(dists$dmin)$y)
+ymax <- max(density(dists$dms)$y)
 
 ggplot() + 
-  geom_density(data = dists, aes(x = dmin), 
+  geom_density(data = dists, aes(x = dms), 
                fill = "grey80", col = "grey80" ) +
   xlab("") + ylab("")  +
   geom_segment(data = subset(dd3, len != 19), 
-               aes(x = dmin.mean, xend = dmin.mean, 
+               aes(x = dms.mean, xend = dms.mean, 
                    y = rep(0.005*ymax,19), yend = rep(0.1*ymax,19)), 
                size=1, alpha = I(0.7)) + 
   geom_segment(data = subset(dd3, len == 19), 
-               aes(x = dmin.mean, xend = dmin.mean, 
+               aes(x = dms.mean, xend = dms.mean, 
                    y = 0.005*ymax, yend = 0.2*ymax), 
                size=1, alpha = I(0.7), colour="darkorange") +
   geom_text(data = subset(dd3, len != 19), y = - 0.03*ymax, size = 2.5, 
-            aes(x = dmin.mean, label = pos.1)) +
+            aes(x = dms.mean, label = pos.1)) +
   geom_text(data = subset(dd3, len == 19), y = 0.25*ymax, size = 3, 
-            colour="darkorange", aes(x = dmin.mean, label = pos.1)) 
+            colour="darkorange", aes(x = dms.mean, label = pos.1)) 
 @
 \end{subfigure} 
 \begin{subfigure}[t]{0.3\textwidth}
@@ -2117,13 +2120,13 @@ ggplot() +
 \end{subfigure} 
 \end{subfigure}
 	\vspace{-.1in}
-\caption{Illustration of the behavior of different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics are shown in the other plots:  binned distance with 6 and 4 bins in x and y axis respectively in (b), distance based on \hh{minimum} separation in (c), distance based on \hh{average} separation in (d) \hh{and distance based on Dunn separation in (e)}. \hh{The reference distributions are based on 100 null sets of 19 nulls each, yielding 1,800 distances.}}
+\caption{Illustration of the behavior of different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics are shown in the other plots:  binned distance with 6 and 4 bins in x and y axis respectively in (b), distance based on minimum separation in (c), distance based on average separation in (d) and distance based on Dunn separation in (e). The reference distributions are based on 100 null sets of 19 nulls each, yielding 1,800 distances.}
 \label{lp-exp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 %\afterpage{\clearpage}
 
-Figure~\ref{lp-exp} shows the lineup in a high dimension, low sample size setting. The number of dimensions used is 100 and two of the dimensions have some separation. Plot \#20 shows the two-dimensional projections of the original data. This plot is, indeed, chosen in 13 out of 19 evaluations.  As the true plot does have real separation, it is to be expected that  subjects would be able to identify the plot. The distance based on average separation yields a negative difference showing that the lineup is difficult, while the distance based on minimum separation yields a positive difference. The distance metrics identify different characteristics in a plot. The average separation looks at the average of the distances of the points in a cluster to the points in other clusters.  \hh{Dunn separation performs very well in this example and correctly identifies the data panel as the panel with the strongest signal.} \hh{While the binned distance shows plot \#20 as the one with the largest distance, this should be taken with care, because binned distance is, unlike the other two distances, not rotation invariant. In the case of plot \#20 the large distance merely indicates the difference in the arrangement of the clusters rather than their separation.}
+Figure~\ref{lp-exp} shows the lineup in a high dimension, low sample size setting. The number of dimensions used is 100 and two of the dimensions have some separation. Plot \#20 shows the two-dimensional projections of the original data. This plot is, indeed, chosen in 13 out of 19 evaluations.  As the true plot does have real separation, it is to be expected that  subjects would be able to identify the plot. The distance based on average separation yields a negative difference showing that the lineup is difficult, while the distance based on minimum separation yields a positive difference. The distance metrics identify different characteristics in a plot. The average separation looks at the average of the distances of the points in a cluster to the points in other clusters.  Dunn separation performs very well in this example and correctly identifies the data panel as the panel with the strongest signal. While the binned distance shows plot \#20 as the one with the largest distance, this should be taken with care, because binned distance is, unlike the other two distances, not rotation invariant. In the case of plot \#20 the large distance merely indicates the difference in the arrangement of the clusters rather than their separation.
 
 
 \section{Conclusion}
@@ -2731,7 +2734,8 @@ What we see in each of the experiments is that the general approach of the binne
 
 \begin{description}
 
-\item[R-package nullabor:] R-package {\tt nullabor} containing code to create lineups and calculate the distance measures described in the article.  Available on CRAN \citep{CRAN}, with development versions at \url{https://github.com/dicook/nullabor}.
+\item[Software:] R-package {\tt nullabor} containing code to create lineups and calculate the distance measures described in the article.  Available on CRAN \citep{CRAN}, with development versions at \url{https://github.com/dicook/nullabor}. 
+\item[Reproducibility:] All the code and anonymized data used in this analysis is available at \url{https://github.com/niladrir/metrics-paper}.
 
 \end{description}
 
