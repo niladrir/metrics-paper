@@ -352,7 +352,7 @@ Let $X_1$ and $X_2$ be two continuous variable. Let $X_3$ be a categorical varia
  \item[(i)] {\bf Minimum separation:} let  $s_{m}(.)$ be a vector of the minimum distance of a point in the cluster to a point in any of the other $g-1$ clusters. 
  The distance metric based on minimal separation is an average of these intercluster minima, defined as
  \[
- d^2_{MS}(X, Y):= ||s_m(X) - s_m(Y)||^2 = \sum_{i = 1}^g ((s_m(X))_i - (s_m(Y))_i)^2.
+ d^2_{MS}(X, Y):= ||s_m(X) - s_m(Y)||^2 = \sum_{i = 1}^{g-1} ((s_m(X))_i - (s_m(Y))_i)^2.
  \]
 
 %\item[(i)] {\bf Minimum separation:} let  $s_{m}(.)$ be %a vector of 
