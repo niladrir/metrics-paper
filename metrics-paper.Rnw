@@ -1949,7 +1949,7 @@ ggplot(aes(x=value, y=prop), data=prop.grtr.m) +
 
 In Figure~\ref{lp-comp}, the detection rate is plotted against the difference for distance based on minimum separation, average separation and the binned distance. The  vertical line shows a difference equal to zero.  It can be seen that as the difference increases, the detection rate increases and all distances do a reasonably good job in capturing the response of the subjects. In terms of the logistic regression fit to the data, average separation is a bit ahead according to AIC (AIC: \Sexpr{round(AIC(das), 1)}) 
 compared to minimal separation  (AIC: \Sexpr{round(AIC(dms), 1)}) 
-and binned distance (AIC: \Sexpr{round(AIC(dbn), 1)}). Dunn separation, motivated from cognitive perception, comes in at a surprising last place (AIC: \Sexpr{round(AIC(ddunn), 1)}).
+and binned distance (AIC: \Sexpr{round(AIC(dbn), 1)}). Dunn separation, motivated from cognitive perception, comes in at a maybe surprising last place (AIC: \Sexpr{round(AIC(ddunn), 1)}).
 
 In (b) it can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, a large number of the subjects identify the observed plot although there is more extreme null plots. 
 
