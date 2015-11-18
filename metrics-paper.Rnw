@@ -65,7 +65,7 @@
   \title{\bf Distance Metrics to Examine What People Read From Data Plots}
 \author{Niladri Roy Chowdhury\thanks{
     The authors gratefully acknowledge funding from the National Science Foundation Grant DMS \#1007697. All data collection has been conducted with approval from the Institutional Review Board IRB 10-347.}\hspace{.2cm}\\
-    Novartis, Cambridge MA\\
+    Novartis Institutes for Biomedical Research, Cambridge MA\\
     and \\
     Dianne Cook\\
     Department of Econometrics and Business Statistics, Monash University \\
@@ -113,6 +113,7 @@ Graphics play a crucial role in statistical analysis and data mining. Being able
 <<setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE>>=
 library(reshape2)
 suppressMessages(library(ggplot2))
+library(fpc)
 library(grid)
 library(nullabor)
 library(dplyr)
@@ -392,7 +393,7 @@ Figure~\ref{sep-dist} illustrates the different distance metrics for cluster sep
 <<data-prep-ex, echo=FALSE>>=
 dat <- read.table("data/turk7/dat_large_p_small_n_30_40_0_2_3.txt", header = T)
 five <- subset(dat, .sample == 5)
-library(fpc)
+#library(fpc)
 cstats <- cluster.stats(dist(five[,1:2]), clustering = five$cl)
 @
 \centering
@@ -1948,7 +1949,7 @@ ggplot(aes(x=value, y=prop), data=prop.grtr.m) +
 
 In Figure~\ref{lp-comp}, the detection rate is plotted against the difference for distance based on minimum separation, average separation and the binned distance. The  vertical line shows a difference equal to zero.  It can be seen that as the difference increases, the detection rate increases and all distances do a reasonably good job in capturing the response of the subjects. In terms of the logistic regression fit to the data, average separation is a bit ahead according to AIC (AIC: \Sexpr{round(AIC(das), 1)}) 
 compared to minimal separation  (AIC: \Sexpr{round(AIC(dms), 1)}) 
-and binned distance (AIC: \Sexpr{round(AIC(dbn), 1)}). Dunn separation, motivated from cognitive perception, comes in at a surprising(?) last place (AIC: \Sexpr{round(AIC(ddunn), 1)}).
+and binned distance (AIC: \Sexpr{round(AIC(dbn), 1)}). Dunn separation, motivated from cognitive perception, comes in at a surprising last place (AIC: \Sexpr{round(AIC(ddunn), 1)}).
 
 In (b) it can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, a large number of the subjects identify the observed plot although there is more extreme null plots. 
 
