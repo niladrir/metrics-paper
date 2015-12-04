@@ -65,7 +65,7 @@
   \title{\bf Distance Metrics to Examine What People Read From Data Plots}
 \author{Niladri Roy Chowdhury\thanks{
     The authors gratefully acknowledge funding from the National Science Foundation Grant DMS \#1007697. All data collection has been conducted with approval from the Institutional Review Board IRB 10-347.}\hspace{.2cm}\\
-    Novartis Institutes for Biomedical Research, Cambridge MA\\
+    Biometrics and Data Management, Novartis Oncology\\
     and \\
     Dianne Cook\\
     Department of Econometrics and Business Statistics, Monash University \\
