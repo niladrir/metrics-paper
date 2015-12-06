@@ -100,7 +100,7 @@ Graphics play a crucial role in statistical analysis and data mining. Being able
 
 \newpage
 \spacingset{1.45} % DON'T change the spacing!
-\tableofcontents
+%\tableofcontents
 \newpage
 %{\color{red} Key Ideas:
 % \begin{itemize}
