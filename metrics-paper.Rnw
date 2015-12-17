@@ -63,18 +63,18 @@
 \if0\blind
 {
   \title{\bf Distance Metrics to Examine What People Read From Data Plots}
-\author{Niladri Roy Chowdhury\thanks{
-    The authors gratefully acknowledge funding from the National Science Foundation Grant DMS \#1007697. All data collection has been conducted with approval from the Institutional Review Board IRB 10-347.}\hspace{.2cm}\\
-    Biometrics and Data Management, Novartis Oncology\\
-    and \\
-    Dianne Cook\\
-    Department of Econometrics and Business Statistics, Monash University \\
-    and\\
-    Heike Hofmann\\ 
-    Department of Statistics and Statistical Laboratory, Iowa State University\\
-    and\\
-    Mahbubul Majumder\\ 
-    Department of Mathematics, University of Nebraska--Omaha\\}
+% \author{Niladri Roy Chowdhury\thanks{
+%     The authors gratefully acknowledge funding from the National Science Foundation Grant DMS \#1007697. All data collection has been conducted with approval from the Institutional Review Board IRB 10-347.}\hspace{.2cm}\\
+%     Biometrics and Data Management, Novartis Oncology\\
+%     and \\
+%     Dianne Cook\\
+%     Department of Econometrics and Business Statistics, Monash University \\
+%     and\\
+%     Heike Hofmann\\ 
+%     Department of Statistics and Statistical Laboratory, Iowa State University\\
+%     and\\
+%     Mahbubul Majumder\\ 
+%     Department of Mathematics, University of Nebraska--Omaha\\}
   \maketitle
 } \fi
 
