@@ -102,6 +102,7 @@ Graphics play a crucial role in statistical analysis and data mining. Being able
 \spacingset{1.45} % DON'T change the spacing!
 %\tableofcontents
 \newpage
+\hh{things to do: add citations \citep{marron:1995} and \citep{hannig:2013} in the text.}
 %{\color{red} Key Ideas:
 % \begin{itemize}
 %\item Measure ease of a lineup (? signal strength.)
