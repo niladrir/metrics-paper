@@ -62,7 +62,7 @@
 
 \if0\blind
 {
-  \title{\bf Distance Metrics to Examine What People Read From Data Plots}
+  \title{\bf Using Distance Metrics to Examine How Subjects Read Data Plots in a Large Amazon Turk Study}
 \author{Niladri Roy Chowdhury\thanks{
     The authors gratefully acknowledge funding from the National Science Foundation Grant DMS \#1007697. All data collection has been conducted with approval from the Institutional Review Board IRB 10-347.}\hspace{.2cm}\\
     Biometrics and Data Management, Novartis Oncology\\
@@ -84,7 +84,7 @@
   \bigskip
   \bigskip
   \begin{center}
-    {\LARGE\bf Distance Metrics to Examine What People Read From Data Plots}
+    {\LARGE\bf Using Distance Metrics to Examine How Subjects Read Data Plots in a Large Amazon Turk Study}
 \end{center}
   \medskip
 } \fi
@@ -105,14 +105,19 @@ Graphics play a crucial role in statistical analysis and data mining. Being able
 \hh{things to do:
 \begin{itemize}
 \item reduce paper to 30 pages + appendix (from 40 pages + 3 pages of appendix): strategy: explain first example in detail, include only conclusions for the other two examples, put supporting material into the appendix
+\dc{Di suggests the intro could be reduced, remove the Tukey quote, tighten up the distance descriptions but keep the plots, maybe fig 7, fig 14 could be moved to appendix}
 \item restructure introduction:
 include findings from previous studies, such as permutation-invariance; 
 include description of how data is collected; 
 \item be more precise in lineup description: null hypotheses
 
-\item add citations \citep{marron:1995} and \citep{hannig:2013} in the text.
+\item add citations \citep{marron:1995} and \citep{hannig:2013} in the text
+\item title change
+\item conclusions don't match results, the specialist metric does not always ourperform the binned
 \end{itemize}
 }
+
+\newpage
 %{\color{red} Key Ideas:
 % \begin{itemize}
 %\item Measure ease of a lineup (? signal strength.)
