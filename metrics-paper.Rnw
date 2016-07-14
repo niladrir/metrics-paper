@@ -102,7 +102,17 @@ Graphics play a crucial role in statistical analysis and data mining. Being able
 \spacingset{1.45} % DON'T change the spacing!
 %\tableofcontents
 \newpage
-\hh{things to do: add citations \citep{marron:1995} and \citep{hannig:2013} in the text.}
+\hh{things to do:
+\begin{itemize}
+\item reduce paper to 30 pages + appendix (from 40 pages + 3 pages of appendix): strategy: explain first example in detail, include only conclusions for the other two examples, put supporting material into the appendix
+\item restructure introduction:
+include findings from previous studies, such as permutation-invariance; 
+include description of how data is collected; 
+\item be more precise in lineup description: null hypotheses
+
+\item add citations \citep{marron:1995} and \citep{hannig:2013} in the text.
+\end{itemize}
+}
 %{\color{red} Key Ideas:
 % \begin{itemize}
 %\item Measure ease of a lineup (? signal strength.)
