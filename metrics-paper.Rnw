@@ -62,7 +62,7 @@
 
 \if0\blind
 {
-  \title{\bf Using Distance Metrics to Examine How Subjects Read Data Plots in a Large Amazon Turk Study}
+  \title{\bf Measuring Lineup Difficulty By Matching Distance Metrics with Subject Choices with Crowd-Sourced Data}
 \author{Niladri Roy Chowdhury\thanks{
     The authors gratefully acknowledge funding from the National Science Foundation Grant DMS \#1007697. All data collection has been conducted with approval from the Institutional Review Board IRB 10-347.}\hspace{.2cm}\\
     Biometrics and Data Management, Novartis Oncology\\
