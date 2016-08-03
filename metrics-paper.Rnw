@@ -113,7 +113,7 @@ include description of how data is collected;
 
 \item add citations \citep{marron:1995} and \citep{hannig:2013} in the text
 \item title change
-\item conclusions don't match results, the specialist metric does not always ourperform the binned
+\item conclusions don't match results, the specialist metric does not always outperform the binned
 \end{itemize}
 }
 
