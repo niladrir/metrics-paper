@@ -113,8 +113,8 @@ include findings from previous studies, such as permutation-invariance;
 include description of how data is collected; 
 \item be more precise in lineup description: null hypotheses
 
-\item add citations \citep{marron:1995} and \citep{hannig:2013} in the text
-\item title change
+\item add citations \citep{marron:1995} and \citep{hannig:2013} in the text - pbly conclusions because these studies could benefit from the lineup protocol to vouch that the error metrics would be better than MSE for getting model fit to look more like we'd expect by eye
+\item title change \dc{DONE}
 \item conclusions don't match results, the specialist metric does not always outperform the binned
 \end{itemize}
 }
@@ -184,7 +184,7 @@ $$H_o : \beta_k = 0 \qquad \qquad \hbox{vs} \qquad \qquad H_A: \beta_k \ne 0$$
 <<turk2, echo=FALSE, results='hide'>>=
 turk2 <- read.csv("data/raw_data_turk2.csv")
 lp <- subset(turk2, pic_name == "plot_turk2_100_450_12_3.png")
-lpu <- unique(lp[,c("id", "response", "ip_address", "response_no", "plot_location")])
+lpu <- unique(lp[,c("id", "response", "response_no", "plot_location")])
 @
 The plot of the true data is randomly placed among a set of ($m$ - 1) null plots to produce a lineup of size $m$. Rather than to identify the most different plot, human subjects are asked to identify the plot with the steepest slope from the lineup of Figure~\ref{lineup-example}. If the human subjects can identify the plot of the true data, we reject the null hypothesis and conclude that there is a significant linear relationship between $Y$ and $X_k$. 
 For the example of this lineup \Sexpr{sum(lpu$response)} out of \Sexpr{nrow(lpu)} observers correctly identify plot~\#2 as the data plot, providing very strong evidence of a linear relationship.
@@ -1134,7 +1134,7 @@ levels(lineup.dat$group) <- c("A", "B")
 
 ### Number of picks by observers
 res.exp1 <- read.csv("data/raw_data_turk1.csv")
-lpsub <- unique(subset(res.exp1, pic_name=="plot_turk1_100_8_12_2.png")[,c("response", "ip_address", "response_no")])
+lpsub <- unique(subset(res.exp1, pic_name=="plot_turk1_100_8_12_2.png")[,c("response", "response_no")])
 dt <- as.data.frame(xtabs(~response_no, data=lpsub))
 names(dt) <- c(".sample", "picks")
 picks <- data.frame(.sample=1:20)
@@ -1610,7 +1610,7 @@ dd3 <- metrics.dat %>% group_by(pos.1) %>% summarize(
 
 ### Number of picks by observers
 res.exp2 <- read.csv("data/raw_data_turk2.csv")
-lpsub <- unique(subset(res.exp2, pic_name=="plot_turk2_100_350_12_3.png")[,c("response", "ip_address", "response_no")])
+lpsub <- unique(subset(res.exp2, pic_name=="plot_turk2_100_350_12_3.png")[,c("response", "response_no")])
 dt <- as.data.frame(xtabs(~response_no, data=lpsub))
 names(dt) <- c(".sample", "picks")
 picks <- data.frame(.sample=1:20)
