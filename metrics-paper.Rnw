@@ -106,6 +106,8 @@ Graphics play a crucial role in statistical analysis and data mining. Being able
 \begin{itemize}
 \item reduce paper to 30 pages + appendix (from 40 pages + 3 pages of appendix): strategy: explain first example in detail, include only conclusions for the other two examples, put supporting material into the appendix
 \dc{Di suggests the intro could be reduced, remove the Tukey quote, tighten up the distance descriptions but keep the plots, maybe fig 7, fig 14 could be moved to appendix}
+\dc{Keep emphasis on sampling distribution, and re-state this in conclusions}
+\dc{Explain the Turk studies in the intro}
 \item restructure introduction:
 include findings from previous studies, such as permutation-invariance; 
 include description of how data is collected; 
