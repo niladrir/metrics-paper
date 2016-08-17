@@ -84,14 +84,14 @@
   \bigskip
   \bigskip
   \begin{center}
-    {\LARGE\bf Using Distance Metrics to Examine How Subjects Read Data Plots in a Large Amazon Turk Study}
+    {\LARGE\bf  Measuring Lineup Difficulty By Matching Distance Metrics with Subject Choices with Crowd-Sourced Data}
 \end{center}
   \medskip
 } \fi
 
 \bigskip
 \begin{abstract}
-Graphics play a crucial role in statistical analysis and data mining. Being able to quantify structure in data that is visible in plots, and how people read the structure from plots is an ongoing challenge. This paper describes metrics developed to assist with this, and utilizes them to evaluate how people select plots from lineups used for visual inference. Lineups embed the plot of the data among a set of null plots, and engage a human observer determine whether the data plot is different from the nulls. The data plot is treated like a test statistic, and protocol acts like a comparison with the sampling distribution of the nulls.  Metrics are calculated in association with lineups to help understand what people see in the data plots, and assess the quality of a lineup, because the null plots represent a finite sample from a null distribution, and this finiteness may affect how observers read the lineups. The distance metrics are designed to describe how different the data plot is from the null plots, and the null plots from each other. Analysis of the distance metrics was conducted on data collected through a large number of Amazon Turk studies that have used the lineup protocol for studying an array of data analysis tasks.
+\dc{Revisit: Graphics play a crucial role in statistical analysis and data mining. Being able to quantify structure in data that is visible in plots, and how people read the structure from plots is an ongoing challenge. This paper describes metrics developed to assist with this, and utilizes them to evaluate how people select plots from lineups used for visual inference. Lineups embed the plot of the data among a set of null plots, and engage a human observer determine whether the data plot is different from the nulls. The data plot is treated like a test statistic, and protocol acts like a comparison with the sampling distribution of the nulls.  Metrics are calculated in association with lineups to help understand what people see in the data plots, and assess the quality of a lineup, because the null plots represent a finite sample from a null distribution, and this finiteness may affect how observers read the lineups. The distance metrics are designed to describe how different the data plot is from the null plots, and the null plots from each other. Analysis of the distance metrics was conducted on data collected through a large number of Amazon Turk studies that have used the lineup protocol for studying an array of data analysis tasks.}
 \end{abstract}
 
 \noindent%
@@ -142,20 +142,15 @@ theme_lineup <- theme(axis.text = element_blank(),
 @
 
 \section{Introduction} 
-Graphics are an important component of big data analysis, providing a mechanism for discovering unexpected patterns in data. Pioneering research by \citet{gelman:2004}, \citet{buja:2009} and \citet{majumder:2011} provide methods to quantify the significance of discoveries made from visualizations. %Although, there have been major advances in statistical graphics over the years, for example, systems like R \citep{R} provide high quality static graphics, and very recently some access to interactive graphics. But the problem remains that graphics are not widely considered to be a part of inferential statistics. 
-\citet{buja:2009} introduced two protocols, the Rorschach and the lineup protocol, which bridge the gulf between traditional statistical inference and exploratory data analysis. The Rorschach protocol consists of a set of $m$ (usually, $m=20$) plots (called the {\it null plots}) rendered from data that is consistent with a given null model. That way, the Rorschach protocol helps to understand the extent of randomness in the null model. Under the lineup protocol, a plot of the observed data is placed randomly among a set of $m-1$ null plots.
-Human observers are then asked to  examine the lineup and to identify the most different plot. If observers identify the data plot, this is quantifiable evidence against the null hypothesis. 
-The lineup protocol places a statistical plot firmly in the framework of hypothesis tests: a plot of the data is considered to be the test statistic, which is compared against the sampling distribution under the null hypothesis represented by the null plots. 
-Obviously, the null generating mechanism, i.e.\ the method of obtaining the data for null plots, is crucial for both the lineup and the Rorschach protocol. 
-The null hypothesis directly affects the choice of null generating method. 
-Null generating methods are typically based on (a) simulation, if the null hypothesis allows us to directly specify a parametric model, (b) sampling, as for example in the case of large data sets, or (c) permutation of the original data \citep[see e.g.\ ][]{Good05}, which allows for non-parametric testing  that preserves marginal distributions  while ensuring independence in higher dimensions. 
-%In the experimental data that we analyzed the null generating methods used were permutation methods and direct simulation from a null model.
+The lineup protocol was introduced by \citet{buja:2009} to bring data visualisation into the formal statistical inference framework. The fundamental idea is that a data plot is a test statistic, for a null hypothesis that is often implicitly specified by the choice of plot. Crowd-sourcing can be used to evaluate how far the data plot (test statistic) is from null plots. If the data plot is discoverable it is evidence against the null hypothesis. It would seem obvious that metrics might be also applied to comparing differences between plots that eventually may be used to supplant the crowd-sourcing, or to understand how the human visual system processes data plots. This paper explores the relationship between some common metrics for images with what subjects selected in several large Amazon Turk~(MTurk)~\citep{turk} crowd-sourcing studies that utilised the lineup protocol.
 
-The lineup protocol was formally tested in a head-to-head comparison with the equivalent conventional test in \citet{majumder:2011}. The experiment utilized human subjects from Amazon's Mechanical Turk \citep{turk} and used simulation to control conditions. The results suggest that  visual inference is comparable to conventional tests in a controlled conventional setting. This provides support for its appropriateness for testing in real exploratory situations where no conventional test exists. Interestingly, the power of a visual test increases with the number of observers engaged to evaluate lineups, and the pattern in results suggests that the power will provide results consistent with practical significance \citep{kirk:1996}.
-
-
-Figure~\ref{lineup-example} gives an example of one of the lineups used in a head-to-head comparison with classical testing (results are discussed in more detail in section~\ref{sec:turk2}). 
-\begin{figure}[hbtp]
+<<turk2, echo=FALSE, results='hide'>>=
+turk2 <- read.csv("data/raw_data_turk2.csv")
+lp <- subset(turk2, pic_name == "plot_turk2_100_450_12_3.png")
+lpu <- unique(lp[,c("id", "response", "response_no", "plot_location")])
+@
+Figure~\ref{lineup-example} shows a lineup from a study described in \citet{majumder:2011}. It is based on simulated data to examine the similarity of results derived from the lineup protocol and those derived from a classical $t$-test. Pseudo-data plots were generated with specific structure in a linear model, controlling $\beta_k, \sigma, n$ (slope, variation and sample size). And null plots were generated from a null hypothesis $\beta_k=0$. In this field of plots one is a pseudo-data plot, $\beta_k\neq 0$, and the remaining 19 are null plots. Subjects were asked a very specific question in this study -- ``Which plot has the steepest slope?'' -- in order to make comparisons with the classical test. (In practice, when using the lineup protocol, subjects are generically asked to select the plot that is most different from the others, so that the value of graphics to discover the unexpected can be utilized.) The pseudo-data plot in this lineup is \#2. In the Turk study, \Sexpr{sum(lpu$response)} out of \Sexpr{nrow(lpu)} subjects selected this plot. This would produce a (visual) $p$-value of 0, leading to the conclusion that the null hypothesis should be rejected. 
+\begin{figure}[!t]
 \centering
 % This is a lineup from plot_turk2_100_450_12_3.png
 <<lineup, dependson='setup', fig.width=6, fig.height=6, out.width='0.7\\textwidth', echo=FALSE>>=
@@ -168,29 +163,12 @@ qplot(X, value, data=mlps, alpha=I(0.5), facets=~variable, size=I(2.5)) +
   theme_lineup + theme(aspect.ratio=1)
 @
 %\centerline{\includegraphics[width=.8\textwidth]{lineup-protocol-example.pdf}}
-\caption{Lineup plot of size $m = 20$ of scatterplots with overlaid regression line. This tests $H_o: \beta_k = 0$, where covariate $X_k$ is continuous. One of the plots in the lineup is the plot of the true data. The other plots are null plots generated by simulating data from a null model that assumes that the null hypothesis is true. Can you identify the plot with the steepest slope? }
+\caption{Example lineup plot of size $m = 20$ of scatterplots with overlaid regression line, fro a simulation study to compare the protocol with the classical $t-$test of $H_o: \beta_k = 0$, where covariate $X_k$ is continuous. One of the plots in the lineup is the plot of the pseudo-data, generated from a model where $\beta_k\neq 0$, and the others are null plots generated by simulating data from the null distribution $\beta_k = 0$. Which plot has the steepest slope? }
 \label{lineup-example}
 \end{figure}
-%
-Suppose we have the following statistical model
-%
-$$Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \dots + \epsilon_i$$
-%
-\noindent and we are interested in testing the following hypothesis:
-%
-$$H_o : \beta_k = 0 \qquad \qquad \hbox{vs} \qquad \qquad H_A: \beta_k \ne 0$$
-%
-\noindent where $X_k$ is a continuous covariate. Assume, the data plot is a scatterplot of $Y$ against $X_k$ with a regression line overlaid. We can generate null plots from rendering simulating data from $N(X\hat{\beta}, \hat{\sigma}^2)$ and plotting using the same scatterplot method as the true data, where parameter estimates ($\hat{\beta}, \hat{\sigma}^2$) are obtained by fitting the null model to the true data. 
-<<turk2, echo=FALSE, results='hide'>>=
-turk2 <- read.csv("data/raw_data_turk2.csv")
-lp <- subset(turk2, pic_name == "plot_turk2_100_450_12_3.png")
-lpu <- unique(lp[,c("id", "response", "response_no", "plot_location")])
-@
-The plot of the true data is randomly placed among a set of ($m$ - 1) null plots to produce a lineup of size $m$. Rather than to identify the most different plot, human subjects are asked to identify the plot with the steepest slope from the lineup of Figure~\ref{lineup-example}. If the human subjects can identify the plot of the true data, we reject the null hypothesis and conclude that there is a significant linear relationship between $Y$ and $X_k$. 
-For the example of this lineup \Sexpr{sum(lpu$response)} out of \Sexpr{nrow(lpu)} observers correctly identify plot~\#2 as the data plot, providing very strong evidence of a linear relationship.
 
-In traditional hypothesis testing, the sampling distribution of a test statistic is functional and continuous. In the lineup protocol, although conceptually we may have an infinite collection of plots from the null distribution, in practice, we can only evaluate against a finite number of null plots. A human judge has a physical limit on the number of plots they can peruse. This poses one of the issues with using the lineup protocol.  Figure~\ref{compare} illustrates the difference. In traditional inference, the black curve represents the sampling distribution for the $t$-distribution under the null hypothesis, and the shaded red area shows the rejection region. 
-\begin{figure}[hbtp]
+Figure~\ref{compare} illustrates the difference between the classical test, and the lineup protocol, for the example shown in Figure~\ref{lineup-example}. In the lineup protocol, a finite set of draws from the sampling distribution is used for comparison, as opposed to the full distribution for the classical test. To be clear, in practice we do not know the sampling distribution -- this is a special case, where the lineup was produced under a classical scenario, and we know where the pseudo-data plot and the null plots fall in regard to the known sampling distribution. Also, in practice with crowd-sourcing many lineups can be generated, so the data plot can be compared to more than 19 nulls. The left plot shows the classical testing setup, where the null hypothesis is rejected is the calculated test statistic falls in the shaded region. In contrast, with the lineup protocol, the null hypothesis is rejected in the human observers unqeuivocally identify the data plot. In this example, we would expect the observers would identify the data plot, marked by \#~16, because it corresponds to as extreme value on the sampling distribution. 
+\begin{figure}[!t]
 \centering
 \begin{subfigure}[t]{0.49\textwidth}
   \caption{Classical Inference}
@@ -203,23 +181,80 @@ In traditional hypothesis testing, the sampling distribution of a test statistic
   \includegraphics[width=\textwidth]{visual-inference-plot-1.pdf}
 \end{subfigure}
 \vspace{-.2in}
-\caption{If the lineup protocol was to be used instead of classical inference this is what it would look like. (a) Rejection region (shaded in red) for classical inference for $H_0: \mu=\mu_0$ vs $H_a:\mu>\mu_0$  and (b) values corresponding to the true value (red) and the null plots (blue) in a single lineup of size $m=20$ that would be used to test the same null hypothesis.  The actual  data plot is extreme relative to the null plots, and observers would likely be able to pick it out, resulting in a decision to reject the null hypothesis. In practice, the lineup protocol would not be used if a classical test can be used.} 
+\caption{If the lineup protocol was to be used instead of classical inference this is what it would look like. (a) Rejection region (shaded in red) for classical inference for $H_0: \mu=\mu_0$ vs $H_a:\mu>\mu_0$  and (b) values corresponding to the true value (red) and the null plots (blue) in a single lineup of size $m=20$ that would be used to test the same null hypothesis.  The actual  data plot is extreme relative to the null plots, and observers would likely be able to pick it out, resulting in a decision to reject the null hypothesis. In practice, the lineup protocol would not be used if a classical test can be used. \dc{Can these be generated on the fly, and then the values from lineup in Fig 1 used for the right plot.}} 
 \label{compare}
 \end{figure}
 
+To date, more than 20 studies have been conducted utilizing the lineup protocol, primarily using MTurk. The first three experiments (described in \citet{majumder:2011}) compared the protocol to classical tests associated with fitting linear models. A later experiment examined the use of the protocol for detecting clusters in high-dimensional data \citep{roychowdhury:2013}. Combined \dc{XXX} subjects examined \dc{XXX} lineups. It is the data from these experiments (Table \ref{tbl:visual_stat}) that we now examine with a different purpose, to assess how distance metrics compare with human evaluation. The questions arising from these studies are: 
 
-Plots are used as test statistics in visual inference, which are, unlike their traditional counterparts, not simple numbers but more complex entities. We can, however, calculate the value of the test statistic based on the data underlying the true plot, as well as the corresponding value for each of the null plots.
-These values are shown using the red bar (data plot) and the blue bars (null plots) in Figure~\ref{compare}.
-Effectively,  in visual inference the red line is compared  to only these finite number of blue lines  to make a decision, unlike classical inference where we look at the rejection region (Figure~\ref{compare}) to make decisions. Even though the data plot might be extreme, it is possible by randomly selecting from the null distribution, to obtain a null plot that is more extreme, as Tukey suggested \citep{fernholz03}:
+\begin{itemize} \itemsep 0in
+  \item Can we get the computer do as a human does, using distance metrics applied to data plots?
+  \item Do some distance metrics match how subjects choose plots better than others?
+  \item Could distance metrics be used as a first pass in designing simulation experiments for the lineup protocol to group lineups into levels of ``easy'', ``moderate'', ``difficult''?
+\end{itemize}
 
-\begin{quotation}
-``There [in Tukey's Data Analysis class] I discovered that [...]  a random sample is indeed a ``batch of values'' which ``fail to be utopian'' most of the time.''
-\end{quotation}
+\begin{table*}[hbtp] 
+\centering 
+\caption{Overview of the three Turk experiments, from which data was included to investigate distance metrics and how subjects read the plots. } 
+\begin{tabular}{m{.8cm}m{3.25cm}m{2cm}m{.5\textwidth}} 
+\hline\hline 
+ ID & Experiment & Test Statistic  & Lineup question \\ [0.5ex] % inserts table %heading 
+\hline 
+I  & Box plot & \begin{minipage}[c]{2cm} \begin{center}	\scalebox{0.12}{\includegraphics{stat_category1.pdf}} \end{center} \end{minipage} & Which set of box plots shows biggest vertical difference 
+between group A and B? \citep{majumder:2011} \\
+II &  Scatter plot & \begin{minipage}[c]{2cm}  \begin{center} \scalebox{0.3}{\includegraphics{stat_beta_k1.png}} \end{center} \end{minipage} & Of the scatter plots below which one shows data that has steepest slope? \citep{majumder:2011}\\
+III & Group separation & \begin{minipage}[c]{2cm} \begin{center}  \scalebox{0.4}{\includegraphics{stat_separation.pdf}} \end{center} \end{minipage} & Which of these plots has the most separation between the coloured groups?  \citep{roychowdhury:2013}\\
+\hline 
+\end{tabular}
+\label{tbl:visual_stat} 
+\end{table*} 
+
+The paper is organized as follows. %Section~\ref{sec:null} discusses the null generating mechanisms. 
+Section~\ref{sec:dists} starts by defining distance measures and discussing different choices of measures (see Section~\ref{sec:meas}). The distribution of the distance measures are studied in Section~\ref{sec:distri}. Section~\ref{sec:plot_type} describes the effect of the plot type and the question of interest on the distance measure while Section~\ref{sec:eval} talks about the distance evaluations. %In Section~\ref{sec:nbin}, the methods to select the number of bins for the binned distance is described. 
+Section~\ref{sec:results} presents a comparison of the distance measures to the performance of human subjects in several experiments conducted with MTurk.
+
+%%%%%
+%Graphics are an important component of big data analysis, providing a mechanism for discovering unexpected patterns in data. Pioneering research by \citet{gelman:2004}, \citet{buja:2009} and \citet{majumder:2011} provide methods to quantify the significance of discoveries made from visualizations. %Although, there have been major advances in statistical graphics over the years, for example, systems like R \citep{R} provide high quality static graphics, and very recently some access to interactive graphics. But the problem remains that graphics are not widely considered to be a part of inferential statistics. 
+%\citet{buja:2009} introduced two protocols, the Rorschach and the lineup protocol, which bridge the gulf between traditional statistical inference and exploratory data analysis. The Rorschach protocol consists of a set of $m$ (usually, $m=20$) plots (called the {\it null plots}) rendered from data that is consistent with a given null model. That way, the Rorschach protocol helps to understand the extent of randomness in the null model. Under the lineup protocol, a plot of the observed data is placed randomly among a set of $m-1$ null plots.
+%Human observers are then asked to  examine the lineup and to identify the most different plot. If observers identify the data plot, this is quantifiable evidence against the null hypothesis. 
+%The lineup protocol places a statistical plot firmly in the framework of hypothesis tests: a plot of the data is considered to be the test statistic, which is compared against the sampling distribution under the null hypothesis represented by the null plots. 
+%Obviously, the null generating mechanism, i.e.\ the method of obtaining the data for null plots, is crucial for both the lineup and the Rorschach protocol. 
+%The null hypothesis directly affects the choice of null generating method. 
+%Null generating methods are typically based on (a) simulation, if the null hypothesis allows us to directly specify a parametric model, (b) sampling, as for example in the case of large data sets, or (c) permutation of the original data \citep[see e.g.\ ][]{Good05}, which allows for non-parametric testing  that preserves marginal distributions  while ensuring independence in higher dimensions. 
+%In the experimental data that we analyzed the null generating methods used were permutation methods and direct simulation from a null model.
+
+%The lineup protocol was formally tested in a head-to-head comparison with the equivalent conventional test in \citet{majumder:2011}. The experiment utilized human subjects from Amazon's Mechanical Turk \citep{turk} and used simulation to control conditions. The results suggest that  visual inference is comparable to conventional tests in a controlled conventional setting. This provides support for its appropriateness for testing in real exploratory situations where no conventional test exists. Interestingly, the power of a visual test increases with the number of observers engaged to evaluate lineups, and the pattern in results suggests that the power will provide results consistent with practical significance \citep{kirk:1996}.
+
+
+%Figure~\ref{lineup-example} gives an example of one of the lineups used in a head-to-head comparison with classical testing (results are discussed in more detail in section~\ref{sec:turk2}). 
+%
+%Suppose we have the following statistical model
+%
+%$$Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \dots + \epsilon_i$$
+%
+%\noindent and we are interested in testing the following hypothesis:
+%
+%$$H_o : \beta_k = 0 \qquad \qquad \hbox{vs} \qquad \qquad H_A: \beta_k \ne 0$$
+%
+%\noindent where $X_k$ is a continuous covariate. Assume, the data plot is a scatterplot of $Y$ against $X_k$ with a regression line overlaid. We can generate null plots from rendering simulating data from $N(X\hat{\beta}, \hat{\sigma}^2)$ and plotting using the same scatterplot method as the true data, where parameter estimates ($\hat{\beta}, \hat{\sigma}^2$) are obtained by fitting the null model to the true data. 
+%The plot of the true data is randomly placed among a set of ($m$ - 1) null plots to produce a lineup of size $m$. Rather than to identify the most different plot, human subjects are asked to identify the plot with the steepest slope from the lineup of Figure~\ref{lineup-example}. If the human subjects can identify the plot of the true data, we reject the null hypothesis and conclude that there is a significant linear relationship between $Y$ and $X_k$. 
+%For the example of this lineup \Sexpr{sum(lpu$response)} out of \Sexpr{nrow(lpu)} observers correctly identify plot~\#2 as the data plot, providing very strong evidence of a linear relationship.
+
+%In traditional hypothesis testing, the sampling distribution of a test statistic is functional and continuous. In the lineup protocol, although conceptually we may have an infinite collection of plots from the null distribution, in practice, we can only evaluate against a finite number of null plots. A human judge has a physical limit on the number of plots they can peruse. This poses one of the issues with using the lineup protocol.  Figure~\ref{compare} illustrates the difference. In traditional inference, the black curve represents the sampling distribution for the $t$-distribution under the null hypothesis, and the shaded red area shows the rejection region. 
+
+
+%Plots are used as test statistics in visual inference, which are, unlike their traditional counterparts, not simple numbers but more complex entities. We can, however, calculate the value of the test statistic based on the data underlying the true plot, as well as the corresponding value for each of the null plots.
+%These values are shown using the red bar (data plot) and the blue bars (null plots) in Figure~\ref{compare}.
+%Effectively,  in visual inference the red line is compared  to only these finite number of blue lines  to make a decision, unlike classical inference where we look at the rejection region (Figure~\ref{compare}) to make decisions. Even though the data plot might be extreme, it is possible by randomly selecting from the null distribution, to obtain a null plot that is more extreme, as Tukey suggested \citep{fernholz03}:
+
+%\begin{quotation}
+%``There [in Tukey's Data Analysis class] I discovered that [...]  a random sample is indeed a ``batch of values'' which ``fail to be utopian'' most of the time.''
+%\end{quotation}
 
 
 %{\color{red}***Point 2: Use metrics to ensure that a range of comparisons is made available to observers}
 
-This can be partially solved by having a large number of observers, who each evaluate lineups constructed using different null plots. Having some idea of the type of coverage of the sampling distribution that is provided by the lineups would be useful ahead of engaging observers and evaluating the lineups. Could we say that lineup X is expected to be ``difficult'' but lineup Y is expected to be ``easy''? This information might then help in  planning other aspects of the experiment such as e.g.\ determining an appropriate number of observers. Intuitively, a difficult lineup is one where the data plot is similar to the null plots, while the data plot in an easy lineup  has some feature that makes it stand out from the null plots. Being able to compute a distance metric based on features of the plot would be very helpful ahead of running a lineup protocol.
+%This can be partially solved by having a large number of observers, who each evaluate lineups constructed using different null plots. Having some idea of the type of coverage of the sampling distribution that is provided by the lineups would be useful ahead of engaging observers and evaluating the lineups. Could we say that lineup X is expected to be ``difficult'' but lineup Y is expected to be ``easy''? This information might then help in  planning other aspects of the experiment such as e.g.\ determining an appropriate number of observers. Intuitively, a difficult lineup is one where the data plot is similar to the null plots, while the data plot in an easy lineup  has some feature that makes it stand out from the null plots. Being able to compute a distance metric based on features of the plot would be very helpful ahead of running a lineup protocol.
 
 %Researchers needs to provide a range of comparisons to observers to judge. An efficient design of experiment would be to provide a range of lineup plots with varying difficulty to the human subjects to look at. So far the difficulty of a lineup can be evaluated based on the performance of the subjects. The performance of the subjects can be analyzed after the experiment. But as a researcher, it would be interesting to have an idea about the difficulty of the lineups even before the experiment is conducted so the subjects see a set of lineups with varying difficulty. Distance metrics can be of great help in this case. 
 
@@ -228,15 +263,15 @@ This can be partially solved by having a large number of observers, who each eva
 
 %{\color{red} ***  Point 3: Metrics might replace human observers, eventually, but as of now, human eye can still beat numbers for finding unexpected patterns. The lineup protocol gives us a chance to evaluate metrics to finding unexpected structures - check out the scagnostics literature}
 
-This is a two way process: As metrics are devised to measure the quality of a lineup, the lineup protocol also provides an opportunity to measure the performance of a metric. The human eye can detect patterns in a plot that cannot be easily quantified numerically, which is why graphics provide an important tool for exploring data and finding the unexpected. Describing plots numerically, is something  of an oxymoron, it cannot be universally done. An example of past work are {\it scagnostics}, short for scatterplot cognostics \citep{tukey:1977}, which were further investigated in form of graph-based scagnostics \citep{wilkinson2005graph}. Both attempt to assess various aspects of scattered points like outliers, shape, trend, density and coherence.  If a scatterplot has just one of these structures the scagnostics are descriptive, however, they fail terribly if a plot contains more than one or an unforeseen feature instead. The goal here is to find  distance measures that can provide an indication of the quality of a lineup, and then to use the results of observer evaluation to determine which metrics best reflect what features of a plot people see and assess for their choice.
+%This is a two way process: As metrics are devised to measure the quality of a lineup, the lineup protocol also provides an opportunity to measure the performance of a metric. The human eye can detect patterns in a plot that cannot be easily quantified numerically, which is why graphics provide an important tool for exploring data and finding the unexpected. Describing plots numerically, is something  of an oxymoron, it cannot be universally done. An example of past work are {\it scagnostics}, short for scatterplot cognostics \citep{tukey:1977}, which were further investigated in form of graph-based scagnostics \citep{wilkinson2005graph}. Both attempt to assess various aspects of scattered points like outliers, shape, trend, density and coherence.  If a scatterplot has just one of these structures the scagnostics are descriptive, however, they fail terribly if a plot contains more than one or an unforeseen feature instead. The goal here is to find  distance measures that can provide an indication of the quality of a lineup, and then to use the results of observer evaluation to determine which metrics best reflect what features of a plot people see and assess for their choice.
 
 %{\color{red} *** Point 4: Metrics can help us understand what it is that people pick up on to trigger a detection of the data. Currently lineups rely on people verbally reporting why they picked a plot. }
 
-Following up on choices, observers are asked to describe their reasoning. These reasons are used to obtain more information about the rejection: was it some nonlinear dependency, an outlier, clustering or something else that triggered the detection of the data plot? Good distance metrics may also help to relate the descriptive words used to mathematically defined features. 
+%Following up on choices, observers are asked to describe their reasoning. These reasons are used to obtain more information about the rejection: was it some nonlinear dependency, an outlier, clustering or something else that triggered the detection of the data plot? Good distance metrics may also help to relate the descriptive words used to mathematically defined features. 
 
-The article is organized as follows. %Section~\ref{sec:null} discusses the null generating mechanisms. 
-Section~\ref{sec:dists} starts by  defining distance measures and discussing different choices of measures (see Section~\ref{sec:meas}). The distribution of the distance measures are studied in Section~\ref{sec:distri}. Section~\ref{sec:plot_type} describes the effect of the plot type and the question of interest on the distance measure while Section~\ref{sec:eval} talks about the distance evaluations. %In Section~\ref{sec:nbin}, the methods to select the number of bins for the binned distance is described. 
-Section~\ref{sec:results} presents a comparison of the distance measures to the performance of human subjects in several experiments conducted by Amazon's Mechanical Turk.
+%The article is organized as follows. %Section~\ref{sec:null} discusses the null generating mechanisms. 
+%Section~\ref{sec:dists} starts by  defining distance measures and discussing different choices of measures (see Section~\ref{sec:meas}). The distribution of the distance measures are studied in Section~\ref{sec:distri}. Section~\ref{sec:plot_type} describes the effect of the plot type and the question of interest on the distance measure while Section~\ref{sec:eval} talks about the distance evaluations. %In Section~\ref{sec:nbin}, the methods to select the number of bins for the binned distance is described. 
+%Section~\ref{sec:results} presents a comparison of the distance measures to the performance of human subjects in several experiments conducted by Amazon's Mechanical Turk.
 
 % We also calculate the distance matrices between the null plots to see how close are the null plots to each often. Finally a percentile value is calculated to find how often such a distance appears in a lineup and a z-score of the different distances is calculated to get a measure on the closeness between the null plot and the actual plot and also compare between two different lineups.  
 
@@ -919,22 +954,6 @@ Some experiments are used for evaluating the power of visual inference against t
 %\hh{XXX the 7 looks really unmotivated to a reader who is not intimately informed about our experiments. Do we need the numbers? Couldn't we switch to Exp I, Exp II and Exp III ? }
 
 %that are being used to evaluate the effects of observers' demographic factors on the inference. Table \ref{tbl:visual_stat} summarizes these experiments. Each of these experiments collected demographic details of the subjects. Experiments 5, 6 and 7 are used to study the learning trend of the observer. The design of experiment 9 incorporated components that allows position of the actual data plot in the lineup, and the sample of nulls, to be evaluated. Section~\ref{sec:factor_performance} discusses human factors that may affect the performance of the observer. Section~\ref{sec:exp_design} describes the methods used to assess the effects, and Section~\ref{sec:result_socio} describes the results.
-
-\begin{table*}[hbtp] 
-\centering 
-\caption{Overview of the three Turk experiments, from which data was included to investigate distance metrics and how subjects read the plots. } 
-\begin{tabular}{m{.8cm}m{3.25cm}m{2cm}m{.5\textwidth}} 
-\hline\hline 
- ID & Experiment & Test Statistic  & Lineup question \\ [0.5ex] % inserts table %heading 
-\hline 
-I  & Box plot & \begin{minipage}[c]{2cm} \begin{center}	\scalebox{0.12}{\includegraphics{stat_category1.pdf}} \end{center} \end{minipage} & Which set of box plots shows biggest vertical difference 
-between group A and B? \citep{majumder:2011} \\
-II &  Scatter plot & \begin{minipage}[c]{2cm}  \begin{center} \scalebox{0.3}{\includegraphics{stat_beta_k1.png}} \end{center} \end{minipage} & Of the scatter plots below which one shows data that has steepest slope? \citep{majumder:2011}\\
-III & Group separation & \begin{minipage}[c]{2cm} \begin{center}  \scalebox{0.4}{\includegraphics{stat_separation.pdf}} \end{center} \end{minipage} & Which of these plots has the most separation between the coloured groups?  \citep{roychowdhury:2013}\\
-\hline 
-\end{tabular}
-\label{tbl:visual_stat} 
-\end{table*} 
 
 We evaluated the performance of the distance metrics in each of the experiments by comparing  the distances to the responses from observers. 
 
@@ -2758,12 +2777,14 @@ What we see in each of the experiments is that the general approach of the binne
 
 \item[Software:] R-package {\tt nullabor} containing code to create lineups and calculate the distance measures described in the article.  Available on CRAN \citep{CRAN}, with development versions at \url{https://github.com/dicook/nullabor}. 
 \item[Reproducibility:] All the code and anonymized data used in this analysis is available at \url{https://github.com/niladrir/metrics-paper}.
+\item \dc{[Experiments:] Add the link to the experiments web site}  
 
 \end{description}
 
 \bibliographystyle{asa}
 \bibliography{references}
 
+\newpage
 \section*{Appendix}
 
 \subsection*{Effect of the Number of Bins on Distance} \label{sec:nbin}
