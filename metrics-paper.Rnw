@@ -149,7 +149,7 @@ turk2 <- read.csv("data/raw_data_turk2.csv")
 lp <- subset(turk2, pic_name == "plot_turk2_100_450_12_3.png")
 lpu <- unique(lp[,c("id", "response", "response_no", "plot_location")])
 @
-Figure~\ref{lineup-example} shows a lineup from a study described in \citet{majumder:2011}. It is based on simulated data to examine the similarity of results derived from the lineup protocol and those derived from a classical $t$-test. Pseudo-data plots were generated with specific structure in a linear model, controlling $\beta_k, \sigma, n$ (slope, variation and sample size). And null plots were generated from a null hypothesis $\beta_k=0$. In this field of plots one is a pseudo-data plot, $\beta_k\neq 0$, and the remaining 19 are null plots. Subjects were asked a very specific question in this study -- ``Which plot has the steepest slope?'' -- in order to make comparisons with the classical test. (In practice, when using the lineup protocol, subjects are generically asked to select the plot that is most different from the others, so that the value of graphics to discover the unexpected can be utilized.) The pseudo-data plot in this lineup is \#2. In the Turk study, \Sexpr{sum(lpu$response)} out of \Sexpr{nrow(lpu)} subjects selected this plot. This would produce a (visual) $p$-value of 0, leading to the conclusion that the null hypothesis should be rejected. 
+Figure~\ref{lineup-example} shows a lineup from a study described in \citet{majumder:2011}. It is based on simulated data to examine the similarity of results derived from the lineup protocol and those derived from a classical $t$-test. Pseudo-data plots were generated with specific structure in a linear model, controlling $\beta_k, \sigma, n$ (slope, variation and sample size). And null plots were generated from a null hypothesis $\beta_k=0$. In this field of plots one is a pseudo-data plot, $\beta_k\neq 0$, and the remaining 19 are null plots. Subjects were asked a very specific question in this study -- ``Which plot has the steepest slope?'' -- in order to make comparisons with the classical test. (In practice, when using the lineup protocol, subjects are generically asked to select the plot that is most different from the others, so that the value of graphics to discover the unexpected can be utilized.) The pseudo-data plot in this lineup is \#2. In the MTurk study, \Sexpr{sum(lpu$response)} out of \Sexpr{nrow(lpu)} subjects selected this plot. This would produce a (visual) $p$-value of 0, leading to the conclusion that the null hypothesis should be rejected. 
 \begin{figure}[!t]
 \centering
 % This is a lineup from plot_turk2_100_450_12_3.png
@@ -188,14 +188,14 @@ Figure~\ref{compare} illustrates the difference between the classical test, and 
 To date, more than 20 studies have been conducted utilizing the lineup protocol, primarily using MTurk. The first three experiments (described in \citet{majumder:2011}) compared the protocol to classical tests associated with fitting linear models. A later experiment examined the use of the protocol for detecting clusters in high-dimensional data \citep{roychowdhury:2013}. Combined \dc{XXX} subjects examined \dc{XXX} lineups. It is the data from these experiments (Table \ref{tbl:visual_stat}) that we now examine with a different purpose, to assess how distance metrics compare with human evaluation. The questions arising from these studies are: 
 
 \begin{itemize} \itemsep 0in
-  \item Can we get the computer do as a human does, using distance metrics applied to data plots?
+  \item Using distance metrics applied to data plots, can we get the computer choose like a human does?
   \item Do some distance metrics match how subjects choose plots better than others?
   \item Could distance metrics be used as a first pass in designing simulation experiments for the lineup protocol to group lineups into levels of ``easy'', ``moderate'', ``difficult''?
 \end{itemize}
 
 \begin{table*}[hbtp] 
 \centering 
-\caption{Overview of the three Turk experiments, from which data was included to investigate distance metrics and how subjects read the plots. } 
+\caption{Overview of the three MTurk experiments, from which data was extracted to investigate distance metrics in relation to subject choices. } 
 \begin{tabular}{m{.8cm}m{3.25cm}m{2cm}m{.5\textwidth}} 
 \hline\hline 
  ID & Experiment & Test Statistic  & Lineup question \\ [0.5ex] % inserts table %heading 
@@ -210,7 +210,7 @@ III & Group separation & \begin{minipage}[c]{2cm} \begin{center}  \scalebox{0.4}
 \end{table*} 
 
 The paper is organized as follows. %Section~\ref{sec:null} discusses the null generating mechanisms. 
-Section~\ref{sec:dists} starts by defining distance measures and discussing different choices of measures (see Section~\ref{sec:meas}). The distribution of the distance measures are studied in Section~\ref{sec:distri}. Section~\ref{sec:plot_type} describes the effect of the plot type and the question of interest on the distance measure while Section~\ref{sec:eval} talks about the distance evaluations. %In Section~\ref{sec:nbin}, the methods to select the number of bins for the binned distance is described. 
+Section~\ref{sec:dists} starts by defining distance measures and discussing different choices of measures. The distribution of the distance measures are studied in Section~\ref{sec:distri}. Section~\ref{sec:plot_type} describes the effect of the plot type and the question of interest on the distance measure while Section~\ref{sec:eval} talks about the distance evaluations. %In Section~\ref{sec:nbin}, the methods to select the number of bins for the binned distance is described. 
 Section~\ref{sec:results} presents a comparison of the distance measures to the performance of human subjects in several experiments conducted with MTurk.
 
 %%%%%
@@ -310,139 +310,22 @@ Section~\ref{sec:results} presents a comparison of the distance measures to the 
 
 %Other null generating mechanisms might be utilized depending on the null hypothesis underlying a data plot. 
 
-\section{Measuring Lineups}\label{sec:dists}
-\subsection{Distance Measures} \label{sec:meas}
-By calculating the ``distance'' between plots we may be able to determine if a lineup should be easy -- if the actual data plot is detectably different from the null plots -- and also to better understand what aspect of the plot people use to make their choice. It is not an easy task to measure the difference between plots. Here we examine several possibilities. 
+\section{Distance Measures}\label{sec:dists}
+%\subsection{} \label{sec:meas}
+The goal of the metrics is to measure the ``distance'' between two plots. In particular, we would like to know how similar or different is the data plot from the surrounding null plots. 
 
-The problem could be tackled by considering the data as a reference distribution, and compare all of the null sets with this reference. Comparing data with a reference probability distribution or comparing two datasets are common statistical tasks. For example, the Kolmogorov-Smirnov test \citep{stephens:1974} sorts values in two samples, computes the empirical distribution function of each and compares these two, to determine if the two samples are likely to have come from the same distribution.  The Anderson-Darling \citep{stephens:1974} and Shapiro-Wilk \citep{shapiro:1965} tests compare datasets with normal probability distributions. These measure differences between univariate distributions which limits their applicability to distances between plots, generally. 
+A naive approach would be to use existing goodness-of-fit statistics that compare data with reference probability distributions, for example, the Kolmogorov-Smirnov \citep{stephens:1974}, Anderson-Darling \citep{stephens:1974}, Shapiro-Wilk \citep{shapiro:1965} tests and Bhattacharyya distance \citep{bhattacharyya:1946}. However, these measure differences between univariate distributions which limits their applicability to distances between plots, generally. Bhattacharyya distance is used for image processing but not in manner useful for plot comparisons.
+%By calculating the ``distance'' between plots we may be able to determine if a lineup should be easy -- if the actual data plot is detectably different from the null plots -- and also to better understand what aspect of the plot people use to make their choice. It is not an easy task to measure the difference between plots. Here we examine several possibilities. 
+%The problem could be tackled by considering the data as a reference distribution, and compare all of the null sets with this reference. Comparing data with a reference probability distribution or comparing two datasets are common statistical tasks. For example, the Kolmogorov-Smirnov test \citep{stephens:1974} sorts values in two samples, computes the empirical distribution function of each and compares these two, to determine if the two samples are likely to have come from the same distribution.  The Anderson-Darling \citep{stephens:1974} and Shapiro-Wilk \citep{shapiro:1965} tests compare datasets with normal probability distributions. These measure differences between univariate distributions which limits their applicability to distances between plots, generally. 
+Hausdorff distance \citep{huttenlocher:1993} has been successfully used for comparing images. It effectively matches points between sets and computes the distances between the matched points, but it is prohibitive computationally. 
 
-Hausdorff distance \citep{huttenlocher:1993} has been successfully used for comparing images. It effectively matches points between sets and computes the distances between the matched points. However, for anything but very small number of points the computational cost of the Hausdorff distance prohibits its use. When permutation is the null generating mechanism, Hamming distance \citep{hamming:1950} can be used to calculate how different the permutations are, by measuring the minimum number of substitutions it takes to get from one permutation to another. 
+Along these lines, \citet{hannig:2013} developed a metric for comparing two images, based on one developed by \citet{Baddeley:1992}. Comparing two images is different from comparing two data plots, where only essential plot elements are compared, so this metric is not useful comparing data plots generally. \citet{marron:1995} describes metrics for comparing two curves developed because the results from smoothing, based on classical mathematical norms do not match how the eye perceives the difference. This is too specialized. Actually, the lineup protocol could be utilized to rigorously substantiate the work in these papers. 
 
-Alternatively, interpoint distance metrics might be adapted to measure distances between plots. For example, when the purpose is to show differences between groups in a single plot, like side-by-side boxplots, a distance metric that focuses on group separation calculated on each data set might be useful. Bhattacharyya distance \citep{bhattacharyya:1946} is widely used in image processing, for feature extraction. This distance, together with various other measures to calculate distances between groups is implemented in the R package {\tt fpc} \citep{hennig:2010}. % contains many different ways to calculate distances between groups. 
+In many practical uses of the lineup protocol, permutation can be used to generate data for the null plots in a lineup. This was employed in the study done in experiment III. Hamming distance \citep{hamming:1950} calculates how different the permutations are, by measuring the minimum number of substitutions it takes to get from one permutation to another. It was one of our initial choices of distances, but it did not do well at distinguishing data plots from null plots, probably because it does not compare differences between the actual numbers, so we abandoned it. 
 
-In the analyses of the experimental data of this paper, we used a dual approach: one distance that we employed for all examples is a relatively simple distance based on binned frequencies, which works fairly well in most circumstances.
-%Ultimately, a very simple binned distance was used in the analyses of the MTurk data, which worked fairly well in most circumstances. 
-However, it was clear immediately that plot design, and the question asked, has a large impact on how a plot is read, and specific distance metrics designed for specific plot types and tasks are needed. In order to more closely reflect observers' choices in each experiment, we used at least one more distance tailored to each of these special situations.
-Below is a summary of distance metrics used. For all of these distance measures, let $X$ denote the true dataset with one or two variables. Let $Y$ denote the null dataset obtained by using an appropriate null generating mechanism.
+Interpoint distance metrics, developed for cluster analysis, are fast to compute. These can be adapted to measuring structure in plots. For example, when the purpose is to compare two scatterplots containing clusters, we might calculate the smallest intercluster distance for both plots, and then use this to determine which plot exhibits the strongest clustering. This distance, together with various other measures to calculate distances between groups is implemented in the R package {\tt fpc} \citep{hennig:2010}. Figure~\ref{sep-dist} illustrates choices of metrics of for measuring clustering. These are especially applicable to data from experiment III. The method can be adapted more broadly to different types of plots. For example, to measure the structure in a graph of side-by-side boxplots of two groups. The graphical features of the plot are the two five number summaries represented by the boxplots. An interpoint distance measuring the difference between the two sets of five points, can determine which plot exhibits the biggest difference between the two groups.
 
-
-\begin{enumerate}
-
-\item {\bf Binned Distance (BN):}
-%\red{write out mathematically, include all definitions - i.e. C(X,Y) needs to be defined - have a look at the grammar of graphics}
-Let $X_1$ and $X_2$ be two continuous variables. Let $X_1$ be divided into $p$ bins and $X_2$ divided into $q$ bins. % $(i,j)$-th cell represents the $j$-th bin of $X_2$ corresponding to the $i$-th bin of $X_1$. 
- We define the cell count matrix $C(X_1,X_2)$  as a $p \times q$ matrix consisting of the binned frequency of the joint distribution of $X_1$ and $X_2$, i.e.\ let the $(i,j)$-th element of the matrix be the cell count of the number of points in interval $i$ of $X_1$ and interval $j$ of $X_2$.
- %. Each $(i,j)$-th element of the matrix represents the number of points falling in the $(i,j)$-th cell, where $i = 1, \dots, p$ , $j = 1, \dots, q$.
-The BN distance is defined as
-\begin{eqnarray}\nonumber
-d_{BN}^2 (X, Y) &:=& ||C_X(X_1, X_2) - C_Y(X_1,X_2)||^2 \\ &=& \sum_{i=1}^p \sum_{j=1}^q (C_X(X_{1i},X_{2j}) - C_Y(X_{1i},X_{2j}))^2.\label{eq:BNdist}
-\end{eqnarray}
-
-\begin{figure*}[hbtp]
-\centering
-\begin{subfigure}[t]{\textwidth}
-\caption{Dataset $X$ with two variables $X_1$ and $X_2$ \label{type_1}}
-\includegraphics[scale=0.55]{dat-example-1.pdf}
-\includegraphics[scale=0.55]{bin-example-1.pdf}
-\includegraphics[scale=0.55]{freq-example-1.pdf}
-\end{subfigure}
-
-\begin{subfigure}[t]{\textwidth}
-\caption{ Dataset $Y$ with permuted $X_1$ and original $X_2$ \label{type_2}}
-\includegraphics[scale=0.55]{dat-example-2.pdf}
-\includegraphics[scale=0.55]{bin-example-2.pdf}
-\includegraphics[scale=0.55]{freq-example-2.pdf}
-\end{subfigure}
-\label{first-example}
-	\vspace{-.1in}
-       \caption{Illustration of binned distance for data with a strong positive association (a), and the same data where variable $X_1$ has been permuted (b). The scatterplot of the data is shown (left) along with a binned view of the data (center) and the cell count matrix $C$ (right). Binned distance is the Euclidean distance of these counts. The binned distance between these plots is 6.4807. }
-%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
-\end{figure*}
-
-%\red{careful: $C(X,[P]Y)$ is not the same as $C_{i,P(j)}$. $C_{i,j}$ is the count for points falling into cell $i,j$ - it's not enough to permute the grid counts, we need to get the grid counts of the permuted variable. Introduce $C$ as a function of $X$ and $Y$ ....}
-
-
-
-This distance can be calculated for univariate continuous data, bivariate data with two categorical variables, or data with one continuous and one categorical variable. For a categorical variable, we choose the number of bins  to be equal to the number of categories.
-
-Binned distance is highly susceptible to small differences in values and depends on the number of bins as well as the anchor point (bottom left corner of cell $C_{11}$). It is necessary to find the optimal number of bins in each direction. For our purposes `optimal' was defined as the number of bins that produced the largest detectable difference between observed data plot  and null plots, compared to the biggest difference between any pair of null plots. Details of these choices on various different data sets can be found in the Appendix.
-
-Several variations to this distance are possible, such as a change to using kernel density estimates, a change from $L_2$ to $L_p$ based distance, or using transformations on the counts. All of these changes will affect distances, and might lead to qualitatively different conclusions.
-We investigated another generic distance, the 
-Hausdorff distance \citep{huttenlocher:1993}, but the binned distance is computationally much faster to calculate and performed as well as the Hausdorff as a rough, generic measure of similarity of plots.
-
-
-\item {\bf Distance based on boxplots (BX):} 
-Let $X_1$ be a categorical variable with $J$ groups  and $X_2$ be a continuous variable. 
-For each of the levels in $X_1$ find the corresponding $X_2$ values, and calculate first quartile, median and the third quartile. Identify the minimum and maximum value of each of these statistics across all $J$ groups.
-Define $d_q(.)$ as a three dimensional vector giving the absolute maximal difference of the first quartile, median and the third quartile of $X_2$ between the groups in $X_1$. 
-
-Then the distance metric is given by
- \begin{equation}\nonumber
-d^2_{BX}(X, Y) := || d_q(X) - d_q(Y)||^2 \\=
-\sum_{i=1}^3 \left( d_q(X)_i - d_q(Y)_i\right)^2. \label{eq:BXdist}
-\end{equation}
-
-This distance measure works specifically for boxplots and is based on only their graphical elements. 
-It is based on the assumption that %after the boxplots have already been constructed, the 
-subjects only consider the difference in the boxes to make the distinction. Variations on this might include adding whiskers' values, the number or values of outliers, or including higher-order letter values \citep{tukey:1977, lvplot} for more exact tail specifications. 
-
-\item {\bf Distance based on the regression line (RG):}
-Many times, to examine association between two variables a regression line is overplotted on the points of a scatterplot. This distance was developed to help assess if the observer is paying attention to the line or the spread of points. Let $X_1$ and $X_2$ be two continuous variables plotted in a scatterplot. We assume that the scatterplot is binned horizontally into $b$ bins
-to allow for a description of a piece-wise linear relationship between the variables.
-In each vertical slice, a linear regression model is fitted and the regression coefficients. i.e.\ intercept and slope are estimated. The distance metric based on the regression coefficients is given as
- \begin{eqnarray}\nonumber
-d^2_{RG}(X, Y) := \hbox{tr} (B(X) - B(Y))' (B(X) - B(Y))  \\
-= \sum_{i=1}^b ((b_0(X))_i - (b_0(Y))_i)^2 + \sum_{i=1}^b ((b_1(X))_i - (b_1(Y))_i)^2\label{eq:drg}
-\end{eqnarray}
-where $b_0$ and $b_1$ denote the vector of the intercept and slope respectively while $b$ is the number of bins. $B(.)$ is a $b \times 2$ matrix of the regression coefficients where each row represent the  intercept and the slope obtained from each bin. The number of bins have a significant effect on the distance measure. It can be seen that it works best for smaller number of bins like 1 or 2. 
-With larger number of bins (i.e.\ smaller bin sizes), the regression coefficients are affected by the variability in the data and the signal to noise ratio in the data becomes too low for a reliable detection. %skewness of the data. \hh{XXX I don't think that regression coefficients are really affected by skewness -- I'd think they get more variable because of sparseness in the data. What is the sample size of the examples that you tried? XXX} 
-Variations might include using slope alone, or absolute value of slope. 
-Note that we assume that  $X_1$ and $X_2$ are on the same scale. This does not change the regression or the significance of its parameters, but it does matter for the distance measure. By assuming variables on the same scale, we implicitly expect that the scatterplot has an aspect ratio of 1, which is typically the case in a lineup. This way, a deviation along the x axis is perceived to be about the same as a deviation along the y axis. 
-
-\item {\bf Distance based on separation between multiple groups (MS, AS, DS, CM):}
-Let $X_1$ and $X_2$ be two continuous variable. Let $X_3$ be a categorical variable providing the groups associated with each variable. $X_1$ and $X_2$ are plotted in a scatterplot colored by the group variable $X_3$. The separation can be described in a number of different ways:
-\begin{enumerate}
- \item[(i)] {\bf Minimum separation:} let  $s_{m}(.)$ be a vector of the minimum distance of a point in the cluster to a point in any of the other $g-1$ clusters. 
- The distance metric based on minimal separation is an average of these intercluster minima, defined as
- \[
- d^2_{MS}(X, Y):= ||s_m(X) - s_m(Y)||^2 = \sum_{i = 1}^{g-1} ((s_m(X))_i - (s_m(Y))_i)^2.
- \]
-
-%\item[(i)] {\bf Minimum separation:} let  $s_{m}(.)$ be %a vector of 
-%the minimum distance \hh{between any two points in different clusters.}
-%The distance metric based on minimal separation is then defined as
-%\[
-%d^2_{MS}(X, Y):= \left(s_m(X) - s_m(Y)\right)^2.
-%\]
-%\hh{XXX $s_m$ is not a vector, it is a number. }
-
-
-\item[(ii)] {\bf Average point separation:} let $s_{a}(.)$ be a vector of cluster wise average distances of all the points in a cluster to all points in any of the other $g-1$ clusters. The distance metric based on average separation is defined as
-\[
-d^2_{AS}(X, Y):= ||s_a(X) - s_a(Y)||^2 = \sum_{i = 1}^g ((s_a(X))_i - (s_a(Y))_i)^2.
-\]
-
-\item[(iii)] {\bf Dunn separation:} the Dunn index \citep{dunn:1973, halkidi:2001} $s_d(.)$ is defined as the ratio of the minimal separation between clusters and maximal diameter of any of the clusters. 
-The distance metric based on the Dunn index is defined as 
-\[
-d^2_{DS} (X, Y):= \left(s_d(X) - s_d(Y)\right)^2.
-\]
-
-The Dunn index is a member of the Dunn index family, defined as ratios of measures of cluster separation and cluster extent. This makes an analysis of variance approach to clustering, such as Ward's method part of this family as well. Minimal separation between clusters and maximal diameter of a cluster are two very concrete measures. This way, the Dunn index stays close to a visual assessment of the clustering from a cognitive perspective. However, because it is based on two extreme statistics, the  Dunn index is highly susceptible to outliers. 
-%\item[(iii)] {\bf Cluster mean separation:} let $m_i(.) = \left(\bar{X_1}^i, \bar{X_2}^i\right)$ be the mean of the $i$-th cluster, $i = 1, 2, \dots, g$. The distance metric based on the cluster means is given by
-%\[
-%d^2_{CM}(X, Y):= ||m(X) - m(Y)||^2 = \sum_{i=1}^g (m_i(X) - m_i(Y))^2
-%\]
-%\hh{XXX this distance is not used in the remainder of the paper. It could be shortened to a sentence here.}
-\end{enumerate}
-%Both average separation and mean separation are considered in this paper. 
-
-We also examined the distance between the means for each cluster (CM) as another alternative, which would more closely match Fisher's linear discriminant. As we might expect, this did not match how observers read the separation. In practice, many possible metrics could be used to measure the separation, such as those readily available in the {\tt fpc} package  \citep{hennig:2010}.
-Figure~\ref{sep-dist} illustrates the different distance metrics for cluster separation. 
-\end{enumerate}
-
-\begin{figure}[hbtp]
+\begin{figure}[!t]
 <<data-prep-ex, echo=FALSE>>=
 dat <- read.table("data/turk7/dat_large_p_small_n_30_40_0_2_3.txt", header = T)
 five <- subset(dat, .sample == 5)
@@ -528,14 +411,63 @@ qplot(X1, X2, data=five, colour=factor(cl), size=I(3)) +
 \end{figure}
 
 
+%two graphs containing side-by-side boxplots, a distance metric that focuses on group separation calculated on each data set might be useful. Bhattacharyya distance \citep{bhattacharyya:1946} is widely used in image processing, for feature extraction. This distance, together with various other measures to calculate distances between groups is implemented in the R package {\tt fpc} \citep{hennig:2010}. % contains many different ways to calculate distances between groups. 
+
+After trialing many of these distance, we report on the results from just a few metrics, that performed best. One approach was the interpoint distances, adapted to the displays used in experiments I-III, and the other a simple relatively simple distance based on binned frequencies (illustrated by Figure \ref{first-example}), which is generalizable to most data plots. 
+%In the analyses of the experimental data of this paper, we used a dual approach: one distance that we employed for all examples is a relatively simple distance based on binned frequencies, which works fairly well in most circumstances.
+%Ultimately, a very simple binned distance was used in the analyses of the MTurk data, which worked fairly well in most circumstances. 
+%However, it was clear immediately that plot design, and the question asked, has a large impact on how a plot is read, and specific distance metrics designed for specific plot types and tasks are needed. In order to more closely reflect observers' choices in each experiment, we used at least one more distance tailored to each of these special situations.
+A summary of distance metrics follows, along with a procedure for computing the empirical distribution of the distance metrics, that can is used to measure the distance between data plot and null plots. 
+
+\begin{figure*}[!t]
+\centering
+\begin{subfigure}[t]{\textwidth}
+\caption{Dataset $X$ with two variables $X_1$ and $X_2$ \label{type_1}}
+\includegraphics[scale=0.55]{dat-example-1.pdf}
+\includegraphics[scale=0.55]{bin-example-1.pdf}
+\includegraphics[scale=0.55]{freq-example-1.pdf}
+\end{subfigure}
+
+\begin{subfigure}[t]{\textwidth}
+\caption{ Dataset $Y$ with permuted $X_1$ and original $X_2$ \label{type_2}}
+\includegraphics[scale=0.55]{dat-example-2.pdf}
+\includegraphics[scale=0.55]{bin-example-2.pdf}
+\includegraphics[scale=0.55]{freq-example-2.pdf}
+\end{subfigure}
+\label{first-example}
+	\vspace{-.1in}
+       \caption{Illustration of binned distance for data with a strong positive association (a), and the same data where variable $X_1$ has been permuted (b). The scatterplot of the data is shown (left) along with a binned view of the data (center) and the cell count matrix $C$ (right). Binned distance is the Euclidean distance of these counts. The binned distance between these plots is 6.4807. }
+%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
+\end{figure*}
+
+\subsection{Distance metrics}\label{sec:distmet}
+
+A sketch of the distance metrics is provided here, with full details available in the Appendix.
+
+\begin{enumerate}
+
+\item {\bf Binned Distance (BN):} compares the cell counts from binned data. This distance can be calculated for univariate continuous data, bivariate data with two categorical variables, or data with one continuous and one categorical variable. For a categorical variable, we choose the number of bins  to be equal to the number of categories.
+
+Binned distance is highly susceptible to small differences in values and depends on the number of bins as well as the anchor point (bottom left corner of first cell). It is necessary to find the optimal number of bins in each direction. For our purposes `optimal' was defined as the number of bins that produced the largest detectable difference between data plot  and null plots, compared to the biggest difference between any pair of null plots. Details of these choices on various different data sets can be found in the Appendix.
+
+Several variations to this distance are possible, such as a change to using kernel density estimates, a change from $L_2$ to $L_p$ based distance, or using transformations on the counts. All of these changes will affect distances, and might lead to qualitatively different conclusions.
+Hausdorff distance \citep{huttenlocher:1993} was also examined, but the binned distance is computationally efficient and performed as well as the Hausdorff as a rough, generic measure of similarity of plots.
+
+\item {\bf Distance based on boxplots (BX):} is specifically designed for side-by-side boxplots based on only their graphical elements corresponding to the three points defining the boxes of a boxplot. It makes the assumption that subjects focus on the difference in the boxes. Variations on this might include adding whiskers' values, the number or values of outliers, or including higher-order letter values \citep{tukey:1977, lvplot} for more exact tail specifications. 
+
+\item {\bf Distance based on the regression line (RG):} Many times, to examine association between two variables a regression line is overplotted on the points of a scatterplot. This distance was developed to help assess if the observer is paying attention to the line or the spread of points. The metric bins the data, and compares the intercept and slope of the regression line computed in the bins. Variations might include using slope alone, or absolute value of slope. 
+\item {\bf Distance based on separation between multiple groups (MS, AS, DS, CM):} using minimum separation (MS), average separation (AS), Dunn separation (DS) and distance between cluster means (CM) are considered. 
+\end{enumerate}
+
+
 % How well each distance measure matches the observers' responses depends  on the question of interest.  
 % But, in general, this should not be a problem because the question which is typically asked is ``Which plot among these is different?''. In the MTurk experiments, more focused questions were asked because the purpose was very specific, to compare visual inference with classical inference.
 % 
 % \hh{XXX wouldn't a more tailored question be easier to match with a tailored distance? }
 
-Generally we would expect that different distance measures are not directly comparable to each other -- in order to get an idea of their relative size, we need to find their empirical distribution. This is discussed next.
+Generally to compare different distance measures their empirical distribution are used.
 
-\subsection{Distance Metric Distribution} \label{sec:distri}
+\subsection{Empirical Distribution of Distance Metrics} \label{sec:distri}
 
 For a given lineup of size $m$, the empirical distribution of distance metrics is obtained by calculating the distances between the null plots among themselves. One null data is generated using the null generating mechanism, and labelled to be the ``true'' data set, then a number of null data sets are generated and the distances between these datasets are calculated. Averaging all these distances yields one single distance value. This process is repeated a large number of times, say, $N$ between 1,000 to 10,000. Finally $N$ mean or average distances are obtained which gives the empirical distribution of the distance. For comparing data plot with nulls using the empirical distribution of the distance metric, we use the following algorithm:
 
@@ -550,7 +482,7 @@ Single out one of these nulls as the `data' plot, and calculate the distances as
 \item The $N$ distance values then represent the empirical distribution of the distance metric and are used for making comparisons
 \end{enumerate}
 
-The observed test statistic is  compared to the empirical distribution, as shown in Figure~\ref{compare}. The distance measures for the true dataset and the null datasets are plotted on the empirical distribution. If the distance measure of the true plot is larger than any of the null plots, the lineup might be regarded as ``easy''. Otherwise, we consider it to be a ``difficult'' lineup. For easy lineups, we would expect that most observers could detect the true data plot amongst the decoys, but that far fewer observers to be able to do so with a difficult lineup. This gives us a way to compare the actual results from the Turk human subject studies with what we might expect given the distance metric assessment.
+The observed test statistic is  compared to the empirical distribution, as shown in Figure~\ref{compare}. The distance measures for the true dataset and the null datasets are plotted on the empirical distribution. If the distance measure of the true plot is larger than any of the null plots, the lineup might be regarded as ``easy''. Otherwise, we consider it to be a ``difficult'' lineup. For easy lineups, we would expect that most observers could detect the true data plot amongst the decoys, but that far fewer observers to be able to do so with a difficult lineup. This gives us a way to compare the actual results from the MTurk human subject studies with what we might expect given the distance metric assessment.
 
 The empirical distribution of the distance based on regression is shown in Figure~\ref{fig:distances} using $N = 1000$ simulation runs. 
 Figure~\ref{dist_1} shows the lineup plot for $m = 20$ for testing whether there exists a significant linear relationship between $X_1$ and $X_2$. The 19 null plots are generated by fitting the null model and generating from the null model. Figure~\ref{dist_2} shows the general empirical distribution of distance measures based on the null model. For the particular lineup on the left, mean distances  are shown by overlaid line segments for the true plot (in orange) and the null plots (in black). The true plot is easily identifiable from the lineup (Figure~\ref{dist_1}, in the experiment 40 out of 45 observers identified the data). This is backed by the regression based distance measure seen in Figure~\ref{dist_2}, as the orange line is on the extreme right tail compared to the black lines. 
@@ -811,73 +743,6 @@ ggplot()  +
 \end{figure}
 
 Figure~\ref{box-1} shows a lineup of size $m = 20$ for testing whether there exists a significant difference in the group medians between A and B. The 19 null plots are generated from a null model, consisting of draws from a normal distribution.  Figure~\ref{box-2} shows the empirical distribution of the distance based on the boxplots with the mean distance for the true plot (in orange) and the null plots (in black). It is hard to identify the true plot from the lineup. During the study, only 2 out of 26 observers picked the data plot, indicating little to no evidence of a deviation from the null hypothesis. This  is also evident from the boxplot based distance measure: the orange line corresponding to the true data is mixed in with the mass of the black lines, with one null plot (16) exhibiting a lot more signal than the true plot.
-
-\subsection{Effect of Plot Type and Question of Interest} \label{sec:plot_type}
-
-Previous studies have suggested that the type of plot used in the lineup affects the response of the subjects \citep{hofmann2012graphical, zhao:2012}. For example, subjects more often identify the true plot for large data with side-by-side box plots than dot plots. Similarly, the use of aesthetics, such as colors or shapes, and graphical elements, such as a trend line, also influence an observer's decision \citep{vanderplas:2016}. In order to account for this, the distance metric has to be adjusted for the plot type and graphical elements. 
-%The distance metric should account for the additional information provided by the graphical elements in the lineup. The graphical elements, like the presence of a box or a regression line overlaid on a scatterplot may influence the response of the subject. 
-Figure~\ref{plottype} illustrates this idea. 
-
-\begin{figure}[hbtp]
-\centering
-<<lp-data, echo=FALSE, results='hide'>>=
-dat <- read.table("data/turk2/dat_turk2_100_25_5_1.txt", header = TRUE) #plot_turk2_100_350_12_3.png
-dat.m <- melt(dat, id = "X")
-dat.m$.sample <- substring(dat.m$variable, 2)
-lineup.dat <- data.frame(x = dat.m$X, z = dat.m$value, .sample = dat.m$.sample)
-
-lineup.dat$.sample <- as.numeric(as.character(lineup.dat$.sample))
-@
-\hfill
-\begin{subfigure}[t]{0.45\textwidth}
-\caption{\label{sca:type_1}Lineup of scatterplots}
-%\includegraphics[width=\textwidth]{plot-type-sca.pdf}
-<<lp-sca, dependson='lp-data', echo=FALSE, fig.width=6, fig.height=6, out.width='\\textwidth'>>=
-# plot_turk2_100_75_5_3.png
-qplot(x, z, data=lineup.dat, alpha=I(0.6), facets=~.sample, size=I(2.5)) + 
-#  geom_smooth(method="lm", se=FALSE, size=1.25, alpha=0.05) +
-  theme(aspect.ratio=1) + xlab("") +
-  theme(axis.text.y = element_blank(), 
-        axis.title.y = element_blank(),
-        axis.ticks.y = element_blank(),
-        axis.ticks.x = element_line(color="white"),
-        axis.text.x = element_text(color="white"), 
-        plot.margin=unit(c(0,0,0,0), unit="cm"))
-@
-\end{subfigure}
-\hfill
-\begin{subfigure}[t]{0.45\textwidth}
-\caption{\label{sca:type_2}Lineup of scatterplots with trend lines}
-%\includegraphics[width=\textwidth]{plot-type-reg-line.pdf}
-<<lp-sca-line, dependson='lp-data', echo=FALSE, fig.width=6, fig.height=6, out.width='\\textwidth'>>=
-# plot_turk2_100_75_5_3.png
-qplot(x, z, data=lineup.dat, alpha=I(0.2), facets=~.sample, size=I(2.5)) + 
-  geom_smooth(method="lm", se=FALSE, size=1.25, alpha=0.05) +
-  theme(aspect.ratio=1) + xlab("") +
-  theme(axis.text.y = element_blank(), 
-        axis.title.y = element_blank(),
-        axis.ticks.y = element_blank(),
-        axis.ticks.x = element_line(color="white"),
-        axis.text.x = element_text(color="white"), 
-        plot.margin=unit(c(0,0,0,0), unit="cm"))
-@
-\end{subfigure}
-\hfill
-	\vspace{-.1in}
-\caption{\label{fig:sca}Comparison of two lineups: scatterplots in (a) and scatterplots with a regression line overlaid in (b). The raw data is same for the lineups. The human subjects are shown the lineups and asked to identify the plot with the steepest slope. The presence of the regression line directs the decision of observers.}
-\label{plottype}
-%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
-\end{figure}
-
-Figure~\ref{sca:type_1} shows a lineup of scatterplots with 100 points between two variables $X_1$ and $X_2$. Figure~\ref{sca:type_2}, on the other hand, gives a lineup of the same scatterplots with the regression line overlaid. The overlaid regression lines are likely to help observers in identifying the panel with the steepest slope.
-%Showing Figure~\ref{type_1}, if the subjects are asked to identify the plot which has the steepest slope, then the subjects probably will face some difficulty in identifying the true plot. But in Figure~\ref{type_2}, the regression line overlaid makes it easier for the subjects to identify the true plot.
-The choice of distance metric depends on what kind of comparisons those distance measures are supposed to allow. Internally, when the same design is used, all measures are consistent -- and allow for a relative comparison: an easier lineup will show a bigger positive distance between the true plot and the nulls than a more difficult one. The distance measure does not necessarily allow for an absolute assessment of difficulty. 
-If a distance metric is additionally supposed to assist in planning an experiment where different types of plots are considered or different graphical elements on the same type of plot, the distance metric has to be able to take these differences into account. 
-%A different distance metric should be used in each case to correctly measure the quality of the lineup.
-
-The question posed to observers plays an important role in the decision they make. A minor change in the question can change the response of the subject. For example, if subjects are asked to identify a plot from one in the lineups in Figure~\ref{fig:sca}, in which there is the strongest positive relationship between the variables, plot 2 exhibits the strongest signal.  If the question asks, instead, for the plot with the largest slope, plot 7 would be the obvious pick. 
-%\hh{XXX again, why do we try to reflect a plot in a single number, when we know that we can't?}
-A distance metric should also take into account the question of interest, and the metrics that we have described in the previous section do this for the MTurk studies done to date where quite specific questions were used. In practice, the question of interest very broad to enable detection of any type of significant structure in a plot, and is generically, "which plot in the lineup is the most different from the others", in which case the binned distance should be optimal.
 
 \subsection{Metric Evaluation} \label{sec:eval}
 %
@@ -2787,6 +2652,95 @@ What we see in each of the experiments is that the general approach of the binne
 \newpage
 \section*{Appendix}
 
+\subsection*{Details of Distance Metrics}\label{sec:distmetdetails}
+
+For all of these distance measures, let $X$ denote the true dataset with one or two variables. Let $Y$ denote the null dataset obtained by using an appropriate null generating mechanism.
+
+
+\begin{enumerate}
+
+\item {\bf Binned Distance (BN):}
+%\red{write out mathematically, include all definitions - i.e. C(X,Y) needs to be defined - have a look at the grammar of graphics}
+Let $X_1$ and $X_2$ be two continuous variables. Let $X_1$ be divided into $p$ bins and $X_2$ divided into $q$ bins. % $(i,j)$-th cell represents the $j$-th bin of $X_2$ corresponding to the $i$-th bin of $X_1$. 
+ We define the cell count matrix $C(X_1,X_2)$  as a $p \times q$ matrix consisting of the binned frequency of the joint distribution of $X_1$ and $X_2$, i.e.\ let the $(i,j)$-th element of the matrix be the cell count of the number of points in interval $i$ of $X_1$ and interval $j$ of $X_2$.
+ %. Each $(i,j)$-th element of the matrix represents the number of points falling in the $(i,j)$-th cell, where $i = 1, \dots, p$ , $j = 1, \dots, q$.
+The BN distance is defined as
+\begin{eqnarray}\nonumber
+d_{BN}^2 (X, Y) &:=& ||C_X(X_1, X_2) - C_Y(X_1,X_2)||^2 \\ &=& \sum_{i=1}^p \sum_{j=1}^q (C_X(X_{1i},X_{2j}) - C_Y(X_{1i},X_{2j}))^2.\label{eq:BNdist}
+\end{eqnarray}
+
+%\red{careful: $C(X,[P]Y)$ is not the same as $C_{i,P(j)}$. $C_{i,j}$ is the count for points falling into cell $i,j$ - it's not enough to permute the grid counts, we need to get the grid counts of the permuted variable. Introduce $C$ as a function of $X$ and $Y$ ....}
+
+
+\item {\bf Distance based on boxplots (BX):} 
+Let $X_1$ be a categorical variable with $J$ groups  and $X_2$ be a continuous variable. 
+For each of the levels in $X_1$ find the corresponding $X_2$ values, and calculate first quartile, median and the third quartile. Identify the minimum and maximum value of each of these statistics across all $J$ groups.
+Define $d_q(.)$ as a three dimensional vector giving the absolute maximal difference of the first quartile, median and the third quartile of $X_2$ between the groups in $X_1$. 
+
+Then the distance metric is given by
+ \begin{equation}\nonumber
+d^2_{BX}(X, Y) := || d_q(X) - d_q(Y)||^2 \\=
+\sum_{i=1}^3 \left( d_q(X)_i - d_q(Y)_i\right)^2. \label{eq:BXdist}
+\end{equation}
+
+\item {\bf Distance based on the regression line (RG):}
+Let $X_1$ and $X_2$ be two continuous variables plotted in a scatterplot. We assume that the scatterplot is binned horizontally into $b$ bins to allow for a description of a piece-wise linear relationship between the variables. In each vertical slice, a linear regression model is fitted and the regression coefficients. i.e.\ intercept and slope are estimated. The distance metric based on the regression coefficients is given as
+ \begin{eqnarray}\nonumber
+d^2_{RG}(X, Y) := \hbox{tr} (B(X) - B(Y))' (B(X) - B(Y))  \\
+= \sum_{i=1}^b ((b_0(X))_i - (b_0(Y))_i)^2 + \sum_{i=1}^b ((b_1(X))_i - (b_1(Y))_i)^2\label{eq:drg}
+\end{eqnarray}
+where $b_0$ and $b_1$ denote the vector of the intercept and slope respectively while $b$ is the number of bins. $B(.)$ is a $b \times 2$ matrix of the regression coefficients where each row represent the  intercept and the slope obtained from each bin. The number of bins have a significant effect on the distance measure. It can be seen that it works best for smaller number of bins like 1 or 2.  With larger number of bins (i.e.\ smaller bin sizes), the regression coefficients are affected by the variability in the data and the signal to noise ratio in the data becomes too low for a reliable detection. %skewness of the data. \hh{XXX I don't think that regression coefficients are really affected by skewness -- I'd think they get more variable because of sparseness in the data. What is the sample size of the examples that you tried? XXX} 
+Variations might include using slope alone, or absolute value of slope. Note that we assume that  $X_1$ and $X_2$ are on the same scale. This does not change the regression or the significance of its parameters, but it does matter for the distance measure. By assuming variables on the same scale, we implicitly expect that the scatterplot has an aspect ratio of 1, which is typically the case in a lineup. This way, a deviation along the x axis is perceived to be about the same as a deviation along the y axis. 
+
+\item {\bf Distance based on separation between multiple groups (MS, AS, DS, CM):}
+Let $X_1$ and $X_2$ be two continuous variable. Let $X_3$ be a categorical variable providing the groups associated with each variable. $X_1$ and $X_2$ are plotted in a scatterplot colored by the group variable $X_3$. The separation can be described in a number of different ways:
+\begin{enumerate}
+ \item[(i)] {\bf Minimum separation:} let  $s_{m}(.)$ be a vector of the minimum distance of a point in the cluster to a point in any of the other $g-1$ clusters. 
+ The distance metric based on minimal separation is an average of these intercluster minima, defined as
+ \[
+ d^2_{MS}(X, Y):= ||s_m(X) - s_m(Y)||^2 = \sum_{i = 1}^{g-1} ((s_m(X))_i - (s_m(Y))_i)^2.
+ \]
+
+%\item[(i)] {\bf Minimum separation:} let  $s_{m}(.)$ be %a vector of 
+%the minimum distance \hh{between any two points in different clusters.}
+%The distance metric based on minimal separation is then defined as
+%\[
+%d^2_{MS}(X, Y):= \left(s_m(X) - s_m(Y)\right)^2.
+%\]
+%\hh{XXX $s_m$ is not a vector, it is a number. }
+
+
+\item[(ii)] {\bf Average point separation:} let $s_{a}(.)$ be a vector of cluster wise average distances of all the points in a cluster to all points in any of the other $g-1$ clusters. The distance metric based on average separation is defined as
+\[
+d^2_{AS}(X, Y):= ||s_a(X) - s_a(Y)||^2 = \sum_{i = 1}^g ((s_a(X))_i - (s_a(Y))_i)^2.
+\]
+
+\item[(iii)] {\bf Dunn separation:} the Dunn index \citep{dunn:1973, halkidi:2001} $s_d(.)$ is defined as the ratio of the minimal separation between clusters and maximal diameter of any of the clusters. 
+The distance metric based on the Dunn index is defined as 
+\[
+d^2_{DS} (X, Y):= \left(s_d(X) - s_d(Y)\right)^2.
+\]
+
+The Dunn index is a member of the Dunn index family, defined as ratios of measures of cluster separation and cluster extent. This makes an analysis of variance approach to clustering, such as Ward's method part of this family as well. Minimal separation between clusters and maximal diameter of a cluster are two very concrete measures. This way, the Dunn index stays close to a visual assessment of the clustering from a cognitive perspective. However, because it is based on two extreme statistics, the  Dunn index is highly susceptible to outliers. 
+%\item[(iii)] {\bf Cluster mean separation:} let $m_i(.) = \left(\bar{X_1}^i, \bar{X_2}^i\right)$ be the mean of the $i$-th cluster, $i = 1, 2, \dots, g$. The distance metric based on the cluster means is given by
+%\[
+%d^2_{CM}(X, Y):= ||m(X) - m(Y)||^2 = \sum_{i=1}^g (m_i(X) - m_i(Y))^2
+%\]
+%\hh{XXX this distance is not used in the remainder of the paper. It could be shortened to a sentence here.}
+\end{enumerate}
+%Both average separation and mean separation are considered in this paper. 
+
+We also examined the distance between the means for each cluster (CM) as another alternative, which would more closely match Fisher's linear discriminant. As we might expect, this did not match how observers read the separation. In practice, many possible metrics could be used to measure the separation, such as those readily available in the {\tt fpc} package  \citep{hennig:2010}.
+Figure~\ref{sep-dist} illustrates the different distance metrics for cluster separation. 
+\end{enumerate}
+
+
+% How well each distance measure matches the observers' responses depends  on the question of interest.  
+% But, in general, this should not be a problem because the question which is typically asked is ``Which plot among these is different?''. In the MTurk experiments, more focused questions were asked because the purpose was very specific, to compare visual inference with classical inference.
+% 
+% \hh{XXX wouldn't a more tailored question be easier to match with a tailored distance? }
+
+
 \subsection*{Effect of the Number of Bins on Distance} \label{sec:nbin}
 
 Binned distance works for any type of data and for any null generating mechanism. It is based on the raw data but does not take into account the graphical elements in the plot. Binned distance can be used in situations where no distance measure is known for the particular plot type and hence it can be regarded as universal. But the  the number of bin  highly affect the distance. An unfortunate choice may lead to hard to interpret or conflicting results. %Hence the choice of the number of bins is important.
@@ -2919,6 +2873,74 @@ The fifth dataset is a data set with 3 distinct clusters. In Table~\ref{tbl:bin2
 The $\delta$-differences are represented in a tile plot where each tile gives the difference for each combination. Darker hues correspond to larger differences values. It can be seen that these tile plots look different for the different datasets. Hence the optimal number of bins varies from data to data. No specific pattern is evident in the plot. But overall it can be seen that for strong linear relationships, small number of bins should be preferred over large number of bins. Also when outliers are present in the data, larger number of bins are preferred on at least one of the axes.
 
 It is important to mention at this point that Tables~\ref{tbl:bin1} and~\ref{tbl:bin2} is not meant to provide any guidelines for the selection of number of bins. The Tables only show that binned distance is highly affected by the number of bins and the type of data. It is advisable to find the optimal number of bins for a given dataset before using binned distance.
+
+\subsection{Discussion of the Effect of Plot Type and Question of Interest} \label{sec:plot_type}
+
+Previous studies have suggested that the type of plot used in the lineup affects the response of the subjects \citep{hofmann2012graphical, zhao:2012}. For example, subjects more often identify the true plot for large data with side-by-side box plots than dot plots. Similarly, the use of aesthetics, such as colors or shapes, and graphical elements, such as a trend line, also influence an observer's decision \citep{vanderplas:2016}. In order to account for this, the distance metric has to be adjusted for the plot type and graphical elements. 
+%The distance metric should account for the additional information provided by the graphical elements in the lineup. The graphical elements, like the presence of a box or a regression line overlaid on a scatterplot may influence the response of the subject. 
+Figure~\ref{plottype} illustrates this idea. 
+
+\begin{figure}[hbtp]
+\centering
+<<lp-data, echo=FALSE, results='hide'>>=
+dat <- read.table("data/turk2/dat_turk2_100_25_5_1.txt", header = TRUE) #plot_turk2_100_350_12_3.png
+dat.m <- melt(dat, id = "X")
+dat.m$.sample <- substring(dat.m$variable, 2)
+lineup.dat <- data.frame(x = dat.m$X, z = dat.m$value, .sample = dat.m$.sample)
+
+lineup.dat$.sample <- as.numeric(as.character(lineup.dat$.sample))
+@
+\hfill
+\begin{subfigure}[t]{0.45\textwidth}
+\caption{\label{sca:type_1}Lineup of scatterplots}
+%\includegraphics[width=\textwidth]{plot-type-sca.pdf}
+<<lp-sca, dependson='lp-data', echo=FALSE, fig.width=6, fig.height=6, out.width='\\textwidth'>>=
+# plot_turk2_100_75_5_3.png
+qplot(x, z, data=lineup.dat, alpha=I(0.6), facets=~.sample, size=I(2.5)) + 
+#  geom_smooth(method="lm", se=FALSE, size=1.25, alpha=0.05) +
+  theme(aspect.ratio=1) + xlab("") +
+  theme(axis.text.y = element_blank(), 
+        axis.title.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.ticks.x = element_line(color="white"),
+        axis.text.x = element_text(color="white"), 
+        plot.margin=unit(c(0,0,0,0), unit="cm"))
+@
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.45\textwidth}
+\caption{\label{sca:type_2}Lineup of scatterplots with trend lines}
+%\includegraphics[width=\textwidth]{plot-type-reg-line.pdf}
+<<lp-sca-line, dependson='lp-data', echo=FALSE, fig.width=6, fig.height=6, out.width='\\textwidth'>>=
+# plot_turk2_100_75_5_3.png
+qplot(x, z, data=lineup.dat, alpha=I(0.2), facets=~.sample, size=I(2.5)) + 
+  geom_smooth(method="lm", se=FALSE, size=1.25, alpha=0.05) +
+  theme(aspect.ratio=1) + xlab("") +
+  theme(axis.text.y = element_blank(), 
+        axis.title.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.ticks.x = element_line(color="white"),
+        axis.text.x = element_text(color="white"), 
+        plot.margin=unit(c(0,0,0,0), unit="cm"))
+@
+\end{subfigure}
+\hfill
+	\vspace{-.1in}
+\caption{\label{fig:sca}Comparison of two lineups: scatterplots in (a) and scatterplots with a regression line overlaid in (b). The raw data is same for the lineups. The human subjects are shown the lineups and asked to identify the plot with the steepest slope. The presence of the regression line directs the decision of observers.}
+\label{plottype}
+%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
+\end{figure}
+
+Figure~\ref{sca:type_1} shows a lineup of scatterplots with 100 points between two variables $X_1$ and $X_2$. Figure~\ref{sca:type_2}, on the other hand, gives a lineup of the same scatterplots with the regression line overlaid. The overlaid regression lines are likely to help observers in identifying the panel with the steepest slope.
+%Showing Figure~\ref{type_1}, if the subjects are asked to identify the plot which has the steepest slope, then the subjects probably will face some difficulty in identifying the true plot. But in Figure~\ref{type_2}, the regression line overlaid makes it easier for the subjects to identify the true plot.
+The choice of distance metric depends on what kind of comparisons those distance measures are supposed to allow. Internally, when the same design is used, all measures are consistent -- and allow for a relative comparison: an easier lineup will show a bigger positive distance between the true plot and the nulls than a more difficult one. The distance measure does not necessarily allow for an absolute assessment of difficulty. 
+If a distance metric is additionally supposed to assist in planning an experiment where different types of plots are considered or different graphical elements on the same type of plot, the distance metric has to be able to take these differences into account. 
+%A different distance metric should be used in each case to correctly measure the quality of the lineup.
+
+The question posed to observers plays an important role in the decision they make. A minor change in the question can change the response of the subject. For example, if subjects are asked to identify a plot from one in the lineups in Figure~\ref{fig:sca}, in which there is the strongest positive relationship between the variables, plot 2 exhibits the strongest signal.  If the question asks, instead, for the plot with the largest slope, plot 7 would be the obvious pick. 
+%\hh{XXX again, why do we try to reflect a plot in a single number, when we know that we can't?}
+A distance metric should also take into account the question of interest, and the metrics that we have described in the previous section do this for the MTurk studies done to date where quite specific questions were used. In practice, the question of interest very broad to enable detection of any type of significant structure in a plot, and is generically, "which plot in the lineup is the most different from the others", in which case the binned distance should be optimal.
+
 
 
 \end{document}
