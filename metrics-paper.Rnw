@@ -108,14 +108,15 @@
 \dc{Di suggests the intro could be reduced, remove the Tukey quote, tighten up the distance descriptions but keep the plots, maybe fig 7, fig 14 could be moved to appendix}
 \dc{Keep emphasis on sampling distribution, and re-state this in conclusions}
 \dc{Explain the Turk studies in the intro}
-\item restructure introduction:
+\dc{DONE}
+\item restructure introduction: \dc{DONE}
 include findings from previous studies, such as permutation-invariance; 
-include description of how data is collected; 
+include description of how data is collected; \dc{MAYBE NEEDS TO HAVE THIS, COULD BE IN APPENDIX}
 \item be more precise in lineup description: null hypotheses
 
-\item add citations \citep{marron:1995} and \citep{hannig:2013} in the text - pbly conclusions because these studies could benefit from the lineup protocol to vouch that the error metrics would be better than MSE for getting model fit to look more like we'd expect by eye
+\item add citations \citep{marron:1995} and \citep{hannig:2013} in the text - pbly conclusions because these studies could benefit from the lineup protocol to vouch that the error metrics would be better than MSE for getting model fit to look more like we'd expect by eye \dc{DONE}
 \item title change \dc{DONE}
-\item conclusions don't match results, the specialist metric does not always outperform the binned
+\item conclusions don't match results, the specialist metric does not always outperform the binned \dc{DONE}
 \end{itemize}
 }
 
@@ -181,11 +182,11 @@ Figure~\ref{compare} illustrates the difference between the classical test, and 
   \includegraphics[width=\textwidth]{visual-inference-plot-1.pdf}
 \end{subfigure}
 \vspace{-.2in}
-\caption{If the lineup protocol was to be used instead of classical inference this is what it would look like. (a) Rejection region (shaded in red) for classical inference for $H_0: \mu=\mu_0$ vs $H_a:\mu>\mu_0$  and (b) values corresponding to the true value (red) and the null plots (blue) in a single lineup of size $m=20$ that would be used to test the same null hypothesis.  The actual  data plot is extreme relative to the null plots, and observers would likely be able to pick it out, resulting in a decision to reject the null hypothesis. In practice, the lineup protocol would not be used if a classical test can be used. \dc{Can these be generated on the fly, and then the values from lineup in Fig 1 used for the right plot.}} 
+\caption{If the lineup protocol was to be used instead of classical inference this is what it would look like. (a) Rejection region (shaded in red) for classical inference for $H_0: \mu=\mu_0$ vs $H_a:\mu>\mu_0$  and (b) values corresponding to the true value (red) and the null plots (blue) in a single lineup of size $m=20$ that would be used to test the same null hypothesis.  The actual  data plot is extreme relative to the null plots, and observers would likely be able to pick it out, resulting in a decision to reject the null hypothesis. In practice, the lineup protocol would not be used if a classical test can be used. } 
 \label{compare}
 \end{figure}
 
-To date, more than 20 studies have been conducted utilizing the lineup protocol, primarily using MTurk. The first three experiments (described in \citet{majumder:2011}) compared the protocol to classical tests associated with fitting linear models. A later experiment examined the use of the protocol for detecting clusters in high-dimensional data \citep{roychowdhury:2013}. Combined \dc{XXX} subjects examined \dc{XXX} lineups. It is the data from these experiments (Table \ref{tbl:visual_stat}) that we now examine with a different purpose, to assess how distance metrics compare with human evaluation. The questions arising from these studies are: 
+To date, more than 20 studies have been conducted utilizing the lineup protocol, primarily using MTurk. The first three experiments (described in \citet{majumder:2011}) compared the protocol to classical tests associated with fitting linear models. A later experiment examined the use of the protocol for detecting clusters in high-dimensional data \citep{roychowdhury:2013}. Each of these experiments involved a carefully controlled study where structure in plots was generated using simulation, and multiple replicates for each treatment were used. Subjects participating in the studies were experienced MTurk workers, and evaluated blocks of ten lineups. The blocks were chosen using stratified sampling. For each lineup subjects selected a plot from the lineup that they felt best matched the question asked, rated how sure they had found the best match, and why they decided on their choice.  (Full details of the experimental setups and data collection are provided in the Appendix.) It is the data from these experiments (Table \ref{tbl:visual_stat}) that we now examine with a different purpose, to assess how distance metrics compare with human evaluation. All combined, this amounts to information from 1047 subjects examining 206 lineups. The questions arising from these studies are: 
 
 \begin{itemize} \itemsep 0in
   \item Using distance metrics applied to data plots, can we get the computer choose like a human does?
@@ -487,7 +488,7 @@ The observed test statistic is  compared to the empirical distribution, as shown
 The empirical distribution of the distance based on regression is shown in Figure~\ref{fig:distances} using $N = 1000$ simulation runs. 
 Figure~\ref{dist_1} shows the lineup plot for $m = 20$ for testing whether there exists a significant linear relationship between $X_1$ and $X_2$. The 19 null plots are generated by fitting the null model and generating from the null model. Figure~\ref{dist_2} shows the general empirical distribution of distance measures based on the null model. For the particular lineup on the left, mean distances  are shown by overlaid line segments for the true plot (in orange) and the null plots (in black). The true plot is easily identifiable from the lineup (Figure~\ref{dist_1}, in the experiment 40 out of 45 observers identified the data). This is backed by the regression based distance measure seen in Figure~\ref{dist_2}, as the orange line is on the extreme right tail compared to the black lines. 
 
-\begin{figure}[hbtp]
+\begin{figure}[!p]
 \centering
 \begin{subfigure}[b]{0.55\textwidth}
 \caption{\label{dist_1}Lineup: which slope is the steepest?}
@@ -617,7 +618,7 @@ ggplot()  +
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
 
-\begin{figure}[hbtp]
+\begin{figure}[!p]
 \centering
 \begin{subfigure}[b]{0.55\textwidth}
 \caption{\label{box-1}Lineup: which of these pairs of boxplots shows the biggest vertical difference?}
@@ -848,7 +849,7 @@ For each lineup, the detection rate is calculated based on the number of evaluat
 %For each lineup a subject's choice was noted and the proportion of data identifications was calculated. The distances between the plots in each lineup were computed using both the distance based on boxplots ($d_{BX}$) and the binned distance ($d_{BN}$). For each lineup the mean distance for the true plot and the null plots were calculated and $\delta$ and $\gamma$ are obtained. The proportion of data identification is plotted against each of the two statistics, shown in Figure~\ref{turk1comp}. Binned distance was calculated using 8 bins \hh{along the $y$ axis$ and 2 for $x$}. %shows the detection rate against the difference for $d_{BX}$ and $d_{BN}$ and the number of null plots greater than the observed plot for the two distance measures. 
 
 
-\begin{figure}[hbtp]
+\begin{figure}[!t]
 \centering
 \begin{subfigure}[t]{\textwidth}
 \centering
@@ -985,11 +986,11 @@ In order to investigate on what participants base their choice, we are going to 
 From Figure~\ref{turk1comp} we see that for some of the lineups the detection rate is higher than its $\delta$-difference would suggest. One such lineup is marked using a triangle in Figure~\ref{turk1comp}. %It would be interesting to look into the lineup closely to identify what made the people pick the actual plot as different. 
 Figure~\ref{turk1-exp} shows the lineup and the distribution of distance metrics for a closer look at what might observers lead to pick the data plot as different. The grey numbers at the bottom right of each of the plots in the lineup shows a summary of how often a plot was picked by a participant in 168 evaluations.
 
-\begin{figure}[hbtp]
+\begin{figure}[!p]
 \centering
 \begin{subfigure}[t]{\textwidth}
 \centering
-\caption{\label{fig:turk1-exp-1}Lineup of side-by-side boxplots. The numbers at the bottom right are the number of times each of the plots was chosen by an observer.}
+\caption{\label{fig:turk1-exp-1}Lineup of side-by-side boxplots. }
 %\includegraphics[width=\textwidth]{lineup-high-prop-neg-diff.pdf}
 <<lp-exc, echo=FALSE, fig.width=6, fig.height=6, out.width='0.6\\textwidth'>>=
 dat <- read.table("data/turk1/dat_turk1_100_8_12_2.txt", header = T)  ## plot_turk1_100_8_12_2
@@ -1018,7 +1019,8 @@ levels(lineup.dat$group) <- c("A", "B")
 
 ### Number of picks by observers
 res.exp1 <- read.csv("data/raw_data_turk1.csv")
-lpsub <- unique(subset(res.exp1, pic_name=="plot_turk1_100_8_12_2.png")[,c("response", "response_no")])
+#lpsub <- unique(subset(res.exp1, pic_name=="plot_turk1_100_8_12_2.png")[,c("response", "response_no")]) \dc{why do we need unique, messes up calculations}
+lpsub <- subset(res.exp1, pic_name=="plot_turk1_100_8_12_2.png")[,c("response", "response_no")]
 dt <- as.data.frame(xtabs(~response_no, data=lpsub))
 names(dt) <- c(".sample", "picks")
 picks <- data.frame(.sample=1:20)
@@ -1167,7 +1169,7 @@ ggplot()  + geom_density(data = dframe, aes(x = dbn22),
 \end{subfigure}
 
 	\vspace{-.1in}
-\caption{ Illustration of the behavior of the three distance metrics. The lineup is shown in (a) and  distributions of the different  metrics based on this lineup is shown in the other plots: boxplot based distance in (b), binned distance with 2 and 8 bins on x and y axis in (c) and binned distance with 2 bins along both axes in (d). The lineup corresponds to the point marked with a triangle in difference vs. detection rate plot in Figure~\ref{turk1comp}. }
+\caption{Illustration of the behavior of the three distance metrics. The lineup is shown in (a) and  distributions of the different  metrics based on this lineup is shown in the other plots: boxplot based distance in (b), binned distance with 2 and 8 bins on x and y axis in (c) and binned distance with 2 bins along both axes in (d). Grey numbers on the lineup show the counts of subject choices. The lineup corresponds to the point marked with a triangle in difference vs. detection rate plot in Figure~\ref{turk1comp}. }
 \label{turk1-exp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -1207,7 +1209,7 @@ Note that taking the log of time to respond is an alternative to using the media
 %%{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 %\end{figure}
 
-\begin{figure}[hbtp]
+\begin{figure}[!h]
 \centering
 %\includegraphics[width=0.6\textwidth]{turk1-mtime-box-bin.pdf}
 <<time-taken, dependson='dist-box-bin', fig.width=8.5, fig.height=4.5, out.width='0.6\\textwidth', echo=FALSE>>=
@@ -1236,14 +1238,14 @@ ggplot(data = prop.diff.m) +
 \end{figure}
 
 
-\newpage
+%\newpage
 \subsection{Experiment II -- Scatterplots with an Overlaid Regression Line}\label{sec:turk2}
 The question of interest of experiment II is very similar to the one in experiment I: again, the focus is to investigate the power of visual methods in the framework of normal models. In contrast to experiment I, we are interested in the significance of a continuous variable $X$. The test statistic therefore is a scatterplot of the dependent variable and $X$ overlaid by a regression line. As mentioned in the introduction and further discussed in section 5.2 of \citet{majumder:2011}, $X$ is assumed to be standard normal, and dependent data $Y$ is also simulated from a normal distribution for various correlation settings. Null data correspondingly is simulated from $N(X\widehat{\beta}, \widehat{\sigma}^2)$.  
 Figures~\ref{lineup-example} and~\ref{fig:distances} show examples of the type of  lineup used in the study.  Subjects recruited from MTurk  were shown a set of ten lineups  and asked to identify the plot with the steepest slope in each. 
 
 For each lineup in this experiment,  distances between the plots were computed using both  regression based distance  ($d_{RG}$) and  binned distances ($d_{BN}$) with a small number of bins. For each lineup the proportion of data identifications was calculated from participants' responses and plotted against $\delta$-difference and the $\gamma$-number of extreme null plots, as shown in Figure~\ref{turk2comp}.
 
-\begin{figure}[hbtp]
+\begin{figure}[!t]
 \begin{subfigure}[t]{\textwidth}
 \centering
 \caption{\label{turk2comp-1}$\delta$-difference }
@@ -1377,7 +1379,7 @@ While this makes an absolute comparison of distances across different types of p
 
 Figure~\ref{turk2comp-2} shows  detection rate against the $\gamma$-number of extreme null plots. As the number of extreme plots increases,  detection rate decreases on average --- indicating that identifying the data plot from a lineup becomes harder when there are more extreme plots in the lineup. For a few lineups, almost all evaluations led to an identification of the data plot although there was one null plot with an extreme feature. From Figure~\ref{turk2comp-1}, we see that this difference is marginal in most cases, though. 
 
-\begin{figure}[hbtp]
+\begin{figure}[!t]
 \centering
 %\includegraphics[scale=0.75]{turk2-mtime-reg-bin.pdf}
 %\subfigure[]{
@@ -1483,10 +1485,10 @@ dd3 <- metrics.dat %>% group_by(pos.1) %>% summarize(
   len=n())
 @
 
-\begin{figure}[hbtp]
+\begin{figure}[!p]
 \centering
 \begin{subfigure}[b]{\textwidth}
-\caption{\small Lineup of scatterplots with overlaid regression lines. The numbers at the bottom right of each panel gives the number of times this plot was chosen in 66 evaluations.}
+\caption{\small Lineup of scatterplots with overlaid regression lines.}
 \centering
 \begin{subfigure}[b]{0.6\textwidth}
 %\includegraphics[width=\textwidth]{lineup-exp2-neg-diff-large-prop.pdf}
@@ -1494,7 +1496,8 @@ dd3 <- metrics.dat %>% group_by(pos.1) %>% summarize(
 
 ### Number of picks by observers
 res.exp2 <- read.csv("data/raw_data_turk2.csv")
-lpsub <- unique(subset(res.exp2, pic_name=="plot_turk2_100_350_12_3.png")[,c("response", "response_no")])
+#lpsub <- unique(subset(res.exp2, pic_name=="plot_turk2_100_350_12_3.png")[,c("response", "response_no")]) \dc{why do we need unique, messes up computation}
+lpsub <- subset(res.exp2, pic_name=="plot_turk2_100_350_12_3.png")[,c("response", "response_no")]
 dt <- as.data.frame(xtabs(~response_no, data=lpsub))
 names(dt) <- c(".sample", "picks")
 picks <- data.frame(.sample=1:20)
@@ -1618,7 +1621,7 @@ ggplot() +
 @
 \end{subfigure}
 
-\caption{Illustration of the behavior of different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics using this lineup are shown in plots (b)--(d): regression based distances in (b), binned distance with 2 bins on each axes in (c), and binned distance with 8 and 2 bins in x and y axis (d). In (e), the distribution of the conventional $p$-values are plotted with $p$-values for the lineups marked on the distribution. The lineup corresponds to the point marked with a triangle in difference vs. detection rate plot in Figure~\ref{turk2comp}.}
+\caption{Illustration of the behavior of different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics using this lineup are shown in plots (b)--(d): regression based distances in (b), binned distance with 2 bins on each axes in (c), and binned distance with 8 and 2 bins in x and y axis (d). In (e), the distribution of the conventional $p$-values are plotted with $p$-values for the lineups marked on the distribution. Grey numbers on the lineup show the counts of subject choices. The lineup corresponds to the point marked with a triangle in difference vs. detection rate plot in Figure~\ref{turk2comp}.}
 \label{turk2-exp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -1639,22 +1642,22 @@ The motivation behind this experiment is to study the effect of high dimensions 
 A projection pursuit with Penalized Discriminant Analysis Index \citep{lee:2009} was used to obtain one (for two groups) or two (for three groups) dimensional projections. 
 Depending on the number of groups, either a jittered dotplot or a scatterplot was used as test statistic in a lineup setting. %The one or two dimensional projections were then plotted which resulted in the observed data plot. 
 The null plots are obtained by permuting the group variable and plotting the two dimensional projections obtained from a projection pursuit with PDA index.
-The subjects were shown these lineups and were asked to identify the plot with the most separated colored groups. Figure~\ref{largep} gives an example of such a lineup of a  two dimensional projection with three colored groups. 
+The subjects were shown these lineups and were asked to identify the plot with the most separated colored groups. %Figure~\ref{largep} gives an example of such a lineup of a  two dimensional projection with three colored groups. 
 
-\begin{figure}[htbp]
-\centering
+%\begin{figure}[!t]
+%\centering
 %\includegraphics[width=.95\textwidth]{largep-example.pdf}
 %\includegraphics[width=.65\textwidth]{large-p-trim-bin.pdf}
-<<t7-lp, echo=FALSE, fig.width=6, fig.height=6, out.width='.7\\textwidth'>>=
-lpt7 <- read.table("data/turk7/dat_large_p_small_n_30_20_0_2_1.txt", header=TRUE)
+%<<t7-lp, echo=FALSE, fig.width=6, fig.height=6, out.width='.7\\textwidth'>>=
+%lpt7 <- read.table("data/turk7/dat_large_p_small_n_30_20_0_2_1.txt", header=TRUE)
 
-qplot(X1, X2, colour=factor(cl), facets=~.sample, data=lpt7, size=I(3)) + 
-  theme_lineup +
-  theme(legend.position="none") 
-@
-\caption{An example lineup from Experiment III. Here, two dimensional projections of the PDA index are plotted for $n = 30$ observations in 20 dimensional data with separation. The subjects were asked to identify the plot with the most separated colors. Can you identify the data plot?}
-\label{largep}
-\end{figure}
+%qplot(X1, X2, colour=factor(cl), facets=~.sample, data=lpt7, size=I(3)) + 
+%  theme_lineup +
+%  theme(legend.position="none") 
+%@
+%\caption{An example lineup from Experiment III. Here, two dimensional projections of the PDA index are plotted for $n = 30$ observations in 20 dimensional data with separation. The subjects were asked to identify the plot with the most separated colors. Can you identify the data plot?}
+%\label{largep}
+%\end{figure}
 %%\afterpage{\clearpage}
 
 The distances between the plots in this experiment were computed using the distance based on minimum separation and average separation of the clusters and also the binned distance. The number of bins used for the lineups with one dimensional projections is larger (10 in this case) but for the lineups with two dimensional projections, the number of bins used is 5. The proportion of correct response is plotted against $\delta$-difference and $\gamma$-number of extreme nulls for both distances. Figure~\ref{lp-comp} shows the results.
@@ -1765,7 +1768,7 @@ prop.dist$shape <- ifelse(prop.dist$pic_name == "plot_large_p_small_n_30_100_0_2
 @
 
 
-\begin{figure}[hbtp]
+\begin{figure}[!t]
 \centering
 \begin{subfigure}[t]{\textwidth}
 \caption{$\delta$-difference}
@@ -1855,7 +1858,7 @@ and binned distance (AIC: \Sexpr{round(AIC(dbn), 1)}). Dunn separation, motivate
 
 In (b) it can be seen that as there are more extreme null plots compared to the observed plot, the subjects find it difficult to pick the observed plot. For a few lineups, a large number of the subjects identify the observed plot although there is more extreme null plots. 
 
-\begin{figure}[hbtp]
+\begin{figure}[!h]
 \centering
 %\includegraphics[width=0.7\textwidth]{largep-mtime-sep-bin.pdf}
 <<largep-mtime, echo=FALSE, dependson='t7-distr', out.width='\\textwidth', fig.width=12.5, fig.height=3.5>>=
@@ -1897,7 +1900,7 @@ dd3 <- submetrics %>% group_by(pos.1) %>% summarize(
 @
 
 
-\begin{figure}[hbtp]
+\begin{figure}[!p]
 
 %\centering
 \begin{subfigure}[t]{\textwidth}
@@ -2026,7 +2029,7 @@ ggplot() +
 \end{subfigure} 
 \end{subfigure}
 	\vspace{-.1in}
-\caption{Illustration of the behavior of different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics are shown in the other plots:  binned distance with 6 and 4 bins in x and y axis respectively in (b), distance based on minimum separation in (c), distance based on average separation in (d) and distance based on Dunn separation in (e). The reference distributions are based on 100 null sets of 19 nulls each, yielding 1,800 distances.}
+\caption{Illustration of the behavior of different distance metrics. The lineup is shown in (a) and the distributions of different distance metrics are shown in the other plots:  binned distance with 6 and 4 bins in x and y axis respectively in (b), distance based on minimum separation in (c), distance based on average separation in (d) and distance based on Dunn separation in (e). Grey numbers on the lineup show the counts of subject choices. The reference distributions are based on 100 null sets of 19 nulls each, yielding 1,800 distances.}
 \label{lp-exp}
 %{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
 \end{figure}
@@ -2036,15 +2039,26 @@ Figure~\ref{lp-exp} shows the lineup in a high dimension, low sample size settin
 
 
 \section{Conclusion}
-Distance metrics are compared to the response of human subjects on lineups. While there is a fairly strong amount of agreement in most situations,  in some situations  they disagree. There does not seem to be one single reason behind this disagreement. Observers might identify a plot as different from the others in a lineup because of multiple features. However, distance metrics are constructed such that they take one specific property of a plot into account.
+Distance metrics are compared to the response of human subjects on lineups. What we see in each of the experiments is that the general approach of the binned distance, while mostly performing decently, is usually out-done by a distance that is more tailored to the question of interest or takes the graphical elements into account. These were a special collection of experiments where the task was very focused, but in practice the question is generic and we would expect the binned distance to be most broadly applicable. 
 
-Distance metrics can be used to automatically and objectively assess the difficulty of a lineup before showing the lineups to human subjects. Hence, they  allow us to provide lineups within a range of difficulty to  human subjects to evaluate.
+The distance metrics clearly can be used to help in future experiments with lineups, to roughly divide them into three groups, easy, moderate, difficult. Subjects are typically given a block of ten lineups to evaluate. Having the difficulty rating will help provide a reasonable set for each subject. 
 
-In classical inference, the test statistic follows a certain distribution under the null hypothesis. Similarly, null plots in visual inference can be viewed as random samples from the null distribution. Though theoretically this is true, practically it is impossible to exhaustively investigate such a distribution. The distribution of the distance metrics approximates one dimension of the null distribution for a given distance metric. The value of the distance metric for the actual plot can be compared to all the other plots using such a distribution.
+It is also clear that some distance metrics better match with subjects' choices. Boxplot du=istance better matched subject choices in experiment I. Regression based distance matched better than binned distance for the subject choices in experiment II. By the $\gamma$-number minimum separation and average separation matched better than the other distance metrics for experiment III. 
 
-The reason of choice can provide a way of evaluating the performance of a distance metric. For example,  if the reason of choice for  a majority of observers is the steepest slope, for a lineup of scatterplots with regression line overlaid, the regression based distance may work better than the binned distance. Similarly, if the reason of choice is the presence of outliers, the binned distance with large number of bins on both axes may be the best distance metric to reflect detection rates. 
+None of the distance metrics perfectly matches subject choices. This suggests that there is a lot of scope for exploring new ways to numerically characterize structure in plots. The metrics we
+have described still are based on the data, rather than the graphical elements in the plot. Utilizing the graphical elements, e.g. length of line relative the plot size to build metrics might provide a close fit, and also help to understand more precisely what viewers are visually responding to in the plot.
 
-What we see in each of the experiments is that the general approach of the binned distance, while mostly performing decently, is out-done by a  distance that is more tailored to the question of interest or takes the graphical elements into account. This is only to be expected. What the lineup protocol opens up to us is an approach that delivers us some objective insight into what people respond to in a plot and which graphical elements they consider when viewing a plot.
+%What the lineup protocol opens up to us is an approach that delivers us some objective insight into what people respond to in a plot and which graphical elements they consider when viewing a plot.
+
+
+%While there is a fairly strong amount of agreement in most situations,  in some situations  they disagree. There does not seem to be one single reason behind this disagreement. Observers might identify a plot as different from the others in a lineup because of multiple features. However, distance metrics are constructed such that they take one specific property of a plot into account.
+
+%Distance metrics can be used to automatically and objectively assess the difficulty of a lineup before showing the lineups to human subjects. Hence, they  allow us to provide lineups within a range of difficulty to  human subjects to evaluate.
+
+%In classical inference, the test statistic follows a certain distribution under the null hypothesis. Similarly, null plots in visual inference can be viewed as random samples from the null distribution. Though theoretically this is true, practically it is impossible to exhaustively investigate such a distribution. The distribution of the distance metrics approximates one dimension of the null distribution for a given distance metric. The value of the distance metric for the actual plot can be compared to all the other plots using such a distribution.
+
+%The reason of choice can provide a way of evaluating the performance of a distance metric. For example,  if the reason of choice for  a majority of observers is the steepest slope, for a lineup of scatterplots with regression line overlaid, the regression based distance may work better than the binned distance. Similarly, if the reason of choice is the presence of outliers, the binned distance with large number of bins on both axes may be the best distance metric to reflect detection rates. 
+
 %This can be a probable future work.
 
 %The lineup protocol places a statistical plot in the hypothesis testing framework. The null plots in the lineup has an instrumental effect on the response of the subjects since there are only a finite number of null plots which the subjects compare the observed data plot to. A `bad' set of null plots makes it difficult to identify the observed data plot. The quality of the lineup is measured by describing plots numerically using a set of distance metrics. 
@@ -2941,6 +2955,8 @@ The question posed to observers plays an important role in the decision they mak
 %\hh{XXX again, why do we try to reflect a plot in a single number, when we know that we can't?}
 A distance metric should also take into account the question of interest, and the metrics that we have described in the previous section do this for the MTurk studies done to date where quite specific questions were used. In practice, the question of interest very broad to enable detection of any type of significant structure in a plot, and is generically, "which plot in the lineup is the most different from the others", in which case the binned distance should be optimal.
 
+\subsection*{Description of MTurk Data Collection}
 
+\dc{TO BE FILLED IN}
 
 \end{document}
