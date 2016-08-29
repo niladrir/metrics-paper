@@ -2958,5 +2958,11 @@ A distance metric should also take into account the question of interest, and th
 \subsection*{Description of MTurk Data Collection}
 
 \dc{TO BE FILLED IN}
+Participants from Amazon Mechanical Turk were recruited for the experiments. These participants were shown lineups and were asked to identify the plot in the lineups which, according to their judgement, closely corresponds to the question they were asked. They were also asked to provide a reason for their choice and the confidence in their response in a categorical scale. Other than these data, gender, age, education and geographic location were also collected.
+
+Each participant was shown at least 10 lineups of varying difficulty, with a fair share of "easy" lineups. These were randomly chosen from a larger pool of lineups having different difficulty levels. The difficulty level of the lineups were controlled by varying the parameters like slope and variability. These are described by greater details in \citet{majumder:2011} and \citep{roychowdhury:2013}. None of the participants judged the same lineup twice. 
+
+Amazon Mechanical Turk workers were paid for their efforts on the scale of minimum wages in USA. To minimize their efforts, some workers may try to randomly pick a plot in the lineup to get the job done. To avoid this issue, a very easy lineup was randomly placed in this block of 10 lineups, in which every participant should identify the actual plot correctly. During data cleaning, the response from only those participants were considered who identified the actual plot correctly in this easy lineup. The response from the other lineups for these participants were only considered while the response for this easy lineup was not considered. 
+
 
 \end{document}
