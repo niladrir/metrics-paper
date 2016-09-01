@@ -91,34 +91,35 @@
 
 \bigskip
 \begin{abstract}
-\dc{Revisit: Graphics play a crucial role in statistical analysis and data mining. Being able to quantify structure in data that is visible in plots, and how people read the structure from plots is an ongoing challenge. This paper describes metrics developed to assist with this, and compares them to choice by human subjects. Lineups embed the plot of the data among a set of null plots, and engage a human observer determine whether the data plot is different from the nulls. The data plot is treated like a test statistic, and lineup protocol acts like a comparison with the sampling distribution of the nulls.  Different metrics are calculated in association with lineups and it was noticed that metrics which takes into account the question of interest or the graphical elements in the plot work better than the general metrics. Also, the metrics can be used to divide lineups into difficulty levels in future experiments. Analysis of the distance metrics was conducted on data collected through a large number of Amazon Turk studies that have used the lineup protocol for studying an array of data analysis tasks.}
+Graphics play a crucial role in statistical analysis and data mining. Being able to quantify structure in data that is visible in plots, and how people read the structure from plots is an ongoing challenge. This paper describes metrics developed to assist with this, and compares them to choice by human subjects. Lineups embed the plot of the data among a set of null plots, and engage a human observer determine whether the data plot is different from the nulls. The data plot is treated like a test statistic, and lineup protocol acts like a comparison with the sampling distribution of the nulls.  Different metrics are calculated in association with lineups and it was noticed that metrics which takes into account the question of interest or the graphical elements in the plot work better than the general metrics. Also, the metrics can be used to divide lineups into difficulty levels in future experiments. Analysis of the distance metrics was conducted on data collected through a large number of Amazon Turk studies that have used the lineup protocol for studying an array of data analysis tasks.
 \end{abstract}
 
 \noindent%
 {\it Keywords:}  data visualization, statistical graphics, data mining, data science, information visualization
 \vfill
 
-\newpage
-\spacingset{1.45} % DON'T change the spacing!
-%\tableofcontents
-\newpage
-\hh{things to do:
-\begin{itemize}
-\item reduce paper to 30 pages + appendix (from 40 pages + 3 pages of appendix): strategy: explain first example in detail, include only conclusions for the other two examples, put supporting material into the appendix
-\dc{Di suggests the intro could be reduced, remove the Tukey quote, tighten up the distance descriptions but keep the plots, maybe fig 7, fig 14 could be moved to appendix}
-\dc{Keep emphasis on sampling distribution, and re-state this in conclusions}
-\dc{Explain the Turk studies in the intro}
-\dc{DONE}
-\item restructure introduction: \dc{DONE}
-include findings from previous studies, such as permutation-invariance; 
-include description of how data is collected; \dc{MAYBE NEEDS TO HAVE THIS, COULD BE IN APPENDIX}
-\item be more precise in lineup description: null hypotheses
-
-\item add citations \citep{marron:1995} and \citep{hannig:2013} in the text - pbly conclusions because these studies could benefit from the lineup protocol to vouch that the error metrics would be better than MSE for getting model fit to look more like we'd expect by eye \dc{DONE}
-\item title change \dc{DONE}
-\item conclusions don't match results, the specialist metric does not always outperform the binned \dc{DONE}
-\end{itemize}
-}
+%%
+% \newpage
+% \spacingset{1.45} % DON'T change the spacing!
+% %\tableofcontents
+% \newpage
+% \hh{things to do:
+% \begin{itemize}
+% \item reduce paper to 30 pages + appendix (from 40 pages + 3 pages of appendix): strategy: explain first example in detail, include only conclusions for the other two examples, put supporting material into the appendix
+% \dc{Di suggests the intro could be reduced, remove the Tukey quote, tighten up the distance descriptions but keep the plots, maybe fig 7, fig 14 could be moved to appendix}
+% \dc{Keep emphasis on sampling distribution, and re-state this in conclusions}
+% \dc{Explain the Turk studies in the intro}
+% \dc{DONE}
+% \item restructure introduction: \dc{DONE}
+% include findings from previous studies, such as permutation-invariance; 
+% include description of how data is collected; \dc{MAYBE NEEDS TO HAVE THIS, COULD BE IN APPENDIX}
+% \item be more precise in lineup description: null hypotheses
+% 
+% \item add citations \citep{marron:1995} and \citep{hannig:2013} in the text - pbly conclusions because these studies could benefit from the lineup protocol to vouch that the error metrics would be better than MSE for getting model fit to look more like we'd expect by eye \dc{DONE}
+% \item title change \dc{DONE}
+% \item conclusions don't match results, the specialist metric does not always outperform the binned \dc{DONE}
+% \end{itemize}
+% }
 
 \newpage
 %{\color{red} Key Ideas:
@@ -2958,7 +2959,7 @@ A distance metric should also take into account the question of interest, and th
 
 \subsection*{Description of MTurk Data Collection}
 
-\dc{TO BE FILLED IN}
+%\dc{TO BE FILLED IN}
 Participants from Amazon Mechanical Turk were recruited for the experiments. These participants were shown lineups and were asked to identify the plot in the lineups which, according to their judgement, closely corresponds to the question they were asked. They were also asked to provide a reason for their choice and the confidence in their response in a categorical scale. Other than these data, gender, age, education and geographic location were also collected.
 
 Each participant was shown at least 10 lineups of varying difficulty, with a fair share of "easy" lineups. These were randomly chosen from a larger pool of lineups having different difficulty levels. The difficulty level of the lineups were controlled by varying the parameters like slope and variability. These are described by greater details in \citet{majumder:2011} and \citep{roychowdhury:2013}. None of the participants judged the same lineup twice. 
