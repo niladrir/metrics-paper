@@ -121,7 +121,7 @@ Graphics play a crucial role in statistical analysis and data mining. Being able
 % \end{itemize}
 % }
 
-\newpage
+%\newpage
 %{\color{red} Key Ideas:
 % \begin{itemize}
 %\item Measure ease of a lineup (? signal strength.)
