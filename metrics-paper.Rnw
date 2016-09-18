@@ -62,7 +62,7 @@
 
 \if0\blind
 {
-  \title{\bf Measuring Lineup Difficulty By Matching Distance Metrics with Subject Choices with Crowd-Sourced Data}
+  \title{\bf Measuring Lineup Difficulty By Matching Distance Metrics with Subject Choices in Crowd-Sourced Data}
 \author{Niladri Roy Chowdhury\thanks{
     The authors gratefully acknowledge funding from the National Science Foundation Grant DMS \#1007697. All data collection has been conducted with approval from the Institutional Review Board IRB 10-347.}\hspace{.2cm}\\
     Biometrics and Data Management, Novartis Oncology\\
@@ -84,7 +84,7 @@
   \bigskip
   \bigskip
   \begin{center}
-    {\LARGE\bf  Measuring Lineup Difficulty By Matching Distance Metrics with Subject Choices with Crowd-Sourced Data}
+    {\LARGE\bf  Measuring Lineup Difficulty By Matching Distance Metrics with Subject Choices in Crowd-Sourced Data}
 \end{center}
   \medskip
 } \fi
@@ -96,7 +96,7 @@ Graphics play a crucial role in statistical analysis and data mining. Being able
 
 \noindent%
 {\it Keywords:}  data visualization, statistical graphics, data mining, data science, information visualization
-\vfill
+%\vfill
 
 %%
 % \newpage
@@ -151,7 +151,7 @@ turk2 <- read.csv("data/raw_data_turk2.csv")
 lp <- subset(turk2, pic_name == "plot_turk2_100_450_12_3.png")
 lpu <- unique(lp[,c("id", "response", "response_no", "plot_location")])
 @
-Figure~\ref{lineup-example} shows a lineup from a study described in \citet{majumder:2011}. It is based on simulated data to examine the similarity of results derived from the lineup protocol and those derived from a classical $t$-test. Pseudo-data plots were generated with specific structure in a linear model, controlling $\beta_k, \sigma, n$ (slope, variation and sample size). And null plots were generated from a null hypothesis $\beta_k=0$. In this field of plots one is a pseudo-data plot, $\beta_k\neq 0$, and the remaining 19 are null plots. Subjects were asked a very specific question in this study -- ``Which plot has the steepest slope?'' -- in order to make comparisons with the classical test. (In practice, when using the lineup protocol, subjects are generically asked to select the plot that is most different from the others, so that the value of graphics to discover the unexpected can be utilized.) The pseudo-data plot in this lineup is \#2. In the MTurk study, \Sexpr{sum(lpu$response)} out of \Sexpr{nrow(lpu)} subjects selected this plot. This would produce a (visual) $p$-value of 0, leading to the conclusion that the null hypothesis should be rejected. 
+Figure~\ref{lineup-example} shows a lineup from a study described in \citet{majumder:2011}. It is based on simulated data to examine the similarity of results derived from the lineup protocol and those derived from a classical $t$-test. Pseudo-data plots were generated with specific structure in a linear model, controlling $\beta_k, \sigma, n$ (slope, variation and sample size). And null plots were generated from a null hypothesis $\beta_k=0$. In this field of plots one is a pseudo-data plot, $\beta_k\neq 0$, and the remaining 19 are null plots. Subjects were asked a very specific question in this study -- ``Which plot has the steepest slope?'' -- in order to make comparisons with the classical test. (In practice, when using the lineup protocol, subjects are generically asked to select the plot that is most different from the others, so that the value of graphics to discover the unexpected can be utilized.) The pseudo-data plot in this lineup is \#2. In the MTurk study, \Sexpr{sum(lpu$response)} out of \Sexpr{nrow(lpu)} subjects, who evaluated this lineup, selected this plot. This would produce a (visual) $p$-value of 0, leading to the conclusion that the null hypothesis should be rejected. 
 \begin{figure}[!t]
 \centering
 % This is a lineup from plot_turk2_100_450_12_3.png
@@ -187,7 +187,7 @@ Figure~\ref{compare} illustrates the difference between the classical test, and 
 \label{compare}
 \end{figure}
 
-To date, more than 20 studies have been conducted utilizing the lineup protocol, primarily using MTurk. The first three experiments (described in \citet{majumder:2011}) compared the protocol to classical tests associated with fitting linear models. A later experiment examined the use of the protocol for detecting clusters in high-dimensional data \citep{roychowdhury:2013}. Each of these experiments involved a carefully controlled study where structure in plots was generated using simulation, and multiple replicates for each treatment were used. Subjects participating in the studies were experienced MTurk workers, and evaluated blocks of ten lineups. The blocks were chosen using stratified sampling. For each lineup subjects selected a plot from the lineup that they felt best matched the question asked, rated how sure they had found the best match, and why they decided on their choice.  (Full details of the experimental setups and data collection are provided in the Appendix.) It is the data from these experiments (Table \ref{tbl:visual_stat}) that we now examine with a different purpose, to assess how distance metrics compare with human evaluation. All combined, this amounts to information from 1047 subjects examining 206 lineups. The questions arising from these studies are: 
+To date, more than 20 studies have been conducted utilizing the lineup protocol, primarily using MTurk. The first three experiments (described in \citet{majumder:2011}) compared the protocol to classical tests associated with fitting linear models. A later experiment examined the use of the protocol for detecting clusters in high-dimensional data \citep{roychowdhury:2013}. Each of these experiments involved a carefully controlled study where structure in plots was generated using simulation, and multiple replicates for each treatment were used. Subjects participating in the studies were experienced MTurk workers, and evaluated blocks of ten lineups. The blocks were chosen using stratified sampling. Care was taken in the studies to ensure that each subject only saw one realization of any data. For each lineup subjects selected a plot from the lineup that they felt best matched the question asked, rated how sure they had found the best match, and why they decided on their choice.  (Full details of the experimental setups and data collection are provided in the Appendix.) It is the data from these experiments (Table \ref{tbl:visual_stat}) that we now examine with a different purpose, to assess how distance metrics compare with human evaluation. All combined, this amounts to information from 1047 subjects examining 206 lineups. The questions arising from these studies are: 
 
 \begin{itemize} \itemsep 0in
   \item Using distance metrics applied to data plots, can we get the computer choose like a human does?
