@@ -6,7 +6,7 @@
 \usepackage{array}
 \usepackage[colorlinks=TRUE, linkcolor=blue]{hyperref}
 \usepackage{wrapfig,float}
-\usepackage[font=small,skip=5pt]{caption}
+%\usepackage[font=small,skip=5pt]{caption}
 \usepackage{subcaption}
 \usepackage{graphicx}
 %\usepackage{amssymb}
@@ -95,7 +95,7 @@ Graphics play a crucial role in statistical analysis and data mining. Being able
 \end{abstract}
 
 \noindent%
-{\it Keywords:}  data visualization, statistical graphics, data mining, data science, information visualization
+{\it Keywords:}  data visualization, statistical graphics, data mining, data science, information visualization, cognitive perception, distance metrics, exploratory data analysis, visual inference
 %\vfill
 
 %%
@@ -2041,14 +2041,12 @@ Figure~\ref{lp-exp} shows the lineup in a high dimension, low sample size settin
 
 
 \section{Conclusion}
-Distance metrics are compared to the response of human subjects on lineups. What we see in each of the experiments is that the general approach of the binned distance, while mostly performing decently, is usually out-done by a distance that is more tailored to the question of interest or takes the graphical elements into account. These were a special collection of experiments where the task was very focused, but in practice the question is generic and we would expect the binned distance to be most broadly applicable. 
+Distance metrics are compared to the response of human subjects on lineups. What we see in each of the experiments is that the general approach of the binned distance, while mostly performing decently, is usually out-done by a distance that is more tailored to the question of interest or takes the graphical elements into account. These data derived from a special collection of experiments where the task was very focused, but when the lineup is used in practice the question will be generic and we would expect the binned distance to be most broadly applicable. 
 
-The distance metrics clearly can be used to help in future experiments with lineups, to roughly divide them into three groups, easy, moderate, difficult. Subjects are typically given a block of ten lineups to evaluate. Having the difficulty rating will help provide a reasonable set for each subject. 
+Different distance metrics better matched subjects' choices for the different plot types. Boxplot distance better matched subject choices in experiment I. Regression based distance matched better than binned distance for the subject choices in experiment II. By the $\gamma$-number, minimum separation and average separation matched subjects' choices better than the other distance metrics for experiment III. 
+None of the distance metrics perfectly matches subject choices. This suggests that there is a lot of scope for exploring new ways to numerically characterize structure in plots. The metrics we have described were all based on the data, rather than the graphical elements in the plot. Utilizing the graphical elements, e.g. length of line relative the plot size to build metrics might provide a closer fit, and also help to understand more precisely what viewers are visually responding to in the plot. The lineup protocol provides a rigorous way to assess metrics on data plots with human vision. The examination of subject choices with metrics as done here provides a guide for assessing metrics systematically.
 
-It is also clear that some distance metrics better match with subjects' choices. Boxplot distance better matched subject choices in experiment I. Regression based distance matched better than binned distance for the subject choices in experiment II. By the $\gamma$-number minimum separation and average separation matched better than the other distance metrics for experiment III. 
-
-None of the distance metrics perfectly matches subject choices. This suggests that there is a lot of scope for exploring new ways to numerically characterize structure in plots. The metrics we
-have described still are based on the data, rather than the graphical elements in the plot. Utilizing the graphical elements, e.g. length of line relative the plot size to build metrics might provide a close fit, and also help to understand more precisely what viewers are visually responding to in the plot.
+One of the purposes for developing the distance metrics discussed in this paper was to help in future experiments designed to assess visual inference with lineups. Being able to roughly divide lineups into three groups -- easy, moderate, difficult -- is useful for compiling blocks for subjects to evaluate. Subjects are typically given a block of ten lineups to evaluate. If all ten are difficult it is possible to frustrate the observer, and having ten easy lineups doesn't effectively harness the human resources. being able to roughy grade a lineup into these categories makes it easier  provide a reasonable set for each subject.  It is clear from this study that they are good for this rough categorization. 
 
 %What the lineup protocol opens up to us is an approach that delivers us some objective insight into what people respond to in a plot and which graphical elements they consider when viewing a plot.
 
@@ -2658,7 +2656,7 @@ have described still are based on the data, rather than the graphical elements i
 
 \item[Software:] R-package {\tt nullabor} containing code to create lineups and calculate the distance measures described in the article.  Available on CRAN \citep{CRAN}, with development versions at \url{https://github.com/dicook/nullabor}. 
 \item[Reproducibility:] All the code and anonymized data used in this analysis is available at \url{https://github.com/niladrir/metrics-paper}.
-\item \dc{[Experiments:] Add the link to the experiments web site}  
+\item \dc{[Experiments:] \url{http://hofmann.public.iastate.edu/experiments.html} provides the resources from the experiments studied. The site is currently undergoing a shift of servers.}  
 
 \end{description}
 
