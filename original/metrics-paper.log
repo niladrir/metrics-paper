@@ -1,0 +1,1494 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  24 APR 2017 11:29
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**metrics-paper.tex
+(./metrics-paper.tex
+LaTeX2e <2015/01/01>
+Babel <3.9l> and hyphenation patterns for 79 languages loaded.
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 94.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count87
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 142.
+)
+(./framed.sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip43
+\fb@frw=\dimen105
+\fb@frh=\dimen106
+\FrameRule=\dimen107
+\FrameSep=\dimen108
+) (/usr/local/texlive/2015/texmf-dist/tex/latex/base/alltt.sty
+Package: alltt 1997/06/16 v2.0g defines alltt environment
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip44
+\bibsep=\skip45
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count88
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+LaTeX Info: Redefining \color on input line 702.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 2014/10/14 v3.0j Driver-dependent file (DPC,SPQR)
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/xcolor/svgnam.def
+File: svgnam.def 2007/01/21 v2.11 Predefined colors according to SVG 1.1 (UK)
+))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/array.sty
+Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen109
+\extrarowheight=\dimen110
+\NC@list=\toks15
+\extratabsurround=\skip46
+\backup@length=\skip47
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+Package: hobsub-hyperref 2012/05/28 v1.13 Bundle oberdiek, subset hyperref (HO)
+
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+Package: hobsub-generic 2012/05/28 v1.13 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2012/05/28 v1.13 Construct package bundles (HO)
+Package hobsub Info: Skipping package `infwarerr' (already loaded).
+Package hobsub Info: Skipping package `ltxcmds' (already loaded).
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+Package: intcalc 2007/09/27 v1.1 Expandable calculations with integers (HO)
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+Package: pdfescape 2011/11/25 v1.13 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2012/04/08 v1.3 Expandable calculations on big integers (HO
+)
+Package: bitset 2011/01/30 v1.1 Handle bit-vector datatype (HO)
+Package: uniquecounter 2011/01/30 v1.2 Provide unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2010/09/02 v1.4 Let assignment for LaTeX macros (HO)
+Package: hopatch 2012/05/28 v1.2 Wrapper for package hooks (HO)
+Package: xcolor-patch 2011/01/30 xcolor patch
+Package: atveryend 2011/06/30 v1.8 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
+Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
+Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
+)
+(/usr/local/texlive/2015/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/auxhook.sty
+Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+)
+\@linkdim=\dimen111
+\Hy@linkcounter=\count89
+\Hy@pagecounter=\count90
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
+)
+\Hy@SavedSpaceFactor=\count91
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 4319.
+Package hyperref Info: Hyper figures OFF on input line 4443.
+Package hyperref Info: Link nesting OFF on input line 4448.
+Package hyperref Info: Hyper index ON on input line 4451.
+Package hyperref Info: Plain pages OFF on input line 4458.
+Package hyperref Info: Backreferencing OFF on input line 4463.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4688.
+\c@Hy@tempcnt=\count92
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 5041.
+\XeTeXLinkMargin=\dimen112
+\Fld@menulength=\count93
+\Field@Width=\dimen113
+\Fld@charsize=\dimen114
+Package hyperref Info: Hyper figures OFF on input line 6295.
+Package hyperref Info: Link nesting OFF on input line 6300.
+Package hyperref Info: Hyper index ON on input line 6303.
+Package hyperref Info: backreferencing OFF on input line 6310.
+Package hyperref Info: Link coloring ON on input line 6313.
+Package hyperref Info: Link coloring with OCG OFF on input line 6320.
+Package hyperref Info: PDF/A mode OFF on input line 6325.
+LaTeX Info: Redefining \ref on input line 6365.
+LaTeX Info: Redefining \pageref on input line 6369.
+\Hy@abspage=\count94
+\c@Item=\count95
+\c@Hfootnote=\count96
+)
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
+\Fld@listcount=\count97
+\c@bookmark@seq@number=\count98
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+)
+\Hy@SectionHShift=\skip48
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen115
+\WF@size=\dimen116
+\c@WF@wrappedlines=\count99
+\WF@box=\box26
+\WF@everypar=\toks16
+Package: wrapfig 2003/01/31  v 3.6
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count100
+\float@exts=\toks17
+\float@box=\box27
+\@float@everytoks=\toks18
+\@floatcapt=\box28
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 57.
+\captionmargin=\dimen117
+\captionmargin@=\dimen118
+\captionwidth=\dimen119
+\caption@tempdima=\dimen120
+\caption@indent=\dimen121
+\caption@parindent=\dimen122
+\caption@hangindent=\dimen123
+)
+\c@ContinuedFloat=\count101
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: wrapfig package is loaded.
+)
+\c@subfigure=\count102
+\c@subtable=\count103
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2013/01/14 v2.14 AMS math features
+\@mathmargin=\skip49
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks19
+\ex@=\dimen124
+))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen125
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count104
+LaTeX Info: Redefining \frac on input line 210.
+\uproot@=\count105
+\leftroot@=\count106
+LaTeX Info: Redefining \overline on input line 306.
+\classnum@=\count107
+\DOTSCASE@=\count108
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
+\Mathstrutbox@=\box29
+\strutbox@=\box30
+\big@size=\dimen126
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+\macc@depth=\count109
+\c@MaxMatrixCols=\count110
+\dotsspace@=\muskip11
+\c@parentequation=\count111
+\dspbrk@lvl=\count112
+\tag@help=\toks20
+\row@=\count113
+\column@=\count114
+\maxfields@=\count115
+\andhelp@=\toks21
+\eqnshift@=\dimen127
+\alignsep@=\dimen128
+\tagshift@=\dimen129
+\tagwidth@=\dimen130
+\totwidth@=\dimen131
+\lineht@=\dimen132
+\@envbody=\toks22
+\multlinegap=\skip50
+\multlinetaggap=\skip51
+\mathdisplay@stack=\toks23
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/doublestroke/dsfont.sty
+Package: dsfont 1995/08/01 v0.1 Double stroke roman fonts
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2015/03/04 v2.20.2
+\thm@style=\toks24
+\thm@bodyfont=\toks25
+\thm@headfont=\toks26
+\thm@notefont=\toks27
+\thm@headpunct=\toks28
+\thm@preskip=\skip52
+\thm@postskip=\skip53
+\thm@headsep=\skip54
+\dth@everypar=\toks29
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)
+(/usr/local/texlive/2015/texmf-dist/tex/generic/ulem/ulem.sty
+\UL@box=\box31
+\UL@hyphenbox=\box32
+\UL@skip=\skip55
+\UL@hook=\toks30
+\UL@height=\dimen133
+\UL@pe=\count116
+\UL@pixel=\dimen134
+\ULC@box=\box33
+Package: ulem 2012/05/18
+\ULdepth=\dimen135
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/placeins/placeins.sty
+Package: placeins 2005/04/18  v 2.2
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/afterpage.sty
+Package: afterpage 2014/10/28 v1.08 After-Page Package (DPC)
+\AP@output=\toks31
+\AP@partial=\box34
+\AP@footins=\box35
+)
+\c@thm=\count117
+\c@dfn=\count118
+\c@cor=\count119
+\c@con=\count120
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/upquote/upquote.sty
+Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
+tim
+)
+(./metrics-paper.aux
+
+LaTeX Warning: Label `first-example' multiply defined.
+
+)
+\openout1 = `metrics-paper.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+ (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count121
+\scratchdimen=\dimen136
+\scratchbox=\box36
+\nofMPsegments=\count122
+\nofMParguments=\count123
+\everyMPshowfont=\toks32
+\MPscratchCnt=\count124
+\MPscratchDim=\dimen137
+\MPnumerator=\count125
+\makeMPintoPDFobject=\count126
+\everyMPtoPDFconversion=\toks33
+) (/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+)
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+\AtBeginShipoutBox=\box37
+Package hyperref Info: Link coloring ON on input line 102.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
+)
+\c@section@level=\count127
+)
+LaTeX Info: Redefining \ref on input line 102.
+LaTeX Info: Redefining \pageref on input line 102.
+LaTeX Info: Redefining \nameref on input line 102.
+
+(./metrics-paper.out) (./metrics-paper.out)
+\@outlinefile=\write3
+\openout3 = `metrics-paper.out'.
+
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Try loading font information for U+msa on input line 188.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 188.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+
+Package xcolor Warning: Incompatible color definition on input line 193.
+
+<figure/lineup-1.pdf, id=55, 433.62pt x 433.62pt>
+File: figure/lineup-1.pdf Graphic file (type pdf)
+ <use figure/lineup-1.pdf>
+Package pdftex.def Info: figure/lineup-1.pdf used on input line 194.
+(pdftex.def)             Requested size: 323.58757pt x 323.59978pt.
+
+[1
+
+{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+<figure/diagram.pdf, id=75, 254.85544pt x 180.39044pt>
+File: figure/diagram.pdf Graphic file (type pdf)
+
+<use figure/diagram.pdf>
+Package pdftex.def Info: figure/diagram.pdf used on input line 208.
+(pdftex.def)             Requested size: 226.51483pt x 160.33504pt.
+
+<figure/visual-inference-plot-1.pdf, id=76, 254.85544pt x 180.39044pt>
+File: figure/visual-inference-plot-1.pdf Graphic file (type pdf)
+
+<use figure/visual-inference-plot-1.pdf>
+Package pdftex.def Info: figure/visual-inference-plot-1.pdf used on input line 
+213.
+(pdftex.def)             Requested size: 226.51483pt x 160.33504pt.
+ [2 <./figure/lineup-1.pdf>]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 223.
+
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 223.
+ [3 <./figure/diagram.pdf> <./figure/visual-inference-plot-1.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 233--233
+[]|\OT1/cmr/m/n/12 Test
+ []
+
+<figure/stat_category1.pdf, id=464, 380.42125pt x 483.8075pt>
+File: figure/stat_category1.pdf Graphic file (type pdf)
+
+<use figure/stat_category1.pdf>
+Package pdftex.def Info: figure/stat_category1.pdf used on input line 235.
+(pdftex.def)             Requested size: 380.4203pt x 483.80632pt.
+
+<figure/stat_beta_k1.png, id=467, 154.5775pt x 160.6pt>
+File: figure/stat_beta_k1.png Graphic file (type png)
+
+<use figure/stat_beta_k1.png>
+Package pdftex.def Info: figure/stat_beta_k1.png used on input line 237.
+(pdftex.def)             Requested size: 154.5771pt x 160.5996pt.
+
+<figure/stat_separation.pdf, id=471, 107.40125pt x 122.4575pt>
+File: figure/stat_separation.pdf Graphic file (type pdf)
+
+<use figure/stat_separation.pdf>
+Package pdftex.def Info: figure/stat_separation.pdf used on input line 238.
+(pdftex.def)             Requested size: 107.40097pt x 122.45718pt.
+ [4 <./figure/stat_category1.pdf> <./figure/stat_beta_k1.png> <./figure/stat_se
+paration.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 367.
+
+<figure/min_sep_ex-1.pdf, id=535, 289.08pt x 289.08pt>
+File: figure/min_sep_ex-1.pdf Graphic file (type pdf)
+
+<use figure/min_sep_ex-1.pdf>
+Package pdftex.def Info: figure/min_sep_ex-1.pdf used on input line 368.
+(pdftex.def)             Requested size: 110.94733pt x 110.94547pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 376.
+
+<figure/ave_sep_ex-1.pdf, id=536, 289.08pt x 289.08pt>
+File: figure/ave_sep_ex-1.pdf Graphic file (type pdf)
+
+<use figure/ave_sep_ex-1.pdf>
+Package pdftex.def Info: figure/ave_sep_ex-1.pdf used on input line 377.
+(pdftex.def)             Requested size: 110.94733pt x 110.94547pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 385.
+
+<figure/cm_sep_ex-1.pdf, id=537, 289.08pt x 289.08pt>
+File: figure/cm_sep_ex-1.pdf Graphic file (type pdf)
+
+<use figure/cm_sep_ex-1.pdf>
+Package pdftex.def Info: figure/cm_sep_ex-1.pdf used on input line 386.
+(pdftex.def)             Requested size: 110.94733pt x 110.94547pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 395.
+
+<figure/di_sep_ex-1.pdf, id=538, 289.08pt x 289.08pt>
+File: figure/di_sep_ex-1.pdf Graphic file (type pdf)
+
+<use figure/di_sep_ex-1.pdf>
+Package pdftex.def Info: figure/di_sep_ex-1.pdf used on input line 396.
+(pdftex.def)             Requested size: 110.94733pt x 110.94547pt.
+ [5 <./figure/min_sep_ex-1.pdf> <./figure/ave_sep_ex-1.pdf> <./figure/cm_sep_ex
+-1.pdf> <./figure/di_sep_ex-1.pdf>]
+<figure/dat-example-1.pdf, id=573, 252.945pt x 252.945pt>
+File: figure/dat-example-1.pdf Graphic file (type pdf)
+
+<use figure/dat-example-1.pdf>
+Package pdftex.def Info: figure/dat-example-1.pdf used on input line 420.
+(pdftex.def)             Requested size: 139.12018pt x 139.12018pt.
+
+<figure/bin-example-1.pdf, id=574, 303.1325pt x 252.945pt>
+File: figure/bin-example-1.pdf Graphic file (type pdf)
+
+<use figure/bin-example-1.pdf>
+Package pdftex.def Info: figure/bin-example-1.pdf used on input line 421.
+(pdftex.def)             Requested size: 166.72339pt x 139.12018pt.
+
+<figure/freq-example-1.pdf, id=575, 252.945pt x 252.945pt>
+File: figure/freq-example-1.pdf Graphic file (type pdf)
+
+<use figure/freq-example-1.pdf>
+Package pdftex.def Info: figure/freq-example-1.pdf used on input line 422.
+(pdftex.def)             Requested size: 139.12018pt x 139.12018pt.
+
+<figure/dat-example-2.pdf, id=576, 252.945pt x 252.945pt>
+File: figure/dat-example-2.pdf Graphic file (type pdf)
+
+<use figure/dat-example-2.pdf>
+Package pdftex.def Info: figure/dat-example-2.pdf used on input line 427.
+(pdftex.def)             Requested size: 139.12018pt x 139.12018pt.
+
+<figure/bin-example-2.pdf, id=577, 303.1325pt x 252.945pt>
+File: figure/bin-example-2.pdf Graphic file (type pdf)
+
+<use figure/bin-example-2.pdf>
+Package pdftex.def Info: figure/bin-example-2.pdf used on input line 428.
+(pdftex.def)             Requested size: 166.72339pt x 139.12018pt.
+
+<figure/freq-example-2.pdf, id=578, 252.945pt x 252.945pt>
+File: figure/freq-example-2.pdf Graphic file (type pdf)
+
+<use figure/freq-example-2.pdf>
+Package pdftex.def Info: figure/freq-example-2.pdf used on input line 429.
+(pdftex.def)             Requested size: 139.12018pt x 139.12018pt.
+ [6 <./figure/dat-example-1.pdf> <./figure/bin-example-1.pdf> <./figure/freq-ex
+ample-1.pdf> <./figure/dat-example-2.pdf> <./figure/bin-example-2.pdf> <./figur
+e/freq-example-2.pdf>] [7]
+
+Package xcolor Warning: Incompatible color definition on input line 491.
+
+<figure/lp-reg-1.pdf, id=645, 433.62pt x 433.62pt>
+File: figure/lp-reg-1.pdf Graphic file (type pdf)
+ <use figure/lp-reg-1.pdf>
+Package pdftex.def Info: figure/lp-reg-1.pdf used on input line 492.
+(pdftex.def)             Requested size: 254.2499pt x 254.25224pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 506.
+
+<figure/dens-reg-dist-1.pdf, id=646, 325.215pt x 289.08pt>
+File: figure/dens-reg-dist-1.pdf Graphic file (type pdf)
+
+<use figure/dens-reg-dist-1.pdf>
+Package pdftex.def Info: figure/dens-reg-dist-1.pdf used on input line 507.
+(pdftex.def)             Requested size: 203.39992pt x 180.80246pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 524.
+
+<figure/lp-box-1.pdf, id=647, 433.62pt x 433.62pt>
+File: figure/lp-box-1.pdf Graphic file (type pdf)
+ <use figure/lp-box-1.pdf>
+Package pdftex.def Info: figure/lp-box-1.pdf used on input line 525.
+(pdftex.def)             Requested size: 254.2499pt x 254.25224pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 537.
+
+<figure/lp-box-dist-1.pdf, id=648, 325.215pt x 289.08pt>
+File: figure/lp-box-dist-1.pdf Graphic file (type pdf)
+
+<use figure/lp-box-dist-1.pdf>
+Package pdftex.def Info: figure/lp-box-dist-1.pdf used on input line 538.
+(pdftex.def)             Requested size: 203.39992pt x 180.80246pt.
+ [8] [9 <./figure/lp-reg-1.pdf> <./figure/dens-reg-dist-1.pdf>] [10 <./figure/l
+p-box-1.pdf> <./figure/lp-box-dist-1.pdf>]
+LaTeX Font Info:    Try loading font information for U+dsrom on input line 565.
+
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/doublestroke/Udsrom.fd
+File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
+) [11]
+
+Package xcolor Warning: Incompatible color definition on input line 660.
+
+<figure/dist-box-bin-1.pdf, id=727, 614.295pt x 325.215pt>
+File: figure/dist-box-bin-1.pdf Graphic file (type pdf)
+
+<use figure/dist-box-bin-1.pdf>
+Package pdftex.def Info: figure/dist-box-bin-1.pdf used on input line 661.
+(pdftex.def)             Requested size: 323.58757pt x 171.3111pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 670.
+
+<figure/gamma-turk1-1.pdf, id=728, 614.295pt x 325.215pt>
+File: figure/gamma-turk1-1.pdf Graphic file (type pdf)
+
+<use figure/gamma-turk1-1.pdf>
+Package pdftex.def Info: figure/gamma-turk1-1.pdf used on input line 671.
+(pdftex.def)             Requested size: 323.58757pt x 171.3111pt.
+ [12] [13 <./figure/dist-box-bin-1.pdf> <./figure/gamma-turk1-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 703.
+
+<figure/lp-exc-1.pdf, id=771, 433.62pt x 433.62pt>
+File: figure/lp-exc-1.pdf Graphic file (type pdf)
+ <use figure/lp-exc-1.pdf>
+Package pdftex.def Info: figure/lp-exc-1.pdf used on input line 704.
+(pdftex.def)             Requested size: 277.3648pt x 277.3769pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 716.
+
+<figure/dbx-1.pdf, id=772, 361.35pt x 361.35pt>
+File: figure/dbx-1.pdf Graphic file (type pdf)
+ <use figure/dbx-1.pdf>
+Package pdftex.def Info: figure/dbx-1.pdf used on input line 717.
+(pdftex.def)             Requested size: 147.92978pt x 147.92839pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 725.
+
+<figure/b28-1.pdf, id=773, 361.35pt x 361.35pt>
+File: figure/b28-1.pdf Graphic file (type pdf)
+ <use figure/b28-1.pdf>
+Package pdftex.def Info: figure/b28-1.pdf used on input line 726.
+(pdftex.def)             Requested size: 147.92978pt x 147.92839pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 734.
+
+<figure/b22-1.pdf, id=774, 361.35pt x 361.35pt>
+File: figure/b22-1.pdf Graphic file (type pdf)
+ <use figure/b22-1.pdf>
+Package pdftex.def Info: figure/b22-1.pdf used on input line 735.
+(pdftex.def)             Requested size: 147.92978pt x 147.92839pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 785.
+
+<figure/time-taken-1.pdf, id=778, 614.295pt x 325.215pt>
+File: figure/time-taken-1.pdf Graphic file (type pdf)
+
+<use figure/time-taken-1.pdf>
+Package pdftex.def Info: figure/time-taken-1.pdf used on input line 786.
+(pdftex.def)             Requested size: 277.3648pt x 146.84163pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Package xcolor Warning: Incompatible color definition on input line 817.
+
+<figure/delta-turk2-1.pdf, id=786, 614.295pt x 325.215pt>
+File: figure/delta-turk2-1.pdf Graphic file (type pdf)
+
+<use figure/delta-turk2-1.pdf>
+Package pdftex.def Info: figure/delta-turk2-1.pdf used on input line 818.
+(pdftex.def)             Requested size: 323.58757pt x 171.3111pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 827.
+
+<figure/gamma-turk2-1.pdf, id=787, 614.295pt x 325.215pt>
+File: figure/gamma-turk2-1.pdf Graphic file (type pdf)
+
+<use figure/gamma-turk2-1.pdf>
+Package pdftex.def Info: figure/gamma-turk2-1.pdf used on input line 828.
+(pdftex.def)             Requested size: 323.58757pt x 171.3111pt.
+ [14] [15 <./figure/lp-exc-1.pdf> <./figure/dbx-1.pdf> <./figure/b28-1.pdf> <./
+figure/b22-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 872.
+
+<figure/turk2-time-1.pdf, id=832, 614.295pt x 325.215pt>
+File: figure/turk2-time-1.pdf Graphic file (type pdf)
+
+<use figure/turk2-time-1.pdf>
+Package pdftex.def Info: figure/turk2-time-1.pdf used on input line 873.
+(pdftex.def)             Requested size: 346.70248pt x 183.54831pt.
+ [16 <./figure/time-taken-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 903.
+
+<figure/lp-turk2-exc-lp-1.pdf, id=850, 397.485pt x 397.485pt>
+File: figure/lp-turk2-exc-lp-1.pdf Graphic file (type pdf)
+
+<use figure/lp-turk2-exc-lp-1.pdf>
+Package pdftex.def Info: figure/lp-turk2-exc-lp-1.pdf used on input line 904.
+(pdftex.def)             Requested size: 277.3648pt x 277.37029pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 914.
+
+<figure/unnamed-chunk-1-1.pdf, id=851, 325.215pt x 289.08pt>
+File: figure/unnamed-chunk-1-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-1-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-1-1.pdf used on input line 915.
+(pdftex.def)             Requested size: 138.6824pt x 123.2742pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 927.
+
+<figure/unnamed-chunk-2-1.pdf, id=852, 325.215pt x 289.08pt>
+File: figure/unnamed-chunk-2-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-2-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-2-1.pdf used on input line 928.
+(pdftex.def)             Requested size: 138.6824pt x 123.2742pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 937.
+
+<figure/unnamed-chunk-3-1.pdf, id=853, 325.215pt x 289.08pt>
+File: figure/unnamed-chunk-3-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-3-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-3-1.pdf used on input line 938.
+(pdftex.def)             Requested size: 138.6824pt x 123.2742pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 947.
+
+<figure/unnamed-chunk-4-1.pdf, id=854, 325.215pt x 289.08pt>
+File: figure/unnamed-chunk-4-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-4-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-4-1.pdf used on input line 948.
+(pdftex.def)             Requested size: 138.6824pt x 123.2742pt.
+ [17 <./figure/delta-turk2-1.pdf> <./figure/gamma-turk2-1.pdf>]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 968.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 968.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 968.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 968.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1006.
+
+<figure/largep-delta-1.pdf, id=878, 903.375pt x 252.945pt>
+File: figure/largep-delta-1.pdf Graphic file (type pdf)
+
+<use figure/largep-delta-1.pdf>
+Package pdftex.def Info: figure/largep-delta-1.pdf used on input line 1007.
+(pdftex.def)             Requested size: 462.26999pt x 129.43637pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1016.
+
+<figure/largep-gamma-1.pdf, id=879, 903.375pt x 252.945pt>
+File: figure/largep-gamma-1.pdf Graphic file (type pdf)
+
+<use figure/largep-gamma-1.pdf>
+Package pdftex.def Info: figure/largep-gamma-1.pdf used on input line 1017.
+(pdftex.def)             Requested size: 462.26999pt x 129.43637pt.
+ [18 <./figure/turk2-time-1.pdf>] [19 <./figure/lp-turk2-exc-lp-1.pdf> <./figur
+e/unnamed-chunk-1-1.pdf> <./figure/unnamed-chunk-2-1.pdf> <./figure/unnamed-chu
+nk-3-1.pdf> <./figure/unnamed-chunk-4-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 1039.
+
+<figure/largep-mtime-1.pdf, id=943, 903.375pt x 252.945pt>
+File: figure/largep-mtime-1.pdf Graphic file (type pdf)
+
+<use figure/largep-mtime-1.pdf>
+Package pdftex.def Info: figure/largep-mtime-1.pdf used on input line 1040.
+(pdftex.def)             Requested size: 462.26999pt x 129.43637pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[20 <./figure/largep-delta-1.pdf> <./figure/largep-gamma-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 1067.
+
+<figure/lp-exc-t7-1.pdf, id=963, 433.62pt x 433.62pt>
+File: figure/lp-exc-t7-1.pdf Graphic file (type pdf)
+
+<use figure/lp-exc-t7-1.pdf>
+Package pdftex.def Info: figure/lp-exc-t7-1.pdf used on input line 1068.
+(pdftex.def)             Requested size: 277.3648pt x 277.3769pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1077.
+
+<figure/bin55-1.pdf, id=964, 325.215pt x 289.08pt>
+File: figure/bin55-1.pdf Graphic file (type pdf)
+ <use figure/bin55-1.pdf>
+Package pdftex.def Info: figure/bin55-1.pdf used on input line 1078.
+(pdftex.def)             Requested size: 138.6824pt x 123.2742pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1090.
+
+<figure/min_sep-1.pdf, id=965, 325.215pt x 289.08pt>
+File: figure/min_sep-1.pdf Graphic file (type pdf)
+
+<use figure/min_sep-1.pdf>
+Package pdftex.def Info: figure/min_sep-1.pdf used on input line 1091.
+(pdftex.def)             Requested size: 138.6824pt x 123.2742pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1099.
+
+<figure/avg_sep-1.pdf, id=966, 325.215pt x 289.08pt>
+File: figure/avg_sep-1.pdf Graphic file (type pdf)
+
+<use figure/avg_sep-1.pdf>
+Package pdftex.def Info: figure/avg_sep-1.pdf used on input line 1100.
+(pdftex.def)             Requested size: 138.6824pt x 123.2742pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1107.
+
+<figure/dunn_sep-1.pdf, id=967, 325.215pt x 289.08pt>
+File: figure/dunn_sep-1.pdf Graphic file (type pdf)
+
+<use figure/dunn_sep-1.pdf>
+Package pdftex.def Info: figure/dunn_sep-1.pdf used on input line 1108.
+(pdftex.def)             Requested size: 138.6824pt x 123.2742pt.
+ [21 <./figure/largep-mtime-1.pdf>] [22 <./figure/lp-exc-t7-1.pdf> <./figure/bi
+n55-1.pdf> <./figure/min_sep-1.pdf> <./figure/avg_sep-1.pdf> <./figure/dunn_sep
+-1.pdf>] (./metrics-paper.bbl [23] [24]) [25]
+[26pdfTeX warning (ext4): destination with the same identifier (name{equation.4
+.4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1788 
+       ] [27]
+Underfull \hbox (badness 10000) in paragraph at lines 1921--1921
+[]\OT1/cmr/m/n/12 Linear
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1921--1921
+\OT1/cmr/m/n/12 as-so-ci-a-
+ []
+
+<figure/anscombe-1.pdf, id=1083, 289.08pt x 289.08pt>
+File: figure/anscombe-1.pdf Graphic file (type pdf)
+
+<use figure/anscombe-1.pdf>
+Package pdftex.def Info: figure/anscombe-1.pdf used on input line 1921.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1921--1921
+ [] 
+ []
+
+
+Overfull \hbox (7.22717pt too wide) in paragraph at lines 1921--1921
+[]|\OT1/cmr/m/n/12 Permutation| 
+ []
+
+<figure/anscombe-null-1.pdf, id=1084, 289.08pt x 289.08pt>
+File: figure/anscombe-null-1.pdf Graphic file (type pdf)
+
+<use figure/anscombe-null-1.pdf>
+Package pdftex.def Info: figure/anscombe-null-1.pdf used on input line 1921.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1921--1921
+ [] 
+ []
+
+<figure/anscombe-nbin-1.pdf, id=1085, 361.35pt x 289.08pt>
+File: figure/anscombe-nbin-1.pdf Graphic file (type pdf)
+
+<use figure/anscombe-nbin-1.pdf>
+Package pdftex.def Info: figure/anscombe-nbin-1.pdf used on input line 1921.
+(pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
+
+Overfull \hbox (47.65816pt too wide) in paragraph at lines 1921--1921
+ [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1921--1921
+\OT1/cmr/m/n/12 re-la-tion-
+ []
+
+<figure/anscombe-2.pdf, id=1086, 289.08pt x 289.08pt>
+File: figure/anscombe-2.pdf Graphic file (type pdf)
+
+<use figure/anscombe-2.pdf>
+Package pdftex.def Info: figure/anscombe-2.pdf used on input line 1921.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1921--1921
+ [] 
+ []
+
+
+Overfull \hbox (7.22717pt too wide) in paragraph at lines 1921--1921
+[]|\OT1/cmr/m/n/12 Permutation| 
+ []
+
+<figure/anscombe-null-2.pdf, id=1087, 289.08pt x 289.08pt>
+File: figure/anscombe-null-2.pdf Graphic file (type pdf)
+
+<use figure/anscombe-null-2.pdf>
+Package pdftex.def Info: figure/anscombe-null-2.pdf used on input line 1921.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1921--1921
+ [] 
+ []
+
+<figure/anscombe-nbin-2.pdf, id=1088, 361.35pt x 289.08pt>
+File: figure/anscombe-nbin-2.pdf Graphic file (type pdf)
+
+<use figure/anscombe-nbin-2.pdf>
+Package pdftex.def Info: figure/anscombe-nbin-2.pdf used on input line 1921.
+(pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
+
+Overfull \hbox (47.65816pt too wide) in paragraph at lines 1921--1921
+ [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1921--1921
+[]\OT1/cmr/m/n/12 Linear
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1921--1921
+\OT1/cmr/m/n/12 with
+ []
+
+<figure/anscombe-3.pdf, id=1089, 289.08pt x 289.08pt>
+File: figure/anscombe-3.pdf Graphic file (type pdf)
+
+<use figure/anscombe-3.pdf>
+Package pdftex.def Info: figure/anscombe-3.pdf used on input line 1921.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1921--1921
+ [] 
+ []
+
+
+Overfull \hbox (7.22717pt too wide) in paragraph at lines 1921--1921
+[]|\OT1/cmr/m/n/12 Permutation| 
+ []
+
+<figure/anscombe-null-3.pdf, id=1090, 289.08pt x 289.08pt>
+File: figure/anscombe-null-3.pdf Graphic file (type pdf)
+
+<use figure/anscombe-null-3.pdf>
+Package pdftex.def Info: figure/anscombe-null-3.pdf used on input line 1921.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1921--1921
+ [] 
+ []
+
+<figure/anscombe-nbin-3.pdf, id=1091, 361.35pt x 289.08pt>
+File: figure/anscombe-nbin-3.pdf Graphic file (type pdf)
+
+<use figure/anscombe-nbin-3.pdf>
+Package pdftex.def Info: figure/anscombe-nbin-3.pdf used on input line 1921.
+(pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
+
+Overfull \hbox (47.65816pt too wide) in paragraph at lines 1921--1921
+ [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1921--1921
+[]\OT1/cmr/m/n/12 Same $\OML/cmm/m/it/12 x$
+ []
+
+
+Underfull \hbox (badness 2096) in paragraph at lines 1921--1921
+\OT1/cmr/m/n/12 with one
+ []
+
+<figure/anscombe-4.pdf, id=1092, 289.08pt x 289.08pt>
+File: figure/anscombe-4.pdf Graphic file (type pdf)
+
+<use figure/anscombe-4.pdf>
+Package pdftex.def Info: figure/anscombe-4.pdf used on input line 1921.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1921--1921
+ [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1921--1921
+[]\OT1/cmr/m/n/12 Simulation
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1921--1921
+\OT1/cmr/m/n/12 from
+ []
+
+<figure/anscombe-null-4.pdf, id=1093, 289.08pt x 289.08pt>
+File: figure/anscombe-null-4.pdf Graphic file (type pdf)
+
+<use figure/anscombe-null-4.pdf>
+Package pdftex.def Info: figure/anscombe-null-4.pdf used on input line 1921.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1921--1921
+ [] 
+ []
+
+<figure/anscombe-nbin-4.pdf, id=1094, 361.35pt x 289.08pt>
+File: figure/anscombe-nbin-4.pdf Graphic file (type pdf)
+
+<use figure/anscombe-nbin-4.pdf>
+Package pdftex.def Info: figure/anscombe-nbin-4.pdf used on input line 1921.
+(pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
+
+Overfull \hbox (47.65816pt too wide) in paragraph at lines 1921--1921
+ [] 
+ []
+
+<figure/data1.pdf, id=1095, 289.08pt x 289.08pt>
+File: figure/data1.pdf Graphic file (type pdf)
+ <use figure/data1.pdf>
+Package pdftex.def Info: figure/data1.pdf used on input line 1921.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1921--1921
+ [] 
+ []
+
+
+Overfull \hbox (7.22717pt too wide) in paragraph at lines 1921--1921
+[]|\OT1/cmr/m/n/12 Permutation| 
+ []
+
+<figure/null1.pdf, id=1096, 289.08pt x 289.08pt>
+File: figure/null1.pdf Graphic file (type pdf)
+ <use figure/null1.pdf>
+Package pdftex.def Info: figure/null1.pdf used on input line 1921.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1921--1921
+ [] 
+ []
+
+<figure/bin-select-plot1.pdf, id=1097, 361.35pt x 289.08pt>
+File: figure/bin-select-plot1.pdf Graphic file (type pdf)
+
+<use figure/bin-select-plot1.pdf>
+Package pdftex.def Info: figure/bin-select-plot1.pdf used on input line 1921.
+(pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
+
+Overfull \hbox (47.65816pt too wide) in paragraph at lines 1921--1921
+ [] 
+ []
+
+
+Overfull \hbox (8.3043pt too wide) in paragraph at lines 1960--1960
+[]|\OT1/cmr/m/n/12 Categorical| 
+ []
+
+<figure/data2.pdf, id=1098, 289.08pt x 289.08pt>
+File: figure/data2.pdf Graphic file (type pdf)
+ <use figure/data2.pdf>
+Package pdftex.def Info: figure/data2.pdf used on input line 1960.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+
+Overfull \hbox (5.36684pt too wide) in paragraph at lines 1960--1960
+[]\OT1/cmr/m/n/12 Simulation
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1960--1960
+\OT1/cmr/m/n/12 from
+ []
+
+<figure/null2.pdf, id=1099, 289.08pt x 289.08pt>
+File: figure/null2.pdf Graphic file (type pdf)
+ <use figure/null2.pdf>
+Package pdftex.def Info: figure/null2.pdf used on input line 1960.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+<figure/bin-select-plot2.pdf, id=1100, 361.35pt x 289.08pt>
+File: figure/bin-select-plot2.pdf Graphic file (type pdf)
+
+<use figure/bin-select-plot2.pdf>
+Package pdftex.def Info: figure/bin-select-plot2.pdf used on input line 1960.
+(pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
+
+Overfull \hbox (47.65816pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+<figure/data3.pdf, id=1101, 289.08pt x 289.08pt>
+File: figure/data3.pdf Graphic file (type pdf)
+ <use figure/data3.pdf>
+Package pdftex.def Info: figure/data3.pdf used on input line 1960.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+
+Overfull \hbox (7.22717pt too wide) in paragraph at lines 1960--1960
+[]|\OT1/cmr/m/n/12 Permutation| 
+ []
+
+<figure/null3.pdf, id=1102, 289.08pt x 289.08pt>
+File: figure/null3.pdf Graphic file (type pdf)
+ <use figure/null3.pdf>
+Package pdftex.def Info: figure/null3.pdf used on input line 1960.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+<figure/bin-select-plot3.pdf, id=1103, 361.35pt x 289.08pt>
+File: figure/bin-select-plot3.pdf Graphic file (type pdf)
+
+<use figure/bin-select-plot3.pdf>
+Package pdftex.def Info: figure/bin-select-plot3.pdf used on input line 1960.
+(pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
+
+Overfull \hbox (47.65816pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1960--1960
+[]\OT1/cmr/m/n/12 Skewed
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1960--1960
+\OT1/cmr/m/n/12 with
+ []
+
+<figure/data5.pdf, id=1104, 289.08pt x 289.08pt>
+File: figure/data5.pdf Graphic file (type pdf)
+ <use figure/data5.pdf>
+Package pdftex.def Info: figure/data5.pdf used on input line 1960.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+
+Overfull \hbox (7.22717pt too wide) in paragraph at lines 1960--1960
+[]|\OT1/cmr/m/n/12 Permutation| 
+ []
+
+<figure/null5.pdf, id=1105, 289.08pt x 289.08pt>
+File: figure/null5.pdf Graphic file (type pdf)
+ <use figure/null5.pdf>
+Package pdftex.def Info: figure/null5.pdf used on input line 1960.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+<figure/bin-select-plot5.pdf, id=1106, 361.35pt x 289.08pt>
+File: figure/bin-select-plot5.pdf Graphic file (type pdf)
+
+<use figure/bin-select-plot5.pdf>
+Package pdftex.def Info: figure/bin-select-plot5.pdf used on input line 1960.
+(pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
+
+Overfull \hbox (47.65816pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+<figure/data4.pdf, id=1107, 289.08pt x 289.08pt>
+File: figure/data4.pdf Graphic file (type pdf)
+ <use figure/data4.pdf>
+Package pdftex.def Info: figure/data4.pdf used on input line 1960.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+
+Overfull \hbox (5.36684pt too wide) in paragraph at lines 1960--1960
+[]\OT1/cmr/m/n/12 Simulation
+ []
+
+<figure/null4.pdf, id=1108, 289.08pt x 289.08pt>
+File: figure/null4.pdf Graphic file (type pdf)
+ <use figure/null4.pdf>
+Package pdftex.def Info: figure/null4.pdf used on input line 1960.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+<figure/bin-select-plot4.pdf, id=1109, 361.35pt x 289.08pt>
+File: figure/bin-select-plot4.pdf Graphic file (type pdf)
+
+<use figure/bin-select-plot4.pdf>
+Package pdftex.def Info: figure/bin-select-plot4.pdf used on input line 1960.
+(pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
+
+Overfull \hbox (47.65816pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+<figure/data6.pdf, id=1110, 289.08pt x 289.08pt>
+File: figure/data6.pdf Graphic file (type pdf)
+ <use figure/data6.pdf>
+Package pdftex.def Info: figure/data6.pdf used on input line 1960.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+
+Overfull \hbox (5.36684pt too wide) in paragraph at lines 1960--1960
+[]\OT1/cmr/m/n/12 Simulation
+ []
+
+<figure/null6.pdf, id=1111, 289.08pt x 289.08pt>
+File: figure/null6.pdf Graphic file (type pdf)
+ <use figure/null6.pdf>
+Package pdftex.def Info: figure/null6.pdf used on input line 1960.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+<figure/bin-select-plot6.pdf, id=1112, 361.35pt x 289.08pt>
+File: figure/bin-select-plot6.pdf Graphic file (type pdf)
+
+<use figure/bin-select-plot6.pdf>
+Package pdftex.def Info: figure/bin-select-plot6.pdf used on input line 1960.
+(pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
+
+Overfull \hbox (47.65816pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+<figure/data7.pdf, id=1113, 289.08pt x 289.08pt>
+File: figure/data7.pdf Graphic file (type pdf)
+ <use figure/data7.pdf>
+Package pdftex.def Info: figure/data7.pdf used on input line 1960.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+
+Overfull \hbox (7.22717pt too wide) in paragraph at lines 1960--1960
+[]|\OT1/cmr/m/n/12 Permutation| 
+ []
+
+<figure/null7.pdf, id=1114, 289.08pt x 289.08pt>
+File: figure/null7.pdf Graphic file (type pdf)
+ <use figure/null7.pdf>
+Package pdftex.def Info: figure/null7.pdf used on input line 1960.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+<figure/bin-select-plot7.pdf, id=1115, 361.35pt x 289.08pt>
+File: figure/bin-select-plot7.pdf Graphic file (type pdf)
+
+<use figure/bin-select-plot7.pdf>
+Package pdftex.def Info: figure/bin-select-plot7.pdf used on input line 1960.
+(pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
+
+Overfull \hbox (47.65816pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+
+Overfull \hbox (22.99165pt too wide) in paragraph at lines 1960--1960
+[]|\OT1/cmr/m/n/12 Contaminated| 
+ []
+
+<figure/data8.pdf, id=1116, 289.08pt x 289.08pt>
+File: figure/data8.pdf Graphic file (type pdf)
+ <use figure/data8.pdf>
+Package pdftex.def Info: figure/data8.pdf used on input line 1960.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+
+Overfull \hbox (7.22717pt too wide) in paragraph at lines 1960--1960
+[]|\OT1/cmr/m/n/12 Permutation| 
+ []
+
+<figure/null8.pdf, id=1117, 289.08pt x 289.08pt>
+File: figure/null8.pdf Graphic file (type pdf)
+ <use figure/null8.pdf>
+Package pdftex.def Info: figure/null8.pdf used on input line 1960.
+(pdftex.def)             Requested size: 289.07928pt x 289.07928pt.
+
+Overfull \hbox (29.5907pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+<figure/bin-select-plot8.pdf, id=1118, 361.35pt x 289.08pt>
+File: figure/bin-select-plot8.pdf Graphic file (type pdf)
+
+<use figure/bin-select-plot8.pdf>
+Package pdftex.def Info: figure/bin-select-plot8.pdf used on input line 1960.
+(pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
+
+Overfull \hbox (47.65816pt too wide) in paragraph at lines 1960--1960
+ [] 
+ []
+
+[28] [29 <./figure/anscombe-1.pdf> <./figure/anscombe-null-1.pdf> <./figure/ans
+combe-nbin-1.pdf> <./figure/anscombe-2.pdf> <./figure/anscombe-null-2.pdf> <./f
+igure/anscombe-nbin-2.pdf> <./figure/anscombe-3.pdf> <./figure/anscombe-null-3.
+pdf> <./figure/anscombe-nbin-3.pdf> <./figure/anscombe-4.pdf> <./figure/anscomb
+e-null-4.pdf> <./figure/anscombe-nbin-4.pdf> <./figure/data1.pdf> <./figure/nul
+l1.pdf> <./figure/bin-select-plot1.pdf>] [30 <./figure/data2.pdf> <./figure/nul
+l2.pdf> <./figure/bin-select-plot2.pdf> <./figure/data3.pdf> <./figure/null3.pd
+f> <./figure/bin-select-plot3.pdf> <./figure/data5.pdf> <./figure/null5.pdf> <.
+/figure/bin-select-plot5.pdf> <./figure/data4.pdf> <./figure/null4.pdf> <./figu
+re/bin-select-plot4.pdf> <./figure/data6.pdf> <./figure/null6.pdf> <./figure/bi
+n-select-plot6.pdf> <./figure/data7.pdf> <./figure/null7.pdf> <./figure/bin-sel
+ect-plot7.pdf> <./figure/data8.pdf> <./figure/null8.pdf> <./figure/bin-select-p
+lot8.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 1985.
+
+<figure/lp-sca-1.pdf, id=1377, 433.62pt x 433.62pt>
+File: figure/lp-sca-1.pdf Graphic file (type pdf)
+ <use figure/lp-sca-1.pdf>
+Package pdftex.def Info: figure/lp-sca-1.pdf used on input line 1986.
+(pdftex.def)             Requested size: 208.02008pt x 208.02275pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1995.
+
+<figure/lp-sca-line-1.pdf, id=1378, 433.62pt x 433.62pt>
+File: figure/lp-sca-line-1.pdf Graphic file (type pdf)
+
+<use figure/lp-sca-line-1.pdf>
+Package pdftex.def Info: figure/lp-sca-line-1.pdf used on input line 1996.
+(pdftex.def)             Requested size: 208.02008pt x 208.02275pt.
+ [31 <./figure/lp-sca-1.pdf> <./figure/lp-sca-line-1.pdf>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2027.
+ [32]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2027.
+ (./metrics-paper.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2027.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2027.
+
+Package rerunfilecheck Info: File `metrics-paper.out' has not changed.
+(rerunfilecheck)             Checksum: F98D58620B260FFA3D3855B0EFBBBD65;849.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2027.
+ ) 
+Here is how much of TeX's memory you used:
+ 8817 strings out of 493089
+ 134001 string characters out of 6134842
+ 267581 words of memory out of 5000000
+ 11972 multiletter control sequences out of 15000+600000
+ 15860 words of font info for 66 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 42i,18n,40p,1431b,535s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
+/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
+usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></u
+sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr
+/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/l
+ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loc
+al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local
+/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/te
+xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/tex
+live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texliv
+e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive
+/2015/texmf-dist/fonts/type1/public/doublestroke/dsrom12.pfb>
+Output written on metrics-paper.pdf (32 pages, 1756085 bytes).
+PDF statistics:
+ 1491 PDF objects out of 1728 (max. 8388607)
+ 1172 compressed objects within 12 object streams
+ 115 named destinations out of 1000 (max. 500000)
+ 494 words of extra memory for PDF output out of 10000 (max. 10000000)
+

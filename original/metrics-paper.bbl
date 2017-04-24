@@ -1,0 +1,144 @@
+\begin{thebibliography}{28}
+\newcommand{\enquote}[1]{``#1''}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{{Amazon}({2005-})}]{turk}
+{Amazon} ({2005-}), \enquote{Mechanical {T}urk,}
+  \url{https://www.mturk.com/mturk/welcome}, Accessed: 2016-08-17.
+
+\bibitem[{Anscombe(1972)}]{anscombe:1972}
+Anscombe, A.~J. (1972), \enquote{{G}raphs in {S}tatistical {A}nalysis,}
+  \textit{The American Statistician}, 27:1, 17--21.
+
+\bibitem[{Baddeley(1992)}]{Baddeley:1992}
+Baddeley, A.~J. (1992), \enquote{An Error Metric for Binary Images,} in
+  \textit{Robust Computer Vision: Quality of Vision Algorithms}, eds. Forstner,
+  W. and Ruwiedel, S., Karlsruhe: Wichmann, pp. 59--78.
+
+\bibitem[{Bhattacharyya(1946)}]{bhattacharyya:1946}
+Bhattacharyya, A. (1946), \enquote{{O}n a measure of divergence between two
+  multinomial populations,} \textit{Sankhy{\=a}: The Indian Journal of
+  Statistics}, 401--406.
+
+\bibitem[{Buja et~al.(2009)Buja, Cook, Hofmann, Lawrence, Lee, Swayne, and
+  Wickham}]{buja:2009}
+Buja, A., Cook, D., Hofmann, H., Lawrence, M., Lee, E., Swayne, D., and
+  Wickham, H. (2009), \enquote{{S}tatistical {I}nference for {E}xploratory
+  {D}ata {A}nalysis and {M}odel {D}iagnostics,} \textit{Royal Society
+  Philosophical Transactions A}, 367, 4361--4383.
+
+\bibitem[{Dunn(1973)}]{dunn:1973}
+Dunn, J.~C. (1973), \enquote{A Fuzzy Relative of the ISODATA Process and Its
+  Use in Detecting Compact Well-Separated Clusters,} \textit{Journal of
+  Cybernetics}, 3, 32--57.
+
+\bibitem[{Halkidi et~al.(2001)Halkidi, Batistakis, and
+  Vazirgiannis}]{halkidi:2001}
+Halkidi, M., Batistakis, Y., and Vazirgiannis, M. (2001), \enquote{On
+  Clustering Validation Techniques,} \textit{Journal for Intelligent
+  Information Systems}, 17, 107--145.
+
+\bibitem[{Hamming(1950)}]{hamming:1950}
+Hamming, R.~W. (1950), \enquote{{E}rror detecting and error correcting codes,}
+  \textit{Bell System technical journal}, 29, 147--160.
+
+\bibitem[{Hannig et~al.(2013)Hannig, Lee, and Park}]{hannig:2013}
+Hannig, J., Lee, T. C.~M., and Park, C. (2013), \enquote{{Metrics for SiZer map
+  comparison},} \textit{Stat}, 2, 49--60.
+
+\bibitem[{Hennig(2015)}]{hennig:2010}
+Hennig, C. (2015), \textit{fpc: Flexible Procedures for Clustering}, {R}
+  package version 2.1-10.
+
+\bibitem[{Hofmann et~al.(2012)Hofmann, Follett, Majumder, and
+  Cook}]{hofmann2012graphical}
+Hofmann, H., Follett, L., Majumder, M., and Cook, D. (2012), \enquote{Graphical
+  tests for power comparison of competing designs,} \textit{Visualization and
+  Computer Graphics, IEEE Transactions on}, 18, 2441--2448.
+
+\bibitem[{Hofmann et~al.(2013)Hofmann, Majumder, and Cook}]{majumder:2013}
+Hofmann, H., Majumder, M., and Cook, D. (2013), \textit{Experiments for Visual
+  Inference}, \url{http://www.public.iastate.edu/~hofmann/experiments.html},
+  Accessed: 2015-08-31.
+
+\bibitem[{Hofmann et~al.(2015)Hofmann, Wickham, and Kafadar}]{lvplot}
+Hofmann, H., Wickham, H., and Kafadar, K. (2015), \enquote{Letter-value plots:
+  Boxplots for large data,} \textit{Journal of Computational and Graphical
+  Statistics}, submitted.
+
+\bibitem[{Huttenlocher et~al.(1993)Huttenlocher, Klanderman, and
+  Rucklidge}]{huttenlocher:1993}
+Huttenlocher, D., Klanderman, G., and Rucklidge, W.~J. (1993),
+  \enquote{{C}omparing {I}mages {U}sing the {Hausdorff} {D}istance,}
+  \textit{IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  15:9.
+
+\bibitem[{Lee and Cook(2010)}]{lee:2009}
+Lee, E.-K. and Cook, D. (2010), \enquote{A projection pursuit index for large p
+  small n data,} \textit{Statistics and Computing}, 20, 381--392.
+
+\bibitem[{Loy et~al.(2015)Loy, Follett, and Hofmann}]{loy:2015}
+Loy, A., Follett, L., and Hofmann, H. (2015), \enquote{{Variations of Q-Q Plots
+  -- the Power of our Eyes!}} \textit{The American Statistician}, 2015, 1--36.
+
+\bibitem[{Majumder et~al.(2013)Majumder, Hofmann, and Cook}]{majumder:2011}
+Majumder, M., Hofmann, H., and Cook, D. (2013), \enquote{{V}alidation of
+  {V}isual {S}tatistical {I}nference, {A}pplied to {L}inear {M}odels,}
+  \textit{Journal of American Statistical Association}, 108, 942--956.
+
+\bibitem[{Marron and Tsybakov(1995)}]{marron:1995}
+Marron, J.~S. and Tsybakov, A.~B. (1995), \enquote{{Visual Error Criteria for
+  Qualitative Smoothing},} \textit{Journal of the American Statistical
+  Association}, 90, 499--10.
+
+\bibitem[{{R Development Core Team}(2015)}]{CRAN}
+{R Development Core Team} (2015), \url{https://cran.r-project.org}.
+
+\bibitem[{Roy~Chowdhury et~al.(2015)Roy~Chowdhury, Cook, Hofmann, Majumder,
+  Lee, and Toth}]{roychowdhury:2013}
+Roy~Chowdhury, N., Cook, D., Hofmann, H., Majumder, M., Lee, E.-K., and Toth,
+  A.~L. (2015), \enquote{Using visual statistical inference to better
+  understand random class separations in high dimension, low sample size data,}
+  \textit{Computational Statistics}, 30, 293--316.
+
+\bibitem[{Shapiro and Wilk(1965)}]{shapiro:1965}
+Shapiro, S.~S. and Wilk, M.~B. (1965), \enquote{{A}n analysis of variance test
+  for normality (complete samples),} \textit{Biometrika}, 591--611.
+
+\bibitem[{Stephens(1974)}]{stephens:1974}
+Stephens, M.~A. (1974), \enquote{{E}{D}{F} statistics for goodness of fit and
+  some comparisons,} \textit{Journal of the American Statistical Association},
+  69, 730--737.
+
+\bibitem[{Tukey(1977)}]{tukey:1977}
+Tukey, J.~W. (1977), \textit{Exploratory Data Analysis}, Reading, MA:
+  Addison-Wesley Publishing Company.
+
+\bibitem[{{Vander Plas} and Hofmann(2016)}]{vanderplas:2016}
+{Vander Plas}, S. and Hofmann, H. (2016), \enquote{Clusters beat Trend!?
+  Testing feature hierarchy in statistical graphics,} \textit{Journal of
+  Computational and Graphical Statistics}, To appear.
+
+\bibitem[{Wickham(2009)}]{hadley:2009}
+Wickham, H. (2009), \textit{ggplot2: {E}legant {G}raphics for {D}ata
+  {A}nalysis}, {useR}, Springer.
+
+\bibitem[{Xie(2015)}]{xie:2015}
+Xie, Y. (2015), \textit{Dynamic Documents with {R} and knitr}, Boca Raton,
+  Florida: Chapman and Hall/CRC, 2nd ed., iSBN 978-1498716963.
+
+\bibitem[{Yin et~al.(2013)Yin, Majumder, {Roy Chowdhury}, Cook, Shoemaker, and
+  Graham}]{tengfei:2013}
+Yin, T., Majumder, M., {Roy Chowdhury}, N., Cook, D., Shoemaker, R., and
+  Graham, M. (2013), \enquote{Visual Mining Methods for RNA-Seq Data: Data
+  Structure, Dispersion Estimation and Significance Testing,} \textit{Journal
+  of Data Mining in Genomics \& Proteomics}, 4.
+
+\bibitem[{Zhao et~al.(2013)Zhao, Cook, Hofmann, Majumder, and
+  Roy~Chowdhury}]{zhao:2012}
+Zhao, Y., Cook, D., Hofmann, H., Majumder, M., and Roy~Chowdhury, N. (2013),
+  \enquote{{M}ind {R}eading {U}sing an {E}yetracker to {S}ee {H}ow {P}eople
+  {A}re {L}ooking at {L}ineups,} \textit{International Journal of Intelligent
+  Technologies and Applied Statistics}, 6, 393--413.
+
+\end{thebibliography}
