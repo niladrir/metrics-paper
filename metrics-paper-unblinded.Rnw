@@ -919,8 +919,10 @@ picks <- merge(picks, dt, by=".sample", all.x=TRUE)
 picks$picks[is.na(picks$picks)] <- 0
 
 ### lineup
-qplot(group, val, data = lineup.dat, geom = "boxplot", col = group, 
-      ylab = "", xlab = "Group") + facet_wrap(~ .sample) + 
+ggplot(data = lineup.dat, aes(x=group, y=val, col = group)) +
+         geom_boxplot() +  
+      ylab("") + xlab("Group") + 
+        facet_wrap(~ .sample, ncol=5) + 
   scale_color_discrete(name = "Group") + 
   theme(legend.position = "none") + 
   theme(axis.text.y = element_blank(), 
@@ -1323,8 +1325,9 @@ picks <- data.frame(.sample=1:20)
 picks <- merge(picks, dt, by=".sample", all.x=TRUE)
 picks$picks[is.na(picks$picks)] <- 0
 
-qplot(x, z, data = lineup.dat, alpha = I(0.15), xlab = "X1", ylab = "X2", 
-      size=I(3)) +
+ggplot(data = lineup.dat, aes(x=x, y=z)) +
+  geom_point(alpha = 0.15, size=2) +
+  xlab("X1") + ylab("X2") +
   geom_smooth(method = "lm", se = FALSE, size = 1) + 
   facet_wrap(~ .sample) + theme_lineup +
   geom_text(aes(label=picks), x=2.1, y=-30, colour="grey70", size=8, hjust=1,
@@ -1334,7 +1337,7 @@ qplot(x, z, data = lineup.dat, alpha = I(0.15), xlab = "X1", ylab = "X2",
 \end{subfigure}
 \begin{subfigure}[b]{0.3\textwidth}
 \caption{Regression based distance}
-\vspace{-.1in}
+%\vspace{-.1in}
 <<fig.height = 4, fig.width = 4.5, echo=FALSE, out.width='\\textwidth'>>=
 yreg <- max(density(dframe$drg)$y)
 ggplot()  + 
@@ -1357,10 +1360,10 @@ ggplot()  +
 \end{subfigure}
 \end{subfigure}
 
-\vspace{-.3in}
+%\vspace{-.3in}
 \begin{subfigure}[t]{0.3\textwidth}
 \caption{Binned (2,2) distance}
-\vspace{-.1in}
+%\vspace{-.1in}
 <<fig.height = 4, fig.width = 4.5, echo=FALSE, out.width='\\textwidth'>>=
 yb22 <- max(density(dframe$dbn22)$y)
 ggplot()  + 
@@ -1383,7 +1386,7 @@ ggplot()  +
 \end{subfigure}
 \begin{subfigure}[t]{0.3\textwidth}
 \caption{Binned (8,2) distance}
-\vspace{-.1in}
+%\vspace{-.1in}
 <<fig.height = 4, fig.width = 4.5, echo=FALSE, out.width='\\textwidth'>>=
 yb28 <- max(density(dframe$dbn28)$y)
 ggplot()  + 
@@ -1406,7 +1409,7 @@ ggplot()  +
 \end{subfigure}
 \begin{subfigure}[t]{0.3\textwidth}
 \caption{$p$-values}
-\vspace{-.1in}
+%\vspace{-.1in}
 <<fig.height = 4, fig.width = 4.5, echo=FALSE, out.width='\\textwidth'>>=
 pval_dist <- function(X) {
   as.numeric(summary(lm(z~x, data=X))$coefficients[2,4])
@@ -1699,7 +1702,7 @@ picks <- merge(picks, dt, by=".sample", all.x=TRUE)
 picks$picks[is.na(picks$picks)] <- 0
 
 ggplot(data=lpt7, aes(x=X1, y=X2, colour=factor(cl))) + 
-         geom_point(size=3) +
+         geom_point(size=2) +
          facet_wrap(~.sample, ncol=5) + 
   theme_lineup +
   theme(legend.position="none") +

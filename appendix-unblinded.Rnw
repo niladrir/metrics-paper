@@ -2746,7 +2746,7 @@ The Dunn index is a member of the Dunn index family, defined as ratios of measur
 %Both average separation and mean separation are considered in this paper. 
 
 We also examined the distance between the means for each cluster (CM) as another alternative, which would more closely match Fisher's linear discriminant. As we might expect, this did not match how observers read the separation. In practice, many possible metrics could be used to measure the separation, such as those readily available in the {\tt fpc} package  \citep{hennig:2010}.
-Figure~\ref{sep-dist} illustrates the different distance metrics for cluster separation. 
+%Figure~\ref{sep-dist} illustrates the different distance metrics for cluster separation. 
 \end{enumerate}
 
 
